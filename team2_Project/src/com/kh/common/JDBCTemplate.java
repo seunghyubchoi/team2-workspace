@@ -1,8 +1,13 @@
 package com.kh.common;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
 
 public class JDBCTemplate {
 	// 싱글톤 패턴 적용하여 jdbc 템플릿 작성 ( 한번 생성하고 계속 꺼내쓰는 방식 !!)
@@ -11,15 +16,30 @@ public class JDBCTemplate {
 	public static Connection getConnection() {
 		
 		Connection conn = null;
+		
+		Properties prop = new Properties();
+		
+		String filePath = JDBCTemplate.class.getResource("/db/driver/driver.properties").getPath();
+		
 		// ojdbc6.jar
 		// WEB_INF 안에 lib 폴더에 복붙하기!! 
 		
-		// jdbc driver 등록
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+			prop.load(new FileInputStream(filePath));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			// jdbc driver 등록
+//			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Class.forName(prop.getProperty("driver"));
 			
 			// 접속하고자 하는 db의 url, 계정명, 비번 제시해서 Connection 객체 생성
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "TOMMORROW", "TOMMORROW");
+//			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "TOMMORROW", "TOMMORROW");
+			conn = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("username"), prop.getProperty("password"));
+		
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -33,12 +53,60 @@ public class JDBCTemplate {
 	
 	
 	// 2_1. Connection 객체 전달받아서 commit 시켜주는 commit 메소드 
+	public static void commit(Connection conn) {
+		try {
+			if(conn != null && !conn.isClosed()) {
+			conn.commit();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	// 2_1. Connection 객체 전달받아서 rollback 시켜주는 rollback 메소드
+	public static void rollback(Connection conn) {
+		try {
+			if(conn != null && !conn.isClosed()) {			
+				conn.rollback();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	// 3_1. Connection 객체 전달받아서 반납시켜주는 close 메소드
-	
+	public static void close(Connection conn) {
+		try {
+			if(conn != null && !conn.isClosed()) {			
+				conn.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	// 3_2. Statement 객체 전달받아서 반납시켜주는 close 메소드
-	
+	public static void close(Statement stmt) {
+		try {
+			if(stmt != null && !stmt.isClosed()) {			
+				stmt.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	// 3_3. ResultSet 객체 전달받아서 반납시켜주는 close 메소드
+	public static void close(ResultSet rset) {
+		try {
+			if(rset != null && !rset.isClosed()) {			
+				rset.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
 

@@ -32,7 +32,7 @@ pageEncoding="UTF-8"%>
         
         
         <div id="content">
-          <form action="/Manager/test.do" method="post">
+          <form action="/team2_Project/login.ma" method="post">
             <div id="content_title">관리자 로그인</div>
             <div id="content_id">
               <div class="form-group">
@@ -72,6 +72,6 @@ pageEncoding="UTF-8"%>
       </div>
     </div>
     
-    <a href="views/responsePage.jsp">결과</a>
+   
   </body>
 </html>
