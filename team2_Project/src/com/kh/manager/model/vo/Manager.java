@@ -44,6 +44,4 @@ public class Manager {
 	public String toString() {
 		return "Manager [managerNo=" + managerNo + ", managerId=" + managerId + ", managerPwd=" + managerPwd + "]";
 	}
-	
-	
 }
