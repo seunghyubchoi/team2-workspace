@@ -9,12 +9,12 @@
     <style>
         div {
             box-sizing: border-box;
-            border: 1px solid rgb(168, 168, 168);
+            /* border: 1px solid rgb(168, 168, 168); */
         }
 
         .wrap {
             width: 1500px;
-            height: 2500px;
+            height: 1500px;
             margin: auto;
         } 
 
@@ -23,7 +23,7 @@
         }
 
         #header {
-            height: 10%
+            height: 20%
         }
 
         /* #navigator {
@@ -31,7 +31,7 @@
         } */
 
         #content {
-            height: 83%
+            height: 78%
         }
 
         #footer {
@@ -202,9 +202,13 @@
         }
 
         #content {
-            
+            padding-left: 300px;
+            padding-top: 50px;
         }
-        
+         button {
+            width: 80px;
+            height: 30px;
+         }
         
     </style>
 
@@ -215,7 +219,7 @@
         <!--header-->
         <div id="header">
             <div id="head1">
-                <img src="img/로고1.png" width=100% height=100% style="padding: 30px 30px 10px 0px;">
+                <img src="resources/logo.png" width=100% height=100% style="padding: 30px 30px 10px 0px;">
             </div>
             <div id="head2">
                 <div id="head2_1">
@@ -263,25 +267,25 @@
 
         <!--content-->
         <div id="content">
-            <h1>스타일 업로드</h1>
-            <h3>사진</h3>
-            <input type="file">
+            <h1>스타일 업로드</h1> <br>
+            <h3>사진</h3> 
+            <input type="file"> <br><br>
             <h3>설명</h3>
             <h5>스타일을 소개해주세요.</h5>
-            <textarea name="" id="" cols="100" rows="10"></textarea>
+            <textarea name="" id="" cols="100" rows="10"></textarea> <br><br>
             <h3>인스타 아이디</h3>
             <h5>입력하신 인스타 아이디는 회원 정보에 자동 저장됩니다.</h5>
-            <input type="text">
+            <input type="text"> <br><br>
             <h3>태그 추가</h3>
-            <input type="text">
-            <button>등록</button>
+            <input type="text"> 
+            <button>등록</button> <br><br>
             <br><br>
             <input type="checkbox"> 콘텐츠 활동 동의 (필수)
             <h5>
                 - 게시물은 1일 1회만 업로드할 수 있습니다. <br>
                 - 비방성이나 광고성 글, 또는 본 게시판의 성격과 맞지 않은 글은
                 본인의 동의 없이 관리자가 임의대로 삭제할 수 있습니다.
-            </h5>
+            </h5> <br><br>
             <button>취소</button>
             <button>업로드</button>
             
