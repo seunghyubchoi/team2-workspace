@@ -49,6 +49,7 @@ public class LoginController extends HttpServlet {
 			
 			response.sendRedirect("/team2_Project/views/admin/adminLogin.jsp");
 		} else {
+			// 세션 처리 해줘야 함
 			HttpSession session = request.getSession();
 			session.setAttribute("loginManager", loginManager);
 			
