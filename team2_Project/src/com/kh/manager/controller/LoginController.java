@@ -47,12 +47,12 @@ public class LoginController extends HttpServlet {
 			// RequestDispatcher view = request.getRequestDispatcher("/team2_Project/views/admin/admin_login.jsp");
 			// view.forward(request, response);
 			
-			response.sendRedirect("/team2_Project/views/admin/admin_login.jsp");
+			response.sendRedirect("/team2_Project/views/admin/adminLogin.jsp");
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginManager", loginManager);
 			
-			RequestDispatcher view = request.getRequestDispatcher("/team2_Project/views/admin/admin_notice_main.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("/team2_Project/views/admin/adminNoticeMain.jsp");
 			view.forward(request, response);
 		}
 	}

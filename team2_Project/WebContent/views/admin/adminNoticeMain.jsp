@@ -5,15 +5,18 @@
     <head>
     <meta charset="UTF-8">
     <title>공지사항 관리</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/e7b3da7de3.js" crossorigin="anonymous"></script>
     <style>
-        div{border: 1px solid red;}
+        /* div{border: 1px solid red;} */
         div{box-sizing: border-box; margin: 0;}
         .wrap{
             width: 1200px;
             height: 600px;
         }
     
-        .wrap>div, #right_bottom_top>div{
+        .wrap>div, #right_bottom_top>div, #searchNotice>div{
             height: 100%;
             float: left;
         }
@@ -26,7 +29,7 @@
             width: 80%;
         }
     
-        #left>div, #right>div, #right_bottom>div, #right_bottom_bottom{
+        #left>div, #right>div, #right_bottom_middle, #right_bottom_top{
             width: 100%;
         }
     
@@ -40,18 +43,19 @@
     
         #right_bottom_middle{
             height: 80%;
-            padding: 50px;
+            padding: 20px;
         }
         #right_bottom_top1, #right_bottom_top3, #right_bottom_top4{
-            width: 15%;
+            width: 10%;
         }
         #right_bottom_top2{
-            width: 55%;
+            width: 70%;
         }
+
         h1{
             margin: 0;
             padding-top: 1%;
-            padding-left: 1%;
+            padding-left: 2%;
             color: #E0BFE6;
         }
     
@@ -63,12 +67,10 @@
         }
         #navi>li{
             text-align: center;
-            border: 1px solid #000;
             width: 100%;
             height: 10%;
         }
         #navi a{
-            border: 1px solid orange;
             text-decoration: none;
             color: white;
             font-size: 18px;
@@ -97,11 +99,49 @@
         #navi>li>ul:hover{display: block;}
     
         #content{
-            width: 80%;
+            width: 100%;
             height: 80%;
         }
-    
-    
+
+        #content *{
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #check{width: 5%;}
+        #no{width: 7%;}
+        #date{width: 20%;}
+        
+        body{line-height: 18px;}
+        thead{background-color: #E0BFE6; color: white;}
+
+        .pagination{justify-content: center;}
+
+        #right_bottom_bottom{width: 93%;}
+
+        input[type="checkbox"] {
+        transform : scale(1.2);
+        cursor: pointer;
+        }
+
+        #right_bottom_top2{position: relative;}
+
+        #search_form{
+            width: 30%;
+            height: 70%;
+            margin: auto; 
+            position: absolute;
+        }
+        #search_form>div{height: 100%; float: left;}
+        #search_text{width: 80%;}
+        #search_btn{width: 20%; height: 100%;}
+
+        #search_form input{width: 100%; height: 100%;} 
+
+        #right_bottom_top>div{padding-top: 15px;}
+        #right_bottom_top1{padding-left: 15px;}
+        #right_bottom_top3, #right_bottom_top4{text-align: center;}
+
     </style>
     </head>
     <body>
@@ -134,99 +174,96 @@
                             </select>
                         </div>
                         <div id="right_bottom_top2">
-                            <input type="text" id="search">
+                            <form action="search.no" id="search_form">
+                                <div id="search_btn">
+                                    <button><i class="fa-sharp fa-solid fa-magnifying-glass fa-xl"></i></button>
+                                </div>
+                                <div id="search_text">
+                                    <input type="text">
+                                </div>
+                            </form>
                         </div>
                         <div id="right_bottom_top3">
-                            <button>삭제</button>
+                            <button class="btn btn-danger">삭제</button>
                         </div>
                         <div id="right_bottom_top4">
-                            <button>추가</button>
+                            <button class="btn btn-warning">추가</button>
                         </div>
                     </div>
                     <div id="right_bottom_middle">
-                        <table border="1" id="content">
+                        <table border="1" id="content" class="table table-bordered">
                             <thead>
-                                <td><input type="checkbox"></td>
-                                <td>번호</td>
-                                <td>제목</td>
-                                <td>작성일</td>
+                                <td id="check"><input type="checkbox"></td>
+                                <td id="no">번호</td>
+                                <td id="title">제목</td>
+                                <td id="date">작성일</td>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
+                                    <td><input type="checkbox"></td>
+                                    <th>x</th>
+                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
+                                    <th>xx-xx-xx</th>
                                 </tr>
                                 <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
+                                    <td><input type="checkbox"></td>
+                                    <th>x</th>
+                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
+                                    <th>xx-xx-xx</th>
+                                </tr><tr>
+                                    <td><input type="checkbox"></td>
+                                    <th>x</th>
+                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
+                                    <th>xx-xx-xx</th>
+                                </tr><tr>
+                                    <td><input type="checkbox"></td>
+                                    <th>x</th>
+                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
+                                    <th>xx-xx-xx</th>
+                                </tr><tr>
+                                    <td><input type="checkbox"></td>
+                                    <th>x</th>
+                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
+                                    <th>xx-xx-xx</th>
+                                </tr><tr>
+                                    <td><input type="checkbox"></td>
+                                    <th>x</th>
+                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
+                                    <th>xx-xx-xx</th>
+                                </tr><tr>
+                                    <td><input type="checkbox"></td>
+                                    <th>x</th>
+                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
+                                    <th>xx-xx-xx</th>
+                                </tr><tr>
+                                    <td><input type="checkbox"></td>
+                                    <th>x</th>
+                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
+                                    <th>xx-xx-xx</th>
+                                </tr><tr>
+                                    <td><input type="checkbox"></td>
+                                    <th>x</th>
+                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
+                                    <th>xx-xx-xx</th>
+                                </tr><tr>
+                                    <td><input type="checkbox"></td>
+                                    <th>x</th>
+                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
+                                    <th>xx-xx-xx</th>
                                 </tr>
                             </tbody>
     
                         </table>
                     </div>
-                    <div id="right_bottom_bottom"></div>
+                    <div id="right_bottom_bottom">
+                        <ul class="pagination">
+                            <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">다음</a></li>
+                          </ul>
+                    </div>
                 </div>
             </div>
         </div>
