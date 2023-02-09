@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <!DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+
 
     <head>
         <meta charset="UTF-8">
@@ -54,11 +58,10 @@
                 text-align: center;
             }
 
-            #content_title p{
+            #contnet_title p{
                 text-align: left;
                 font-size: 2rem;
                 font-weight: bolder;
-                padding-bottom: 3rem;
             }
 
             #pwd_box{
@@ -71,12 +74,11 @@
                 padding-left: 60px;
             }
         </style>
-    </head>
+</head>
+<body>
+ <%@include file="../common/menubar.jsp" %>
 
-    <body>
-        <%@include file="../common/menubar.jsp" %>
-            <!-- 비밀번호 입력 전  -->
-            <div id="wrap">
+<div id="wrap">
                 <div id="menu_list">
                     <div class="list_name"><a href="memberInfo.jsp">회원정보관리</a></div>
                     <div class="list_name"><a href="orderHistory.jsp">주문내역</a></div>
@@ -85,25 +87,14 @@
                     <div class="list_name"><a href="follow.jsp">팔로잉/팔로워</a></div>
                 </div>
                 <div id="menu_content">
-                    <div id="content_title">
-                        <p>비밀번호 확인</p>
+                    <div id="contnet_title">
+                        <p>주문내역</p>
                     </div>
-                    <div id="pwd_box">
-                        <p>회원님의 개인정보를 안전하게 보호하기 위해<br>
-                            비밀번호를 입력해주세요
-                        </p>
-                        <form class="form-inline" action="/action_page.php">
-                            <label for="pwd" class="mr-sm-2">비밀번호: </label>
-                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력해주세요"
-                                id="pwd">
-                            
-                            <button type="submit" class="btn btn-primary mb-2">확인하기</button>
-                        </form>
-                    </div>
+                    
                 </div>
             </div>
 
+</body>
 
-    </body>
 
-    </html>
+</html>
