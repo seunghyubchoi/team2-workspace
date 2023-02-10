@@ -76,6 +76,7 @@
     <body>
         <%@include file="../common/menubar.jsp" %>
             <!-- 비밀번호 입력 전  -->
+           
             <div id="wrap">
                 <div id="menu_list">
                     <div class="list_name"><a href="memberInfo.jsp">회원정보관리</a></div>
@@ -92,10 +93,10 @@
                         <p>회원님의 개인정보를 안전하게 보호하기 위해<br>
                             비밀번호를 입력해주세요
                         </p>
-                        <form class="form-inline" action="/action_page.php">
+                        <form class="form-inline" action="">
                             <label for="pwd" class="mr-sm-2">비밀번호: </label>
                             <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력해주세요"
-                                id="pwd">
+                                id="pwd" name="pwdCheck" value="pwdCheck">
                             
                             <button type="submit" class="btn btn-primary mb-2">확인하기</button>
                         </form>

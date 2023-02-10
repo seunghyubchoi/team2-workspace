@@ -30,7 +30,8 @@
 		<b><%=loginUser.getMemName()%> 님</b>의 방문을 환영합니다 <br>
 		<br>
 		<div>
-			<a href="#">마이페이지</a> <a href="#">로그아웃</a>
+			<a href="views/myPage/memberInfo.jsp">마이페이지</a>
+			<a href="#">로그아웃</a>
 		</div>
 	</div>
 	<%

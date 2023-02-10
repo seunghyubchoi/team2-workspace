@@ -14,11 +14,11 @@
 		    GENDER,
 		    BIRTHDAY,
 		    INSTA_ID,
-		    DEACT_YN,
+		    ACT_YN,
 		    MILEAGE
 		FROM TB_MEMBER
 		WHERE MEM_ID = ?
 		AND MEM_PWD = ?
-		AND DEACT_YN IS NULL
+		AND ACT_YN = 'Y'
 	</entry>
 </properties>

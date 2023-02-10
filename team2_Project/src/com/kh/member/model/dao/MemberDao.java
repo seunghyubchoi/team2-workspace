@@ -51,7 +51,7 @@ public class MemberDao {
 						, rset.getString("gender")
 						, rset.getString("birthday")
 						, rset.getString("insta_id")
-						, rset.getString("deact_yn")
+						, rset.getString("act_yn")
 						, rset.getInt("mileage")
 						);
 			}
