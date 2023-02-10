@@ -1,17 +1,41 @@
-<%@page import="com.kh.common.JDBCTemplate" %>
-    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-        <!DOCTYPE html>
-        <html>
+<%@page import="com.kh.member.model.vo.Member"%>
+<%@page import="com.kh.common.JDBCTemplate"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	Member loginUser = (Member) session.getAttribute("loginUser");
+%>
+<!DOCTYPE html>
+<html>
 
-        <head>
-            <meta charset="UTF-8">
-            <title>Insert title here</title>
-        </head>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
 
-        <body>
+<body>
+	<%
+		if (loginUser == null) {
+	%>
+	<form action="/team2_Project/login.me" method="post">
+		<input type="text" name="userId" required placeholder="아이디 입력">
+		<input type="password" name="userPwd" required placeholder="비밀번호 입력">
+		<input type="submit">
+	</form>
+	<%
+		} else {
+	%>
 
-            <!-- <%@ include file="views/myPage/memberInfo.jsp" %>  >
-                
-        </body>
+	<div>
+		<b><%=loginUser.getMemName()%> 님</b>의 방문을 환영합니다 <br>
+		<br>
+		<div>
+			<a href="#">마이페이지</a> <a href="#">로그아웃</a>
+		</div>
+	</div>
+	<%
+		}
+	%>
+</body>
 
-        </html>
+</html>
