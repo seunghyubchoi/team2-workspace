@@ -21,4 +21,25 @@
 		AND MEM_PWD = ?
 		AND ACT_YN = 'Y'
 	</entry>
+		<entry key="passwordCheck">
+		SELECT 
+		    MEM_NO,
+		    MEM_ID,
+		    MEM_PWD,
+		    MEM_NAME,
+		    EMAIL,
+		    PHONE,
+		    ENROLL_DATE,
+		    AD_CHECK,
+		    GENDER,
+		    BIRTHDAY,
+		    INSTA_ID,
+		    ACT_YN,
+		    MILEAGE
+		FROM TB_MEMBER
+		WHERE MEM_ID = ?
+		AND MEM_PWD = ?
+		AND ACT_YN = 'Y'
+	</entry>
+	
 </properties>

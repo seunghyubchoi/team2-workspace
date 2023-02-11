@@ -18,4 +18,13 @@ public class MemberService {
 		return m;
 	}
 
+	public Member passwordCheck(String memId, String pwdCheck) {
+		Connection conn = getConnection();
+		Member m = new MemberDao().passwordCheck(conn, memId, pwdCheck);
+		close(conn);
+		
+		return m;
+	
+	}
+
 }

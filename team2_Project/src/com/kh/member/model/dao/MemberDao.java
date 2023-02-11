@@ -67,4 +67,43 @@ public class MemberDao {
 		return m;
 	}
 
+	public Member passwordCheck(Connection conn, String memId, String pwdCheck) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("passwordCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			pstmt.setString(2, pwdCheck);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(
+						  rset.getInt("mem_no")
+						, rset.getString("mem_id")
+						, rset.getString("mem_pwd")
+						, rset.getString("mem_name")
+						, rset.getString("email")
+						, rset.getString("phone")
+						, rset.getDate("enroll_date")
+						, rset.getString("ad_check")
+						, rset.getString("gender")
+						, rset.getString("birthday")
+						, rset.getString("insta_id")
+						, rset.getString("act_yn")
+						, rset.getInt("mileage")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+
 }

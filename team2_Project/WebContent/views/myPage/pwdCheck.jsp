@@ -24,13 +24,10 @@
                 margin: auto;
                 width: 1500px;
                 padding-top: 20px;
-                height: 100%;
             }
 
             #menu_list {
                 width: 30%;
-                float: left;
-                height: 100%;
 
             }
 
@@ -38,7 +35,7 @@
                 width: 100%;
                 padding-bottom: 2.5rem;
                 padding-left: 4rem;
-
+                float: left;
             }
 
             .list_name a {
@@ -50,40 +47,28 @@
             }
 
             #menu_content {
-                float: right;
                 width: 70%;
-                height: 100%;
+            }
+
+            #menu_content{
                 text-align: center;
             }
 
-
-            #content_title p {
+            #content_title p{
                 text-align: left;
                 font-size: 2rem;
                 font-weight: bolder;
                 padding-bottom: 3rem;
             }
 
-            #member_info {
-                width: 100%;
-                color: rgb(51, 51, 51)
+            #pwd_box{
+                /* border: 1px rgb(51, 51, 51) solid; */
+                /* border-radius: 20%; */
+                font-size: 1.5rem;
+                font-weight: bold;
             }
-
-
-            #member_table {
-                text-align: left;
-                width: 100%;
-                height: 100%;
-            }
-
-            #member_table th {
-                padding-bottom: 30px;
-
-            }
-
-            #member_table td {
-                padding-left: 10px;
-                padding-bottom: 30px;
+            #pwd_box form{
+                padding-left: 60px;
             }
 
             .btn {
@@ -100,9 +85,9 @@
 
     <body>
         <%@include file="../common/menubar.jsp" %>
-
+        
             <!-- 비밀번호 입력 전  -->
-
+           
             <div id="wrap">
                 <div id="menu_list">
                     <div class="list_name"><a href="<%= contextPath%>/myPage.me">회원정보관리</a></div>
@@ -113,9 +98,21 @@
                 </div>
                 <div id="menu_content">
                     <div id="content_title">
-                        <p>적립금내역</p>
+                        <p>비밀번호 확인</p>
                     </div>
-               
+                    <div id="pwd_box">
+                        <p>회원님의 개인정보를 안전하게 보호하기 위해<br>
+                            비밀번호를 입력해주세요
+                        </p>
+                        <form class="form-inline" action="<%= contextPath%>/pwdCheck.me" method="post"]>
+                      <input type="hidden" name="memId" value="<%=loginUser.getMemId()%>">
+                            <label for="pwd" class="mr-sm-2">비밀번호: </label>
+                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력해주세요"
+                                id="pwd" name="pwdCheck">
+                            
+                            <button type="submit" class="btn btn-primary mb-2" >확인하기</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 

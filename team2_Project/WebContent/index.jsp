@@ -4,6 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
+	String contextPath = request.getContextPath();
 %>
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,7 @@
 		<b><%=loginUser.getMemName()%> 님</b>의 방문을 환영합니다 <br>
 		<br>
 		<div>
-			<a href="views/myPage/memberInfo.jsp">마이페이지</a>
+			<a href="<%= contextPath%>/myPage.me">마이페이지</a>
 			<a href="#">로그아웃</a>
 		</div>
 	</div>

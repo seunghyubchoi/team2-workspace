@@ -1,6 +1,12 @@
+<%@page import="com.kh.member.model.vo.Member"%>
 <%@page import="com.kh.common.JDBCTemplate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+Member loginUser = (Member) session.getAttribute("loginUser");
+String contextPath = request.getContextPath();
+String alertMsg = (String)session.getAttribute("alertMsg");
+%>
 <!DOCTYPE html>
 <html>
 
@@ -148,11 +154,19 @@ a {
 </head>
 
 <body>
+    <% if(alertMsg != null){ %>
+    <script>
+    	alert("<%=alertMsg%>");
+    </script>
+    <% session.removeAttribute("alertMsg"); 
+    // session.invalidate() 아님
+    %> 
+    <% } %>
 	<div class="wrap">
 		<!--header-->
 		<div id="header">
 			<div id="head1">
-				<img src="../../resources/img/logo1.png" width=100% height=100%
+				<img src="<%= contextPath%>/resources/img/logo1.png" width=100% height=100%
 					style="padding: 30px 30px 10px 0px;">
 			</div>
 			<div id="head2">

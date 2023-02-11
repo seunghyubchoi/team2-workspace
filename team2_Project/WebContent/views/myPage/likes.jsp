@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-
+    <!DOCTYPE html>
+    <html>
 
     <head>
         <meta charset="UTF-8">
@@ -28,10 +24,13 @@
                 margin: auto;
                 width: 1500px;
                 padding-top: 20px;
+                height: 100%;
             }
 
             #menu_list {
                 width: 30%;
+                float: left;
+                height: 100%;
 
             }
 
@@ -39,7 +38,7 @@
                 width: 100%;
                 padding-bottom: 2.5rem;
                 padding-left: 4rem;
-                float: left;
+
             }
 
             .list_name a {
@@ -51,50 +50,76 @@
             }
 
             #menu_content {
+                float: right;
                 width: 70%;
-            }
-
-            #menu_content{
+                height: 100%;
                 text-align: center;
             }
 
-            #contnet_title p{
+
+            #content_title p {
                 text-align: left;
                 font-size: 2rem;
                 font-weight: bolder;
+                padding-bottom: 3rem;
             }
 
-            #pwd_box{
-                /* border: 1px rgb(51, 51, 51) solid; */
-                /* border-radius: 20%; */
-                font-size: 1.5rem;
-                font-weight: bold;
+            #member_info {
+                width: 100%;
+                color: rgb(51, 51, 51)
             }
-            #pwd_box form{
-                padding-left: 60px;
+
+
+            #member_table {
+                text-align: left;
+                width: 100%;
+                height: 100%;
+            }
+
+            #member_table th {
+                padding-bottom: 30px;
+
+            }
+
+            #member_table td {
+                padding-left: 10px;
+                padding-bottom: 30px;
+            }
+
+            .btn {
+                border: #C7A9CC;
+                background-color: #C7A9CC;
+            }
+
+            .btn:hover {
+                background-color: #9a77a1;
+
             }
         </style>
-</head>
-<body>
- <%@include file="../common/menubar.jsp" %>
+    </head>
 
-<div id="wrap">
+    <body>
+        <%@include file="../common/menubar.jsp" %>
+
+            <!-- 비밀번호 입력 전  -->
+
+            <div id="wrap">
                 <div id="menu_list">
-                    <div class="list_name"><a href="memberInfo.jsp">회원정보관리</a></div>
-                    <div class="list_name"><a href="orderHistory.jsp">주문내역</a></div>
-                    <div class="list_name"><a href="mileageHistory.jsp">적립금내역</a></div>
-                    <div class="list_name"><a href="likes.jsp">좋아요</a></div>
-                    <div class="list_name"><a href="follow.jsp">팔로잉/팔로워</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/myPage.me">회원정보관리</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/orderHistory.me">주문내역</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/mileageHistory.me">적립금내역</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/likes.me">좋아요</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/follow.me">팔로잉/팔로워</a></div>
                 </div>
                 <div id="menu_content">
-                    <div id="contnet_title">
+                    <div id="content_title">
                         <p>좋아요</p>
                     </div>
-                    
+               
                 </div>
             </div>
 
-</body>
 
+    </body>
 
-</html>
+    </html>
