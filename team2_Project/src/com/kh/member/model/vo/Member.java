@@ -21,6 +21,11 @@ public class Member {
 		
 	}
 
+	
+	
+	
+	
+	
 	public Member(int memNo, String memId, String memPwd, String memName, String email, String phone, Date enrollDate,
 			String adCheck, String gender, String birthday, String instaId, String deactYn, int mileage) {
 		super();
@@ -38,6 +43,32 @@ public class Member {
 		this.deactYn = deactYn;
 		this.mileage = mileage;
 	}
+
+	
+
+	
+
+
+
+
+
+
+	public Member(String memId, String email, String phone, String adCheck, String gender, String birthday,
+			String instaId) {
+		super();
+		this.memId = memId;
+		this.email = email;
+		this.phone = phone;
+		this.adCheck = adCheck;
+		this.gender = gender;
+		this.birthday = birthday;
+		this.instaId = instaId;
+	}
+
+
+
+
+
 
 	public int getMemNo() {
 		return memNo;
