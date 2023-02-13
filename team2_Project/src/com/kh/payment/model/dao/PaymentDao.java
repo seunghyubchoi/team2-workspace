@@ -26,8 +26,8 @@ public class PaymentDao {
 		}
 	}
 	
-	public ArrayList<Location> selectLocation(Connection conn, int memNo) {
-		ArrayList<Location> list = new ArrayList<Location>();
+	public Location selectLocation(Connection conn, int memNo) {
+		Location defaultLocation = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -40,7 +40,7 @@ public class PaymentDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Location(
+				defaultLocation = new Location(
 						  rset.getInt("loc_no")
 						, rset.getInt("mem_no")
 						, rset.getString("loc_address_name")
@@ -51,7 +51,7 @@ public class PaymentDao {
 						, rset.getString("loc_post_code")
 						, rset.getString("del_yn")
 						, rset.getString("loc_yn")
-						));
+						);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -59,7 +59,7 @@ public class PaymentDao {
 			close(rset);
 			close(pstmt);
 		}
-		return list;
+		return defaultLocation;
 	}
 
 }

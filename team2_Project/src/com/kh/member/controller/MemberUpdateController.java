@@ -38,6 +38,7 @@ public class MemberUpdateController extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String birthday = request.getParameter("birthday");
 		String phone = request.getParameter("phone");
+		
 		String email = request.getParameter("email");
 		// String location = request.getParameter("location");
 		String instaId = request.getParameter("instaId");
@@ -54,16 +55,19 @@ public class MemberUpdateController extends HttpServlet {
 		
 		if(updateMem == null) { //실패
 			// 에러문구 담아서 에러페이지 포워딩
+			System.out.println("실패");
 			request.setAttribute("alertMsg", "회원정보수정에 실패했습니다.");
-					
+			
+
 			
 		} else { //성공
 			// 성공했다는 alert 띄우고 mypage url 재요청
-			
+			System.out.println("성공");
 			// session에 담겨있는 loginUser 바꿔치기 작업
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", updateMem);
 			session.setAttribute("alertMsg", "성공적으로 회원 정보를 수정했습니다.");
+
 		
 			
 		}

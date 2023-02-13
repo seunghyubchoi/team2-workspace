@@ -50,9 +50,9 @@ public class PasswordCheckController extends HttpServlet {
 		} else {
 			session.setAttribute("loginUser", m);
 			int memNo = m.getMemNo();
-			ArrayList<Location> list =  new PaymentService().selectLocation(memNo);
-			System.out.println(list.toString());
-			request.setAttribute("list", list); 
+			Location defaultLocation =  new PaymentService().selectLocation(memNo);
+			System.out.println(defaultLocation.getLocName());
+			session.setAttribute("defaultLocation", defaultLocation); 
 			
 			RequestDispatcher view = request.getRequestDispatcher("views/myPage/memberInfo.jsp");
 			view.forward(request, response);

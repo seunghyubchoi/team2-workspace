@@ -10,14 +10,14 @@ import com.kh.payment.model.vo.Location;
 
 public class PaymentService {
 
-	public ArrayList<Location> selectLocation(int memNo) {
+	public Location selectLocation(int memNo) {
 		Connection conn = getConnection();
 		
-		ArrayList<Location> list = new PaymentDao().selectLocation(conn, memNo);
+		Location defaultLocation = new PaymentDao().selectLocation(conn, memNo);
 		
 		close(conn);
 		
-		return list;
+		return defaultLocation;
 	}
 
 }

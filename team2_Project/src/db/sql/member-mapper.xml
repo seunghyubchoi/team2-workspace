@@ -43,6 +43,7 @@
 		AND MEM_PWD = ?
 		AND ACT_YN = 'Y'
 	</entry>
+	
 	<entry key="updateMember">
 		UPDATE TB_MEMBER 
 		    SET GENDER = ?
@@ -53,6 +54,7 @@
 		      , AD_CHECK = ?
 	    WHERE MEM_ID = ?
 	</entry>
+	
 	<entry key="selectMember">
 		SELECT
 		      MEM_ID
@@ -64,11 +66,13 @@
 			, AD_CHECK
 			, GENDER
 			, BIRTHDAY
-			, INSTA_DI
+			, INSTA_ID
 			, ACT_YN
 			, MILEAGE
+		FROM TB_MEMBER
 		WHERE MEM_ID = ?
 	</entry>
+	
 	<entry key="updatePwd">
 		UPDATE TB_MEMBER
 			   SET MEM_PWD = ?
