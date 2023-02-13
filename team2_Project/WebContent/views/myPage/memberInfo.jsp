@@ -1,3 +1,5 @@
+<%@page import="com.kh.payment.model.vo.Location"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <!DOCTYPE html>
     <html>
@@ -97,11 +99,19 @@
 
     <body>
         <%@include file="../common/menubar.jsp" %>
-            <% String memId=loginUser.getMemId(); String memName=loginUser.getMemName(); String
-                gender=loginUser.getGender(); String birthday=(loginUser.getBirthday()==null ? "" :
-                loginUser.getBirthday()); String phone=loginUser.getPhone(); String email=(loginUser.getEmail()==null
-                ? "" : loginUser.getEmail()); String instaId=(loginUser.getInstaId()==null ? "" :
-                loginUser.getInstaId()); String adCheck=(loginUser.getAdCheck()==null ? "" : loginUser.getAdCheck()); %>
+            <% String memId=loginUser.getMemId();
+            String memName=loginUser.getMemName(); 
+            String gender=loginUser.getGender(); 
+            String birthday=(loginUser.getBirthday()==null ? "" : loginUser.getBirthday()); 
+            String phone=loginUser.getPhone(); 
+            String email=(loginUser.getEmail()==null ? "" : loginUser.getEmail()); 
+            String instaId=(loginUser.getInstaId()==null ? "" : loginUser.getInstaId()); 
+            String adCheck=(loginUser.getAdCheck()==null ? "" : loginUser.getAdCheck()); 
+                  
+            %>
+          
+            
+            
                 <%=memId %>
                     <%=adCheck %>
                         <%=phone %>
@@ -188,8 +198,13 @@
                                                     </tr>
                                                     <tr>
                                                         <th>배송지</th>
+                                                  
                                                         <td><input type="text" class="form-control mb-2 mr-sm-2"
-                                                                placeholder=""></td>
+                                                                placeholder="">
+                                                          
+                                                             
+                                                                </td>
+                                                               
                                                         <td>
                                                             <button type="submit" class="btn btn-primary mb-2">새로운
                                                                 배송지</button>

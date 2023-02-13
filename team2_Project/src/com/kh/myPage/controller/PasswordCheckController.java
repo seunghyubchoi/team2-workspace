@@ -1,6 +1,7 @@
 package com.kh.myPage.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
+import com.kh.payment.model.service.PaymentService;
+import com.kh.payment.model.vo.Location;
 
 /**
  * Servlet implementation class PasswordCheckController
@@ -39,14 +42,18 @@ public class PasswordCheckController extends HttpServlet {
 		String pwdCheck = request.getParameter("pwdCheck");
 		HttpSession session = request.getSession();
 
-		Member loginUser = new MemberService().passwordCheck(memId, pwdCheck);
+		Member m = new MemberService().passwordCheck(memId, pwdCheck);
 
-		if (loginUser == null) {
+		if (m == null) {
 			session.setAttribute("alertMsg", "비밀번호가 틀립니다.");
 			response.sendRedirect(request.getContextPath() + "/myPage.me");
 		} else {
-			session.setAttribute("loginUser", loginUser);
-
+			session.setAttribute("loginUser", m);
+			int memNo = m.getMemNo();
+			ArrayList<Location> list =  new PaymentService().selectLocation(memNo);
+			System.out.println(list.toString());
+			request.setAttribute("list", list); 
+			
 			RequestDispatcher view = request.getRequestDispatcher("views/myPage/memberInfo.jsp");
 			view.forward(request, response);
 		}
