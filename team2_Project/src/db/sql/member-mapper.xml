@@ -57,7 +57,8 @@
 	
 	<entry key="selectMember">
 		SELECT
-		      MEM_ID
+			  MEM_NO
+		    , MEM_ID
 			, MEM_PWD
 			, MEM_NAME
 			, EMAIL

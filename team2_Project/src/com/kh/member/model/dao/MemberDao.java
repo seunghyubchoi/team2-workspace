@@ -173,7 +173,7 @@ public class MemberDao {
 						, rset.getString("mem_name")
 						, rset.getString("email")
 						, rset.getString("phone")
-						, rset.getDate("emroll_date")
+						, rset.getDate("enroll_date")
 						, rset.getString("ad_check")
 						, rset.getString("gender")
 						, rset.getString("birthday")

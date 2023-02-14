@@ -19,7 +19,7 @@ import com.kh.payment.model.vo.Location;
 /**
  * Servlet implementation class PasswordCheckController
  */
-@WebServlet("/pwdCheck.me")
+@WebServlet("/pwdCheck.mp")
 public class PasswordCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,7 +46,7 @@ public class PasswordCheckController extends HttpServlet {
 
 		if (m == null) {
 			session.setAttribute("alertMsg", "비밀번호가 틀립니다.");
-			response.sendRedirect(request.getContextPath() + "/myPage.me");
+			response.sendRedirect(request.getContextPath() + "/myPage.mp");
 		} else {
 			session.setAttribute("loginUser", m);
 			int memNo = m.getMemNo();

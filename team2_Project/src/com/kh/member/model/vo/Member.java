@@ -53,16 +53,19 @@ public class Member {
 
 
 
-	public Member(String memId, String email, String phone, String adCheck, String gender, String birthday,
-			String instaId) {
+	public Member(String memId, String gender, String birthday, String phone,
+			String email, String instaId ,String adCheck ) {
 		super();
 		this.memId = memId;
-		this.email = email;
-		this.phone = phone;
-		this.adCheck = adCheck;
 		this.gender = gender;
 		this.birthday = birthday;
+		this.phone = phone;
+		this.email = email;
 		this.instaId = instaId;
+		this.adCheck = adCheck;
+		
+		
+		
 	}
 
 

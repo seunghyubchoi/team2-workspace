@@ -56,8 +56,10 @@ public class MemberUpdateController extends HttpServlet {
 		if(updateMem == null) { //실패
 			// 에러문구 담아서 에러페이지 포워딩
 			System.out.println("실패");
-			request.setAttribute("alertMsg", "회원정보수정에 실패했습니다.");
 			
+			request.setAttribute("alertMsg", "회원정보수정에 실패했습니다.");
+			response.sendRedirect(request.getContextPath()+"/memberInfo.mp");
+
 
 			
 		} else { //성공
@@ -67,6 +69,7 @@ public class MemberUpdateController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", updateMem);
 			session.setAttribute("alertMsg", "성공적으로 회원 정보를 수정했습니다.");
+			response.sendRedirect(request.getContextPath()+"/memberInfo.mp");
 
 		
 			

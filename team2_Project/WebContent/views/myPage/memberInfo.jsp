@@ -122,18 +122,6 @@
 	String locPhone = defaultLocation.getLocPhone();
 	String locPostCode = defaultLocation.getLocPostCode();
 	%>
-	<%
-		if (alertMsg != null) {
-	%>
-	<script>
-		alert("<%=alertMsg%>");
-	</script>
-	<%
-		session.removeAttribute("alertMsg");
-	%>
-	<%
-		}
-	%>
 
 
 	<div id="wrap">
@@ -163,8 +151,8 @@
 					<table id="member_table">
 						<tr>
 							<th>ID</th>
-							<td><input type="text" class="form-control mb-2 mr-sm-2" name="memId" value="<%=memId%>" readonly>
-							</td>
+							<td><input type="text" class="form-control mb-2 mr-sm-2"
+								name="memId" value="<%=memId%>" readonly></td>
 							<td>
 								<button type="button" class="btn btn-primary mb-2"
 									data-toggle="modal" data-target="#updatePwdModal">비밀번호
@@ -179,27 +167,10 @@
 						<tr>
 							<th>성별</th>
 							<td><select name="gender" id="gender">
-									<%
-										if (gender == null) {
-									%>
-									<option value="NULL" selected>입력안함</option>
+
+									<option value="">-</option>
 									<option value="남">남자</option>
 									<option value="여">여자</option>
-									<%
-										} else if (gender == "남") {
-									%>
-									<option value="NULL">입력안함</option>
-									<option value="남" selected>남자</option>
-									<option value="여">여자</option>
-									<%
-										} else {
-									%>
-									<option value="NULL">입력안함</option>
-									<option value="남">남자</option>
-									<option value="여" selected>여자</option>
-									<%
-										}
-									%>
 
 							</select></td>
 						</tr>
@@ -219,7 +190,7 @@
 						</tr>
 						<tr>
 							<th>이메일</th>
-							<td><input type="email"  class="form-control mb-2 mr-sm-2"
+							<td><input type="email" class="form-control mb-2 mr-sm-2"
 								value="<%=email%>" name="email"></td>
 						</tr>
 						<tr>
@@ -251,24 +222,7 @@
 
 						</tr>
 
-						<script>
-							$(function () {
-								const interest = "<%=adCheck%>";
-								//현재 로그인한 회원의 관심분야들이 들어있음
-								// "" | "운동, 등산, 게임"
 
-								$("input[type=checkbox]").each(function() {
-									// checkbox 타입 input이라는 태그에 하나씩 순차적으로 접근할 때 사용
-									// $(this) : 순차적으로 접근되는 체크박스 요소
-									// $(this).val() : 해당 체크박스의 value 값 => 운동 등산 게임 영화
-									if (adCheck.search($(this).val()) != -1) {
-										// -1이면 없다는 뜻, -1이 아니면 있다는 뜻
-										// interest에 내가 찾는 글자가 있으면 :
-										$(this).attr("checked", true); // input 태그에 checked=true라는 속성생기는 거라 봐도 됨
-									}
-								})
-							})
-						</script>
 
 						<tr>
 							<td></td>
@@ -288,7 +242,29 @@
 
 						</tr>
 					</table>
+					<script>
+							$(function () {
+								
+								$("sele").each(function(){
 
+									    if($(this).val()==$("<%=gender%>")){
+											console.log($(this).val());
+									      $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
+
+									    }
+
+									  });
+								
+								
+								const adCheck = "<%=adCheck%>";
+
+							$("input[type=checkbox]").each(function() {
+								if (adCheck.search($(this).val()) != -1) {
+									$(this).attr("checked", true); // input 태그에 checked=true라는 속성생기는 거라 봐도 됨
+								}
+							})
+						})
+					</script>
 
 
 				</form>

@@ -90,11 +90,11 @@
            
             <div id="wrap">
                 <div id="menu_list">
-                    <div class="list_name"><a href="<%= contextPath%>/myPage.me">회원정보관리</a></div>
-                    <div class="list_name"><a href="<%= contextPath%>/orderHistory.me">주문내역</a></div>
-                    <div class="list_name"><a href="<%= contextPath%>/mileageHistory.me">적립금내역</a></div>
-                    <div class="list_name"><a href="<%= contextPath%>/likes.me">좋아요</a></div>
-                    <div class="list_name"><a href="<%= contextPath%>/follow.me">팔로잉/팔로워</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/myPage.mp">회원정보관리</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/orderHistory.mp">주문내역</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/mileageHistory.mp">적립금내역</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/likes.mp">좋아요</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/follow.mp">팔로잉/팔로워</a></div>
                 </div>
                 <div id="menu_content">
                     <div id="content_title">
@@ -104,7 +104,7 @@
                         <p>회원님의 개인정보를 안전하게 보호하기 위해<br>
                             비밀번호를 입력해주세요
                         </p>
-                        <form class="form-inline" action="<%= contextPath%>/pwdCheck.me" method="post"]>
+                        <form class="form-inline" action="<%= contextPath%>/pwdCheck.mp" method="post"]>
                       <input type="hidden" name="memId" value="<%=loginUser.getMemId()%>">
                             <label for="pwd" class="mr-sm-2">비밀번호: </label>
                             <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력해주세요"
