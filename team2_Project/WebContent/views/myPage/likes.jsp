@@ -105,11 +105,11 @@
 
             <div id="wrap">
                 <div id="menu_list">
-                    <div class="list_name"><a href="<%= contextPath%>/myPage.me">회원정보관리</a></div>
-                    <div class="list_name"><a href="<%= contextPath%>/orderHistory.me">주문내역</a></div>
-                    <div class="list_name"><a href="<%= contextPath%>/mileageHistory.me">적립금내역</a></div>
-                    <div class="list_name"><a href="<%= contextPath%>/likes.me">좋아요</a></div>
-                    <div class="list_name"><a href="<%= contextPath%>/follow.me">팔로잉/팔로워</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/myPage.mp">회원정보관리</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/orderHistory.mp">주문내역</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/mileageHistory.mp">적립금내역</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/likes.mp">좋아요</a></div>
+                    <div class="list_name"><a href="<%= contextPath%>/follow.mp">팔로잉/팔로워</a></div>
                 </div>
                 <div id="menu_content">
                     <div id="content_title">

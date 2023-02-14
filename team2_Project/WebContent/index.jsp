@@ -5,6 +5,8 @@
 <%
 	Member loginUser = (Member) session.getAttribute("loginUser");
 	String contextPath = request.getContextPath();
+	String alertMsg = (String)session.getAttribute("alertMsg");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -15,6 +17,14 @@
 </head>
 
 <body>
+<% if(alertMsg != null){ %>
+    <script>
+    	alert("<%=alertMsg%>");
+    </script>
+    <% session.removeAttribute("alertMsg"); 
+    // session.invalidate() 아님
+    %> 
+    <% } %>
 	<%
 		if (loginUser == null) {
 	%>

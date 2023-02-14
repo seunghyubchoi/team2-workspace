@@ -11,7 +11,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
 <html>
 
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
 div{
@@ -36,9 +36,7 @@ div{
 	margin-bottom: 10px
 }
 
-<!--
---------------header--------
->
+
 #header>div {
 	height: 100%;
 }
@@ -67,7 +65,7 @@ div{
 	height: 40%;
 }
 
-/*寃���李�*/
+
 #search {
 	width: 100%;
 	height: 100%;

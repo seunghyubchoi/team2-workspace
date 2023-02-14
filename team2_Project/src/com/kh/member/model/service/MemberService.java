@@ -43,13 +43,15 @@ public class MemberService {
 	}
 	
 	
-	public Member updatePwd(String memId, String userPwd, String updatePwd) {
+	public Member updatePwd(String memId, String memPwd, String updatePwd) {
 		Connection conn = getConnection();
-		int result = new MemberDao().updatePwd(conn, memId, userPwd, updatePwd);
+		int result = new MemberDao().updatePwd(conn, memId, memPwd, updatePwd);
 		Member updateMem = null;
 		
 		if(result > 0) {
 			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, memId);
+			
 		} else {
 			rollback(conn);
 		}
