@@ -1,5 +1,13 @@
+<%@page import="com.kh.manager.model.vo.Manager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%
+    Manager loginManager = (Manager)session.getAttribute("loginManager");
+
+	
+	String contextPath = request.getContextPath();
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +37,9 @@
 <body>
     <div class="wrap">
         <div id="left">
-            <div id="left_top"></div>
+            <div id="left_top">
+            <a href="<%= contextPath%>/logout.ma">로그아웃</a>
+            </div>
             <div id="left_bottom"></div>
         </div>
         <div id="right">
