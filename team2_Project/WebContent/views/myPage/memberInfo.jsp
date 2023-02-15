@@ -20,6 +20,56 @@
 				<!-- Latest compiled JavaScript -->
 				<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+				<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+				<script>
+					function sample6_execDaumPostcode() {
+						new daum.Postcode({
+							oncomplete: function(data) {
+								// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+				
+								// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+								// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+								var addr = ''; // 주소 변수
+								var extraAddr = ''; // 참고항목 변수
+				
+								//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+								if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+									addr = data.roadAddress;
+								} else { // 사용자가 지번 주소를 선택했을 경우(J)
+									addr = data.jibunAddress;
+								}
+				
+								// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+								if(data.userSelectedType === 'R'){
+									// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+									// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+									if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+										extraAddr += data.bname;
+									}
+									// 건물명이 있고, 공동주택일 경우 추가한다.
+									if(data.buildingName !== '' && data.apartment === 'Y'){
+										extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+									}
+									// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+									if(extraAddr !== ''){
+										extraAddr = ' (' + extraAddr + ')';
+									}
+									// 조합된 참고항목을 해당 필드에 넣는다.
+									document.getElementById("sample6_extraAddress").value = extraAddr;
+								
+								} else {
+									document.getElementById("sample6_extraAddress").value = '';
+								}
+				
+								// 우편번호와 주소 정보를 해당 필드에 넣는다.
+								document.getElementById('sample6_postcode').value = data.zonecode;
+								document.getElementById("sample6_address").value = addr;
+								// 커서를 상세주소 필드로 이동한다.
+								document.getElementById("sample6_detailAddress").focus();
+							}
+						}).open();
+					}
+				</script>
 
 				<style>
 					#wrap {
@@ -94,7 +144,21 @@
 					#deleteUserBtn a {
 						text-decoration: none;
 					}
+
+					#locationLists td {
+						padding: 5px;
+					}
+
+					#locationLists tr>td:nth-child(2) {
+						text-align: right;
+					}
+
+					#locationLists div {
+						border: 1px solid black;
+						width: 100%;
+					}
 				</style>
+
 			</head>
 
 			<body>
@@ -111,7 +175,7 @@
 						locAddressDtl=defaultLocation.getLocAddressDtl(); String locPhone=defaultLocation.getLocPhone();
 						String locPostCode=defaultLocation.getLocPostCode(); %>
 
-    
+
 						<div id="wrap">
 							<div id="menu_list">
 								<div class="list_name">
@@ -154,18 +218,25 @@
 											</tr>
 											<tr>
 												<th>성별</th>
-												<td><select name="gender" id="gender">
 
-														<option value="">-</option>
-														<option value="남">남자</option>
-														<option value="여">여자</option>
+												<td>
+													<div class="form-group">
+														<select class="form-control" id="gender" name="gender">
+															<option value="">입력안함</option>
+															<option value="남">남자</option>
+															<option value="여">여자</option>
+														</select>
+													</div>
+												</td>
 
-													</select></td>
-											</tr>
 											<tr>
 												<th>생년월일</th>
+
 												<td><input type="text" class="form-control mb-2 mr-sm-2"
 														value="<%=birthday%>" name="birthday"></td>
+
+
+
 											</tr>
 											<tr>
 												<th>전화번호</th>
@@ -194,9 +265,11 @@
 												</td>
 
 												<td>
-													<button type="button" class="btn btn-primary mb-2">새로운
+													<button type="button" class="btn btn-primary mb-2"
+														data-toggle="modal" data-target="#newLocation">새로운
 														배송지</button>
-													<button type="button" class="btn btn-primary mb-2">배송지
+													<button type="button" class="btn btn-primary mb-2"
+														data-toggle="modal" data-target="#locationList">배송지
 														목록</button>
 												</td>
 
@@ -222,7 +295,9 @@
 												<td></td>
 												<td></td>
 												<td></td>
-												<td id="deleteUserBtn"><a href="#">탈퇴하기</a></td>
+												<td id="deleteUserBtn"><button type="button"
+														class="btn btn-sm btn-danger" data-toggle="modal"
+														data-target="#deleteModal">회원탈퇴</button></td>
 
 
 											</tr>
@@ -230,7 +305,8 @@
 											<tr>
 												<td></td>
 
-												<td><button type="reset" class="btn btn-primary mb-2">취소하기</button>
+												<td><button type="button" class="btn btn-primary mb-2"
+														onclick="history.back();">뒤로가기</button>
 													<button type="submit" class="btn btn-primary mb-2">저장하기</button>
 												</td>
 
@@ -262,6 +338,185 @@
 
 									</form>
 								</div>
+
+								<!-- 새로운 배송지 Modal -->
+								<div class="modal" id="newLocation">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<!-- Modal Header -->
+											<div class="modal-header">
+												<h4 class="modal-title">새로운 배송지</h4>
+												<button type="button" class="close"
+													data-dismiss="modal">&times;</button>
+											</div>
+											<!-- Modal body -->
+											<div class="modal-body" align="center">
+												<form action="<%=contextPath%>/delete.me" method="post">
+													<table>
+														<tr>
+															<th>배송지 이름</th>
+														</tr>
+														<tr>
+															<td><input type="text" class="form-control mb-2 mr-sm-2"
+																	value="" name="" placeholder="배송지 이름을 입력해주세요"></td>
+														</tr>
+														<tr>
+															<th>받으시는 분</th>
+														</tr>
+														<tr>
+															<td><input type="text" class="form-control mb-2 mr-sm-2"
+																	value="" name="" placeholder="받으시는 분 이름을 입력해주세요">
+															</td>
+														</tr>
+														<tr>
+															<th>주소</th>
+														</tr>
+														<tr>
+															<td>
+																<div class="input-group mb-3">
+																	<input type="text" class="form-control"
+																		placeholder="우편번호"  id="sample6_postcode" readonly>
+																	<div class="input-group-append">
+																		<button class="btn btn-success" type="button"
+																		onclick="sample6_execDaumPostcode()">우편번호 검색</button>
+																	</div>
+																</div>
+
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<input type="text" class="form-control mb-2 mr-sm-2" id="sample6_address"
+																	value="" name="" placeholder="주소" readonly>
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<input type="text" class="form-control mb-2 mr-sm-2"
+																	value="" name="" placeholder="상세주소를 입력해주세요">
+															</td>
+														</tr>
+														<tr>
+															<td align="center">
+																<button type="button" class="btn btn-primary mb-2"
+																	onclick="history.back();">뒤로가기</button>
+																<button type="submit"
+																	class="btn btn-primary mb-2">저장하기</button>
+															</td>
+														</tr>
+
+													</table>
+													
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- 배송지 목록 Modal -->
+								<div class="modal" id="locationList">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<!-- Modal Header -->
+											<div class="modal-header">
+												<h4 class="modal-title">배송지 목록</h4>
+												<button type="button" class="close"
+													data-dismiss="modal">&times;</button>
+											</div>
+											<!-- Modal body -->
+											<div class="modal-body" align="center">
+												<form action="<%=contextPath%>/delete.me" method="post">
+													<table id="locationLists">
+														<tr>
+															<td>집</td>
+															<td>
+																<input type="radio" id="defaultLocation"
+																	name="defaultLocation" value="defaultLocation">
+																<span></span>
+															</td>
+														</tr>
+														<tr>
+															<td>이유나</td>
+														</tr>
+														<tr>
+															<td>서울 강남구 테헤란로 13 6</td>
+															<td></td>
+														</tr>
+														<tr>
+															<td>1301호</td>
+														</tr>
+														<tr>
+															<td>01012345678</td>
+														</tr>
+														<tr>
+															<td></td>
+															<td><button type="submit"
+																	class="btn btn-sm btn-danger">수정하기</button>
+																<button type="submit"
+																	class="btn btn-sm btn-danger">삭제하기</button>
+															</td>
+														</tr>
+														<tr>
+															<td colspan="2">
+																<hr>
+															</td>
+														</tr>
+														<tr>
+															<td>직장</td>
+															<td>
+																<input type="radio" id="defaultLocation"
+																	name="defaultLocation" value="defaultLocation">
+																<span></span>
+															</td>
+														</tr>
+														<tr>
+															<td>이유나</td>
+														</tr>
+														<tr>
+															<td>서울 강남구 테헤란로 14길 </td>
+															<td></td>
+														</tr>
+														<tr>
+															<td>11호</td>
+														</tr>
+														<tr>
+															<td>01012345678</td>
+														</tr>
+														<tr>
+															<td></td>
+															<td><button type="submit"
+																	class="btn btn-sm btn-danger">수정하기</button>
+																<button type="submit"
+																	class="btn btn-sm btn-danger">삭제하기</button>
+															</td>
+														</tr>
+
+													</table>
+													<script>
+														$(function () {
+															$('input[name="defaultLocation"]').change(function () {
+																$('input[name="defaultLocation"]').each(function () {
+																	let checked = $(this).prop('checked');
+																	let defaultLocMsg = $(this).next();
+																	if (checked) {
+																		$(defaultLocMsg).text("기본배송지");
+																	} else {
+																		$(defaultLocMsg).text("");
+																	}
+																})
+															})
+														})
+													</script>
+
+
+
+
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+
 
 								<!-- 비밀번호 변경 -->
 								<div class="modal" id="updatePwdModal">
@@ -307,7 +562,7 @@
 													if ($("input[name=updatePwd]").val() != $(
 														"input[name=checkPwd]").val()) {
 														alert("변경할 비밀번호가 일치하지 않습니다");
-														
+
 														return false;
 													}
 												}
@@ -318,10 +573,31 @@
 									</div>
 								</div>
 
-
+								<!-- 회원탈퇴용 Modal -->
+								<div class="modal" id="deleteModal">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<!-- Modal Header -->
+											<div class="modal-header">
+												<h4 class="modal-title">회원탈퇴</h4>
+												<button type="button" class="close"
+													data-dismiss="modal">&times;</button>
+											</div>
+											<!-- Modal body -->
+											<div class="modal-body" align="center">
+												<form action="<%=contextPath%>/delete.me" method="post">
+													<input type="hidden" name="memId" value="<%=memId%>"> <b>탈퇴
+														후 복구가 불가능합니다<br> 정말로 탈퇴하시겠습니까?<br>
+													</b> 비밀번호 : <input type="password" name="memPwd" required> <br>
+													<br>
+													<button type="submit" class="btn btn-sm btn-danger">탈퇴하기</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-
 
 			</body>
 
