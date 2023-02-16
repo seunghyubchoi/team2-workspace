@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>몰라잉</title>
+
+    <script src="../../resources/js/jquery-3.6.3.min.js"></script>
+    <style>
+        #back{
+            position: relative;
+        }
+        div[id^=mal]{
+            border: 1px solid #000; 
+            background-color: aqua;
+            width: 60px; 
+            height: 30px;
+            position: absolute;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div id="back">
+        <img src="https://image.msscdn.net/mfile_s01/_shopstaff/view.staff_63eb3cebe45ea.jpg?20230214165104" alt="담곰">
+        <!-- <div id="mal"></div> -->
+    </div>
+
+    <script>
+        $(function(){
+            let count = 0;
+            $("#back").click(function(e){
+                // const po = {left:e.offsetX, top:e.offsetY};
+                $(this).append("<div id='mal" + count + "' ></div>");
+                // console.log(e.offsetX);
+                $("#mal" + count).css({top: e.offsetY+ "px", left: e.offsetX+ "px"}); 
+                count++;
+            });
+
+            $("div[id^=mal]").click(function(){
+                $(this).css("width", "100px");
+            });
+        });
+    </script>
+
+
+</body>
+</html>
