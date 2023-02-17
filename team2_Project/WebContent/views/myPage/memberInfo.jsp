@@ -187,6 +187,7 @@
 	String locAddressDtl = defaultLocation.getLocAddressDtl();
 	String locPhone = defaultLocation.getLocPhone();
 	String locPostCode = defaultLocation.getLocPostCode();
+	String locYn = defaultLocation.getLocYn();
 	%>
 
 
@@ -331,8 +332,7 @@
 												});
 
 
-												const adCheck = "<%=adCheck%>
-						";
+												const adCheck = "<%=adCheck%>";
 
 							$("input[type=checkbox]").each(function() {
 								if (adCheck.search($(this).val()) != -1) {
@@ -439,46 +439,53 @@
 										} else {
 									%>
 									<%
+										// int i=0;
 										for (Location l : list) {
 									%>
 									<tr>
-										<td><%=l.getLocAddressName() %></td>
+										<td><%=l.getLocAddressName()%></td>
 										<td><input type="radio" id="defaultLocation"
 											name="defaultLocation" value="defaultLocation"> <span></span>
+											<!-- 
+											<%if(l.getLocYn().equals("Y")){ %>
+												<label for="defaultLocation">기본배송지</label>
+											<%} %>
+											 -->
+											
 										</td>
 									</tr>
 									<tr>
-										<td><%=l.getLocName() %></td>
+										<td><%=l.getLocName()%></td>
 									</tr>
 									<tr>
-										<td><%=l.getLocAddress() %></td>
-										
+										<td><%=l.getLocAddress()%></td>
+
 									</tr>
 									<tr>
-										<td><%=l.getLocAddressDtl() %></td>
+										<td><%=l.getLocAddressDtl()%></td>
 									</tr>
 									<tr>
-										<td><%=l.getLocPostCode() %></td>
+										<td><%=l.getLocPostCode()%></td>
 									</tr>
 									<tr>
-										<td><%=l.getLocPhone() %></td>
+										<td><%=l.getLocPhone()%></td>
 									</tr>
-									
-									
-									
-									<%
-										}
-									%>
-									
-									<%
-										}
-									%>
 
 									<tr>
 										<td colspan="2">
 											<hr>
 										</td>
 									</tr>
+										
+									<%
+										}
+									%>
+
+									<%
+										}
+									%>
+
+									
 
 									<tr>
 										<td></td>
@@ -489,33 +496,20 @@
 
 								</table>
 								<script>
-									$(
-											function() {
-												$(
-														'input[name="defaultLocation"]')
-														.change(
-																function() {
-																	$(
-																			'input[name="defaultLocation"]')
-																			.each(
-																					function() {
-																						let checked = $(
-																								this)
-																								.prop(
-																										'checked');
-																						let defaultLocMsg = $(
-																								this)
-																								.next();
-																						if (checked) {
-																							$(
-																									defaultLocMsg)
-																									.text(
-																											"기본배송지");
-																						} else {
-																							$(
-																									defaultLocMsg)
-																									.text(
-																											"");
+								
+								
+									$(function() {
+										
+												$()
+										
+												$('input[name="defaultLocation"]').change(function() {
+													$('input[name="defaultLocation"]').each(function() {
+														let checked = $(this).prop('checked');
+														let defaultLocMsg = $(this).next();
+														if (checked) {
+															$(defaultLocMsg).text("기본배송지");
+														} else {
+															$(defaultLocMsg).text("");
 																						}
 																					})
 																})
