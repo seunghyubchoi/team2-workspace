@@ -1,273 +1,197 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <!DOCTYPE html>
-    <html>
-    <head>
+pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>공지사항 관리</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/e7b3da7de3.js" crossorigin="anonymous"></script>
-    <style>
-        /* div{border: 1px solid red;} */
-        div{box-sizing: border-box; margin: 0;}
-        .wrap{
-            width: 1200px;
-            height: 600px;
-        }
-    
-        .wrap>div, #right_bottom_top>div, #searchNotice>div{
-            height: 100%;
-            float: left;
-        }
-    
-        #left{
-            width: 20%;
-            background-color: #E0BFE6;
-        }
-        #right{
-            width: 80%;
-        }
-    
-        #left>div, #right>div, #right_bottom_middle, #right_bottom_top{
-            width: 100%;
-        }
-    
-        #left_top, #right_top, #right_bottom_top, #left_bottom>div{
-            height: 10%;
-        }
-    
-        #left_bottom, #right_bottom{
-            height: 90%;
-        }
-    
-        #right_bottom_middle{
-            height: 80%;
-            padding: 20px;
-        }
-        #right_bottom_top1, #right_bottom_top3, #right_bottom_top4{
-            width: 10%;
-        }
-        #right_bottom_top2{
-            width: 70%;
-        }
 
-        h1{
-            margin: 0;
-            padding-top: 1%;
-            padding-left: 2%;
-            color: #E0BFE6;
-        }
+</head>
+
+<body id="page-top">
+
+    <!-- include common element  -->
+    <%@ include file="adminCommon.jsp" %>
     
-        #navi{
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            height: 100%;
-        }
-        #navi>li{
-            text-align: center;
-            width: 100%;
-            height: 10%;
-        }
-        #navi a{
-            text-decoration: none;
-            color: white;
-            font-size: 18px;
-            font-weight: bolder;
-            width: 100%;
-            height: 100%;
-            display: block;
-            line-height: 50px;
-        }
-    
-        #navi a:hover{
-            color: #E0BFE6;
-            background-color: white;
-        }
-    
-        #navi>li>ul{
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: none; /* 일단은 안보여지게 함 */
-        }
-    
-        #navi>li>ul a{font-size: 15px;}
-    
-        #navi>li>a:hover+ul{display: block;}
-        #navi>li>ul:hover{display: block;}
-    
-        #content{
-            width: 100%;
-            height: 80%;
-        }
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-        #content *{
-            font-weight: bold;
-            text-align: center;
-        }
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        #check{width: 5%;}
-        #no{width: 7%;}
-        #date{width: 20%;}
-        
-        body{line-height: 18px;}
-        thead{background-color: #E0BFE6; color: white;}
+            <a class="sidebar-brand align-items-center justify-content-center" href="index.html" id="logoWrapper">
+                <img src="../../resources/img/admin/W4T_crop.svg" alt="" id="logo">
+            </a>
 
-        .pagination{justify-content: center;}
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
 
-        #right_bottom_bottom{width: 93%;}
-
-        input[type="checkbox"] {
-        transform : scale(1.2);
-        cursor: pointer;
-        }
-
-        #right_bottom_top2{position: relative;}
-
-        #search_form{
-            width: 30%;
-            height: 70%;
-            margin: auto; 
-            position: absolute;
-        }
-        #search_form>div{height: 100%; float: left;}
-        #search_text{width: 80%;}
-        #search_btn{width: 20%; height: 100%;}
-
-        #search_form input{width: 100%; height: 100%;} 
-
-        #right_bottom_top>div{padding-top: 15px;}
-        #right_bottom_top1{padding-left: 15px;}
-        #right_bottom_top3, #right_bottom_top4{text-align: center;}
-
-    </style>
-    </head>
-    <body>
-        <div class="wrap">
-            <div id="left">
-                <div id="left_top"><img src="" alt="내일뭐입지 로고"></div>
-                <div id="left_bottom">
-                    <ul id="navi">
-                        <li>
-                            <a href="#">게시판관리</a>
-                            <ul>
-                                <li><a href="#">공지사항</a></li>
-                                <li><a href="#">Q&A</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">회원관리</a></li>
-                        <li><a href="#">상품관리</a></li>
-                        <li><a href="#">주문관리</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div id="right">
-                <div id="right_top"><h1>공지사항 관리</h1></div>
-                <div id="right_bottom">
-                    <div id="right_bottom_top">
-                        <div id="right_bottom_top1">
-                            <select name="selectSearch" id="selectSearch">
-                                <option value="">제목</option>
-                                <option value="">내용</option>
-                            </select>
-                        </div>
-                        <div id="right_bottom_top2">
-                            <form action="search.no" id="search_form">
-                                <div id="search_btn">
-                                    <button><i class="fa-sharp fa-solid fa-magnifying-glass fa-xl"></i></button>
-                                </div>
-                                <div id="search_text">
-                                    <input type="text">
-                                </div>
-                            </form>
-                        </div>
-                        <div id="right_bottom_top3">
-                            <button class="btn btn-danger">삭제</button>
-                        </div>
-                        <div id="right_bottom_top4">
-                            <button class="btn btn-warning">추가</button>
-                        </div>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-clipboard"></i>
+                    <span>게시판관리</span>
+                </a>
+                <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item active" href="adminNoticeMain.jsp">공지사항</a>
+                        <a class="collapse-item" href="adminQnAMain.jsp">Q&A</a>
+                        <a class="collapse-item" href="adminW4RMain.jsp">뭐입지그램</a>
                     </div>
-                    <div id="right_bottom_middle">
-                        <table border="1" id="content" class="table table-bordered">
+                </div>
+            </li>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="adminMemberMain.jsp">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>회원관리</span></a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="adminPrductMain.jsp">
+                    <i class="fas fa-fw fa-tags"></i>
+                    <span>상품관리</span></a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="adminOrderMain.jsp">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>주문 관리</span></a>
+            </li>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <div class="input-group">
+                        <h2 class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">공지사항 관리</h2>
+                    </div>
+                    <div class="input-group">
+                        <a class="d-none d-sm-inline-block form-inline ml-auto my-2 mr-3 my-md-0 mw-100" href="#" data-toggle="modal" data-target="#logoutModal" id="logoutBtn">로그아웃</a>
+                    </div>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+            
+                <div class="container-fluid mb-5">
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered dataTables" id="noticeTable" width="100%" cellspacing="0" style="text-align: center;">
                             <thead>
-                                <td id="check"><input type="checkbox"></td>
-                                <td id="no">번호</td>
-                                <td id="title">제목</td>
-                                <td id="date">작성일</td>
+                                <tr>
+                                    <th id="check1"><input type="checkbox" id="checkAll"></th>
+                                    <th style="width: 60px">번호</th>
+                                    <th>제목</th>
+                                    <th style="width: 200px">작성일</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input type="checkbox"></td>
-                                    <th>x</th>
-                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
-                                    <th>xx-xx-xx</th>
+                                    <td><input type="checkbox" name="changeList"></td>
+                                    <td>3</td>
+                                    <td><a href="#">어쩌구 저쩌구</a></td>
+                                    <td>2021-10-22</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="checkbox"></td>
-                                    <th>x</th>
-                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
-                                    <th>xx-xx-xx</th>
-                                </tr><tr>
-                                    <td><input type="checkbox"></td>
-                                    <th>x</th>
-                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
-                                    <th>xx-xx-xx</th>
-                                </tr><tr>
-                                    <td><input type="checkbox"></td>
-                                    <th>x</th>
-                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
-                                    <th>xx-xx-xx</th>
-                                </tr><tr>
-                                    <td><input type="checkbox"></td>
-                                    <th>x</th>
-                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
-                                    <th>xx-xx-xx</th>
-                                </tr><tr>
-                                    <td><input type="checkbox"></td>
-                                    <th>x</th>
-                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
-                                    <th>xx-xx-xx</th>
-                                </tr><tr>
-                                    <td><input type="checkbox"></td>
-                                    <th>x</th>
-                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
-                                    <th>xx-xx-xx</th>
-                                </tr><tr>
-                                    <td><input type="checkbox"></td>
-                                    <th>x</th>
-                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
-                                    <th>xx-xx-xx</th>
-                                </tr><tr>
-                                    <td><input type="checkbox"></td>
-                                    <th>x</th>
-                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
-                                    <th>xx-xx-xx</th>
-                                </tr><tr>
-                                    <td><input type="checkbox"></td>
-                                    <th>x</th>
-                                    <th><a href="#">xxxxxxxxxxxxxxxxxx</a></th>
-                                    <th>xx-xx-xx</th>
+                                    <td><input type="checkbox" name="changeList"></td>
+                                    <td>3</td>
+                                    <td><a href="#">어쩌구 저쩌구</a></td>
+                                    <td>2021-10-22</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="changeList"></td>
+                                    <td>2</td>
+                                    <td><a href="#">어쩌구 저쩌구</a></td>
+                                    <td>2021-10-22</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="changeList"></td>
+                                    <td>3</td>
+                                    <td><a href="#">어쩌구 저쩌구</a></td>
+                                    <td>2021-10-22</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="changeList"></td>
+                                    <td>3</td>
+                                    <td><a href="#">어쩌구 저쩌구</a></td>
+                                    <td>2021-10-22</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="changeList"></td>
+                                    <td>3</td>
+                                    <td><a href="#">어쩌구 저쩌구</a></td>
+                                    <td>2021-10-22</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="changeList"></td>
+                                    <td>3</td>
+                                    <td><a href="#">어쩌구 저쩌구</a></td>
+                                    <td>2021-10-22</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="changeList"></td>
+                                    <td>3</td>
+                                    <td><a href="#">어쩌구 저쩌구</a></td>
+                                    <td>2021-10-22</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="changeList"></td>
+                                    <td>3</td>
+                                    <td><a href="#">어쩌구 저쩌구</a></td>
+                                    <td>2021-10-22</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="changeList"></td>
+                                    <td>3</td>
+                                    <td><a href="#">어쩌구 저쩌구</a></td>
+                                    <td>2021-10-22</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="changeList"></td>
+                                    <td>4</td>
+                                    <td><a href="#">어쩌구 저쩌구</a></td>
+                                    <td>2021-10-22</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="changeList"></td>
+                                    <td>5</td>
+                                    <td><a href="#">어쩌구 저쩌구</a></td>
+                                    <td>2021-10-22</td>
                                 </tr>
                             </tbody>
-    
                         </table>
                     </div>
-                    <div id="right_bottom_bottom">
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">다음</a></li>
-                          </ul>
-                    </div>
+
                 </div>
+                <!-- /.container-fluid -->
+
             </div>
+            <!-- End of Main Content -->
+
         </div>
-        
-    
-    </body>
-    </html>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+</body>
+
+</html>

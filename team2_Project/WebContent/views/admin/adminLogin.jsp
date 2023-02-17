@@ -23,17 +23,16 @@ pageEncoding="UTF-8"%>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <meta charset="UTF-8" />
     <title>로그인페이지</title>
-    <link rel="stylesheet" href="../../resources/css/style.css"/>
+    <link rel="stylesheet" href="../../resources/css/adminStyle.css"/>
   </head>
   <body>
     <div id="wrap">
       <div id="allBox">
         <div id="header">
           <div id="w4t_logo">
-            <img src="resources/img/w4t.png" alt="" />
+            <img src="../../../resources/img/W4T_crop.svg" alt="" />
           </div>
         </div>
-        
         
         <div id="content">
           <form action="/team2_Project/login.ma" method="post">
@@ -75,7 +74,5 @@ pageEncoding="UTF-8"%>
         </div>
       </div>
     </div>
-    
-
   </body>
 </html>
