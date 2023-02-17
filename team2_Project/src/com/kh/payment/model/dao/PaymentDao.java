@@ -62,4 +62,41 @@ public class PaymentDao {
 		return defaultLocation;
 	}
 
+	public ArrayList<Location> selectLocationList(Connection conn, int memNo) {
+		ArrayList<Location> list = new ArrayList<Location>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLocationList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(
+						 new Location(
+								  rset.getInt("loc_no")
+								, rset.getInt("mem_no")
+								, rset.getString("loc_address_name")
+								, rset.getString("loc_name")
+								, rset.getString("loc_phone")
+								, rset.getString("loc_address")
+								, rset.getString("loc_address_dtl")
+								, rset.getString("loc_post_code")
+								, rset.getString("del_yn")
+								, rset.getString("loc_yn")
+								)
+						);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 }

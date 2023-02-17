@@ -20,4 +20,12 @@ public class PaymentService {
 		return defaultLocation;
 	}
 
+	public ArrayList<Location> selectLocationList(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Location> list = new PaymentDao().selectLocationList(conn, memNo);
+		close(conn);
+		
+		return list;
+	}
+
 }
