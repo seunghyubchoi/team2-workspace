@@ -1,16 +1,36 @@
+<%@page import="com.kh.manager.model.vo.Manager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<%
+  Manager loginManager = (Manager)session.getAttribute("loginManager");
+
+  String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
-<html lang="ko">
-
+<html>
 <head>
+<meta charset="UTF-8">
+<title>공지사항 관리</title>
+<style>
+    div{border: 1px solid red;}
+    .wrap{
+        width: 1200px;
+        height: 600px;
+    }
 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    .wrap>div{
+        height: 100%;
+        display: flex;
+    }
 
-    <title>공지사항 관리</title>
+    #left{
+        width: 25%;
+    }
 
+    #right{
+        width: 75%;
+    }
+</style>
 </head>
 
 <body id="page-top">

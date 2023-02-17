@@ -2,4 +2,20 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+	<entry key="selectLocation">
+SELECT 
+        LOC_NO
+      , MEM_NO
+      , LOC_ADDRESS_NAME
+      , LOC_NAME
+      , LOC_PHONE
+      , LOC_ADDRESS
+      , LOC_ADDRESS_DTL
+      , LOC_POST_CODE
+      , DEL_YN
+      , LOC_YN
+FROM TB_LOCATION
+WHERE MEM_NO = ?
+AND LOC_YN = 'Y'
+	</entry>
 </properties>
