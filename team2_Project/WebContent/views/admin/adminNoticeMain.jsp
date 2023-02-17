@@ -1,7 +1,6 @@
 <%@page import="com.kh.manager.model.vo.Manager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
     <%
     Manager loginManager = (Manager)session.getAttribute("loginManager");
 
@@ -51,12 +50,9 @@
                     <div id="right_bottom_top3"></div>
                     <div id="right_bottom_top4"></div>
                 </div>
-                <div id="right_bottom_middle"></div>
-                <div id="right_bottom_bottom"></div>
             </div>
         </div>
-    </div>
+        
     
-
-</body>
-</html>
+    </body>
+    </html>
