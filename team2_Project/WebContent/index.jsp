@@ -2,12 +2,7 @@
 <%@page import="com.kh.common.JDBCTemplate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	Member loginUser = (Member) session.getAttribute("loginUser");
-	String contextPath = request.getContextPath();
-	String alertMsg = (String)session.getAttribute("alertMsg");
 
-%>
 <!DOCTYPE html>
 <html>
 
@@ -17,6 +12,7 @@
 </head>
 
 <body>
+  <%@ include file = "views/common/menubar.jsp" %>
 
 <% if(alertMsg != null){ %>
     <script>

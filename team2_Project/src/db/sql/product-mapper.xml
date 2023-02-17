@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-
+<entry key="categorySearch">
+SELECT 
+     PRODUCT_NO
+    ,PRODUCT_NAME
+    ,PRODUCT_DISCOUNT
+    ,PRODUCT_PRICE
+    ,BRAND_NAME
+    ,PRODUCT_VIEW_COUNT
+    ,PRODUCT_IMG_SRC
+    FROM TB_PRODUCT 
+    JOIN TB_CATEGORY ON(CATEGORY_NO2 = CATEGORY_NO)
+    JOIN TB_BRAND USING(BRAND_NO)
+    JOIN TB_PRODUCT_IMAGE USING(PRODUCT_NO)
+    WHERE CATEGORY_NAME = ?
+        AND IMG_TYPE = 1
+        AND DEL_YN = 'N'
+</entry>
 </properties>

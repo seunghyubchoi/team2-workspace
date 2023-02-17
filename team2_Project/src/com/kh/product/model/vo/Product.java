@@ -12,6 +12,9 @@ public class Product {
 	private String delYn;
 	private int categoryNo;
 	private int brandNo;
+	private String brandName;
+	private int productDiscount;
+	private String productImgSrc;
 	
 	public Product() {}
 	
@@ -27,6 +30,21 @@ public class Product {
 		this.delYn = delYn;
 		this.categoryNo = categoryNo;
 		this.brandNo = brandNo;
+	}
+	
+
+	
+
+	public Product(int productNo, String productName, int productDiscount, int productPrice, String brandName,
+			int productViewCount, String productImgSrc) {
+		super();
+		this.productNo = productNo;
+		this.productName = productName;
+		this.productDiscount = productDiscount;
+		this.productPrice = productPrice;
+		this.brandName = brandName;
+		this.productViewCount = productViewCount;
+		this.productImgSrc = productImgSrc;
 	}
 
 	public int getProductNo() {
@@ -100,13 +118,41 @@ public class Product {
 	public void setBrandNo(int brandNo) {
 		this.brandNo = brandNo;
 	}
+	
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public int getProductDiscount() {
+		return productDiscount;
+	}
+
+	public void setProductDiscount(int productDiscount) {
+		this.productDiscount = productDiscount;
+	}
+
+	public String getProductImgSrc() {
+		return productImgSrc;
+	}
+
+	public void setProductImgSrc(String productImgSrc) {
+		this.productImgSrc = productImgSrc;
+	}
 
 	@Override
 	public String toString() {
 		return "Product [productNo=" + productNo + ", productName=" + productName + ", productDesc=" + productDesc
 				+ ", productPrice=" + productPrice + ", productEnrollDate=" + productEnrollDate + ", productViewCount="
-				+ productViewCount + ", delYn=" + delYn + ", categoryNo=" + categoryNo + ", brandNo=" + brandNo + "]";
+				+ productViewCount + ", delYn=" + delYn + ", categoryNo=" + categoryNo + ", brandNo=" + brandNo
+				+ ", brandName=" + brandName + ", productDiscount=" + productDiscount + ", productImgSrc="
+				+ productImgSrc + "]";
 	}
+
 	
 	
 	
