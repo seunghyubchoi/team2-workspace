@@ -16,26 +16,23 @@ String alertMsg = (String)session.getAttribute("alertMsg");
 <style>
 div{
 	box-sizing: border-box;
-	
 }
 
-.wrap {
+.wrap2 {
 	width: 1500px;
 	/* height: 1800px; */
 	margin: auto;
 }
 
-.wrap>div {
+.wrap2>div {
 	width: 100%;
 }
 
 #header {
 	/* height: 15% */
 	height: 270px;
-	border-bottom: 1px lightgray solid;
 	margin-bottom: 10px
 }
-
 
 #header>div {
 	height: 100%;
@@ -65,6 +62,8 @@ div{
 	height: 40%;
 }
 
+#memmem{height:60%}
+#search{height:40%}
 
 #search {
 	width: 100%;
@@ -73,11 +72,12 @@ div{
 
 #searchbar {
 	width: 700px;
-	height: 45px;
-	margin-top: 115px;
-	margin-left: 50px;
-	border-radius: 15px;
-	border-color: #cb7cdd;
+        height: 55px;
+        margin-top: 15px;
+        margin-left: 60px;
+        border-radius: 20px;
+        border-color: #a68bac;
+        border-style: solid;
 }
 
 #btnsh {
@@ -87,14 +87,20 @@ div{
 	width: 100px;
 	height: 50px;
 	border-radius: 15px;
-	background-color: #cb7cdd;
-	border: none;
+	background-color: #d6b9e7;
+	box-shadow: 0 0 0 1px #cb98df inset,
+		  0 0 0 3px rgba(206, 121, 223, 0.534) inset,
+		  0 8px 0 0 rgba(254, 253, 255, 0.863),
+		  0 8px 0 2px rgba(0, 0, 0, 0.151),
+		  0 8px 8px 1px rgba(242, 184, 253, 0.5);
+		  border: #a68bac;
 }
 
 
 
 li {
-	list-style: none
+	list-style: none;
+	font-size:14px;
 }
 
 a {
@@ -109,14 +115,18 @@ a {
 }
 
 .menu>li {
-	width: 20%;
-	/*20*5=100%*/
-	float: left;
-	text-align: center;
-	line-height: 40px;
-	background-color: rgb(161, 99, 212);
-	margin: 10px;
-	border-radius: 10px;
+	width: 20%; /*20*5=100%*/
+  float: left;
+  text-align: center;
+  line-height: 40px;
+  margin: 15px 20px 0px 0px;
+  border-radius: 10px;
+  background-color: #e2bbe7;
+	box-shadow: 0 0 0 1px #cb98df inset,
+		  0 0 0 3px rgba(206, 121, 223, 0.534) inset,
+		  0 8px 0 0 rgba(254, 253, 255, 0.863),
+		  0 8px 0 2px rgba(0, 0, 0, 0.151),
+		  0 8px 8px 1px rgba(242, 184, 253, 0.5);
 }
 
 .menu a {
@@ -124,6 +134,7 @@ a {
 	text-align: center;
 	font-size: 20px;
 	font-family: sans-serif;
+	display: block;
 }
 
 .submenu>li {
@@ -160,7 +171,7 @@ a {
     // session.invalidate() 아님
     %> 
     <% } %>
-	<div class="wrap">
+	<div class="wrap2">
 		<!--header-->
 		<div id="header">
 			<div id="head1">
@@ -169,6 +180,7 @@ a {
 			</div>
 			<div id="head2">
 				<div id="head2_1">
+					<div id=memmem></div>
 					<div id="search">
 						<input type="text" id="searchbar"
 							placeholder="검색을 원하는 상품을 입력해주세요.">

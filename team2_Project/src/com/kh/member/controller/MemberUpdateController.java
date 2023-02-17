@@ -53,22 +53,19 @@ public class MemberUpdateController extends HttpServlet {
 		
 		Member updateMem = new MemberService().updateMember(m);
 		
-		if(updateMem == null) { //실패
-			// 에러문구 담아서 에러페이지 포워딩
-			System.out.println("실패");
+		if(updateMem == null) { 
+			System.out.println("-");
 			
-			request.setAttribute("alertMsg", "회원정보수정에 실패했습니다.");
+			request.setAttribute("alertMsg", "-");
 			response.sendRedirect(request.getContextPath()+"/memberInfo.mp");
 
 
 			
-		} else { //성공
-			// 성공했다는 alert 띄우고 mypage url 재요청
-			System.out.println("성공");
-			// session에 담겨있는 loginUser 바꿔치기 작업
+		} else { 
+			System.out.println("�꽦怨�");
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", updateMem);
-			session.setAttribute("alertMsg", "성공적으로 회원 정보를 수정했습니다.");
+			session.setAttribute("alertMsg", "-.");
 			response.sendRedirect(request.getContextPath()+"/memberInfo.mp");
 
 		
