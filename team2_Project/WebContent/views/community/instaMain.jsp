@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath(); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,7 +121,7 @@ div {
 			<div class="col"></div>
 			<div class="col">
 				<div style="padding-top: 35px; float: right;">
-					<a class="btn btn-secondary btn-lg" href="#" role="button">스타일올리기</a>
+					<a class="btn btn-secondary btn-lg" href="<%= contextPath %>/upload.co" role="button">스타일올리기</a>
 				</div>
 			</div>
 		</div>
