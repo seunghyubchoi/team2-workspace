@@ -1,12 +1,11 @@
 <%@page import="com.kh.manager.model.vo.Manager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-    Manager loginManager = (Manager)session.getAttribute("loginManager");
+<%
+  Manager loginManager = (Manager)session.getAttribute("loginManager");
 
-	
-	String contextPath = request.getContextPath();
-    %>
+  String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,9 +49,16 @@
                     <div id="right_bottom_top3"></div>
                     <div id="right_bottom_top4"></div>
                 </div>
+                <!-- /.container-fluid -->
+
             </div>
+            <!-- End of Main Content -->
+
         </div>
-        
-    
-    </body>
-    </html>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+</body>
+
+</html>
