@@ -445,7 +445,7 @@
 									<tr>
 										<td><%=l.getLocAddressName()%></td>
 										<td><input type="radio" id="defaultLocation"
-											name="defaultLocation" value="defaultLocation"> <span></span>
+											name="defaultLocation" value="<%=l.getLocYn()%>"> <span></span>
 											<!-- 
 											<%if(l.getLocYn().equals("Y")){ %>
 												<label for="defaultLocation">기본배송지</label>
@@ -499,8 +499,13 @@
 								
 								
 									$(function() {
-										
-												$()
+												// defaultLocation 이라는 이름의 input과 
+												$('input[name="defaultLocation"]').each(function(){
+													if($(this).val() == 'Y'){
+														$(this).prop('checked', true);
+														$(this).next().text("기본배송지");
+													}
+												})
 										
 												$('input[name="defaultLocation"]').change(function() {
 													$('input[name="defaultLocation"]').each(function() {
