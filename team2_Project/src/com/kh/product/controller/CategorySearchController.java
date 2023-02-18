@@ -34,7 +34,7 @@ public class CategorySearchController extends HttpServlet {
 		String categoryName = request.getParameter("cname");
 		
 		ArrayList<Product> list = new ProductService().categorySearch(categoryName);
-		
+		request.setAttribute("cname", categoryName);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/product/category.jsp").forward(request, response);
 	}
