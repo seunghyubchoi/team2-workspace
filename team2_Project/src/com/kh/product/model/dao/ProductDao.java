@@ -54,4 +54,94 @@ public class ProductDao {
 		}
 		return list;
 	}
+	
+	public ArrayList<Product> categoryViewSearch(Connection conn,String categoryName){
+		ArrayList<Product> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("categoryViewSearch");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, categoryName);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Product(rset.getInt("product_no"),
+									 rset.getString("product_name"),
+									 rset.getInt("product_discount"),
+									 rset.getInt("product_price"),
+									 rset.getString("brand_name"),
+									 rset.getInt("product_view_count"),
+									 rset.getString("product_img_src")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public ArrayList<Product> categoryRowPrice(Connection conn,String categoryName){
+		ArrayList<Product> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("categoryRowPrice");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, categoryName);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Product(rset.getInt("product_no"),
+									 rset.getString("product_name"),
+									 rset.getInt("product_discount"),
+									 rset.getInt("product_price"),
+									 rset.getString("brand_name"),
+									 rset.getInt("product_view_count"),
+									 rset.getString("product_img_src")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public ArrayList<Product> categoryHighPrice(Connection conn,String categoryName){
+		ArrayList<Product> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("categoryHighPrice");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, categoryName);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Product(rset.getInt("product_no"),
+									 rset.getString("product_name"),
+									 rset.getInt("product_discount"),
+									 rset.getInt("product_price"),
+									 rset.getString("brand_name"),
+									 rset.getInt("product_view_count"),
+									 rset.getString("product_img_src")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 }

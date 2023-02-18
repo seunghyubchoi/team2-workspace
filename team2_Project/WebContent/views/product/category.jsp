@@ -113,7 +113,7 @@
             <div class="col-9">
                 <div class="col-2">
                     <div style="padding-top: 35px;">
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                        <select id="productSorting" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" onchange="selectboxChange(this.value);">
                             <option selected>상품 정렬</option>
                             <option value="1">조회순</option>
                             <option value="2">가격 낮은순</option>
@@ -121,6 +121,19 @@
                         </select>
                     </div>
                 </div>
+                <script>
+               function selectboxChange(value){
+            	   console.log(value);
+            	   if(value == "1"){
+            		   location.href='<%= contextPath %>/category.pr?cname=<%= cname %>&val=1';
+            	   }else if(value == "2"){
+            		   location.href='<%= contextPath %>/category.pr?cname=<%= cname %>&val=2';
+            	   }else if(value == "3"){
+            		   location.href='<%= contextPath %>/category.pr?cname=<%= cname %>&val=3';
+            	   }
+               }
+                
+                </script>
                 <div class="row">
                 <% for(Product p : list) { %>
                     <div class="col" style="margin-bottom: 30px;">

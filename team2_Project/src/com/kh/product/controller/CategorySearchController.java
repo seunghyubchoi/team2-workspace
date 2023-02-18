@@ -32,8 +32,18 @@ public class CategorySearchController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String categoryName = request.getParameter("cname");
-		
-		ArrayList<Product> list = new ProductService().categorySearch(categoryName);
+		ArrayList<Product> list = new ArrayList();
+		if(request.getParameter("val") != null) {
+			int value = Integer.parseInt(request.getParameter("val"));
+			switch(value) {
+			case 1 : list = new ProductService().categoryViewSearch(categoryName); break;
+			case 2 : list = new ProductService().categoryRowPrice(categoryName); break;
+			case 3 : list = new ProductService().categoryHighPrice(categoryName); break;
+			}
+		}else {
+			
+			list = new ProductService().categorySearch(categoryName);
+		}
 		request.setAttribute("cname", categoryName);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/product/category.jsp").forward(request, response);

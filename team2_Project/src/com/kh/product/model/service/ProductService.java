@@ -17,5 +17,29 @@ public class ProductService {
 		close(conn);
 		return list;
 	}
+	
+	public ArrayList<Product> categoryViewSearch(String categoryName){
+		Connection conn = getConnection();
+		
+		ArrayList<Product> list = new ProductDao().categoryViewSearch(conn,categoryName);
+		close(conn);
+		return list;
+	}
+	
+	public ArrayList<Product> categoryRowPrice(String categoryName){
+		Connection conn = getConnection();
+		
+		ArrayList<Product> list = new ProductDao().categoryRowPrice(conn,categoryName);
+		close(conn);
+		return list;
+	}
+	
+	public ArrayList<Product> categoryHighPrice(String categoryName){
+		Connection conn = getConnection();
+		
+		ArrayList<Product> list = new ProductDao().categoryHighPrice(conn,categoryName);
+		close(conn);
+		return list;
+	}
 
 }
