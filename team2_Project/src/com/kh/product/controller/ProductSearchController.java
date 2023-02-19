@@ -13,16 +13,16 @@ import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
 
 /**
- * Servlet implementation class CategorySearchController
+ * Servlet implementation class ProductSearchController
  */
-@WebServlet("/category.pr")
-public class CategorySearchController extends HttpServlet {
+@WebServlet("/search.pr")
+public class ProductSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CategorySearchController() {
+    public ProductSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +31,20 @@ public class CategorySearchController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String categoryName = request.getParameter("cname");
+		String product = request.getParameter("product").toUpperCase(); // 입력받은 값 모두 대문자로 변환 
 		ArrayList<Product> list = new ArrayList();
 		
 		if(request.getParameter("val") != null) {
 			int value = Integer.parseInt(request.getParameter("val"));
-			
-			list = new ProductService().categorySort(categoryName,value);
-			
+			list = new ProductService().productSort(product, value);
 		}else {
 			
-			list = new ProductService().categorySearch(categoryName);
+		list = new ProductService().productSearch(product);
 		}
 		
-		request.setAttribute("cname", categoryName);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/product/category.jsp").forward(request, response);
+		request.setAttribute("product", product);
+		request.getRequestDispatcher("views/product/product_search.jsp").forward(request, response);
 	}
 
 	/**

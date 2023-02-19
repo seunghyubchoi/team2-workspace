@@ -183,13 +183,14 @@ a {
 			</div>
 			<div id="head2">
 				<div id="head2_1">
-					<div id=memmem></div>
+					<form action="<%= contextPath %>/search.pr" method="get">
+						<div id=memmem></div>
 					<div id="search">
-						<input type="text" id="searchbar"
+						<input type="text" id="searchbar" name="product"
 							placeholder="검색을 원하는 상품을 입력해주세요.">
 						<button id="btnsh">검색</button>
 					</div>
-
+					</form>
 				</div>
 				<div id="head2_2">
 					<ul class="menu">

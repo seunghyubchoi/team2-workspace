@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.kh.common.JDBCTemplate.*;
+
+import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
 
 public class ProductDao {
@@ -55,12 +57,16 @@ public class ProductDao {
 		return list;
 	}
 	
-	public ArrayList<Product> categoryViewSearch(Connection conn,String categoryName){
+	public ArrayList<Product> categorySort(Connection conn,String categoryName,int value){
 		ArrayList<Product> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		String sql = prop.getProperty("categoryViewSearch");
+		String sql = "";
+		switch(value) {
+		case 1 : sql = prop.getProperty("categoryViewSearch"); break;
+		case 2 : sql = prop.getProperty("categoryRowPrice"); break;
+		case 3 : sql = prop.getProperty("categoryHighPrice"); break;
+		}
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, categoryName);
@@ -85,15 +91,17 @@ public class ProductDao {
 		return list;
 	}
 	
-	public ArrayList<Product> categoryRowPrice(Connection conn,String categoryName){
+	
+	public ArrayList<Product> productSearch(Connection conn,String product){
 		ArrayList<Product> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("categoryRowPrice");
+		String sql = prop.getProperty("productSearch");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, categoryName);
+			pstmt.setString(1, product);
+			pstmt.setString(2, product);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
@@ -115,15 +123,20 @@ public class ProductDao {
 		return list;
 	}
 	
-	public ArrayList<Product> categoryHighPrice(Connection conn,String categoryName){
+	public ArrayList<Product> productSort(Connection conn,String product, int value){
 		ArrayList<Product> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		String sql = prop.getProperty("categoryHighPrice");
+		String sql = "";
+		switch(value) {
+		case 1 : sql = prop.getProperty("productViewSearch"); break;
+		case 2 : sql = prop.getProperty("productRowPrice"); break;
+		case 3 : sql = prop.getProperty("productHighPrice"); break;
+		}
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, categoryName);
+			pstmt.setString(1, product);
+			pstmt.setString(2, product);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {

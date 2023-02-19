@@ -18,26 +18,27 @@ public class ProductService {
 		return list;
 	}
 	
-	public ArrayList<Product> categoryViewSearch(String categoryName){
+	public ArrayList<Product> categorySort(String categoryName,int value){
 		Connection conn = getConnection();
 		
-		ArrayList<Product> list = new ProductDao().categoryViewSearch(conn,categoryName);
+		ArrayList<Product> list = new ProductDao().categorySort(conn,categoryName,value);
 		close(conn);
 		return list;
 	}
 	
-	public ArrayList<Product> categoryRowPrice(String categoryName){
+	
+	public ArrayList<Product> productSearch(String product){
 		Connection conn = getConnection();
 		
-		ArrayList<Product> list = new ProductDao().categoryRowPrice(conn,categoryName);
+		ArrayList<Product> list = new ProductDao().productSearch(conn, product);
 		close(conn);
 		return list;
 	}
 	
-	public ArrayList<Product> categoryHighPrice(String categoryName){
+	public ArrayList<Product> productSort(String product, int value){
 		Connection conn = getConnection();
 		
-		ArrayList<Product> list = new ProductDao().categoryHighPrice(conn,categoryName);
+		ArrayList<Product> list = new ProductDao().productSort(conn,product,value);
 		close(conn);
 		return list;
 	}
