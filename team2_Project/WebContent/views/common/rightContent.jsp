@@ -2,27 +2,16 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-
-<style>
-
-
-</style>
 </head>
-
 <body>
-	<%@include file="../common/menu.jsp"%>
-	<%@include file="../common/leftList.jsp"%>
+<%@include file = "menu.jsp" %>
+<%@include file = "leftList.jsp" %>
 	<div id="content_title">
-		<p>좋아요</p>
+		<p>회원정보 관리</p>
 	</div>
-	<%@include file="../common/footer.jsp"%>
-
-
+<%@include file = "footer.jsp" %>
 </body>
-
 </html>
