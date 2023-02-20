@@ -4,8 +4,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	int value = 0;
 	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
 	String cname = (String)request.getAttribute("cname");
+	if(request.getAttribute("value") != null){
+		value =(int)request.getAttribute("value");
+	}
+	
     DecimalFormat df = new DecimalFormat("###,###");
 %>
 <!DOCTYPE html>
@@ -133,6 +138,13 @@
             	   }
                }
                 
+              $(function(){
+            	  $("#productSorting option").each(function(){
+            		  if($(this).val()==<%= value %>){
+            			  $(this).prop("selected",true);
+            		  }
+            	  })
+              })
                 </script>
                 <div class="row">
                 <% for(Product p : list) { %>

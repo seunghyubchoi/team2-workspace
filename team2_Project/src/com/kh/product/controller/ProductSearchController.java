@@ -37,6 +37,7 @@ public class ProductSearchController extends HttpServlet {
 		if(request.getParameter("val") != null) {
 			int value = Integer.parseInt(request.getParameter("val"));
 			list = new ProductService().productSort(product, value);
+			request.setAttribute("value", value);
 		}else {
 			
 		list = new ProductService().productSearch(product);

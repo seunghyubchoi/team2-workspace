@@ -4,8 +4,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	int value = 0;
 	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
 	String product = (String)request.getAttribute("product");
+	if(request.getAttribute("value") != null){
+		value =(int)request.getAttribute("value");
+	}
 	DecimalFormat df = new DecimalFormat("###,###");
 %>
 <!DOCTYPE html>
@@ -76,7 +80,7 @@
                     <span style="color: plum;"><%= list.size() %></span>
                 </div>
                 <div class="col-2">
-                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" onchange="selectboxChange(this.value);">
+                    <select id="productSorting" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" onchange="selectboxChange(this.value);">
                         <option selected>상품 정렬</option>
                         <option value="1">조회순</option>
                         <option value="2">가격 낮은순</option>
@@ -97,6 +101,13 @@
             	   }
                }
                 
+               $(function(){
+             	  $("#productSorting option").each(function(){
+             		  if($(this).val()==<%= value %>){
+             			  $(this).prop("selected",true);
+             		  }
+             	  })
+               })
                 </script>
                 
                 <div class="row">
