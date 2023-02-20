@@ -339,7 +339,7 @@ ul.join_box {
 	<div class="container">
 		<div class="signin-signup">
 			<form action="<%=contextPath %>/login.me" name="loginform"
-				class="sign-in-form">
+				class="sign-in-form" method="post">
                 <h2 class="title">log in</h2>
                 <div class="input-field">
                     <input type="text" id="id" name="userId" placeholder="ID">
