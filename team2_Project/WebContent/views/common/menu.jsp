@@ -1,4 +1,5 @@
 <%@page import="com.kh.member.model.vo.Member"%>
+<%@page import="com.kh.member.model.vo.Member"%>
 <%@page import="com.kh.common.JDBCTemplate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -12,6 +13,22 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+<!-- jQuery library -->
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+
+<!-- Popper JS -->
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <style>
 div {
 	box-sizing: border-box;
@@ -142,72 +159,15 @@ a {
 	text-align: center;
 }
 
-/* left list*/
-#menu_list {
-	width: 30%;
-	float: left;
-	height: 70%;
-	padding-top: 45px;
+
+
+.btn {
+	border: #C7A9CC;
+	background-color: #C7A9CC;
 }
 
-.list_name {
-	width: 100%;
-	padding-bottom: 2.5rem;
-	padding-left: 4rem;
-}
-
-.list_name a {
-	color: rgb(51, 51, 51);
-	font-size: 1.5rem;
-	text-decoration: none;
-	font-weight: bold;
-}
-
-/* right content*/
-#menu_content {
-	float: right;
-	width: 70%;
-	height: 70%;
-	text-align: center;
-}
-
-#content_title p {
-	text-align: left;
-	font-size: 2rem;
-	font-weight: bolder;
-	padding-bottom: 3rem;
-}
-
-/*footer*/
-.footer {
-	float: left;
-	height: 15%;
-	/*height: 260px;*/
-}
-
-
-#footer>div {
-	height: 100%;
-	text-align: center;
-	font-size: 20px;
-}
-
-.ft {
-	border: 1px solid rgb(182, 169, 169);
-	width: 25%;
-	float: left;
-	padding: 5px;
-	border-bottom: white;
-	border-top: white;
-}
-
-#f1 {
-	width: 1500px;
-	border: 7px solid #E0BFE6;
-	border-bottom: white;
-	border-left: white;
-	border-right: white;
-	padding-bottom: 10px;
+.btn:hover {
+	background-color: #9a77a1;
 }
 </style>
 </head>
@@ -216,8 +176,7 @@ a {
 		if (alertMsg != null) {
 	%>
 	<script>
-    	alert("<%=alertMsg%>
-		");
+    	alert("<%=alertMsg%>");
 	</script>
 	<%
 		session.removeAttribute("alertMsg");
@@ -266,65 +225,5 @@ a {
 				</div>
 			</div>
 		</div>
-		<!-- header end -->
-
-		<!-- body start -->
-		<!-- left list start-->
-		<div id="menu_list">
-			<div class="list_name">
-				<a href="<%=contextPath%>/myPage.mp">회원정보관리</a>
-			</div>
-			<div class="list_name">
-				<a href="<%=contextPath%>/orderHistory.mp">주문내역</a>
-			</div>
-			<div class="list_name">
-				<a href="<%=contextPath%>/mileageHistory.mp">적립금내역</a>
-			</div>
-			<div class="list_name">
-				<a href="<%=contextPath%>/likes.mp">좋아요</a>
-			</div>
-			<div class="list_name">
-				<a href="<%=contextPath%>/follow.mp">팔로잉/팔로워</a>
-			</div>
-		</div>
-		<!-- left list end-->
-		<!-- content start-->
-		<div id="menu_content">
-			<div id="content_title">
-				<p>회원정보 관리</p>
-			</div>
-			<div>sdfjslfsljdlsfjldsjlfdjslkjlksjvljdslkvjsdlkvklj</div>
-			<!-- content end -->
-		</div>
-		<!-- footer start-->
-		<div class="footer">
-			<div id="f1"></div>
-			<div id="footer">
-				<div class="ft" style="border-left: white;">
-					<h4>전화 문의(9시~16시)</h4>
-					<h4 style="font-weight: lighter;">1588-1588</h4>
-				</div>
-				<div class="ft">
-					<h4>고객센터 미운영시간 안내</h4>
-					<h4 style="font-weight: lighter;">
-						점심시간(12시~13시) <br> (토/일, 공휴일은 휴무)
-					</h4>
-				</div>
-				<div class="ft">
-					<h4>약관 및 정책 안내</h4>
-					<h4 style="font-weight: lighter;">
-						개인정보처리방침 <br> 이용약관 <br> 사업자 정보 확인
-					</h4>
-				</div>
-				<div class="ft" style="border-right: white;">
-					<img src="resources/img/로고1.png" alt=".." width="100%" height=100%
-						style="padding: 5% 0%;" margin="5px">
-				</div>
-			</div>
-		</div>
-		<!-- footer end-->
-	</div>
-	<!-- wrap end -->
-
 </body>
 </html>
