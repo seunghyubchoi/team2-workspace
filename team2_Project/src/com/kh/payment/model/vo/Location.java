@@ -14,6 +14,23 @@ public class Location {
 	
 	public Location() {}
 
+	
+	
+	public Location(int locNo, String locAddressName, String locName, String locPhone, String locAddress,
+			String locAddressDtl, String locPostCode, String locYn) {
+		super();
+		this.locNo = locNo;
+		this.locAddressName = locAddressName;
+		this.locName = locName;
+		this.locPhone = locPhone;
+		this.locAddress = locAddress;
+		this.locAddressDtl = locAddressDtl;
+		this.locPostCode = locPostCode;
+		this.locYn = locYn;
+	}
+
+
+
 	public Location(int locNo, int memNo, String locAddressName, String locName, String locPhone, String locAddress,
 			String locAddressDtl, String locPostCode, String delYn, String locYn) {
 		super();

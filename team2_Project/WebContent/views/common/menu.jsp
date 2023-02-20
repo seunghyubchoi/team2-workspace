@@ -169,6 +169,31 @@ a {
 .btn:hover {
 	background-color: #9a77a1;
 }
+.btn:focus {
+	background-color: #9a77a1;
+
+}
+
+#content {
+	width: 100%;
+	color: rgb(51, 51, 51)
+}
+
+#content_table {
+	text-align: left;
+	width: 100%;
+	height: 100%;
+}
+
+#content_table th {
+	padding-bottom: 30px;
+}
+
+#content_table td {
+	padding-left: 10px;
+	padding-bottom: 30px;
+}
+
 </style>
 </head>
 <body>

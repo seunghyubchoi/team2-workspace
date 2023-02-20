@@ -38,7 +38,7 @@ public class MemberLoginController extends HttpServlet {
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		System.out.println(loginUser);
 		if(loginUser == null) {
-			request.setAttribute("errorMsg", "·Î±×ÀÎ ½ÇÆĞÇß½À´Ï´Ù!");
+			request.setAttribute("errorMsg", "ë¡œê·¸ì¸ ì‹¤íŒ¨!");
 			RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 			view.forward(request, response);		
 		} else {

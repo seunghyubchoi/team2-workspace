@@ -18,7 +18,14 @@
 								// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 				
 								// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-								// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+								// 내려오는 변수가 값이 없는
+								++
+								
+								
+								
+								
+								
+								경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 								var addr = ''; // 주소 변수
 								var extraAddr = ''; // 참고항목 변수
 				
@@ -62,34 +69,6 @@
 				</script>
 
 <style>
-#member_info {
-	width: 100%;
-	color: rgb(51, 51, 51)
-}
-
-#member_table {
-	text-align: left;
-	width: 100%;
-	height: 100%;
-}
-
-#member_table th {
-	padding-bottom: 30px;
-}
-
-#member_table td {
-	padding-left: 10px;
-	padding-bottom: 30px;
-}
-
-.btn {
-	border: #C7A9CC;
-	background-color: #C7A9CC;
-}
-
-.btn:hover {
-	background-color: #9a77a1;
-}
 
 #deleteUserBtn a {
 	text-decoration: none;
@@ -133,6 +112,7 @@
 	String locPhone = defaultLocation.getLocPhone();
 	String locPostCode = defaultLocation.getLocPostCode();
 	String locYn = defaultLocation.getLocYn();
+	//int locNo = defaultLocation.getLocNo();
 	int num = 0;
 	%>
 
@@ -143,9 +123,9 @@
 	<div id="content_title">
 		<p>회원정보 관리</p>
 	</div>
-	<div id="member_info">
+	<div id="content">
 		<form action="<%=contextPath%>/update.me" method="post">
-			<table id="member_table">
+			<table id="content_table">
 				<tr>
 					<th>ID</th>
 					<td><input type="text" class="form-control mb-2 mr-sm-2"
@@ -204,11 +184,14 @@
 					</td>
 
 					<td>
-						<button type="button" id ="btn_newLoc" class="btn btn-primary mb-2"
+						<button type="button" id="btn_newLoc" class="btn btn-primary mb-2"
 							data-toggle="modal" data-target="#newLocation">
-							<!-- onclick="return validateLoc();" -->새로운 배송지</button>
-						<button type="button" id="btn_locList" class="btn btn-primary mb-2"
-							data-toggle="modal" data-target="#locationList">배송지 목록</button>
+							<!-- onclick="return validateLoc();" -->
+							새로운 배송지
+						</button>
+						<button type="button" id="btn_locList"
+							class="btn btn-primary mb-2" data-toggle="modal"
+							data-target="#locationList">배송지 목록</button>
 					</td>
 
 
@@ -356,8 +339,7 @@
 				</div>
 				<!-- Modal body -->
 				<div class="modal-body" align="center">
-					<form action="<%=contextPath%>/delete.me" method="post">
-						<input type="hidden" name="memNo" value="<%=memNo%>">
+					
 
 						<table id="locationLists">
 							<%
@@ -371,16 +353,15 @@
 							%>
 							<%
 								// int i=0;
-							
+
 							for (Location l : list) {
 							%>
-							<!-- 
+							<form action="<%=contextPath%>/modifyLoc.lo" method="post">
+							<input type="hidden" name="locNo" value="<%=l.getLocNo()%>">
 							<tr>
 								<td><%=l.getLocAddressName()%></td>
-								<td><input type="radio" class="defaultLocation"
-									name="defaultLocation" value="<%=l.getLocYn()%>"> <span></span>
 							</tr>
-							 -->
+
 							<tr>
 								<td><%=l.getLocName()%></td>
 							</tr>
@@ -397,11 +378,15 @@
 							<tr>
 								<td><%=l.getLocPhone()%></td>
 							</tr>
-							<%num++; %>
+							<%
+								num++;
+							%>
 							<tr>
 								<td></td>
-								<td><button type="button" class="btn btn-sm btn-danger" value="<%=l.getLocNo() %>" onclick="modifyLoc();">수정하기</button>
-									<button type="button" class="btn btn-sm btn-danger" value="<%=l.getLocNo() %>" onclick="deleteLoc();)">삭제하기</button>
+								<td><button type="submit" class="btn btn-sm btn-danger"
+										value="<%=l.getLocNo()%>">수정하기</button>
+									<button type="button" class="btn btn-sm btn-danger"
+										value="<%=l.getLocNo()%>">삭제하기</button>
 								</td>
 							</tr>
 							<tr>
@@ -409,7 +394,7 @@
 									<hr>
 								</td>
 							</tr>
-
+							</form>
 							<%
 								}
 							%>
@@ -417,19 +402,16 @@
 							<%
 								}
 							%>
-							
 
-							
+
+
 
 						</table>
 						<script>
+							
 						
 							$(function() {
 								
-								
-								
-										
-										
 										// 새로운 배송지 추가 클릭 시 2개면?
 										let num = <%=num%>;
 										$("#btn_newLoc").click(function() {

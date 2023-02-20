@@ -99,4 +99,67 @@ public class PaymentDao {
 		return list;
 	}
 
+	public Location selectLocationByLocationNo(Connection conn, int locNo) {
+		Location location = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectLocationByLocationNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, locNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				location = new Location(
+						  rset.getInt("loc_no")
+						, rset.getInt("mem_no")
+						, rset.getString("loc_address_name")
+						, rset.getString("loc_name")
+						, rset.getString("loc_phone")
+						, rset.getString("loc_address")
+						, rset.getString("loc_address_dtl")
+						, rset.getString("loc_post_code")
+						, rset.getString("del_yn")
+						, rset.getString("loc_yn")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return location;
+	}
+
+	public int updateLocation(Connection conn, Location l) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateLocation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, l.getLocAddressName());
+			pstmt.setString(2, l.getLocName());
+			pstmt.setString(3, l.getLocPhone());
+			pstmt.setString(4, l.getLocAddress());
+			pstmt.setString(5, l.getLocAddressDtl());
+			pstmt.setString(6, l.getLocPostCode());
+			pstmt.setString(7, l.getLocYn());
+			pstmt.setInt(8, l.getLocNo());
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

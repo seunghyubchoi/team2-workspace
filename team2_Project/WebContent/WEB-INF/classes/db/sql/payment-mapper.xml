@@ -35,4 +35,31 @@
 	WHERE MEM_NO = ?
 	AND DEL_YN = 'Y'
 	</entry>
+	<entry key="selectLocationByLocationNo">
+		SELECT 
+		        LOC_NO
+		      , MEM_NO
+		      , LOC_ADDRESS_NAME
+		      , LOC_NAME
+		      , LOC_PHONE
+		      , LOC_ADDRESS
+		      , LOC_ADDRESS_DTL
+		      , LOC_POST_CODE
+		      , DEL_YN
+		      , LOC_YN
+		FROM TB_LOCATION
+		WHERE LOC_NO = ?
+		AND DEL_YN = 'Y'
+	</entry>
+	<entry key="updateLocation">
+	UPDATE TB_LOCATION
+	   SET LOC_ADDRESS_NAME = ?
+	     , LOC_NAME = ?
+	     , LOC_PHONE = ?
+	     , LOC_ADDRESS = ?
+	     , LOC_ADDRESS_DTL = ?
+	     , LOC_POST_CODE = ?
+	     , LOC_YN = ?
+	 WHERE LOC_NO = ?
+	</entry>
 </properties>

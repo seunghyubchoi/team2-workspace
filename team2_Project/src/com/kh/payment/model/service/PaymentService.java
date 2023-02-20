@@ -28,4 +28,29 @@ public class PaymentService {
 		return list;
 	}
 
+	public Location selectLocationByLocationNo(int locNo) {
+		Connection conn = getConnection();
+		
+		Location location = new PaymentDao().selectLocationByLocationNo(conn, locNo);
+		
+		close(conn);
+		
+		return location;
+		
+	}
+
+	public Location updateLocation(Location l) {
+		Connection conn = getConnection();
+		int result = new PaymentDao().updateLocation(conn, l);
+		Location location = null;
+		if(result > 0) {
+			commit(conn);
+			location = new PaymentDao().selectLocationByLocationNo(conn, l.getLocNo());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return location;
+	}
+
 }
