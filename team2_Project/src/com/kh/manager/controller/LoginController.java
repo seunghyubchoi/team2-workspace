@@ -44,13 +44,16 @@ public class LoginController extends HttpServlet {
 	
 	
 		if(loginManager == null) {
-			RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-			view.forward(request, response);
+			// RequestDispatcher view = request.getRequestDispatcher("/team2_Project/views/admin/admin_login.jsp");
+			// view.forward(request, response);
+			
+			response.sendRedirect("/team2_Project/views/admin/adminLogin.jsp");
 		} else {
+			// 세션 처리 해줘야 함
 			HttpSession session = request.getSession();
 			session.setAttribute("loginManager", loginManager);
 			
-			RequestDispatcher view = request.getRequestDispatcher("views/admin/adminNoticeMain.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("/team2_Project/views/admin/adminNoticeMain.jsp");
 			view.forward(request, response);
 		}
 	}
