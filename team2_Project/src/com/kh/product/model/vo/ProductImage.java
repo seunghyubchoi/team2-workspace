@@ -5,15 +5,18 @@ public class ProductImage {
 	private String productImgName;
 	private String productImgSrc;
 	private int productNo;
+	private int imgType;
 	
 	public ProductImage() {}
 
-	public ProductImage(int productImgNo, String productImgName, String productImgSrc, int productNo) {
+
+	public ProductImage(int productImgNo, String productImgName, String productImgSrc, int productNo, int imgType) {
 		super();
 		this.productImgNo = productImgNo;
 		this.productImgName = productImgName;
 		this.productImgSrc = productImgSrc;
 		this.productNo = productNo;
+		this.imgType = imgType;
 	}
 
 	public int getProductImgNo() {
@@ -47,12 +50,25 @@ public class ProductImage {
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
 	}
+	
+
+	public int getImgType() {
+		return imgType;
+	}
+
+
+	public void setImgType(int imgType) {
+		this.imgType = imgType;
+	}
+
 
 	@Override
 	public String toString() {
 		return "ProductImage [productImgNo=" + productImgNo + ", productImgName=" + productImgName + ", productImgSrc="
-				+ productImgSrc + ", productNo=" + productNo + "]";
+				+ productImgSrc + ", productNo=" + productNo + ", imgType=" + imgType + "]";
 	}
+
+
 	
 	
 }

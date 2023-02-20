@@ -12,6 +12,7 @@ import java.util.Properties;
 import static com.kh.common.JDBCTemplate.*;
 
 import com.kh.product.model.service.ProductService;
+import com.kh.product.model.vo.Option;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductImage;
 
@@ -218,6 +219,55 @@ public class ProductDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectProductImage");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new ProductImage(rset.getInt("product_img_no"),
+										  rset.getString("product_img_name"),
+										  rset.getString("product_img_src"),
+										  rset.getInt("product_no"),
+										  rset.getInt("img_type")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 		
+	}
+	
+	public ArrayList<Option> selectProductOption(Connection conn,int pNo){
+		ArrayList<Option> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectProductOption");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Option(rset.getInt("option_no"),
+									rset.getString("option_size"),
+									rset.getInt("option_stock"),
+									rset.getInt("product_no")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 }

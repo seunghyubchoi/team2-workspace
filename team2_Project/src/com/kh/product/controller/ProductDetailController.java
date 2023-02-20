@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.product.model.service.ProductService;
+import com.kh.product.model.vo.Option;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductImage;
+import com.kh.product.model.vo.Review;
 
 /**
  * Servlet implementation class ProductDetailController
@@ -33,13 +35,16 @@ public class ProductDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 int pNo = Integer.parseInt(request.getParameter("pno"));
-		 ArrayList<ProductImage> list = new ArrayList();
+		 ArrayList<ProductImage> imgList = new ArrayList();
+		 ArrayList<Option> opList = new ArrayList();
+		 ArrayList<Review> reviewList = new ArrayList();
 		 Product p = new ProductService().productDetail(pNo);
 		 
 		 int viewUp = new ProductService().productViewUp(pNo);
 		 
 		 if(viewUp > 0) {
-			 list = new ProductService().selectProductImage(pNo);
+			 imgList = new ProductService().selectProductImage(pNo);
+			 opList = new ProductService().selectProductOption(pNo);
 		 }else {
 			 
 		 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import static com.kh.common.JDBCTemplate.*;
 
 import com.kh.product.model.dao.ProductDao;
+import com.kh.product.model.vo.Option;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductImage;
 
@@ -69,6 +70,16 @@ public class ProductService {
 		Connection conn = getConnection();
 		
 		ArrayList<ProductImage> list = new ProductDao().selectProductImage(conn, pNo);
+		close(conn);
+		return list;
+	}
+	
+	public ArrayList<Option> selectProductOption(int pNo){
+		Connection conn = getConnection();
+		
+		ArrayList<Option> list = new ProductDao().selectProductOption(conn, pNo);
+		close(conn);
+		return list;
 	}
 
 }
