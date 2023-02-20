@@ -13,6 +13,7 @@ import static com.kh.common.JDBCTemplate.*;
 
 import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
+import com.kh.product.model.vo.ProductImage;
 
 public class ProductDao {
 	
@@ -156,5 +157,67 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public Product productDetail(Connection conn,int pNo) {
+		Product p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("productDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				     p = new Product(rset.getInt("product_no"),
+									 rset.getString("product_name"),
+									 rset.getInt("product_discount"),
+									 rset.getInt("product_price"),
+									 rset.getString("brand_name"),
+									 rset.getInt("product_view_count"),
+									 rset.getString("product_img_src"));
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
+	}
+	
+	public int productViewUp(Connection conn,int pNo) {
+		int result = 0 ;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("productViewUp");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public ArrayList<ProductImage> selectProductImage(Connection conn, int pNo){
+		ArrayList<ProductImage> list = new ArrayList();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectProductImage");
+		
 	}
 }

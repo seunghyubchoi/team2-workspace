@@ -146,7 +146,7 @@
                                     <h5 class="card-title" style="text-align: left; font-weight: 600; font-size: 18px;">
                                         <%=p.getBrandName() %></h5>
                                 </a>
-                                <div style="text-align: left; color: gray;"><%=p.getProductName() %></div>
+                               <a href="#"> <div style="text-align: left; color: gray;"><%=p.getProductName() %></div></a>
                                 <div style="text-align: left; font-weight: 600; color: plum;"><%=p.getProductDiscount() %>%
                                     <span><%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01))) %></span>
                                     <span style="color: gray;"><%=df.format(p.getProductPrice())%></span>
@@ -154,6 +154,13 @@
                             </div>
                         </div>
                     </div>
+                    <script>
+                    $(function(){
+                		$(".card a").click(function(){
+                			location.href='<%= contextPath %>/product.pr?pno=<%= p.getProductNo()%>';
+                		})
+                	})
+                    </script>
 					<% } %>
                 </div>
             </div>
@@ -167,6 +174,8 @@
 			}
 		})
 	})
+	
+	
 	</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
