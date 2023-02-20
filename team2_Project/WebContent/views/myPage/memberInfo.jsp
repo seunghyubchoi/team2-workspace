@@ -62,8 +62,6 @@
 				</script>
 
 <style>
-
-
 #member_info {
 	width: 100%;
 	color: rgb(51, 51, 51)
@@ -135,9 +133,10 @@
 	String locPhone = defaultLocation.getLocPhone();
 	String locPostCode = defaultLocation.getLocPostCode();
 	String locYn = defaultLocation.getLocYn();
+	int num = 0;
 	%>
 
-	
+
 
 
 
@@ -205,11 +204,13 @@
 					</td>
 
 					<td>
-						<button type="button" class="btn btn-primary mb-2"
-							data-toggle="modal" data-target="#newLocation">새로운 배송지</button>
-						<button type="button" class="btn btn-primary mb-2"
+						<button type="button" id ="btn_newLoc" class="btn btn-primary mb-2"
+							data-toggle="modal" data-target="#newLocation">
+							<!-- onclick="return validateLoc();" -->새로운 배송지</button>
+						<button type="button" id="btn_locList" class="btn btn-primary mb-2"
 							data-toggle="modal" data-target="#locationList">배송지 목록</button>
 					</td>
+
 
 
 				</tr>
@@ -261,16 +262,17 @@
 
 												});
 
+												
 
-												const adCheck = "<%=adCheck%>";
+							const adCheck = "<%=adCheck%>";
 
-							$("input[type=checkbox]").each(function() {
-								if (adCheck.search($(this).val()) != -1) {
-									$(this).attr("checked", true); // input 태그에 checked=true라는 속성생기는 거라 봐도 됨
-								}
-							})
-						})
-					</script>
+					$("input[type=checkbox]").each(function() {
+						if (adCheck.search($(this).val()) != -1) {
+							$(this).attr("checked", true); // input 태그에 checked=true라는 속성생기는 거라 봐도 됨
+						}
+					})
+				})
+			</script>
 
 
 		</form>
@@ -359,28 +361,26 @@
 
 						<table id="locationLists">
 							<%
-										if (list.isEmpty()) {
-									%>
+								if (list.isEmpty()) {
+							%>
 							<tr>
 								<td>존재하는 배송지가 없습니다.</td>
 							</tr>
 							<%
-										} else {
-									%>
+								} else {
+							%>
 							<%
-										// int i=0;
-										for (Location l : list) {
-									%>
+								// int i=0;
+							
+							for (Location l : list) {
+							%>
+							<!-- 
 							<tr>
 								<td><%=l.getLocAddressName()%></td>
-								<td><input type="radio" id="defaultLocation"
+								<td><input type="radio" class="defaultLocation"
 									name="defaultLocation" value="<%=l.getLocYn()%>"> <span></span>
-									<!-- 
-											<%if(l.getLocYn().equals("Y")){ %>
-												<label for="defaultLocation">기본배송지</label>
-											<%} %>
-											 --></td>
 							</tr>
+							 -->
 							<tr>
 								<td><%=l.getLocName()%></td>
 							</tr>
@@ -397,7 +397,13 @@
 							<tr>
 								<td><%=l.getLocPhone()%></td>
 							</tr>
-
+							<%num++; %>
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-sm btn-danger" value="<%=l.getLocNo() %>" onclick="modifyLoc();">수정하기</button>
+									<button type="button" class="btn btn-sm btn-danger" value="<%=l.getLocNo() %>" onclick="deleteLoc();)">삭제하기</button>
+								</td>
+							</tr>
 							<tr>
 								<td colspan="2">
 									<hr>
@@ -411,64 +417,62 @@
 							<%
 								}
 							%>
+							
 
-
-
-							<tr>
-								<td></td>
-								<td><button type="submit" class="btn btn-sm btn-danger">수정하기</button>
-									<button type="submit" class="btn btn-sm btn-danger">삭제하기</button>
-								</td>
-							</tr>
+							
 
 						</table>
 						<script>
-							$(
-									function() {
-										// defaultLocation 이라는 이름의 input과 
+						
+							$(function() {
+								
+								
+								
+										
+										
+										// 새로운 배송지 추가 클릭 시 2개면?
+										let num = <%=num%>;
+										$("#btn_newLoc").click(function() {
+											if(num == 2) {
+												alert("새로운 배송지를 추가할 수 없습니다.");
+												console.log($(this))
+												$(this).removeAttr("data-target");
+												// 여기서 배송지가 2개에서 1개로 변경하고도 나오는지 확인해야함
+											}
+										})
+										// 목록 클릭시 기본배송지 radio 체크 표기(사용안함)
 										$('input[name="defaultLocation"]')
 												.each(
 														function() {
 															if ($(this).val() == 'Y') {
-																$(this)
-																		.prop(
-																				'checked',
-																				true);
-																$(this)
-																		.next()
-																		.text(
-																				"기본배송지");
+																$(this).prop('checked',true);
+																$(this).next().text("기본배송지");
 															}
 														})
-
+										// radio로 기본배송지 선택 (사용안함)
 										$('input[name="defaultLocation"]')
-												.change(
-														function() {
-															$(
-																	'input[name="defaultLocation"]')
-																	.each(
-																			function() {
-																				let checked = $(
-																						this)
-																						.prop(
-																								'checked');
-																				let defaultLocMsg = $(
-																						this)
-																						.next();
+												.change(function() {$('input[name="defaultLocation"]').each(function() {
+																		let checked = $(this).prop('checked');
+																		let defaultLocMsg = $(this).next();
 																				if (checked) {
-																					$(
-																							defaultLocMsg)
-																							.text(
-																									"기본배송지");
+																					$(defaultLocMsg).text("기본배송지");
 																				} else {
-																					$(
-																							defaultLocMsg)
-																							.text(
-																									"");
+																					$(defaultLocMsg).text("");
 																				}
 																			})
 														})
+
+										
 									})
+									
+									function validateLoc() {
+											let num = <%=num%>;
+											console.log(num);
+											if (num == 2) {
+												alert("새로운 배송지를 추가할 수 없습니다.");
+												return false; 
+											}
+										}
 						</script>
 
 
