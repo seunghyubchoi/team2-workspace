@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            box-sizing: border-box;
+            /* border: 1px solid black; */
+        }
+
+        .wrap {
+            width: 1200px;
+            height: 700px;
+            margin: auto;
+        }
+
+        .wrap>div {
+            height: 100%;
+            float: left;
+        }
+
+        .area1,
+        .area3 {
+            width: 30%;
+        }
+
+        .area2 {
+            width: 40%;
+            text-align: center;
+        }
+
+        .area3>div {
+            width: 100%;
+        }
+
+        #a1 {
+            height: 90%;
+        }
+
+        #a2 {
+            height: 10%;
+        }
+
+        .area2 * {
+            width: 450px;
+            height: 600px;
+            margin-top: 45px;
+        }
+
+        .area1>div {
+            width: 300px;
+            height: 600px;
+            background-color: lightgray;
+            margin-top: 45px;
+            margin-left: 25px;
+        }
+
+        .area3>div {
+            text-align: center;
+        }
+
+        #a2>button {
+            width: 100px;
+            height: 40px;
+            font-size: 16px;
+        }
+
+        .brandBtn {
+            width: 45px;
+            height: 45px;
+            border-radius: 30px;
+            border: 0;
+            margin: 4px;
+        }
+
+        .brandBtn>img {
+            width: 30px;
+            height: 30px;
+        }
+
+        #content>div {
+            width: 100%;
+            padding: 5px;
+        }
+
+        #c1,
+        #c3 {
+            height: 30%;
+            margin: 5px;
+        }
+
+        #c2 {
+            height: 15%;
+            margin-top: 25px;
+            margin-left: 5px;
+        }
+
+        #c2>div {
+            width: 50%;
+            height: 100%;
+            float: left;
+        } 
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="area1">
+            <div id="content">
+                <div id="c1">
+                    <h4>브랜드 선택</h4>
+                    <button class="brandBtn">
+                        <img src="resources/키르시 (2).png" alt="">
+                    </button>
+                    <button class="brandBtn">
+                        <img src="resources/oioi.png" alt="">
+                    </button>
+                    <button class="brandBtn">
+                        <img src="resources/무아무아 (2).png" alt="">
+                    </button>
+                    <button class="brandBtn">
+                        <img src="resources/나이키 (2).png" alt="">
+                    </button>
+                    <button class="brandBtn">
+                        <img src="resources/아디다스 (2).png" alt="">
+                    </button>
+                    <h4>상품명</h4>
+                    <input type="text" placeholder="상품명" style="width: 250px; height: 35px;">
+                </div>
+                <div id="c2">
+                    <div id="size">
+                        <h4>사이즈</h4>
+                        <select name="" id="" style="width: 100px; height: 35px;">
+                            <option value="">Free</option>
+                            <option value="">S</option>
+                            <option value="">M</option>
+                            <option value="">L</option>
+                            <option value="">XL</option>
+                        </select>
+                    </div>
+                    <div id="category">
+                        <h4>카테고리</h4>
+                        <select name="" id="" style="width: 100px; height: 35px;">
+                            <option value="">아우터</option>
+                            <option value="">상의</option>
+                            <option value="">하의</option>
+                            <option value="">슈즈</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="c3">
+                    <h4>가격 입력</h4>
+                    <input type="text" style="width: 250px; height: 35px;">
+                    <h4>링크 입력</h4>
+                    <input type="url" style="width: 250px; height: 35px;">
+                    <br><br><br>
+                    <button style="width: 60px; height: 30px;">취소</button>
+                    <button style="width: 60px; height: 30px;">확인</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="area2">
+            <img src="resources/4.jpg" alt="">
+        </div>
+        <div class="area3">
+            <div id="a1"></div>
+            <div id="a2">
+                <button>취소</button>
+                <button>확인</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

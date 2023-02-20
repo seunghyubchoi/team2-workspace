@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="loginMember">
+		SELECT 
+		    MEM_NO,
+		    MEM_ID,
+		    MEM_PWD,
+		    MEM_NAME,
+		    EMAIL,
+		    PHONE,
+		    ENROLL_DATE,
+		    AD_CHECK,
+		    GENDER,
+		    BIRTHDAY,
+		    INSTA_ID,
+		    ACT_YN,
+		    MILEAGE
+		FROM TB_MEMBER
+		WHERE MEM_ID = ?
+		AND MEM_PWD = ?
+		AND ACT_YN = 'Y'
+	</entry>
+	
+	
+		<entry key="passwordCheck">
+		SELECT 
+		    MEM_NO,
+		    MEM_ID,
+		    MEM_PWD,
+		    MEM_NAME,
+		    EMAIL,
+		    PHONE,
+		    ENROLL_DATE,
+		    AD_CHECK,
+		    GENDER,
+		    BIRTHDAY,
+		    INSTA_ID,
+		    ACT_YN,
+		    MILEAGE
+		FROM TB_MEMBER
+		WHERE MEM_ID = ?
+		AND MEM_PWD = ?
+		AND ACT_YN = 'Y'
+	</entry>
+	
+	<entry key="updateMember">
+		UPDATE TB_MEMBER 
+		    SET GENDER = ?
+		      , BIRTHDAY = ?
+		      , PHONE = ?
+		      , EMAIL = ?
+		      , INSTA_ID = ?
+		      , AD_CHECK = ?
+	    WHERE MEM_ID = ?
+	</entry>
+	
+	<entry key="selectMember">
+		SELECT
+			  MEM_NO
+		    , MEM_ID
+			, MEM_PWD
+			, MEM_NAME
+			, EMAIL
+			, PHONE
+			, ENROLL_DATE
+			, AD_CHECK
+			, GENDER
+			, BIRTHDAY
+			, INSTA_ID
+			, ACT_YN
+			, MILEAGE
+		FROM TB_MEMBER
+		WHERE MEM_ID = ?
+	</entry>
+	
+	<entry key="updatePwd">
+		UPDATE TB_MEMBER
+			   SET MEM_PWD = ?
+		WHERE MEM_ID = ?
+		AND MEM_PWD = ?
+	</entry>
+	
+</properties>
