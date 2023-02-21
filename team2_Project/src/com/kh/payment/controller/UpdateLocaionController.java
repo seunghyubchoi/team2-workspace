@@ -33,6 +33,7 @@ public class UpdateLocaionController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		int locNo = Integer.parseInt(request.getParameter("locNo"));
 		String locAddressName = request.getParameter("locAddressName");
 		String locName = request.getParameter("locName");
