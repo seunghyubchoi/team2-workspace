@@ -438,7 +438,7 @@
 					<h3>태그 추가</h3>
 					<input type="text">
 					<button>등록</button>
-					<br> <br> <br> <br> <input type="checkbox">
+					<br> <br> <br> <br> <input type="checkbox" required>
 					콘텐츠 활동 동의 (필수)
 					<h5>
 						- 게시물은 1일 1회만 업로드할 수 있습니다. <br> - 비방성이나 광고성 글, 또는 본 게시판의 성격과
