@@ -15,11 +15,11 @@ pageEncoding="UTF-8"%>
 
 <body id="page-top">
 
-    <!-- include common element  -->
-    <%@ include file="adminCommon.jsp" %>
-    
     <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="display: flex;">
+
+        <!-- include common element  -->
+        <%@ include file="adminCommon.jsp" %>
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
