@@ -62,4 +62,9 @@
 	     , LOC_YN = ?
 	 WHERE LOC_NO = ?
 	</entry>
+	<entry key ="updateLocationSetN">
+	UPDATE TB_LOCATION
+	  SET LOC_YN = 'N'
+	WHERE MEM_NO = ?;
+	</entry>
 </properties>

@@ -16,7 +16,9 @@
 	<%@include file="../common/menu.jsp"%>
 	<%@include file="../common/leftList.jsp"%>
 	<%
-		Location location = (Location) request.getAttribute("location");
+	
+	Location location = (Location) request.getAttribute("location");
+	int memNo = loginUser.getMemNo();
 	int locNo = location.getLocNo();
 	String locName = location.getLocName();
 	String locAddress = location.getLocAddress();
@@ -33,6 +35,9 @@
 	<div id="content">
 		<form action="<%=contextPath%>/update.lo" method="post" id="updateLocationForm">
 		<input type="hidden" name="locNo" value="<%=locNo%>">
+		<input type="hidden" name="locYn">
+		
+		<input type="hidden" name="memNo" value="<%=memNo%>">
 			<table id="content_table">
 				<tr>
 					<th>배송지명</th>
@@ -66,15 +71,14 @@
 						value="<%=locPhone%>" name="locPhone"></td>
 				</tr>
 
-		<%if(locYn.equals("N")) {%>
+		
 		
 				<tr>
 					<th><label for="defaultLoc">기본 배송지로 지정</label></th>
-					<td><input type="checkbox" name="locYn" id="locYn"
-						value="<%=locYn%>"></td>
+					<td><input type="checkbox" name="locYnCheck"></td>
 
 				</tr>
-				<%} %>
+		
 
 				<tr style="visibility: hidden;">
 					<th>현재 배송지</th>
@@ -105,22 +109,27 @@
 			<script>
 			
 			$(function () {
+				$('#updateLocationForm').submit(function() {
+					if ($('input[name="locYnCheck"]').is(":checked")) {
+					    $('input[name="locYn"]').val('Y');
+					} else {
+					    $('input[name="locYn"]').val('N');
+					}
+				
+						
+				});
 				
 				
-				
-					const defaultLoc = "<%=locYn%>";
-
+				// 기본배송지면 체크박스 체크로 보이는 것(현재 사용 안 함)
+				const defaultLoc = "<%=locYn%>";
+					
 					$("input[type=checkbox]").each(function() {
 						if (defaultLoc == "Y") {
 							$(this).attr("checked", true);
 						}
 					})
 					
-					$("#updateLocationForm").submit(function(){
-					if($("#locYn").val() == null){
-						$("#locYn").val() == "N"
-					}				
-				})
+					
 					
 					
 				})
