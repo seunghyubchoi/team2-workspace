@@ -15,6 +15,7 @@ import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Option;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductImage;
+import com.kh.product.model.vo.Review;
 
 public class ProductDao {
 	
@@ -260,6 +261,38 @@ public class ProductDao {
 									rset.getString("option_size"),
 									rset.getInt("option_stock"),
 									rset.getInt("product_no")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public ArrayList<Review> selectProductReview(Connection conn,int pNo) {
+		ArrayList<Review> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectProductReview");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Review(rset.getInt("review_no"),
+									rset.getString("review_content"),
+									rset.getInt("review_star"),
+									rset.getDate("review_date"),
+									rset.getString("review_ans_content"),
+									rset.getDate("review_ans_date"),
+									rset.getString("mem_name"),
+									rset.getString("review_img_src")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

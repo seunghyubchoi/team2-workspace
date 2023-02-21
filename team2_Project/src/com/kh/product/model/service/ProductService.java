@@ -9,6 +9,7 @@ import com.kh.product.model.dao.ProductDao;
 import com.kh.product.model.vo.Option;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductImage;
+import com.kh.product.model.vo.Review;
 
 public class ProductService {
 	
@@ -79,6 +80,16 @@ public class ProductService {
 		
 		ArrayList<Option> list = new ProductDao().selectProductOption(conn, pNo);
 		close(conn);
+		return list;
+	}
+	
+	public ArrayList<Review> selectProductReview(int pNo){
+		Connection conn = getConnection();
+		
+		ArrayList<Review> list = new ProductDao().selectProductReview(conn, pNo);
+		
+		close(conn);
+		
 		return list;
 	}
 

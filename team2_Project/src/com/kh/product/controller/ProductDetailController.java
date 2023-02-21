@@ -45,9 +45,17 @@ public class ProductDetailController extends HttpServlet {
 		 if(viewUp > 0) {
 			 imgList = new ProductService().selectProductImage(pNo);
 			 opList = new ProductService().selectProductOption(pNo);
+			 reviewList = new ProductService().selectProductReview(pNo);
+			 request.setAttribute("product", p);
+			 request.setAttribute("imgList", imgList);
+			 request.setAttribute("opList", opList);
+			 request.setAttribute("reviewList", reviewList);
+			 request.getRequestDispatcher("views/product/product.jsp").forward(request, response);
 		 }else {
 			 
 		 }
+		 
+		 
 	}
 
 	/**
