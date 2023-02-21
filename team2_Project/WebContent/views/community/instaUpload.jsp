@@ -240,6 +240,8 @@
 	</head>
 
 	<body>
+	<%@ include file="../common/menubar.jsp" %>
+	
 		<div class="wrap">
 			<!--header-->
 			<div id="header">
@@ -290,7 +292,7 @@
 			<div id="content">
 				<h1>스타일 업로드</h1>
 				<br>
-				<form action="" method="post" enctype="multipart/form-data">
+				<form action="<%= contextPath %>/insert.co" method="post" enctype="multipart/form-data">
 
 					<h3>사진</h3>
 					<img id="preview" style="width: 200px; height: 200px;" data-bs-toggle="modal"

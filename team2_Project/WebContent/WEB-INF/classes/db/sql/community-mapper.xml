@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-
+<entry key="insertInsta">
+INSERT
+  INTO TB_INSTAGRAM 
+     (
+       COM_NO
+     , COM_CONTENT
+     , COM_TAG
+     , INSTA_ID
+     , IMG_NO
+     )
+VALUES
+     (
+       SEQ_INSTAGRAM.NEXTVAL
+     , ?
+     , ?
+     , ?
+     , ?
+     )
+</entry>
 </properties>
