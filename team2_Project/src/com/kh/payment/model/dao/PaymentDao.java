@@ -162,4 +162,30 @@ public class PaymentDao {
 		return result;
 	}
 
+	public int insertLocation(Connection conn, Location l) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertLocation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, l.getMemNo());
+			pstmt.setString(2, l.getLocAddressName());
+			pstmt.setString(3, l.getLocName());
+			pstmt.setString(4, l.getLocPhone());
+			pstmt.setString(5, l.getLocAddress());
+			pstmt.setString(6, l.getLocAddressDtl());
+			pstmt.setString(7, l.getLocPostCode());
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

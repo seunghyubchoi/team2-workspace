@@ -67,4 +67,35 @@
 	  SET LOC_YN = 'N'
 	WHERE MEM_NO = ?;
 	</entry>
+	<entry key="insertLocation">
+	INSERT 
+    INTO TB_LOCATION 
+        (
+          LOC_NO
+        , MEM_NO
+        , LOC_ADDRESS_NAME
+        , LOC_NAME
+        , LOC_PHONE
+        , LOC_ADDRESS
+        , LOC_ADDRESS_DTL
+        , LOC_POST_CODE
+        , DEL_YN
+        , LOC_YN
+        )
+        VALUES
+        (
+          SEQ_LOCATION.NEXTVAL
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , 'Y'
+        , 'N'
+        )
+	</entry>
+	<entry key="">
+	</entry>
 </properties>

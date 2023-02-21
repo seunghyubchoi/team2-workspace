@@ -9,67 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-					function sample6_execDaumPostcode() {
-						new daum.Postcode({
-							oncomplete: function(data) {
-								// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-				
-								// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-								// 내려오는 변수가 값이 없는
-								++
-								
-								
-								
-								
-								
-								경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-								var addr = ''; // 주소 변수
-								var extraAddr = ''; // 참고항목 변수
-				
-								//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-								if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-									addr = data.roadAddress;
-								} else { // 사용자가 지번 주소를 선택했을 경우(J)
-									addr = data.jibunAddress;
-								}
-				
-								// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-								if(data.userSelectedType === 'R'){
-									// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-									// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-									if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-										extraAddr += data.bname;
-									}
-									// 건물명이 있고, 공동주택일 경우 추가한다.
-									if(data.buildingName !== '' && data.apartment === 'Y'){
-										extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-									}
-									// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-									if(extraAddr !== ''){
-										extraAddr = ' (' + extraAddr + ')';
-									}
-									// 조합된 참고항목을 해당 필드에 넣는다.
-									document.getElementById("sample6_extraAddress").value = extraAddr;
-								
-								} else {
-									document.getElementById("sample6_extraAddress").value = '';
-								}
-				
-								// 우편번호와 주소 정보를 해당 필드에 넣는다.
-								document.getElementById('sample6_postcode').value = data.zonecode;
-								document.getElementById("sample6_address").value = addr;
-								// 커서를 상세주소 필드로 이동한다.
-								document.getElementById("sample6_detailAddress").focus();
-							}
-						}).open();
-					}
-				</script>
-
 <style>
-
 #deleteUserBtn a {
 	text-decoration: none;
 }
@@ -228,12 +168,15 @@
 					<td></td>
 
 					<td><button type="button" class="btn btn-primary mb-2"
-							onclick="history.back();">뒤로가기</button>
+							onclick="checkPwd();">뒤로가기</button>
 						<button type="submit" class="btn btn-primary mb-2">저장하기</button></td>
 
 				</tr>
 			</table>
 			<script>
+			function checkPwd() {
+				location.href = "<%= contextPath%>/myPage.mp";
+			}
 											$(function () {
 												const gender = "<%=gender%>";
 												$("#gender").children().each(function () {
@@ -272,21 +215,30 @@
 				</div>
 				<!-- Modal body -->
 				<div class="modal-body" align="center">
-					<form action="<%=contextPath%>/delete.me" method="post">
+					<form action="<%=contextPath%>/insert.lo" method="post">
+					<input type="hidden" name="memNo" value="<%=memNo%>">
 						<table>
 							<tr>
 								<th>배송지 이름</th>
 							</tr>
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
-									value="" name="" placeholder="배송지 이름을 입력해주세요"></td>
+									value="" name="locAddressName" placeholder="배송지 이름을 입력해주세요" required></td>
 							</tr>
 							<tr>
 								<th>받으시는 분</th>
 							</tr>
+							
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
-									value="" name="" placeholder="받으시는 분 이름을 입력해주세요"></td>
+									value="" name="locName" placeholder="받으시는 분 이름을 입력해주세요" required></td>
+							</tr>
+							<tr>
+								<th>전화번호</th>
+							</tr>
+							<tr>
+								<td><input type="text" class="form-control mb-2 mr-sm-2"
+									value="" name="locPhone" placeholder="전화번호를 입력해주세요" required></td>
 							</tr>
 							<tr>
 								<th>주소</th>
@@ -295,7 +247,7 @@
 								<td>
 									<div class="input-group mb-3">
 										<input type="text" class="form-control" placeholder="우편번호"
-											id="sample6_postcode" readonly>
+											name = "locPostCode" id="sample6_postcode" required readonly> 
 										<div class="input-group-append">
 											<button class="btn btn-success" type="button"
 												onclick="sample6_execDaumPostcode()">우편번호 검색</button>
@@ -306,16 +258,22 @@
 							</tr>
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
-									id="sample6_address" value="" name="" placeholder="주소" readonly></td>
+									id="sample6_address" value="" name="locAddress" placeholder="주소" required readonly></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
-									value="" name="" placeholder="상세주소를 입력해주세요"></td>
+									id="sample6_extraAddress" placeholder="주소2" required readonly></td>
 							</tr>
+							
+							<tr>
+								<td><input type="text" class="form-control mb-2 mr-sm-2"
+									id="sample6_detailAddress" value="" name="locAddressDtl" placeholder="상세주소를 입력해주세요" required></td>
+							</tr>
+						
 							<tr>
 								<td align="center">
-									<button type="button" class="btn btn-primary mb-2"
-										onclick="history.back();">뒤로가기</button>
+								<button type="button" class="btn btn-primary mb-2"
+							onclick="backToMyPage();">뒤로가기</button>
 									<button type="submit" class="btn btn-primary mb-2">저장하기</button>
 								</td>
 							</tr>
@@ -327,6 +285,68 @@
 			</div>
 		</div>
 	</div>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+	function backToMyPage(){
+		location.href = "<%= contextPath%>/memberInfo.mp";
+	}
+	
+		function sample6_execDaumPostcode() {
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+							// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+							var addr = ''; // 주소 변수
+							var extraAddr = ''; // 참고항목 변수
+
+							//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+							if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+								addr = data.roadAddress;
+							} else { // 사용자가 지번 주소를 선택했을 경우(J)
+								addr = data.jibunAddress;
+							}
+
+							// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+							if (data.userSelectedType === 'R') {
+								// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+								// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+								if (data.bname !== ''
+										&& /[동|로|가]$/g.test(data.bname)) {
+									extraAddr += data.bname;
+								}
+								// 건물명이 있고, 공동주택일 경우 추가한다.
+								if (data.buildingName !== ''
+										&& data.apartment === 'Y') {
+									extraAddr += (extraAddr !== '' ? ', '
+											+ data.buildingName
+											: data.buildingName);
+								}
+								// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+								if (extraAddr !== '') {
+									extraAddr = ' (' + extraAddr + ')';
+								}
+								// 조합된 참고항목을 해당 필드에 넣는다.
+								document.getElementById("sample6_extraAddress").value = extraAddr;
+
+							} else {
+								document.getElementById("sample6_extraAddress").value = '';
+							}
+
+							// 우편번호와 주소 정보를 해당 필드에 넣는다.
+							document.getElementById('sample6_postcode').value = data.zonecode;
+							document.getElementById("sample6_address").value = addr;
+							// 커서를 상세주소 필드로 이동한다.
+							document.getElementById("sample6_detailAddress")
+									.focus();
+						}
+					}).open();
+		}
+	</script>
+
 
 	<!-- 배송지 목록 Modal -->
 	<div class="modal" id="locationList">
@@ -339,24 +359,24 @@
 				</div>
 				<!-- Modal body -->
 				<div class="modal-body" align="center">
-					
 
-						<table id="locationLists">
-							<%
-								if (list.isEmpty()) {
-							%>
-							<tr>
-								<td>존재하는 배송지가 없습니다.</td>
-							</tr>
-							<%
-								} else {
-							%>
-							<%
-								// int i=0;
 
-							for (Location l : list) {
-							%>
-							<form action="<%=contextPath%>/modifyLoc.lo" method="post">
+					<table id="locationLists">
+						<%
+							if (list.isEmpty()) {
+						%>
+						<tr>
+							<td>존재하는 배송지가 없습니다.</td>
+						</tr>
+						<%
+							} else {
+						%>
+						<%
+							// int i=0;
+
+						for (Location l : list) {
+						%>
+						<form action="<%=contextPath%>/modifyLoc.lo" method="post">
 							<input type="hidden" name="locNo" value="<%=l.getLocNo()%>">
 							<tr>
 								<td><%=l.getLocAddressName()%></td>
@@ -385,77 +405,90 @@
 								<td></td>
 								<td><button type="submit" class="btn btn-sm btn-danger"
 										value="<%=l.getLocNo()%>">수정하기</button>
-									<button type="button" class="btn btn-sm btn-danger"
-										value="<%=l.getLocNo()%>">삭제하기</button>
-								</td>
+									<button type="button"
+							class="btn btn-sm btn-danger" data-toggle="modal"
+							data-target="#deleteLocation" value="<%=l.getLocNo()%>" onclick="deleteLocNo(this);">삭제하기</button></td>
 							</tr>
 							<tr>
 								<td colspan="2">
 									<hr>
 								</td>
 							</tr>
-							</form>
-							<%
+						</form>
+						<%
+							}
+						%>
+
+						<%
+							}
+						%>
+
+
+
+
+					</table>
+					<script>
+						$(function() {
+
+							// 새로운 배송지 추가 클릭 시 2개면?
+							let num =<%=num%>;
+							$("#btn_newLoc").click(function() {
+								if (num == 2) {
+									alert("새로운 배송지를 추가할 수 없습니다.");
+									console.log($(this))
+									$(this).removeAttr("data-target");
+									// 여기서 배송지가 2개에서 1개로 변경하고도 나오는지 확인해야함
 								}
-							%>
-
-							<%
+							})
+							// 목록 클릭시 기본배송지 radio 체크 표기(사용안함)
+							$('input[name="defaultLocation"]').each(function() {
+								if ($(this).val() == 'Y') {
+									$(this).prop('checked', true);
+									$(this).next().text("기본배송지");
 								}
-							%>
+							})
+							// radio로 기본배송지 선택 (사용안함)
+							$('input[name="defaultLocation"]')
+									.change(
+											function() {
+												$(
+														'input[name="defaultLocation"]')
+														.each(
+																function() {
+																	let checked = $(
+																			this)
+																			.prop(
+																					'checked');
+																	let defaultLocMsg = $(
+																			this)
+																			.next();
+																	if (checked) {
+																		$(
+																				defaultLocMsg)
+																				.text(
+																						"기본배송지");
+																	} else {
+																		$(
+																				defaultLocMsg)
+																				.text(
+																						"");
+																	}
+																})
+											})
 
+						})
 
-
-
-						</table>
-						<script>
-							
-						
-							$(function() {
-								
-										// 새로운 배송지 추가 클릭 시 2개면?
-										let num = <%=num%>;
-										$("#btn_newLoc").click(function() {
-											if(num == 2) {
-												alert("새로운 배송지를 추가할 수 없습니다.");
-												console.log($(this))
-												$(this).removeAttr("data-target");
-												// 여기서 배송지가 2개에서 1개로 변경하고도 나오는지 확인해야함
-											}
-										})
-										// 목록 클릭시 기본배송지 radio 체크 표기(사용안함)
-										$('input[name="defaultLocation"]')
-												.each(
-														function() {
-															if ($(this).val() == 'Y') {
-																$(this).prop('checked',true);
-																$(this).next().text("기본배송지");
-															}
-														})
-										// radio로 기본배송지 선택 (사용안함)
-										$('input[name="defaultLocation"]')
-												.change(function() {$('input[name="defaultLocation"]').each(function() {
-																		let checked = $(this).prop('checked');
-																		let defaultLocMsg = $(this).next();
-																				if (checked) {
-																					$(defaultLocMsg).text("기본배송지");
-																				} else {
-																					$(defaultLocMsg).text("");
-																				}
-																			})
-														})
-
-										
-									})
-									
-									function validateLoc() {
-											let num = <%=num%>;
-											console.log(num);
-											if (num == 2) {
-												alert("새로운 배송지를 추가할 수 없습니다.");
-												return false; 
-											}
-										}
-						</script>
+						function validateLoc() {
+							let num =
+					<%=num%>
+						;
+							console.log(num);
+							if (num == 2) {
+								alert("새로운 배송지를 추가할 수 없습니다.");
+								return false;
+							}
+						}
+					</script>
 
 
 
@@ -465,8 +498,31 @@
 			</div>
 		</div>
 	</div>
-
-
+<!-- 배송지 삭제 -->
+<div class="modal" id="deleteLocation">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">회원탈퇴</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body" align="center">
+					<form action="<%=contextPath%>/delete.lo" method="post">
+						<input type="hidden" name="locNo" value=""> <b>정말로 삭제하시겠습니까?<br>
+						
+						<button type="submit" class="btn btn-sm btn-danger">삭제</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	function deleteLocNo(e) {
+		console.log($(e).val());
+	}
+	</script>
 	<!-- 비밀번호 변경 -->
 	<div class="modal" id="updatePwdModal">
 		<div class="modal-dialog">
@@ -544,7 +600,6 @@
 		</div>
 	</div>
 	<%@include file="../common/footer.jsp"%>
-
 
 
 </body>

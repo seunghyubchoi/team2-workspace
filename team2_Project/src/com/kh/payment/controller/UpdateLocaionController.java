@@ -1,6 +1,8 @@
 package com.kh.payment.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +35,7 @@ public class UpdateLocaionController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		int memNo = Integer.parseInt(request.getParameter("memNo")); 
 		int locNo = Integer.parseInt(request.getParameter("locNo"));
 		String locAddressName = request.getParameter("locAddressName");
 		String locName = request.getParameter("locName");
@@ -51,7 +54,10 @@ public class UpdateLocaionController extends HttpServlet {
 			session.setAttribute("alertMsg", "배송지 정보 수정에 실패했습니다.");
 			response.sendRedirect(request.getContextPath() + "/memberInfo.mp");
 		} else {
-			
+			ArrayList<Location> list = new PaymentService().selectLocationList(memNo);
+			session.setAttribute("list", list);
+			Location defaultLocation =  new PaymentService().selectLocation(memNo);
+			session.setAttribute("defaultLocation", defaultLocation); 
 			request.setAttribute("location", location);
 			session.setAttribute("alertMsg", "성공적으로 배송지 정보를 수정했습니다.");
 			response.sendRedirect(request.getContextPath() + "/memberInfo.mp");

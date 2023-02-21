@@ -53,4 +53,19 @@ public class PaymentService {
 		return location;
 	}
 
+	public int insertLocation(Location l) {
+		Connection conn = getConnection();
+		int result = new PaymentDao().insertLocation(conn, l);
+		if (result > 0) {
+			// 성공
+			commit(conn);
+		} else {
+			// 데이터 안들어 갔음 = 실패
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
+
 }

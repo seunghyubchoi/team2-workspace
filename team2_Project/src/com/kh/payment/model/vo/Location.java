@@ -16,6 +16,20 @@ public class Location {
 
 	
 	
+	public Location(int memNo, String locAddressName, String locName, String locPhone, String locAddress,
+			String locAddressDtl, String locPostCode) {
+		super();
+		this.memNo = memNo;
+		this.locAddressName = locAddressName;
+		this.locName = locName;
+		this.locPhone = locPhone;
+		this.locAddress = locAddress;
+		this.locAddressDtl = locAddressDtl;
+		this.locPostCode = locPostCode;
+	}
+
+
+
 	public Location(int locNo, String locAddressName, String locName, String locPhone, String locAddress,
 			String locAddressDtl, String locPostCode, String locYn) {
 		super();
