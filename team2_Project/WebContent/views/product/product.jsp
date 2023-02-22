@@ -202,7 +202,11 @@
     }
    #photo-select>div{
     margin-top: 10px;
-    
+   
+   }
+   #photo-select div:hover{
+   	cursor:pointer;
+   	opacity:0.8;
    }
   </style>
 </head>
@@ -260,16 +264,21 @@
         <div id="max_discount" class="col-6">
           최대할인가
         </div>
+       
         <div id="max_price" class="col-6">
-          <%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01)))%>원
+         <% if(p.getProductPrice()*(((100-p.getProductDiscount())*0.01))>loginUser.getMileage()){ %>
+          <%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01))-loginUser.getMileage())%>원
+          <% } else { %>
+          0원
+          <% } %>
         </div>
       </div>
       <div class="row">
         <div id="max_mileage" class="col-6">
-          마일리지 최대 적용가
+          보유 마일리지
         </div>
         <div id="mileage_price" class="col-6">
-         <%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01)))%>원
+         <%= loginUser.getMileage()%>원
         </div>
         <div id="topLine"></div>
       </div>
@@ -391,7 +400,6 @@
       </div>
     </div>
 
-    <form action="">
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -411,7 +419,9 @@
               </div>
             </div>
             <div class="modal-body">
-              <form>
+              <form action="<%=contextPath %>/insert.ca" method="post">
+              <input type = "hidden" name = "mno" value="<%=loginUser.getMemNo()%>">
+              <input type = "hidden" name = "pno" value="<%=p.getProductNo()%>">
                 <div class="mb-3">
                   <select id="productSize" class="form-select" aria-label="Default select example" onchange="selectboxChange(this.value);">
                     <label for="message-text" class="col-form-label">사이즈(옵션)</label>
@@ -423,18 +433,18 @@
                 </div>
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">수량</label>
-                  <input type="number" id="productAmount" name="amount" min="0" max="20" step="1" value="0">
+                  <input type="number" id="productAmount" name="amount" min="0" max="20" step="1" value="1">
                 </div>
-              </form>
+
             </div>
             <div class="modal-footer" id="modal_button">
-              <button type="button" class="btn btn-primary">장바구니 담기</button>
+              <button type="submit" class="btn btn-primary">장바구니 담기</button>
+               </form>
               <button type="button" class="btn btn-primary">결제하기</button>
             </div>
           </div>
         </div>
       </div>
-    </form>
     <script>
       $(document).ready(function(){
         $(".photo-s").click(function(){
@@ -448,10 +458,12 @@
     	  console.log(value);
     	  <% for(Option o: opList) { %>
 		  if(value=="<%= o.getOptionSize() %>"){
-			  $("#productAmount").attr("max","<%=o.getStock() %>")
+			  $("#productAmount").attr("max","<%=o.getStock() %>");
 		  }
 		  <% } %>
+		  $("#productAmount").val("1");
                }
+       
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

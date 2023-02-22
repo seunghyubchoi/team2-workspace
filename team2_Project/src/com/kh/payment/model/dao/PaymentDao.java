@@ -61,5 +61,28 @@ public class PaymentDao {
 		}
 		return defaultLocation;
 	}
+	
+	public int insertCart(Connection conn,int mno,int pno,int amount) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertCart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, amount);
+			pstmt.setInt(2, pno);
+			pstmt.setInt(3, mno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
 
 }

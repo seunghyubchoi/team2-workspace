@@ -18,4 +18,13 @@ FROM TB_LOCATION
 WHERE MEM_NO = ?
 AND LOC_YN = 'Y'
 	</entry>
+	<entry key="insertCart">
+INSERT INTO 
+    TB_CART 
+    VALUES(
+    SEQ_CART.NEXTVAL
+    ,?
+    ,?
+    ,?)
+	</entry>
 </properties>
