@@ -36,7 +36,7 @@
 	<div id="content">
 		<form action="<%=contextPath%>/update.lo" method="post" id="updateLocationForm" onsubmit="return validateDefault();">
 		<input type="hidden" name="locNo" value="<%=locNo%>">
-		<input type="hidden" name="locYn">
+		<input type="hidden" name="locYn" value="<%=locYn%>">
 
 		<input type="hidden" name="memNo" value="<%=memNo%>">
 			<table id="content_table">
@@ -103,7 +103,7 @@
 
 					<td><button type="button" class="btn btn-primary mb-2"
 							onclick="backToMyPage();">뒤로가기</button>
-						<button type="submit" class="btn btn-primary mb-2">저장하기</button></td>
+						<button type="submit" class="btn btn-primary mb-2" id="<%=locYn %>">저장하기</button></td>
 
 				</tr>
 			</table>
@@ -114,12 +114,12 @@
 			
 			let listSize = <%=list.size()%>
 			function validateDefault() {
-				
+				if($("input[name='locYn']").val() == "Y") {
 					if(!$('input[name="locYnCheck"]').is(":checked")){
 						alert("계정 당 최소 하나의 기본배송지가 있어야 합니다.")
 						$('input[name="locYnCheck"]').prop("checked",true)
 						return false;
-					
+					}
 					
 				} 
 			}
