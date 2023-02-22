@@ -2,6 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -33,8 +34,9 @@
 <body>
 	<%@include file="../common/menu.jsp"%>
 	<%@include file="../common/leftList.jsp"%>
-	<%
-		int memNo = loginUser.getMemNo();
+	
+<%
+	int memNo = loginUser.getMemNo();
 	String memId = loginUser.getMemId();
 	String memName = loginUser.getMemName();
 	String gender = loginUser.getGender();
@@ -43,19 +45,29 @@
 	String email = (loginUser.getEmail() == null ? "" : loginUser.getEmail());
 	String instaId = (loginUser.getInstaId() == null ? "" : loginUser.getInstaId());
 	String adCheck = (loginUser.getAdCheck() == null ? "" : loginUser.getAdCheck());
-	Location defaultLocation = (Location) session.getAttribute("defaultLocation");
+	Location defaultLocation;
+	
+	defaultLocation = (Location) session.getAttribute("defaultLocation");
 	ArrayList<Location> list = (ArrayList<Location>) session.getAttribute("list");
-	String locName = defaultLocation.getLocName();
-	String locAddress = defaultLocation.getLocAddress();
-	String locAddressName = defaultLocation.getLocAddressName();
-	String locAddressDtl = defaultLocation.getLocAddressDtl();
-	String locPhone = defaultLocation.getLocPhone();
-	String locPostCode = defaultLocation.getLocPostCode();
-	String locYn = defaultLocation.getLocYn();
-	//int locNo = defaultLocation.getLocNo();
+	String locName = null;
+	String locAddress = null;
+	String locAddressName = null;
+	String locAddressDtl = null;
+	String locPhone = null;
+	String locPostCode = null;
+	String locYn = null;
+	
+	if(defaultLocation != null){
+		locName = defaultLocation.getLocName();
+		locAddress = defaultLocation.getLocAddress();
+		locAddressName = defaultLocation.getLocAddressName();
+		locAddressDtl = defaultLocation.getLocAddressDtl();
+		locPhone = defaultLocation.getLocPhone();
+		locPostCode = defaultLocation.getLocPostCode();
+		locYn = defaultLocation.getLocYn();
+	}
 	int num = 0;
-	%>
-
+	%>	
 
 
 
@@ -118,11 +130,13 @@
 				</tr>
 				<tr>
 					<th>배송지</th>
-
+			<%if(defaultLocation != null) { %>
 					<td><%=locAddressName%><br> <%=locName%><br> <%=locAddress%><br>
 						<%=locAddressDtl%><br> <%=locPostCode%><br> <%=locPhone%>
 					</td>
-
+			<%} else{ %> 
+					<td>등록된 배송지가 없습니다.</td>
+			<%} %>
 					<td>
 						<button type="button" id="btn_newLoc" class="btn btn-primary mb-2"
 							data-toggle="modal" data-target="#newLocation">
@@ -509,7 +523,10 @@
 				</div>
 				<!-- Modal body -->
 				<div class="modal-body" align="center">
-					<form action="<%=contextPath%>/delete.lo" method="post">
+					<form action="<%=contextPath%>/delete.lo" method="post" onsubmit="return validateLocDel();">
+					<input type="hidden" name="memNo" value="<%=memNo%>">
+					<input type="hidden" name="locNo" value="" id="locDelete">
+					
 						<input type="hidden" name="locNo" value=""> <b>정말로 삭제하시겠습니까?<br>
 						
 						<button type="submit" class="btn btn-sm btn-danger">삭제</button>
@@ -519,8 +536,21 @@
 		</div>
 	</div>
 	<script>
+	
+	let listSize = <%=list.size()%>
+	console.log(listSize);
+	function validateLocDel() {
+		if(listSize==1) {
+				alert("계정 당 최소 하나의 배송지가 있어야 합니다.");
+				return false;
+		} 
+	}
+	
+	
 	function deleteLocNo(e) {
-		console.log($(e).val());
+		console.log(listSize);
+		 $("#locDelete").attr('value', $(e).val()) 
+		 // console.log($("#locDelete").val());
 	}
 	</script>
 	<!-- 비밀번호 변경 -->

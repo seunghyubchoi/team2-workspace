@@ -96,6 +96,9 @@
         , 'N'
         )
 	</entry>
-	<entry key="">
+	<entry key="deleteLocation">
+	UPDATE TB_LOCATION
+	   SET DEL_YN = 'N'
+	 WHERE LOC_NO = ?
 	</entry>
 </properties>
