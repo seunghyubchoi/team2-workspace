@@ -14,16 +14,16 @@ import com.kh.payment.model.service.PaymentService;
 import com.kh.payment.model.vo.Location;
 
 /**
- * Servlet implementation class DeleteLocationController
+ * Servlet implementation class InsertFirstLocationController
  */
-@WebServlet("/delete.lo")
-public class DeleteLocationController extends HttpServlet {
+@WebServlet("/insertFirst.lo")
+public class InsertFirstLocationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteLocationController() {
+    public InsertFirstLocationController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +32,34 @@ public class DeleteLocationController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memNo = Integer.parseInt(request.getParameter("memNo")); 
-
-		int locNo = Integer.parseInt(request.getParameter("locNo"));
-		int result = new PaymentService().deleteLocation(locNo);
+		request.setCharacterEncoding("utf-8");
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		String locAddressName = request.getParameter("locAddressName");
+		String locName = request.getParameter("locName");
+		String locPhone = request.getParameter("locPhone");
+		String locPostCode = request.getParameter("locPostCode");
+		String locAddress = request.getParameter("locAddress");
+		String locAddressDtl = request.getParameter("locAddressDtl");
+		
+		Location l = new Location(memNo, locAddressName, locName, locPhone, locAddress, locAddressDtl, locPostCode);
+		
+				
+		int result = new PaymentService().insertFirstLocation(l);
 		HttpSession session = request.getSession();
-		if(result > 0) {
+		if(result >0) {
+			Location defaultLocation =  new PaymentService().selectLocation(memNo);
+			session.setAttribute("defaultLocation", defaultLocation); 
 			ArrayList<Location> list = new PaymentService().selectLocationList(memNo);
 			session.setAttribute("list", list);
-			session.setAttribute("alertMsg", "성공적으로 배송지가 삭제 되었습니다.");
+			
+			session.setAttribute("alertMsg", "성공적으로 배송지가 추가 되었습니다.");
 			response.sendRedirect(request.getContextPath() + "/memberInfo.mp");
+			
 		} else {
-			session.setAttribute("alertMsg", "배송지 삭제에 실패했습니다.");
+			session.setAttribute("alertMsg", "배송지를 추가하지 못 했습니다.");
 			response.sendRedirect(request.getContextPath() + "/memberInfo.mp");
 		}
 	}
-
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -114,12 +114,12 @@
 			
 			let listSize = <%=list.size()%>
 			function validateDefault() {
-				if(listSize==1) {
+				
 					if(!$('input[name="locYnCheck"]').is(":checked")){
 						alert("계정 당 최소 하나의 기본배송지가 있어야 합니다.")
 						$('input[name="locYnCheck"]').prop("checked",true)
 						return false;
-					}
+					
 					
 				} 
 			}

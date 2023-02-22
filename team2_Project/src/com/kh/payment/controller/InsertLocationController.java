@@ -43,6 +43,7 @@ public class InsertLocationController extends HttpServlet {
 		
 		Location l = new Location(memNo, locAddressName, locName, locPhone, locAddress, locAddressDtl, locPostCode);
 		
+				
 		int result = new PaymentService().insertLocation(l);
 		HttpSession session = request.getSession();
 		if(result >0) {

@@ -67,5 +67,33 @@ public class PaymentService {
 		return result;
 		
 	}
+	public int deleteLocation(int locNo) {
+		Connection conn = getConnection();		
+		int result = new PaymentDao().deleteLocation(conn, locNo);
+		
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
+
+	public int insertFirstLocation(Location l) {
+		Connection conn = getConnection();
+		int result = new PaymentDao().insertFirstLocation(conn, l);
+		if (result > 0) {
+			// 성공
+			commit(conn);
+		} else {
+			// 데이터 안들어 갔음 = 실패
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 }
