@@ -297,7 +297,7 @@
 					<h3>사진</h3>
 					<img id="preview" style="width: 200px; height: 200px;" data-bs-toggle="modal"
 						data-bs-target="#exampleModal">
-					<input type="file" onchange="readURL(this);">
+					<input type="file" onchange="readURL(this);" required>
 					<br> <br>
 
 					<script>
@@ -432,7 +432,7 @@
 
 					<h3>설명</h3>
 					<h5>스타일을 소개해주세요.</h5>
-					<textarea name="" id="" cols="100" rows="10"></textarea>
+					<textarea name="" id="" cols="100" rows="10" maxlength="300"></textarea>
 					<br> <br>
 					<h3>인스타 아이디</h3>
 					<h5>입력하신 인스타 아이디는 회원 정보에 자동 저장됩니다.</h5>

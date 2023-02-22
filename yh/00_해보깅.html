@@ -6,16 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>몰라잉</title>
 
-    <script src="../../resources/js/jquery-3.6.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
         #back{
-            position: relative;
+            /* position: relative; */
+            position: absolute;
+
         }
         div[id^=mal]{
             border: 1px solid #000; 
-            background-color: aqua;
-            width: 60px; 
-            height: 30px;
+            background-color: #E0BFE6 ;
+            width: 100px; 
+            height: 50px;
             position: absolute;
             z-index: 999;
         }
@@ -33,7 +35,7 @@
             $("#back").click(function(e){
                 // const po = {left:e.offsetX, top:e.offsetY};
                 $(this).append("<div id='mal" + count + "' ></div>");
-                // console.log(e.offsetX);
+                 console.log(e.offsetX);
                 $("#mal" + count).css({top: e.offsetY+ "px", left: e.offsetX+ "px"}); 
                 count++;
             });
