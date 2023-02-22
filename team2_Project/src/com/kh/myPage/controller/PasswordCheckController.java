@@ -52,13 +52,15 @@ public class PasswordCheckController extends HttpServlet {
 			int memNo = m.getMemNo();
 			
 			Location defaultLocation =  new PaymentService().selectLocation(memNo);
-			if(defaultLocation == null) {
+			ArrayList<Location> list = new PaymentService().selectLocationList(memNo);
+			if(defaultLocation == null && list == null) {
+				
 				RequestDispatcher view = request.getRequestDispatcher("views/myPage/memberInfo.jsp");
 				view.forward(request, response);
 			} else {
 			
 			session.setAttribute("defaultLocation", defaultLocation); 
-			ArrayList<Location> list = new PaymentService().selectLocationList(memNo);
+			
 			session.setAttribute("list", list);
 			for(Location l : list) {
 				System.out.println(l.toString());

@@ -101,4 +101,33 @@
 	   SET DEL_YN = 'N'
 	 WHERE LOC_NO = ?
 	</entry>
+	<entry key="insertFirstLocation">
+	INSERT 
+    INTO TB_LOCATION 
+        (
+          LOC_NO
+        , MEM_NO
+        , LOC_ADDRESS_NAME
+        , LOC_NAME
+        , LOC_PHONE
+        , LOC_ADDRESS
+        , LOC_ADDRESS_DTL
+        , LOC_POST_CODE
+        , DEL_YN
+        , LOC_YN
+        )
+        VALUES
+        (
+          SEQ_LOCATION.NEXTVAL
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , 'Y'
+        , 'Y'
+        )
+	</entry>
 </properties>

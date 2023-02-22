@@ -34,9 +34,9 @@
 <body>
 	<%@include file="../common/menu.jsp"%>
 	<%@include file="../common/leftList.jsp"%>
-	
-<%
-	int memNo = loginUser.getMemNo();
+
+	<%
+		int memNo = loginUser.getMemNo();
 	String memId = loginUser.getMemId();
 	String memName = loginUser.getMemName();
 	String gender = loginUser.getGender();
@@ -46,7 +46,7 @@
 	String instaId = (loginUser.getInstaId() == null ? "" : loginUser.getInstaId());
 	String adCheck = (loginUser.getAdCheck() == null ? "" : loginUser.getAdCheck());
 	Location defaultLocation;
-	
+
 	defaultLocation = (Location) session.getAttribute("defaultLocation");
 	ArrayList<Location> list = (ArrayList<Location>) session.getAttribute("list");
 	String locName = null;
@@ -56,8 +56,9 @@
 	String locPhone = null;
 	String locPostCode = null;
 	String locYn = null;
-	
-	if(defaultLocation != null){
+	boolean flag = false;
+
+	if (defaultLocation != null) {
 		locName = defaultLocation.getLocName();
 		locAddress = defaultLocation.getLocAddress();
 		locAddressName = defaultLocation.getLocAddressName();
@@ -65,9 +66,11 @@
 		locPhone = defaultLocation.getLocPhone();
 		locPostCode = defaultLocation.getLocPostCode();
 		locYn = defaultLocation.getLocYn();
+	} else{
+		flag = true;
 	}
 	int num = 0;
-	%>	
+	%>
 
 
 
@@ -130,13 +133,20 @@
 				</tr>
 				<tr>
 					<th>배송지</th>
-			<%if(defaultLocation != null) { %>
-					<td><%=locAddressName%><br> <%=locName%><br> <%=locAddress%><br>
-						<%=locAddressDtl%><br> <%=locPostCode%><br> <%=locPhone%>
+					<%
+						if (defaultLocation != null) {
+					%>
+					<td>
+					<%=locAddressName%><br> <%=locName%><br> <%=locAddress%><br>
+					<%=locAddressDtl%><br> <%=locPostCode%><br> <%=locPhone%>
 					</td>
-			<%} else{ %> 
+					<%
+						} else {
+					%>
 					<td>등록된 배송지가 없습니다.</td>
-			<%} %>
+					<%
+						}
+					%>
 					<td>
 						<button type="button" id="btn_newLoc" class="btn btn-primary mb-2"
 							data-toggle="modal" data-target="#newLocation">
@@ -189,7 +199,7 @@
 			</table>
 			<script>
 			function checkPwd() {
-				location.href = "<%= contextPath%>/myPage.mp";
+				location.href = "<%=contextPath%>/myPage.mp";
 			}
 											$(function () {
 												const gender = "<%=gender%>";
@@ -229,23 +239,29 @@
 				</div>
 				<!-- Modal body -->
 				<div class="modal-body" align="center">
+				<%if(flag == true) {%>
+					<form action="<%=contextPath%>/insertFirst.lo" method="post">
+				<%} else { %>
 					<form action="<%=contextPath%>/insert.lo" method="post">
-					<input type="hidden" name="memNo" value="<%=memNo%>">
+					<%} %>
+						<input type="hidden" name="memNo" value="<%=memNo%>">
 						<table>
 							<tr>
 								<th>배송지 이름</th>
 							</tr>
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
-									value="" name="locAddressName" placeholder="배송지 이름을 입력해주세요" required></td>
+									value="" name="locAddressName" placeholder="배송지 이름을 입력해주세요"
+									required></td>
 							</tr>
 							<tr>
 								<th>받으시는 분</th>
 							</tr>
-							
+
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
-									value="" name="locName" placeholder="받으시는 분 이름을 입력해주세요" required></td>
+									value="" name="locName" placeholder="받으시는 분 이름을 입력해주세요"
+									required></td>
 							</tr>
 							<tr>
 								<th>전화번호</th>
@@ -261,7 +277,7 @@
 								<td>
 									<div class="input-group mb-3">
 										<input type="text" class="form-control" placeholder="우편번호"
-											name = "locPostCode" id="sample6_postcode" required readonly> 
+											name="locPostCode" id="sample6_postcode" required readonly>
 										<div class="input-group-append">
 											<button class="btn btn-success" type="button"
 												onclick="sample6_execDaumPostcode()">우편번호 검색</button>
@@ -272,22 +288,24 @@
 							</tr>
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
-									id="sample6_address" value="" name="locAddress" placeholder="주소" required readonly></td>
+									id="sample6_address" value="" name="locAddress"
+									placeholder="주소" required readonly></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
 									id="sample6_extraAddress" placeholder="주소2" required readonly></td>
 							</tr>
-							
+
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
-									id="sample6_detailAddress" value="" name="locAddressDtl" placeholder="상세주소를 입력해주세요" required></td>
+									id="sample6_detailAddress" value="" name="locAddressDtl"
+									placeholder="상세주소를 입력해주세요" required></td>
 							</tr>
-						
+
 							<tr>
 								<td align="center">
-								<button type="button" class="btn btn-primary mb-2"
-							onclick="backToMyPage();">뒤로가기</button>
+									<button type="button" class="btn btn-primary mb-2"
+										onclick="backToMyPage();">뒤로가기</button>
 									<button type="submit" class="btn btn-primary mb-2">저장하기</button>
 								</td>
 							</tr>
@@ -303,9 +321,9 @@
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 	function backToMyPage(){
-		location.href = "<%= contextPath%>/memberInfo.mp";
-	}
-	
+		location.href = "<%=contextPath%>/memberInfo.mp";
+		}
+
 		function sample6_execDaumPostcode() {
 			new daum.Postcode(
 					{
@@ -392,6 +410,7 @@
 						%>
 						<form action="<%=contextPath%>/modifyLoc.lo" method="post">
 							<input type="hidden" name="locNo" value="<%=l.getLocNo()%>">
+							<!--<input type="hidden" value="<%=l.getLocYn()%>">  -->
 							<tr>
 								<td><%=l.getLocAddressName()%></td>
 							</tr>
@@ -419,9 +438,9 @@
 								<td></td>
 								<td><button type="submit" class="btn btn-sm btn-danger"
 										value="<%=l.getLocNo()%>">수정하기</button>
-									<button type="button"
-							class="btn btn-sm btn-danger" data-toggle="modal"
-							data-target="#deleteLocation" value="<%=l.getLocNo()%>" onclick="deleteLocNo(this);">삭제하기</button></td>
+									<button type="button" class="btn btn-sm btn-danger"
+										data-toggle="modal" data-target="#deleteLocation" id="<%=l.getLocYn() %>"
+										value="<%=l.getLocNo()%>" onclick="return deleteLocNo(this);">삭제하기</button></td>
 							</tr>
 							<tr>
 								<td colspan="2">
@@ -445,7 +464,9 @@
 						$(function() {
 
 							// 새로운 배송지 추가 클릭 시 2개면?
-							let num =<%=num%>;
+							let num =
+					<%=num%>
+						;
 							$("#btn_newLoc").click(function() {
 								if (num == 2) {
 									alert("새로운 배송지를 추가할 수 없습니다.");
@@ -512,46 +533,57 @@
 			</div>
 		</div>
 	</div>
-<!-- 배송지 삭제 -->
-<div class="modal" id="deleteLocation">
+	<!-- 배송지 삭제 -->
+	<div class="modal" id="deleteLocation">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<!-- Modal Header -->
 				<div class="modal-header">
-					<h4 class="modal-title">회원탈퇴</h4>
+					<h4 class="modal-title">배송지 삭제</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<!-- Modal body -->
 				<div class="modal-body" align="center">
-					<form action="<%=contextPath%>/delete.lo" method="post" onsubmit="return validateLocDel();">
-					<input type="hidden" name="memNo" value="<%=memNo%>">
-					<input type="hidden" name="locNo" value="" id="locDelete">
-					
-						<input type="hidden" name="locNo" value=""> <b>정말로 삭제하시겠습니까?<br>
-						
-						<button type="submit" class="btn btn-sm btn-danger">삭제</button>
+					<form action="<%=contextPath%>/delete.lo" method="post"
+						onsubmit="return validateLocDel();">
+						<input type="hidden" name="memNo" value="<%=memNo%>"> <input
+							type="hidden" name="locNo" value="" id="locDelete">  <b>정말로 삭제하시겠습니까?<br>
+
+							<button type="submit" class="btn btn-sm btn-danger">삭제</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
-	
-	let listSize = <%=list.size()%>
-	console.log(listSize);
-	function validateLocDel() {
-		if(listSize==1) {
-				alert("계정 당 최소 하나의 배송지가 있어야 합니다.");
+		let listSize = <%=list.size()%>
+		
+		//let locYnCheck = $(".locYnCheck").val();
+		//console.log(listSize);
+		
+		/*
+		function validateLocDel() {
+			if (ynValue == "Y") {
+				alert("계정 당 최소 하나의 기본배송지가 있어야 합니다.");
 				return false;
-		} 
-	}
-	
-	
-	function deleteLocNo(e) {
-		console.log(listSize);
-		 $("#locDelete").attr('value', $(e).val()) 
-		 // console.log($("#locDelete").val());
-	}
+			}
+		}
+		*/
+		
+		function deleteLocNo(e) {
+			//console.log(listSize);
+			//console.log(locYnCheck);
+			// console.log(ynValue);
+			let ynValue = $(e).attr("id");
+			if (ynValue == "Y") {
+				alert("계정 당 최소 하나의 기본배송지가 있어야 합니다.");
+				$(e).removeAttr("data-target");
+				return false;
+			}
+			
+			$("#locDelete").attr('value', $(e).val())
+			 console.log($("#locDelete").val());
+		}
 	</script>
 	<!-- 비밀번호 변경 -->
 	<div class="modal" id="updatePwdModal">

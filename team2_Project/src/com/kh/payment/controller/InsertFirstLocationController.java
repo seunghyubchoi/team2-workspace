@@ -14,16 +14,16 @@ import com.kh.payment.model.service.PaymentService;
 import com.kh.payment.model.vo.Location;
 
 /**
- * Servlet implementation class InsertLocationController
+ * Servlet implementation class InsertFirstLocationController
  */
-@WebServlet("/insert.lo")
-public class InsertLocationController extends HttpServlet {
+@WebServlet("/insertFirst.lo")
+public class InsertFirstLocationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertLocationController() {
+    public InsertFirstLocationController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,11 +44,14 @@ public class InsertLocationController extends HttpServlet {
 		Location l = new Location(memNo, locAddressName, locName, locPhone, locAddress, locAddressDtl, locPostCode);
 		
 				
-		int result = new PaymentService().insertLocation(l);
+		int result = new PaymentService().insertFirstLocation(l);
 		HttpSession session = request.getSession();
 		if(result >0) {
+			Location defaultLocation =  new PaymentService().selectLocation(memNo);
+			session.setAttribute("defaultLocation", defaultLocation); 
 			ArrayList<Location> list = new PaymentService().selectLocationList(memNo);
 			session.setAttribute("list", list);
+			
 			session.setAttribute("alertMsg", "성공적으로 배송지가 추가 되었습니다.");
 			response.sendRedirect(request.getContextPath() + "/memberInfo.mp");
 			
