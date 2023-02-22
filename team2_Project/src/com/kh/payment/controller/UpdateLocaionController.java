@@ -36,6 +36,7 @@ public class UpdateLocaionController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		int memNo = Integer.parseInt(request.getParameter("memNo")); 
+		System.out.println(memNo);
 		int locNo = Integer.parseInt(request.getParameter("locNo"));
 		String locAddressName = request.getParameter("locAddressName");
 		String locName = request.getParameter("locName");
@@ -44,10 +45,13 @@ public class UpdateLocaionController extends HttpServlet {
 		String locAddressDtl = request.getParameter("locAddressDtl");
 		String locPostCode = request.getParameter("locPostCode");
 		String locYn = request.getParameter("locYn");
-		System.out.println(locYn+"!!!!!");
+		//System.out.println(locYn+"!!!!!");
+		
+		int result = new PaymentService().updateLocationSetN(memNo);
+		
 		Location l = new Location(locNo, locAddressName, locName, locPhone, locAddress, locAddressDtl, locPostCode,
 				locYn);
-		System.out.println(l.toString());
+		
 		Location location = new PaymentService().updateLocation(l);
 		HttpSession session = request.getSession();
 		if (location == null) {
