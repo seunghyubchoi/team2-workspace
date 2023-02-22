@@ -14,6 +14,10 @@ String alertMsg = (String)session.getAttribute("alertMsg");
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	/*메뉴바오류수정코드*/
+#header {position:relative;z-index:2}
+#body {overflow: hidden;zoom: 1;position:relative;z-index:1} 
+
 div{
 	box-sizing: border-box;
 }
@@ -76,25 +80,32 @@ div{
         margin-top: 15px;
         margin-left: 60px;
         border-radius: 20px;
-        border-color: #a68bac;
-        border-style: solid;
+        border: 3px solid #e091d6;
 }
-
-#btnsh {
-	font-size: 18px;
-	color: #ffffff;
-	margin: 10px;
-	width: 100px;
-	height: 50px;
+/* 검색버튼 */
+.btn-3d {
+	position: relative;
+	display: inline-block;
+	font-size: 20px;
+	padding: 12px 35px;
+	color: white;
+	margin: 20px 10px 10px;
 	border-radius: 15px;
-	background-color: #d6b9e7;
-	box-shadow: 0 0 0 1px #cb98df inset,
+	text-align: center;
+	transition: top .01s linear;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+	background-color: #e2bbe7;
+	box-shadow: 0 0 0 1px #e091d6 inset,
 		  0 0 0 3px rgba(206, 121, 223, 0.534) inset,
 		  0 8px 0 0 rgba(254, 253, 255, 0.863),
 		  0 8px 0 2px rgba(0, 0, 0, 0.151),
 		  0 8px 8px 1px rgba(242, 184, 253, 0.5);
-		  border: #a68bac;
-}
+		  border-style: none;
+  }
+  .btn-3d:hover {background-color: #fd98ba;}
+  .btn-3d:active {
+	top: 3px;
+  }
 
 
 
@@ -176,7 +187,7 @@ a {
 		<div id="header">
 			<div id="head1">
 				<img src="<%= contextPath%>/resources/img/logo1.png" width=100% height=100%
-					style="padding: 30px 30px 10px 0px;">
+					style="padding: 20px 30px 10px 0px;">
 			</div>
 			<div id="head2">
 				<div id="head2_1">
@@ -184,7 +195,7 @@ a {
 					<div id="search">
 						<input type="text" id="searchbar"
 							placeholder="검색을 원하는 상품을 입력해주세요.">
-						<button id="btnsh">검색</button>
+						<button type="submit" class="btn-3d">검색</button>
 					</div>
 
 				</div>
