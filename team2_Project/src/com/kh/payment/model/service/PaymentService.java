@@ -5,6 +5,7 @@ import static com.kh.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.member.model.dao.MemberDao;
 import com.kh.payment.model.dao.PaymentDao;
 import com.kh.payment.model.vo.Location;
 
@@ -63,6 +64,21 @@ public class PaymentService {
 		}
 		close(conn);
 		return result;
+	}
+
+	public int deleteLocation(int locNo) {
+		Connection conn = getConnection();		
+		int result = new PaymentDao().deleteLocation(conn, locNo);
+		
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
 	}
 
 }

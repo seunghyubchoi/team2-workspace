@@ -29,6 +29,7 @@
 	String locYn = location.getLocYn();
 	%>
 	<%=locYn %>
+	<%=locNo %>
 	<div id="content_title">
 		<p>배송지 수정</p>
 	</div>
