@@ -53,8 +53,7 @@ public class PasswordCheckController extends HttpServlet {
 			
 			Location defaultLocation =  new PaymentService().selectLocation(memNo);
 			ArrayList<Location> list = new PaymentService().selectLocationList(memNo);
-			if(defaultLocation == null && list == null) {
-				
+			if(defaultLocation == null && list == null) {	
 				RequestDispatcher view = request.getRequestDispatcher("views/myPage/memberInfo.jsp");
 				view.forward(request, response);
 			} else {
@@ -62,10 +61,6 @@ public class PasswordCheckController extends HttpServlet {
 			session.setAttribute("defaultLocation", defaultLocation); 
 			
 			session.setAttribute("list", list);
-			for(Location l : list) {
-				System.out.println(l.toString());
-			}
-			
 			
 			RequestDispatcher view = request.getRequestDispatcher("views/myPage/memberInfo.jsp");
 			view.forward(request, response);
