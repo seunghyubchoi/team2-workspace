@@ -423,9 +423,8 @@
               <input type = "hidden" name = "mno" value="<%=loginUser.getMemNo()%>">
               <input type = "hidden" name = "pno" value="<%=p.getProductNo()%>">
                 <div class="mb-3">
-                  <select id="productSize" class="form-select" aria-label="Default select example" onchange="selectboxChange(this.value);">
+                  <select id="productSize" class="form-select" aria-label="Default select example" name="size" onchange="selectboxChange(this.value);">
                     <label for="message-text" class="col-form-label">사이즈(옵션)</label>
-                    <option selected>size</option>
                    <% for(Option o : opList) { %>
                     <option value="<%= o.getOptionSize() %>"><%= o.getOptionSize() %></option>
                     <% } %>

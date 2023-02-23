@@ -25,6 +25,30 @@ INSERT INTO
     SEQ_CART.NEXTVAL
     ,?
     ,?
-    ,?)
+    ,?
+    ,?
+    ,DEFAULT
+    )
+	</entry>
+	<entry key="selectCart">
+SELECT 
+    PRODUCT_NAME
+  , PRODUCT_DISCOUNT
+  , PRODUCT_PRICE
+  , CART_NO
+  , CART_QNT
+  , CART_SIZE
+  , MILEAGE
+  , BRAND_NAME
+  , PRODUCT_IMG_SRC
+  FROM TB_CART C
+JOIN TB_PRODUCT P ON (C.PRODUCT_NO = P.PRODUCT_NO)
+JOIN TB_MEMBER M ON(C.MEM_NO = M.MEM_NO)
+JOIN TB_BRAND B ON(B.BRAND_NO = P.BRAND_NO)
+JOIN TB_PRODUCT_IMAGE PI ON (PI.PRODUCT_NO = P.PRODUCT_NO)
+    WHERE 
+        C.MEM_NO = ?
+    AND C.DEL_YN = 'N' 
+    AND IMG_TYPE = 1  
 	</entry>
 </properties>

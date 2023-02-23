@@ -114,15 +114,15 @@
                       <% for(Product p : list) { %>
                     <div class="col" style="margin-bottom: 30px;">
                         <div class="card" style="width: 18rem;">
-                            <a href="#"><img
+                            <a href="<%= contextPath %>/product.pr?pno=<%= p.getProductNo()%>"><img
                                     src="<%=p.getProductImgSrc() %>"
                                     class="card-img-top" alt="..."></a>
                             <div class="card-body">
-                                <a href="#" class="product_link">
+                                <a href="<%= contextPath %>/product.pr?pno=<%= p.getProductNo()%>" class="product_link">
                                     <h5 class="card-title" style="text-align: left; font-weight: 600; font-size: 18px;">
                                         <%=p.getBrandName() %></h5>
                                 </a>
-                                <div style="text-align: left; color: gray;"><%=p.getProductName() %></div>
+                              <a href="<%= contextPath %>/product.pr?pno=<%= p.getProductNo()%>"><div style="text-align: left; color: gray;"><%=p.getProductName() %></div></a>  
                                 <div style="text-align: left; font-weight: 600; color: plum;"><%=p.getProductDiscount() %>%
                                     <span><%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01))) %></span>
                                     <span style="color: gray;"><%=df.format(p.getProductPrice())%></span>

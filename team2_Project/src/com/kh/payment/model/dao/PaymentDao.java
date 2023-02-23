@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.kh.common.JDBCTemplate.*;
+
+import com.kh.myPage.model.vo.Cart;
 import com.kh.payment.model.vo.Location;
 
 public class PaymentDao {
@@ -62,7 +64,7 @@ public class PaymentDao {
 		return defaultLocation;
 	}
 	
-	public int insertCart(Connection conn,int mno,int pno,int amount) {
+	public int insertCart(Connection conn,int mno,int pno,int amount, String size) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
@@ -73,6 +75,7 @@ public class PaymentDao {
 			pstmt.setInt(1, amount);
 			pstmt.setInt(2, pno);
 			pstmt.setInt(3, mno);
+			pstmt.setString(4, size);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -83,6 +86,40 @@ public class PaymentDao {
 		}
 		return result;
 		
+	}
+	
+	public ArrayList<Cart> selectCart(Connection conn,int MemNo){
+		ArrayList<Cart> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, MemNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Cart(rset.getString("product_name"),
+								  rset.getInt("product_discount"),
+								  rset.getInt("product_price"),
+								  rset.getInt("cart_no"),
+								  rset.getInt("cart_qnt"),
+								  rset.getString("cart_size"),
+								  rset.getInt("mileage"),
+								  rset.getString("brand_name"),
+								  rset.getString("product_img_src")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 }

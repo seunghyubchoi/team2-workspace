@@ -1,27 +1,28 @@
 package com.kh.payment.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.kh.myPage.model.vo.Cart;
 import com.kh.payment.model.service.PaymentService;
-import com.kh.product.model.service.ProductService;
 
 /**
- * Servlet implementation class InsertCartController
+ * Servlet implementation class CartListController
  */
-@WebServlet("/insert.ca")
-public class InsertCartController extends HttpServlet {
+@WebServlet("/list.ca")
+public class CartListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertCartController() {
+    public CartListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +31,12 @@ public class InsertCartController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mno = Integer.parseInt(request.getParameter("mno"));
-		int pno = Integer.parseInt(request.getParameter("pno"));
-		int amount = Integer.parseInt(request.getParameter("amount"));
-		String size = request.getParameter("size");
-	
-		System.out.println(size);
+		int MemNo = Integer.parseInt(request.getParameter("mno")) ;
 		
-		int result = new PaymentService().insertCart(mno,pno,amount,size);
+		ArrayList<Cart> list = new PaymentService().selectCart(MemNo);
 		
-		if(result>0) {
-			HttpSession session = request.getSession(); 
-			session.setAttribute("alertMsg", "장바구니에 추가되었습니다!");
-			response.sendRedirect(request.getContextPath()+ "/product.pr?pno=" + pno);
-		}else {
-			
-		}
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/payment/cart.jsp").forward(request, response);
 	}
 
 	/**
