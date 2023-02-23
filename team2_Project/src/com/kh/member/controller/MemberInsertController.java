@@ -40,10 +40,13 @@ public class MemberInsertController extends HttpServlet {
 	Member m = new Member(memId,memPwd,memName,email,phone,adCheck);
 	int result = new MemberService().insertMember(m);
 	
+	System.out.println(result + "!!!@!@!@!@!@!");
+	
 	if(result>0) {
 		HttpSession session = request.getSession();
 		session.setAttribute("alertMsg", "내일뭐입지? 회원이 되신걸 환영합니다.");
 		RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+		view.forward(request, response);
 	}else {
 		request.setAttribute("errorMsg", "회원가입에 실패했습니다.");
 		RequestDispatcher view = request.getRequestDispatcher("/views/common/errorPage.jsp");

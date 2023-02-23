@@ -131,15 +131,15 @@ a{text-decoration:none;font-size:14px}
     }
     #navi2>#login2{
         width: 100%;
-        height: 60%;
+        height: 30%;
     }
     #navi2>#login3{
         width: 100%;
-        height: 40%;
+        height: 70%;
     }
     
     #logininfo{
-        height: 180px;
+        height: 130px;
         width: 250px;
         margin: 20px;
     border-radius: 10px;
@@ -216,22 +216,6 @@ a{text-decoration:none;font-size:14px}
 	border-radius:50%;
 	cursor:pointer;
 }
-label.left {
-	left:20px;
-	background-color:#5F5F5F;
-	background-image:url('../img/left-arrow.png');
-	background-position:center center;
-	background-size:50%;
-	background-repeat:no-repeat;
-}
-label.right {
-	right:20px;
-	background-color:#5F5F5F;
-	background-image:url('./img/right-arrow.png');
-	background-position:center center;
-	background-size:50%;
-	background-repeat:no-repeat;
-}
 
 
 .paginglist {text-align:center;padding:30px 0;}
@@ -290,16 +274,16 @@ label.right {
 }
 label.left {
 	left:20px;
-	background-color:#5F5F5F;
-	background-image:url();
+	background-color:#ffffff;
+	background-image:url('https://cdn-icons-png.flaticon.com/512/6993/6993301.png');
 	background-position:center center;
 	background-size:50%;
 	background-repeat:no-repeat;
 }
 label.right {
 	right:20px;
-	background-color:#706868;
-	background-image:url('./img/right-arrow.png');
+	background-color:#ffffff;
+	background-image:url('https://cdn-icons-png.flaticon.com/512/6993/6993298.png');
 	background-position:center center;
 	background-size:50%;
 	background-repeat:no-repeat;
@@ -314,7 +298,7 @@ label.right {
 	font-size: 20px;
 	padding: 8px 30px;
 	color: white;
-	margin: -10px 0px 10px 60px;
+	margin: 30px 0px 10px 60px;
 	border-radius: 10px;
 	text-align: center;
 	transition: top .01s linear;
@@ -326,8 +310,8 @@ label.right {
 		  0 8px 0 2px rgba(0, 0, 0, 0.151),
 		  0 8px 8px 1px rgba(242, 184, 253, 0.5);
   }
-  .btn-3d-1:hover,.btn-3d-2:hover {background-color: #fd98ba; color: rgb(70, 69, 69);}
-  .btn-3d-1:active,.btn-3d-2:active,.btn-3d-3:active {
+  .btn-3d-1:hover,.btn-3d-2:hover,.btn-3d-3:active,.btn-3d-4:active {background-color: #fd98ba; color: rgb(70, 69, 69);}
+  .btn-3d-1:active,.btn-3d-2:active,.btn-3d-3:active,.btn-3d-4:active {
 	top: 3px;
   }
   .btn-3d-2 {
@@ -336,7 +320,25 @@ label.right {
 	font-size: 20px;
 	padding: 8px 30px;
 	color: white;
-	margin: 10px 0px 10px 70px;
+	margin: -10px 0px 10px 70px;
+	border-radius: 10px;
+	text-align: center;
+	transition: top .01s linear;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+	background-color: #e2bbe7;
+	box-shadow: 0 0 0 1px #cb98df inset,
+		  0 0 0 3px rgba(206, 121, 223, 0.534) inset,
+		  0 8px 0 0 rgba(254, 253, 255, 0.863),
+		  0 8px 0 2px rgba(0, 0, 0, 0.151),
+		  0 8px 8px 1px rgba(242, 184, 253, 0.5);
+  }
+  .btn-3d-4 {
+	position: relative;
+	display: inline-block;
+	font-size: 20px;
+	padding: 8px 30px;
+	color: white;
+	margin: 10px 0px 30px 70px;
 	border-radius: 10px;
 	text-align: center;
 	transition: top .01s linear;
@@ -427,7 +429,7 @@ label.right {
                             <div>
                                 <label for="slide01" class="left"></label>
                                 <label for="slide03" class="right"></label>
-                                <a><img src="resources/img/메인배너2.PNG"></a>
+                                <a><img src="resources/img/메인배너2.png"></a>
                             </div>
                         </li>
                         <li class="slideitem">
@@ -458,6 +460,7 @@ label.right {
                     </div>
                     <div id="login3">
                     <a href="#" class="btn-3d-1">마이페이지</a>
+                    <a href="#" class="btn-3d-4">장바구니</a>
                     <a href="<%= contextPath %>/logout.me" class="btn-3d-2">로그아웃</a>
                 </div> 
                 <%} %>

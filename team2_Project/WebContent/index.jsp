@@ -102,16 +102,27 @@ form.sign-up-form {
 	display: flex;
 }
 
+.input-field {
+	width: 250px;
+	height: 50px;
+	background: rgb(255, 255, 255);
+	margin: 10px 0;
+	border: 2px solid rgb(206, 205, 205);
+	border-radius: 50px;
+	display: flex;
+}
+
 .input-field input {
 	flex: 6;
 	background: none;
 	border: none;
 	outline: none;
 	width: 100%;
-	font-size: 19px;
+	font-size: 16px;
 	color: #767474;
 	font-weight: 600px;
 	margin-left:10px;
+	text-align: center;
 }
 
 .btn {
@@ -351,6 +362,25 @@ ul.join_box {
 	text-align: center;
 	line-height: 60px;
 }
+/* 아이디 중복버튼 */
+#wndqhr{
+	border-radius: 30px;
+	width: 240px;
+	height: 30px;
+	background-color: #cba5da;
+	border: #ffffff;
+	color: #ffffff;
+	margin: 5px;
+	margin-top: -10px;
+	box-shadow: 0 0 0 1px #cba5da inset,
+		  0 0 0 3px rgba(203, 144, 218, 0.534) inset,
+		  0 4px 0 0 rgba(254, 253, 255, 0.863),
+		  0 4px 0 2px rgba(0, 0, 0, 0.151),
+		  0 4px 4px 1px rgba(230, 174, 252, 0.5);
+}
+#wndqhr:hover{
+	background-color: #f09db1;
+}
 </style>
 </head>
 
@@ -374,27 +404,35 @@ ul.join_box {
 		<div class="signin-signup">
 			<form action="<%=contextPath %>/login.me" name="loginform"
 				class="sign-in-form">
-                <h2 class="title">로그인</h2>
+                <h2 class="title" style="margin-left: 75px;">로그인</h2>
                 <div class="input-field">
                     <input type="text" id="id" name="userId" placeholder="ID">
                 </div>
                 <div class="input-field">
                     <input type="password" id="pwd" name="userPwd" value="userPWD"placeholder="비밀번호">
                 </div>
-                <button type="submit" id="login" class="btn" onclick="loginCheck();">로그인</button>
+                <div style="margin-left: 50px;">
+				<div>
+				<button type="submit" id="login" class="btn" onclick="loginCheck();">로그인</button>
+				</div>
                 <div>
                     <button type="submit" class="btn1">ID/PWD 찾기</button>
                 </div>
 				<div>
                     <button type="submit" class="btn2">비회원 구경하기</button>
                 </div>
+				</div>
             </form>
 
             <form action="<%=contextPath %>/insert.me" class="sign-up-form" method="post">
-                <h2 class="title">회원가입</h2>
+                <h2 class="title" style="margin-left: 50px;">회원가입</h2>
                 <div class="input-field">
                     <input type="text" id="memId" name="memId" placeholder="아이디">
                 </div>
+				<div>
+					<button id="wndqhr">아이디 중복확인</button>
+				</div>
+				
                 <div class="input-field">
                     <input type="password" id="memPwd" name="memPwd" placeholder="비밀번호(대소문자 4~12자)">
                 </div>
@@ -410,10 +448,10 @@ ul.join_box {
                 <div class="input-field">
                     <input type="text" id="phone" name="phone" placeholder="핸드폰번호(-)포함">
                 </div>
-						<label><input type="checkbox" name="adCheck" id="adCheck" value="문자">문자</label><br>
+						<label style="margin-left: 70px;"><input type="checkbox" name="adCheck" id="adCheck" value="문자">문자</label>
 						<label><input type="checkbox" name="adCheck" id="adCheck" value="이메일">이메일</label>
 						<br>
-                <button type="submit" class="btn">회원가입</button>
+                <button type="submit" class="btn" style="margin-left: 60px;">회원가입</button>
             </form>
         </div>
         
@@ -421,12 +459,12 @@ ul.join_box {
             <div class="panel left-panel">
                 <div class="content">
                     <button class="btn" id="sign-in-btn">로그인</button>
+					<br>
                     <form action="" id="joinForm">
                         <ul class="join_box">
                             <li class="checkBox check01">
                                 <ul class="clearfix">
-                                    <li>이용약관, 개인정보 수집 및 이용,
-                                        위치정보 이용약관(선택), 프로모션 안내
+                                    <li>이용약관, 개인정보 수집 및 이용,프로모션 안내
                                         메일 수신(선택)에 모두 동의합니다.</li>
                                     <li class="checkAllBtn">
                                         <input type="checkbox" name="chkAll" id="chk" class="chkAll">
@@ -461,7 +499,7 @@ ul.join_box {
                                         <input type="checkbox" name="chk">
                                     </li>
                                 </ul>
-             
+             					
                                 <textarea name="" id="">제1장 총칙
 제1조(목적)이 약관은 주식회사 내일뭐입지(이하 “회사”)가 운영하는 사이버 몰에서 제공하는 인터넷 관련 서비스를 이용함에 있어 사이버 몰과 “이용자”의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.
 제2조(정의)① “몰”이란 회사가 재화 또는 용역(이하 “재화 등”)을 “이용자”에게 제공하기 위하여 컴퓨터 등 정보통신설비를 이용하여 재화 등을 거래할 수 있도록 설정한 사이버몰을 말합니다.
@@ -972,11 +1010,14 @@ ul.join_box {
 				전자상거래 소송에는 대한민국의 법률을 적용합니다. 이 이용약관은 2023년 3월 3일 부터 시행합니다.
 				</textarea>
 				</li>
+				
 				<li class="checkBox check03">
-					<ul class="clearfix" align="center">
+					<ul class="clearfix">
 						<li>마케팅 활용 및 광고성 정보 수신 동의</li>
 						<br>
-					</ul><br> <textarea name="" id="">귀하는 개인(신용)정보의 선택적인 수집∙이용, 제공에 대한 동의를 거부할 수 있습니다. 다만, 동의하지 않을 경우 관련 편의제공(이벤트 안내, 공지사항, 할인행사)안내 등 이용 목적에 따른 혜택에 제한이 있을 수 있습니다.
+						<li class="checkBtn"></li><input type="checkbox" name="chk"></li>
+					</ul>
+					<textarea name="" id="">귀하는 개인(신용)정보의 선택적인 수집∙이용, 제공에 대한 동의를 거부할 수 있습니다. 다만, 동의하지 않을 경우 관련 편의제공(이벤트 안내, 공지사항, 할인행사)안내 등 이용 목적에 따른 혜택에 제한이 있을 수 있습니다.
 그 밖에 계약과 관련된 불이익은 없습니다. 동의한 경우에도 귀하는 동의를 철회하거나 마케팅 목적으로 귀하에게 연락하는 것을 중지하도록 요청할 수 있습니다.
 1. 수집 및 이용목적고객에 대한 편의제공, 귀사 및 제휴업체의 상품·서비스 안내 및 이용권유, 사은·판촉행사 등의 마케팅 활동, 시장조사 및 상품·서비스 개발연구 등을 목적으로 수집·이용
 2. 수집 및 이용항목- 개인식별정보: 성명, 성별, 나이, 휴대전화번호, e-mail 등- 고객 ID, 접속 일시, IP주소 등

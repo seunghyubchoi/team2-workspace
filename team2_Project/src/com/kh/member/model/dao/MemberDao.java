@@ -207,6 +207,8 @@ public class MemberDao {
 			pstmt.setString(5, m.getPhone());
 			pstmt.setString(6, m.getAdCheck());
 			
+			result = pstmt.executeUpdate();
+			
 		}catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
