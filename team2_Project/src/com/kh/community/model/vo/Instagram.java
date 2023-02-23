@@ -11,6 +11,9 @@ public class Instagram {
 	private String delYn;
 	private int memNo;
 	
+	private String instaImgName;
+	private String instaImgSrc;
+	
 	// 기본 생성자
 	public Instagram() {}
 
@@ -25,11 +28,37 @@ public class Instagram {
 		this.delYn = delYn;
 		this.memNo = memNo;
 	}
+	
+	
+
+	public Instagram(String instaImgName, String instaImgSrc) {
+		super();
+		this.instaImgName = instaImgName;
+		this.instaImgSrc = instaImgSrc;
+		
+	}
 
 	// setter/getter
+	public String getInstaImgName() {
+		return instaImgName;
+	}
+	
+	public void setInstaImgName(String instaImgName) {
+		this.instaImgName = instaImgName;
+	}
+	
+	public String getInstaImgSrc() {
+		return instaImgSrc;
+	}
+	
+	public void setInstaImgSrc(String instaImgSrc) {
+		this.instaImgSrc = instaImgSrc;
+	}
+	
 	public int getComNo() {
 		return comNo;
 	}
+
 
 	public void setComNo(int comNo) {
 		this.comNo = comNo;

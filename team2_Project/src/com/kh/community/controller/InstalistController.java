@@ -9,17 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.community.model.service.CommunityService;
+import com.kh.community.model.vo.Instagram;
+
 /**
- * Servlet implementation class InstaUploadController
+ * Servlet implementation class InstalistController
  */
-@WebServlet("/upload.co")
-public class InstaUploadController extends HttpServlet {
+@WebServlet("/list.co")
+public class InstalistController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InstaUploadController() {
+    public InstalistController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,11 +31,10 @@ public class InstaUploadController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/community/instaUpload.jsp").forward(request, response);
-
+		ArrayList<Instagram> list = new CommunityService().selectInstaList();
 		
-
-		
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/community/instaMain.jsp").forward(request, response);
 	}
 
 	/**
