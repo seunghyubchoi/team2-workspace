@@ -9,7 +9,17 @@
        
         <style>
             #btnBox{
-                
+                width: 100%;
+                display: flex;
+            }
+            #btnBox div{
+                width: 50%;
+                }
+
+            #followList p{
+                font-size: 1.5em;
+                font-weight: 700;
+                padding: 50px;
             }
         </style>
     </head>
@@ -22,7 +32,11 @@
 	</div>
     <div id="content">
         <div id="btnBox">
-            <button class="btn btn-primary mb-2" id="follow">팔로우</button> <button class="btn btn-primary mb-2" id="follwing">팔로잉</button>
+            <div class="btn btn-primary mb-2 active" id="follow">팔로우</div> 
+            <div class="btn btn-primary mb-2" id="follwing">팔로잉</div>
+        </div>
+        <div id="followList">
+            <p>팔로우하는 사람이 없습니다</p>
         </div>
     </div>
 	<%@include file="../common/footer.jsp"%>

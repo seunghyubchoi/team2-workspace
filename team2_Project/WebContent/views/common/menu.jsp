@@ -174,7 +174,7 @@ a {
 	background-color: #9a77a1;
 	border-color:#9a77a1;
 }
-.btn:active{
+.btn-primary:not(:disabled):not(.disabled).active {
 	background-color: #9a77a1;
 	border-color:#9a77a1;
 }
