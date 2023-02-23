@@ -46,7 +46,7 @@ public class InsertLocationController extends HttpServlet {
 				
 		int result = new PaymentService().insertLocation(l);
 		HttpSession session = request.getSession();
-		if(result >0) {
+		if(result > 0) {
 			ArrayList<Location> list = new PaymentService().selectLocationList(memNo);
 			session.setAttribute("list", list);
 			session.setAttribute("alertMsg", "성공적으로 배송지가 추가 되었습니다.");
