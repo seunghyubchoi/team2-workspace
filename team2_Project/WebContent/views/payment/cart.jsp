@@ -6,6 +6,7 @@
 <%
 	ArrayList<Cart> list =(ArrayList<Cart>)request.getAttribute("list");
 	DecimalFormat df = new DecimalFormat("###,###");
+	int count = 1;
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,7 +83,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">전체 1개 </th>
+              <th scope="col">전체 <%= list.size() %>개 </th>
               <th scope="col">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="cbx_chkAll">
@@ -90,18 +91,20 @@
               </th>
               <th scope="col">상품명(옵션)</th>
               <th scope="col">판매가</th>
-              <th scope="col" width="130">수량</th>
-              <th scope="col">적립금액</th>
-              <th scope="col">배송비</th>
+              <th scope="col" width="20">수량</th>
+              <th scope="col" width="100">적립금액</th>
+              <th scope="col" width="90">배송비</th>
             </tr>
           </thead>
           <tbody>
+          <form action="<%=contextPath %>/delete.ca" method="post">
+          <input type="hidden" name="mno" value="<%=loginUser.getMemNo() %>">
           <% for(Cart c : list){ %>
             <tr>
-              <th scope="row">1</th>
+              <th scope="row"><%= count %></th>
               <td>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="chk" value="" id="flexCheckDefault">
+                  <input class="form-check-input" type="checkbox" name="chk" value="<%= c.getCartNo() %>" id="flexCheckDefault">
                 </div>
               </td>
               <td>
@@ -119,23 +122,23 @@
 
                 </div>
               </td>
-              <td> <%= df.format(c.getProductPrice()*(((100-c.getProductDiscount())*0.01)))%>원</td>
+              <td> <%= df.format(c.getProductPrice()*(((100-c.getProductDiscount())*0.01))*c.getCartQnt())%>원</td>
               <td>
                 <div class="count-wrap _count">
-                  <button type="button" class="minus">-</button>
-                  <input type="text" class="inp" value="1" style="width: 40px;">
-                  <button type="button" class="plus">+</button>
+                <input type="number" id="productAmount" name="amount" min="1" max="" step="1" value="<%=c.getCartQnt()%>" onchange="changeQnt(this.value,cartNo)">
                 </div>
               </td>
-              <td><%= df.format(c.getMileage()) %>원</td>
+              <td><%= df.format(c.getProductPrice()*(((100-c.getProductDiscount())*0.01))/100*c.getCartQnt()) %>원</td>
               <td> 무료</td>
             </tr>
+            <% count++; %>
             <% } %>
           </tbody>
         </table>
         <div style="text-align: left;">
-          <button type="button" class="btn btn-secondary">선택 삭제</button>
+          <button type="submit" class="btn btn-secondary" onclick="return  alertMsg();">선택 삭제</button>
         </div>
+        </form>
       </div>
       <div class="col-3">
         <div style="font-weight: 600; padding-bottom: 10px; text-align: left;">최종 결제금액</div>
@@ -166,34 +169,6 @@
   </div>
 
   <script>
-    //수량 옵션
-    $('._count :button').on({
-      'click': function (e) {
-        e.preventDefault();
-        var $count = $(this).parent('._count').find('.inp');
-        var now = parseInt($count.val());
-        var min = 1;
-        var max = 999;
-        var num = now;
-        if ($(this).hasClass('minus')) {
-          var type = 'm';
-        } else {
-          var type = 'p';
-        }
-        if (type == 'm') {
-          if (now > min) {
-            num = now - 1;
-          }
-        } else {
-          if (now < max) {
-            num = now + 1;
-          }
-        }
-        if (num != now) {
-          $count.val(num);
-        }
-      }
-    });
 
     $(document).ready(function () {
       $("#cbx_chkAll").click(function () {
@@ -209,6 +184,31 @@
         else $("#cbx_chkAll").prop("checked", true);
       });
     });
+    
+    function alertMsg(){
+    	if(confirm("정말 삭제하시겠습니까?")){
+    		
+    	}else{
+    		return false;
+    	}
+    }
+    
+    function changeQnt(value,cartNo){
+    	$.ajax({
+    		url:"update.ca",
+    		data:{qnt : value
+    			cno : cartNo
+    		},
+    		type : "get",
+    		success:function(a){
+    			
+    		},
+    		error:function(){
+    			console.log("ajax 통신 실패");
+    		}
+    		
+    	})
+    }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

@@ -51,4 +51,20 @@ JOIN TB_PRODUCT_IMAGE PI ON (PI.PRODUCT_NO = P.PRODUCT_NO)
     AND C.DEL_YN = 'N' 
     AND IMG_TYPE = 1  
 	</entry>
+	<entry key="deleteCart">
+	UPDATE
+        TB_CART
+    SET DEL_YN = 'Y'
+    WHERE CART_NO = ?
+	</entry>
+	<entry key="checkCart">
+	SELECT  
+    CART_NO
+    FROM TB_CART
+  WHERE 
+     MEM_NO = ? 
+ AND PRODUCT_NO = ?
+ AND CART_SIZE = ?
+ AND DEL_YN = 'N'
+	</entry>
 </properties>

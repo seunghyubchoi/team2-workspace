@@ -1,6 +1,8 @@
 package com.kh.payment.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,21 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.myPage.model.vo.Cart;
 import com.kh.payment.model.service.PaymentService;
-import com.kh.product.model.service.ProductService;
 
 /**
- * Servlet implementation class InsertCartController
+ * Servlet implementation class DeleteCartController
  */
-@WebServlet("/insert.ca")
-public class InsertCartController extends HttpServlet {
+@WebServlet("/delete.ca")
+public class DeleteCartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertCartController() {
+    public DeleteCartController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,30 +31,23 @@ public class InsertCartController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mno = Integer.parseInt(request.getParameter("mno"));
-		int pno = Integer.parseInt(request.getParameter("pno"));
-		int amount = Integer.parseInt(request.getParameter("amount"));
-		String size = request.getParameter("size");
-		int result1 = 0;
-		result1 = new PaymentService().checkCart(mno,pno,size);
-		System.out.println(result1);
-		if(result1 == 0) {
-			int result2 = new PaymentService().insertCart(mno,pno,amount,size);
-			
-			if(result2>0) {
-				HttpSession session = request.getSession(); 
-				session.setAttribute("alertMsg", "장바구니에 추가되었습니다!");
-				response.sendRedirect(request.getContextPath()+ "/product.pr?pno=" + pno);
-			}else {
-				
-			}
-		}else {
-			HttpSession session = request.getSession(); 
-			session.setAttribute("alertMsg", "이미 중복된 상품이 존재합니다.");
-			response.sendRedirect(request.getContextPath()+ "/product.pr?pno=" + pno);
+		String[] carts = request.getParameterValues("chk"); 
+		int memNo = Integer.parseInt(request.getParameter("mno"));
+		
+		System.out.println(Arrays.toString(carts));
+		int result = 0;
+		int count = 1;
+		for(String s : carts) {
+			result = new PaymentService().deleteCart(Integer.parseInt(s));
+			count = count * result;
 		}
-		
-		
+		if(count > 0 ) {
+			HttpSession session = request.getSession(); 
+			session.setAttribute("alertMsg", "성공적으로 삭제되었습니다!");
+			response.sendRedirect(request.getContextPath()+ "/list.ca?mno="+memNo);
+		}else {
+			
+		}
 	}
 
 	/**

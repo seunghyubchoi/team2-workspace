@@ -1,3 +1,4 @@
+<%@page import="com.kh.myPage.model.vo.Cart"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="com.kh.product.model.vo.Review"%>
 <%@page import="com.kh.product.model.vo.Option"%>
@@ -7,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	ArrayList<Cart> caList = (ArrayList<Cart>)request.getAttribute("caList");
 	ArrayList<ProductImage>imgList = (ArrayList<ProductImage>)request.getAttribute("imgList");
 	Product p = (Product)request.getAttribute("product");
 	ArrayList<Option> opList = (ArrayList<Option>)request.getAttribute("opList");
@@ -462,6 +464,7 @@
 		  <% } %>
 		  $("#productAmount").val("1");
                }
+       
        
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
