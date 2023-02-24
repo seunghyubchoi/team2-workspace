@@ -20,6 +20,9 @@
 	<div id="content_title">
 		<p>좋아요</p>
 	</div>
+	<div id="content">
+		<!-- <p>좋아요한 스타일이 없습니다.</p> -->
+	</div>
 	<%@include file="../common/footer.jsp"%>
 
 
