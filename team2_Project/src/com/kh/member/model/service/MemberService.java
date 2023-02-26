@@ -59,5 +59,22 @@ public class MemberService {
 		return updateMem;
 	}
 
-
+	public int insertMember(Member m) {
+Connection conn = getConnection();
+		
+		int result = new MemberDao().insertMember(conn, m);
+		
+		// 트랜젝션 처리
+		if(result > 0) {
+			// 성공
+			commit(conn);
+		} else {
+			// 실패
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;	
+	}
 }

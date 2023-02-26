@@ -80,5 +80,27 @@
 		WHERE MEM_ID = ?
 		AND MEM_PWD = ?
 	</entry>
-	
+	<entry key="insertMember">
+INSERT
+INTO TB_MEMBER
+(
+   MEM_NO
+  ,MEM_ID
+  ,MEM_PWD
+  ,MEM_NAME
+  ,EMAIL
+  ,PHONE
+  ,AD_CHECK
+  )
+  VALUES
+  (
+  SEQ_MEMBER.NEXTVAL
+  ,?
+  ,?
+  ,?
+  ,?
+  ,?
+  ,?
+  )
+	</entry>
 </properties>

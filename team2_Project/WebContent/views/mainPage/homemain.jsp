@@ -14,9 +14,6 @@
     .wrap>div{
         width: 100%;
     }
-    /* #header{
-        height:15%
-    } */
     #navigator{
         height: 18%;
     }
@@ -27,28 +24,7 @@
         height: 13%;
     }
     <!----------------header-------->
-    /* #header>div{
-        height: 100%;
-    }
-    #header{
-        width: 1500px;
-    }
-    #head1{
-        width: 30%;
-        height: 100%;
-        float: left;
-    }
-    #head2{
-        width: 70%;
-        float: left;
-        height: 100%;
-    }
-    #head2>#head2_1{
-        height: 60%;
-    }
-    #head2>#head2_2{
-        height: 40%;
-    } */
+
     /* 메인로고 */
     #logo1{
         overflow: hidden;
@@ -155,8 +131,26 @@ a{text-decoration:none;font-size:14px}
     }
     #navi2>#login2{
         width: 100%;
-        height: 100%;
+        height: 30%;
     }
+    #navi2>#login3{
+        width: 100%;
+        height: 70%;
+    }
+    
+    #logininfo{
+        height: 130px;
+        width: 250px;
+        margin: 20px;
+    border-radius: 10px;
+    color:rgb(151, 92, 172);
+    align-items: center;
+    background-color: #f4f4f4;
+	box-shadow: 0 0 0 4px #E0BFE6 inset,
+		  0 0 0 3px rgba(181, 119, 220, 0.534) inset,
+		  0 8px 8px 1px rgba(228, 223, 224, 0.5);
+    }
+
 
     /*메인이벤트배너*/
     
@@ -222,22 +216,6 @@ a{text-decoration:none;font-size:14px}
 	border-radius:50%;
 	cursor:pointer;
 }
-label.left {
-	left:20px;
-	background-color:#5F5F5F;
-	background-image:url('./img/left-arrow.png');
-	background-position:center center;
-	background-size:50%;
-	background-repeat:no-repeat;
-}
-label.right {
-	right:20px;
-	background-color:#5F5F5F;
-	background-image:url('./img/right-arrow.png');
-	background-position:center center;
-	background-size:50%;
-	background-repeat:no-repeat;
-}
 
 
 .paginglist {text-align:center;padding:30px 0;}
@@ -296,62 +274,32 @@ label.right {
 }
 label.left {
 	left:20px;
-	background-color:#5F5F5F;
-	background-image:url('./img/left-arrow.png');
+	background-color:#ffffff;
+	background-image:url('https://cdn-icons-png.flaticon.com/512/6993/6993301.png');
 	background-position:center center;
 	background-size:50%;
 	background-repeat:no-repeat;
 }
 label.right {
 	right:20px;
-	background-color:#706868;
-	background-image:url('./img/right-arrow.png');
+	background-color:#ffffff;
+	background-image:url('https://cdn-icons-png.flaticon.com/512/6993/6993298.png');
 	background-position:center center;
 	background-size:50%;
 	background-repeat:no-repeat;
 }
-/*메인로그인프로필*/
-#mybtn1{
-	width: 200px;
-	height: 40px;
-	
-}
 
-/*검색버튼디자인*/
-.btn-3d {
-	position: relative;
-	display: inline-block;
-	font-size: 20px;
-	padding: 10px 30px;
-	color: white;
-	margin: 20px 10px 10px;
-	border-radius: 6px;
-	text-align: center;
-	transition: top .01s linear;
-	text-shadow: 0 1px 0 rgba(0,0,0,0.15);
-  }
-  .btn-3d:hover {background-color: #D19ECB;}
-  .btn-3d:active {
-	top: 9px;
-  }
-  .btn-3d {
-	background-color: #e69df0;
-	box-shadow: 0 0 0 1px #cb98df inset,
-		  0 0 0 3px rgba(206, 121, 223, 0.534) inset,
-		  0 8px 0 0 rgba(254, 253, 255, 0.863),
-		  0 8px 0 2px rgba(0, 0, 0, 0.151),
-		  0 8px 8px 1px rgba(242, 184, 253, 0.5);
-  }
+
 
   /*로그인버튼*/
   .btn-3d-1 {
 	position: relative;
 	display: inline-block;
 	font-size: 20px;
-	padding: 10px 30px;
+	padding: 8px 30px;
 	color: white;
-	margin: -10px 0px 10px 60px;
-	border-radius: 6px;
+	margin: 30px 0px 10px 60px;
+	border-radius: 10px;
 	text-align: center;
 	transition: top .01s linear;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.15);
@@ -362,18 +310,36 @@ label.right {
 		  0 8px 0 2px rgba(0, 0, 0, 0.151),
 		  0 8px 8px 1px rgba(242, 184, 253, 0.5);
   }
-  .btn-3d-1:hover,.btn-3d-2:hover {background-color: #fd98ba; color: rgb(70, 69, 69);}
-  .btn-3d-1:active {
-	top: 9px;
+  .btn-3d-1:hover,.btn-3d-2:hover,.btn-3d-3:active,.btn-3d-4:active {background-color: #fd98ba; color: rgb(70, 69, 69);}
+  .btn-3d-1:active,.btn-3d-2:active,.btn-3d-3:active,.btn-3d-4:active {
+	top: 3px;
   }
   .btn-3d-2 {
 	position: relative;
 	display: inline-block;
 	font-size: 20px;
-	padding: 10px 30px;
+	padding: 8px 30px;
 	color: white;
-	margin: 5px 0px 10px 70px;
-	border-radius: 6px;
+	margin: -10px 0px 10px 70px;
+	border-radius: 10px;
+	text-align: center;
+	transition: top .01s linear;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+	background-color: #e2bbe7;
+	box-shadow: 0 0 0 1px #cb98df inset,
+		  0 0 0 3px rgba(206, 121, 223, 0.534) inset,
+		  0 8px 0 0 rgba(254, 253, 255, 0.863),
+		  0 8px 0 2px rgba(0, 0, 0, 0.151),
+		  0 8px 8px 1px rgba(242, 184, 253, 0.5);
+  }
+  .btn-3d-4 {
+	position: relative;
+	display: inline-block;
+	font-size: 20px;
+	padding: 8px 30px;
+	color: white;
+	margin: 10px 0px 30px 70px;
+	border-radius: 10px;
 	text-align: center;
 	transition: top .01s linear;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.15);
@@ -434,8 +400,10 @@ label.right {
 	margin-top: 10px;
 	margin-bottom: 10px;
   }
+  
+  /*메인로그인프로필*/
+
     </style>
-</style>
 </head>
 <body>
     <div class="wrap">
@@ -461,7 +429,7 @@ label.right {
                             <div>
                                 <label for="slide01" class="left"></label>
                                 <label for="slide03" class="right"></label>
-                                <a><img src="resources/img/메인배너2.PNG"></a>
+                                <a><img src="resources/img/메인배너2.png"></a>
                             </div>
                         </li>
                         <li class="slideitem">
@@ -483,10 +451,19 @@ label.right {
             </div>
             <div id="navi2">
                 <div id="login2">
+                	<% if(loginUser ==null) { %>
                     <img src="img/아이콘4.png" height="230px" width="100%">
+                    <%} else { %>
+                    <div id=logininfo align="center">
+                        <a id="logmem" style="font-size:30px;"><%= loginUser.getMemName()%></a><a style="font-size:20px;">님 <br> 내일 뭐입지 이용중 디자인 수정하기ㅠㅠ</a>
+                    </div>
+                    </div>
+                    <div id="login3">
                     <a href="#" class="btn-3d-1">마이페이지</a>
-                    <a href="#" class="btn-3d-2">로그아웃</a>
+                    <a href="#" class="btn-3d-4">장바구니</a>
+                    <a href="<%= contextPath %>/logout.me" class="btn-3d-2">로그아웃</a>
                 </div> 
+                <%} %>
             </div>
         </div>
 

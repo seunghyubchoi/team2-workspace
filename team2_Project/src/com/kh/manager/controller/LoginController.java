@@ -32,29 +32,24 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 
 		String userId = request.getParameter("managerId");
 		String userPwd = request.getParameter("managerPwd");
 
 		Manager loginManager = new ManagerService().loginManager(userId, userPwd);
-		System.out.println(loginManager);
 	
-	
+		HttpSession session = request.getSession();
+		
 		if(loginManager == null) {
-			// RequestDispatcher view = request.getRequestDispatcher("/team2_Project/views/admin/admin_login.jsp");
-			// view.forward(request, response);
-			
-			response.sendRedirect("/team2_Project/views/admin/adminLogin.jsp");
+			session.setAttribute("alertMsg", "아이디 또는 비밀번호가 틀렸습니다.");
+			response.sendRedirect(request.getContextPath() + "/admin.ma");
 		} else {
 			// 세션 처리 해줘야 함
-			HttpSession session = request.getSession();
 			session.setAttribute("loginManager", loginManager);
-			
-			RequestDispatcher view = request.getRequestDispatcher("/team2_Project/views/admin/adminNoticeMain.jsp");
-			view.forward(request, response);
+		
+			response.sendRedirect(request.getContextPath() + "/noticeList.ma");
 		}
 	}
 
