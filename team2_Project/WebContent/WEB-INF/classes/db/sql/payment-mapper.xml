@@ -67,4 +67,10 @@ JOIN TB_PRODUCT_IMAGE PI ON (PI.PRODUCT_NO = P.PRODUCT_NO)
  AND CART_SIZE = ?
  AND DEL_YN = 'N'
 	</entry>
+	<entry key="updateQnt">
+	UPDATE
+        TB_CART
+    SET CART_QNT = ?
+    WHERE CART_NO = ?
+	</entry>
 </properties>

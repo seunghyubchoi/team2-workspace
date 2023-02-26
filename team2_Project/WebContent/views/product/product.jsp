@@ -346,7 +346,7 @@
             tabindex="0">
             <% for(ProductImage pi : imgList){ %>
             <% if(pi.getImgType()==3){ %>
-            <img src="<%=pi.getProductImgSrc()%>">
+            <%=pi.getProductImgSrc()%>
             <% } %>
             <% } %>
           </div>

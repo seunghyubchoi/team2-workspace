@@ -69,5 +69,18 @@ public class PaymentService {
 		return result;
 	
 	}
+	
+	public int updateQnt(int qnt,int cartNo) {
+		Connection conn = getConnection();
+		
+		int result = new PaymentDao().updateQnt(conn,qnt,cartNo);
+		if(result>0) {
+			close(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 }

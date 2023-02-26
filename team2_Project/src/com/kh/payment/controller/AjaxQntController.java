@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.payment.model.service.PaymentService;
+
 /**
  * Servlet implementation class AjaxQntController
  */
@@ -30,6 +32,8 @@ public class AjaxQntController extends HttpServlet {
 		int cartNo = Integer.parseInt(request.getParameter("cno"));
 		System.out.println(qnt);
 		System.out.println(cartNo);
+		int result = new PaymentService().updateQnt(qnt,cartNo);
+		response.getWriter().print(result);
 	}
 
 	/**

@@ -7,6 +7,8 @@
 	ArrayList<Cart> list =(ArrayList<Cart>)request.getAttribute("list");
 	DecimalFormat df = new DecimalFormat("###,###");
 	int count = 1;
+	int totalPrice = 0;
+	int totalQnt = 0;
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +106,7 @@
               <th scope="row"><%= count %></th>
               <td>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="chk" value="<%= c.getCartNo() %>" id="flexCheckDefault">
+                  <input class="form-check-input" type="checkbox" name="chk" value="<%=c.getProductPrice()*(((100-c.getProductDiscount())*0.01))*c.getCartQnt() %>" id="flexCheckDefault">
                 </div>
               </td>
               <td>
@@ -123,9 +125,11 @@
                 </div>
               </td>
               <td> <%= df.format(c.getProductPrice()*(((100-c.getProductDiscount())*0.01))*c.getCartQnt())%>원</td>
+              <input type="hidden" name="cart-price" value="<%=c.getProductPrice()*(((100-c.getProductDiscount())*0.01))*c.getCartQnt() %>">
               <td>
                 <div class="count-wrap _count">
-                <input type="number" id="productAmount" name="amount" min="1" max="" step="1" value="<%=c.getCartQnt()%>" onchange="changeQnt(this.value,cartNo)">
+                <input type="number" class="cartQnt" name="amount" min="1" max="" step="1" value="<%=c.getCartQnt()%>">
+                <input type="hidden" name="cno" value="<%=c.getCartNo() %>">
                 </div>
               </td>
               <td><%= df.format(c.getProductPrice()*(((100-c.getProductDiscount())*0.01))/100*c.getCartQnt()) %>원</td>
@@ -144,12 +148,11 @@
         <div style="font-weight: 600; padding-bottom: 10px; text-align: left;">최종 결제금액</div>
         <table class="estmtPyamn" style="color: grey;">
           <tr>
-            <th>주문 상품 수</th>
-            <td width="170" height="40">1개</td>
-          </tr>
+          <th>총 주문상품수</th>
+          <td width="170" height="40" id="total-qnt">0개</td>
           <tr>
-            <th>주문금액</th>
-            <td height="40">49,000원</td>
+            <th>총 주문금액</th>
+            <td height="40" id="total-price">0원</td>
           </tr>
           <tr>
             <th>배송비</th>
@@ -157,7 +160,7 @@
           </tr>
           <tr>
             <th>적립 마일리지</th>
-            <td height="40">0원</td>
+            <td height="40" id="total-mileage">0원</td>
           </tr>
         </table>
         <div class="d-grid gap-2" style="margin-top: 20px;">
@@ -169,7 +172,7 @@
   </div>
 
   <script>
-
+	
     $(document).ready(function () {
       $("#cbx_chkAll").click(function () {
         if ($("#cbx_chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
@@ -193,22 +196,59 @@
     	}
     }
     
-    function changeQnt(value,cartNo){
-    	$.ajax({
-    		url:"update.ca",
-    		data:{qnt : value
-    			cno : cartNo
-    		},
-    		type : "get",
-    		success:function(a){
-    			
-    		},
-    		error:function(){
-    			console.log("ajax 통신 실패");
+    
+    $(function(){
+		$(".cartQnt").click(function(){
+			console.log($(this).next().val());
+	    	console.log($(this).val());
+	    	$.ajax({
+	    		url:"update.ca",
+	    		data:{ qnt : $(this).val(),
+	    			cno : $(this).next().val()
+	    		},
+	    		type : "get",
+	    		success:function(a){
+	    			document.location.href = document.location.href;
+	    		},
+	    		error:function(){
+	    			console.log("ajax 통신 실패");
+	    		}
+	    		
+	    	})	
+	})
+    })
+    
+    $(".form-check-input").change(function(){
+    	let totalPrice = 0;
+    	let totalQnt = 0;
+    	let totalMileage = 0;
+    	$('input:checkbox[name="chk"]').each(function(){
+    		if($(this).is(":checked") == true){
+    	        var price_goods = 
+			
+    	        	parseInt($(this).parents('tr').find('input[name=cart-price]').val());
+    	        totalPrice = totalPrice + price_goods;
+    	        var qnt_goods = 
+    	        	
+    	        	parseInt($(this).parents('tr').find('input[name=amount]').val());	
+    	        totalQnt = totalQnt + qnt_goods;
     		}
-    		
     	})
-    }
+    	totalMileage = (Math.floor(totalPrice/100)+'').replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    	totalPrice = (totalPrice+'').replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    	$('#total-qnt').text(totalQnt+'개');
+    	$('#total-price').text(totalPrice+'원');
+    	$('#total-mileage').text(totalMileage+'원');
+
+    })
+    
+    $("#cbx_chkAll").click(function(){
+    	if($(this).is(":checked") == false){
+    		$('#total-qnt').text(0+'개');
+        	$('#total-price').text(0+'원');
+        	$('#total-mileage').text(0+'원');
+    	}
+    })
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
