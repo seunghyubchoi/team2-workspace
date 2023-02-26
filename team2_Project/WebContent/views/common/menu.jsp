@@ -18,8 +18,9 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
 
 <!-- jQuery library -->
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script 
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+
 
 <!-- Popper JS -->
 <script
@@ -210,7 +211,7 @@ a {
     	alert("<%=alertMsg%>");
 	</script>
 	<%
-		session.removeAttribute("alertMsg");
+		session.removeAttribute("alertMsg"); 
 	// session.invalidate() 아님
 	%>
 	<%

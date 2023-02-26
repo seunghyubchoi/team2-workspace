@@ -60,7 +60,6 @@
             text-align: right;
             color: #cb7cdd;
             font-weight: 700;
-
          }
         </style>
 
