@@ -106,7 +106,7 @@
               <th scope="row"><%= count %></th>
               <td>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="chk" value="<%=c.getProductPrice()*(((100-c.getProductDiscount())*0.01))*c.getCartQnt() %>" id="flexCheckDefault">
+                  <input class="form-check-input" type="checkbox" name="chk" value="<%=c.getCartNo() %>" id="flexCheckDefault">
                 </div>
               </td>
               <td>
