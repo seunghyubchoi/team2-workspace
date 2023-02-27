@@ -1,7 +1,6 @@
-package com.kh.myPage.controller;
+package com.kh.payment.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.myPage.model.service.MyPageService;
-import com.kh.myPage.model.vo.Follow;
+import com.kh.payment.model.service.PaymentService;
+import com.kh.payment.model.vo.Location;
 
 /**
- * Servlet implementation class FollowPageController
+ * Servlet implementation class ModifyLocationPageController
  */
-@WebServlet("/follow.mp")
-public class FollowPageController extends HttpServlet {
+@WebServlet("/modifyLoc.lo")
+public class ModifyLocationPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FollowPageController() {
+    public ModifyLocationPageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +31,14 @@ public class FollowPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		ArrayList<Follow> followList = new MyPageService().selectFollowerList(memNo);
-//		for(Follow f : followList) {
-//			System.out.println(f);
-//		}
-		request.setAttribute("memNo", memNo);
-		request.setAttribute("followList", followList);
+		int locNo = Integer.parseInt(request.getParameter("locNo"));
+		// System.out.println(locNo);
 		
+		Location location = new PaymentService().selectLocationByLocationNo(locNo);
 		
-		
-		RequestDispatcher view = request.getRequestDispatcher("views/myPage/follow.jsp");
+		request.setAttribute("location", location);
+		RequestDispatcher view = request.getRequestDispatcher("views/payment/modifyLoc.jsp");
 		view.forward(request, response);
 	}
 

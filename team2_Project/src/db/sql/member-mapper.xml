@@ -80,6 +80,7 @@
 		WHERE MEM_ID = ?
 		AND MEM_PWD = ?
 	</entry>
+
 	<entry key="insertMember">
 INSERT
 INTO TB_MEMBER
@@ -102,5 +103,12 @@ INTO TB_MEMBER
   ,?
   ,?
   )
+</entry>
+	<entry key="deleteMember">
+	UPDATE TB_MEMBER
+		SET ACT_YN = 'N'
+	WHERE MEM_ID = ?
+	AND MEM_PWD = ?
+
 	</entry>
 </properties>

@@ -3,20 +3,132 @@
 <properties>
 
 	<entry key="selectLocation">
-SELECT 
-        LOC_NO
-      , MEM_NO
-      , LOC_ADDRESS_NAME
-      , LOC_NAME
-      , LOC_PHONE
-      , LOC_ADDRESS
-      , LOC_ADDRESS_DTL
-      , LOC_POST_CODE
-      , DEL_YN
-      , LOC_YN
-FROM TB_LOCATION
-WHERE MEM_NO = ?
-AND LOC_YN = 'Y'
+		SELECT 
+		        LOC_NO
+		      , MEM_NO
+		      , LOC_ADDRESS_NAME
+		      , LOC_NAME
+		      , LOC_PHONE
+		      , LOC_ADDRESS
+		      , LOC_ADDRESS_DTL
+		      , LOC_POST_CODE
+		      , DEL_YN
+		      , LOC_YN
+		FROM TB_LOCATION
+		WHERE MEM_NO = ?
+		AND LOC_YN = 'Y'
+		AND DEL_YN = 'Y'
+	</entry>
+	<entry key="selectLocationList">
+	SELECT 
+	        LOC_NO
+	      , MEM_NO
+	      , LOC_ADDRESS_NAME
+	      , LOC_NAME
+	      , LOC_PHONE
+	      , LOC_ADDRESS
+	      , LOC_ADDRESS_DTL
+	      , LOC_POST_CODE
+	      , DEL_YN
+		  , LOC_YN
+	FROM TB_LOCATION
+	WHERE MEM_NO = ?
+	AND DEL_YN = 'Y'
+	</entry>
+	<entry key="selectLocationByLocationNo">
+		SELECT 
+		        LOC_NO
+		      , MEM_NO
+		      , LOC_ADDRESS_NAME
+		      , LOC_NAME
+		      , LOC_PHONE
+		      , LOC_ADDRESS
+		      , LOC_ADDRESS_DTL
+		      , LOC_POST_CODE
+		      , DEL_YN
+		      , LOC_YN
+		FROM TB_LOCATION
+		WHERE LOC_NO = ?
+		AND DEL_YN = 'Y'
+	</entry>
+	<entry key="updateLocation">
+	UPDATE TB_LOCATION
+	   SET LOC_ADDRESS_NAME = ?
+	     , LOC_NAME = ?
+	     , LOC_PHONE = ?
+	     , LOC_ADDRESS = ?
+	     , LOC_ADDRESS_DTL = ?
+	     , LOC_POST_CODE = ?
+	     , LOC_YN = ?
+	 WHERE LOC_NO = ?
+	</entry>
+	<entry key ="updateLocationSetN">
+	UPDATE TB_LOCATION
+	  SET LOC_YN = 'N'
+	WHERE MEM_NO = ?
+	</entry>
+	<entry key="insertLocation">
+	INSERT 
+    INTO TB_LOCATION 
+        (
+          LOC_NO
+        , MEM_NO
+        , LOC_ADDRESS_NAME
+        , LOC_NAME
+        , LOC_PHONE
+        , LOC_ADDRESS
+        , LOC_ADDRESS_DTL
+        , LOC_POST_CODE
+        , DEL_YN
+        , LOC_YN
+        )
+        VALUES
+        (
+          SEQ_LOCATION.NEXTVAL
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , 'Y'
+        , 'N'
+        )
+	</entry>
+	<entry key="deleteLocation">
+	UPDATE TB_LOCATION
+	   SET DEL_YN = 'N'
+	 WHERE LOC_NO = ?
+	</entry>
+	<entry key="insertFirstLocation">
+	INSERT 
+    INTO TB_LOCATION 
+        (
+          LOC_NO
+        , MEM_NO
+        , LOC_ADDRESS_NAME
+        , LOC_NAME
+        , LOC_PHONE
+        , LOC_ADDRESS
+        , LOC_ADDRESS_DTL
+        , LOC_POST_CODE
+        , DEL_YN
+        , LOC_YN
+        )
+        VALUES
+        (
+          SEQ_LOCATION.NEXTVAL
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , 'Y'
+        , 'Y'
+        )
 	</entry>
 	<entry key="insertCart">
 INSERT INTO 

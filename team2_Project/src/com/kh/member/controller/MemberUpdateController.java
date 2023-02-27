@@ -54,18 +54,18 @@ public class MemberUpdateController extends HttpServlet {
 		Member updateMem = new MemberService().updateMember(m);
 		
 		if(updateMem == null) { 
-			System.out.println("-");
+		
 			
-			request.setAttribute("alertMsg", "-");
+			request.setAttribute("alertMsg", "회원정보수정 실패");
 			response.sendRedirect(request.getContextPath()+"/memberInfo.mp");
 
 
 			
 		} else { 
-			System.out.println("�꽦怨�");
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", updateMem);
-			session.setAttribute("alertMsg", "-.");
+			session.setAttribute("alertMsg", "회원정보수정 성공");
 			response.sendRedirect(request.getContextPath()+"/memberInfo.mp");
 
 		
