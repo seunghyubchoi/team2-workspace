@@ -38,7 +38,7 @@ public class CommunityDao {
 			rset = pstmt.executeQuery();
 			
 			while (rset.next()) {
-				list.add(new Instagram(rset.getString("insta_img_name"),
+				list.add(new Instagram(rset.getString("insta_img_origin"),
 									   rset.getString("insta_img_src")
 									   ));
 			}

@@ -49,7 +49,7 @@
 				<% for (Instagram insta : list) { %>
 				<div class="col">
 					<a href="#"> <img src="<%= insta.getInstaImgSrc() %>"
-						class="img-fluid" alt="...">
+						class="img-fluid" alt="인스타 사진">
 					</a>
 				</div>
 				<% } %>
