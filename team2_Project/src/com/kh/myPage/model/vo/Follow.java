@@ -2,19 +2,25 @@ package com.kh.myPage.model.vo;
 
 public class Follow {
 	private int followNo;
-	private int followingId;
-	private int followerId;
+	private String followingId;
+	private String followerId;
 	
 	public Follow() {
 		
 	}
 
-	public Follow(int followNo, int followingId, int followerId) {
+	
+	
+	
+	public Follow(int followNo, String followingId, String followerId) {
 		super();
 		this.followNo = followNo;
 		this.followingId = followingId;
 		this.followerId = followerId;
 	}
+
+	
+
 
 	public int getFollowNo() {
 		return followNo;
@@ -24,19 +30,19 @@ public class Follow {
 		this.followNo = followNo;
 	}
 
-	public int getFollowingId() {
+	public String getFollowingId() {
 		return followingId;
 	}
 
-	public void setFollowingId(int followingId) {
+	public void setFollowingId(String followingId) {
 		this.followingId = followingId;
 	}
 
-	public int getFollowerId() {
+	public String getFollowerId() {
 		return followerId;
 	}
 
-	public void setFollowerId(int followerId) {
+	public void setFollowerId(String followerId) {
 		this.followerId = followerId;
 	}
 
@@ -44,6 +50,7 @@ public class Follow {
 	public String toString() {
 		return "Follow [followNo=" + followNo + ", followingId=" + followingId + ", followerId=" + followerId + "]";
 	}
+
 	
 	
 	

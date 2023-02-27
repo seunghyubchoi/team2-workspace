@@ -10,7 +10,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <title>Insert title here</title>
 <style>
 * {
@@ -18,7 +18,6 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 	padding: 0;
 	box-sizing: border-box;
 }
-
 body {
 	display: flex;
 	align-items: center;
@@ -26,7 +25,6 @@ body {
 	min-height: 100vh;
 	background: rgb(245, 245, 245);
 }
-
 .container {
 	position: relative;
 	width: 70vw;
@@ -37,7 +35,6 @@ body {
 		rgba(0, 0, 0, 0.3);
 	overflow: hidden;
 }
-
 .container::before {
 	content: "";
 	position: absolute;
@@ -51,7 +48,6 @@ body {
 	transform: translateX(100%);
 	transition: 1s ease-in-out;
 }
-
 .signin-signup {
 	position: absolute;
 	top: 0;
@@ -63,7 +59,6 @@ body {
 	justify-content: space-around;
 	z-index: 5;
 }
-
 .form {
 	display: flex;
 	align-items: center;
@@ -73,25 +68,21 @@ body {
 	min-width: 238px;
 	padding: 0 10px;
 }
-
 form.sign-in-form {
 	opacity: 1;
 	transition: 0.5s ease-in-out;
 	transition-delay: 1s;
 }
-
 form.sign-up-form {
 	opacity: 0;
 	transition: 0.5s ease-in-out;
 	transition-delay: 1s;
 }
-
 .title {
 	font-size: 35px;
 	color: rgb(105, 72, 143);
 	margin-bottom: 10px;
 }
-
 .input-field {
 	width: 250px;
 	height: 50px;
@@ -124,7 +115,6 @@ form.sign-up-form {
 	margin-left:10px;
 	text-align: center;
 }
-
 .btn {
 	width: 150px;
 	height: 50px;
@@ -145,7 +135,6 @@ form.sign-up-form {
 		  0 8px 8px 1px rgba(230, 174, 252, 0.5);
 		
 }
-
 .btn1 {
 	width: 150px;
 	height: 50px;
@@ -185,21 +174,17 @@ form.sign-up-form {
 .btn1:hover {
 	background-color: rgb(255, 99, 112);
 }
-
 .btn:hover {
 	background-color: rgb(142, 79, 202);
 }
-
 .social-text {
 	margin: 10px 0;
 	font-size: 16px;
 }
-
 .social-media {
 	display: flex;
 	justify-content: center;
 }
-
 .panels-container {
 	position: absolute;
 	top: 0;
@@ -210,7 +195,6 @@ form.sign-up-form {
 	align-items: center;
 	justify-content: space-around;
 }
-
 .panel {
 	display: flex;
 	flex-direction: column;
@@ -222,119 +206,95 @@ form.sign-up-form {
 	z-index: 6;
 	text-align: center;
 }
-
 .left-panel {
 	pointer-events: none;
 }
-
 .content {
 	color: #000000;
 	transition: 1.1s ease-in-out;
 	transition-delay: 0.4s;
 }
-
 .panel h3 {
 	font-size: 35px;
 	font-weight: 600px;
 }
-
 .panel p {
 	font: size 15px;
 	padding: 10px 0;
 }
-
 .image {
 	width: 100%;
 	transition: 1.3s ease-in-out;
 	transition-delay: 0.6s;
 }
-
 .left-panel .image, .left-panel .content {
 	transform: translateX(-280%);
 }
-
 .right-panel .image, .right-panel .content {
 	transform: translateX(0);
 }
-
 /*애니메이션*/
 .container.sign-up-mode::before {
 	transform: translateX(0);
 }
-
 .container.sign-up-mode .right-panel .image, .container.sign-up-mode .right-panel .content
 	{
 	transform: translateX(280%);
 }
-
 .container.sign-up-mode .left-panel .image, .container.sign-up-mode .left-panel .content
 	{
 	transform: translateX(0);
 }
-
 .container.sign-up-mode form.sign-in-form {
 	opacity: 0;
 }
-
 .container.sign-up-mode form.sign-up-form {
 	opacity: 1;
 }
-
 .container.sign-up-mode .right-panel {
 	pointer-events: none;
 }
-
 .container.sign-up-mode .left-panel {
 	pointer-events: all;
 }
-
 /*회원 약관*/
 ul>li {
 	list-style: none
 }
-
 a {
 	text-decoration: none;
 }
-
 .clearfix::after {
 	content: "";
 	display: block;
 	clear: both;
 }
-
 #joinForm {
 	width: 500px;
 	margin: 0 auto;
 }
-
 ul.join_box {
 	border: 1px solid #4b3e50;
 	background-color: #fff;
 }
-
 .checkBox, .checkBox>ul {
 	position: relative;
 }
-
 .checkBox>ul>li {
 	float: left;
 }
-
 .checkBox>ul>li:first-child {
 	width: 85%;
 	padding: 15px;
 	font-weight: 600;
 	color: #1b1a1a;
 }
-
 .checkBox>ul>li:nth-child(2) {
 	position: absolute;
 	top: 50%;
 	right: 30px;
 	margin-top: -12px;
 }
-
 .checkBox textarea {
 	width: 96%;
 	height: 90px;
@@ -343,17 +303,14 @@ ul.join_box {
 	color: #726e6e;
 	border: none;
 }
-
 .footBtwrap {
 	margin-top: 15px;
 }
-
 .footBtwrap>li {
 	float: left;
 	width: 50%;
 	height: 60px;
 }
-
 .footBtwrap>li>button {
 	display: block;
 	width: 100%;
@@ -403,8 +360,10 @@ ul.join_box {
 	<div class="container">
 		<div class="signin-signup">
 			<form action="<%=contextPath %>/login.me" name="loginform"
+
 				class="sign-in-form">
                 <h2 class="title" style="margin-left: 75px;">로그인</h2>
+
                 <div class="input-field">
                     <input type="text" id="id" name="userId" placeholder="ID">
                 </div>
@@ -1067,15 +1026,12 @@ ul.join_box {
         const sign_in_btn = document.querySelector("#sign-in-btn");
         const sign_up_btn = document.querySelector("#sign-up-btn");
         const container = document.querySelector(".container");
-
         sign_up_btn.addEventListener("click",()=>{
             container.classList.add("sign-up-mode");
         });
-
         sign_in_btn.addEventListener("click",()=>{
         container.classList.remove("sign-up-mode");
         });
-
 		/*체크박스 스크립트*/
 		
 </script>

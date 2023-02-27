@@ -59,17 +59,18 @@ public class MemberService {
 		return updateMem;
 	}
 
+
 	public int insertMember(Member m) {
 Connection conn = getConnection();
 		
 		int result = new MemberDao().insertMember(conn, m);
 		
-		// Æ®·£Á§¼Ç Ã³¸®
+		// Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 		if(result > 0) {
-			// ¼º°ø
+			// ï¿½ï¿½ï¿½ï¿½
 			commit(conn);
 		} else {
-			// ½ÇÆÐ
+			// ï¿½ï¿½ï¿½ï¿½
 			rollback(conn);
 		}
 		
@@ -77,4 +78,21 @@ Connection conn = getConnection();
 		
 		return result;	
 	}
+
+	public int deleteMember(String memId, String memPwd) {
+		Connection conn = getConnection();		
+		int result = new MemberDao().deleteMember(conn, memId, memPwd);
+		
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+
+
 }

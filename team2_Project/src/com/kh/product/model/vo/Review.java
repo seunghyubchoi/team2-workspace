@@ -13,11 +13,14 @@ public class Review {
 	private int productNo;
 	private int memNo;
 	private int managerNo;
+	private String memname;
+	private String reviewImgSrc;
 	
 	public Review() {}
+	
 
 	public Review(int reviewNo, String reviewContent, int reviewStar, Date reviewDate, String reiviewAnsContent,
-			Date reviewAnsDate, String delYn, int productNo, int memNo, int managerNo) {
+			Date reviewAnsDate, String memname, String reviewImgSrc) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewContent = reviewContent;
@@ -25,10 +28,8 @@ public class Review {
 		this.reviewDate = reviewDate;
 		this.reiviewAnsContent = reiviewAnsContent;
 		this.reviewAnsDate = reviewAnsDate;
-		this.delYn = delYn;
-		this.productNo = productNo;
-		this.memNo = memNo;
-		this.managerNo = managerNo;
+		this.memname = memname;
+		this.reviewImgSrc = reviewImgSrc;
 	}
 
 	public int getReviewNo() {
@@ -110,14 +111,33 @@ public class Review {
 	public void setManagerNo(int managerNo) {
 		this.managerNo = managerNo;
 	}
+	
+	
+	public String getMemname() {
+		return memname;
+	}
+
+	public void setMemname(String memname) {
+		this.memname = memname;
+	}
+
+	public String getReviewImgSrc() {
+		return reviewImgSrc;
+	}
+
+	public void setReviewImgSrc(String reviewImgSrc) {
+		this.reviewImgSrc = reviewImgSrc;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Review [reviewNo=" + reviewNo + ", reviewContent=" + reviewContent + ", reviewStar=" + reviewStar
 				+ ", reviewDate=" + reviewDate + ", reiviewAnsContent=" + reiviewAnsContent + ", reviewAnsDate="
 				+ reviewAnsDate + ", delYn=" + delYn + ", productNo=" + productNo + ", memNo=" + memNo + ", managerNo="
-				+ managerNo + "]";
+				+ managerNo + ", memname=" + memname + ", reviewImgSrc=" + reviewImgSrc + "]";
 	}
+
 	
 	
 }
