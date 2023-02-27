@@ -3,7 +3,7 @@
 <properties>
 <entry key="selectInstaList">
 SELECT
-       INSTA_IMG_NAME
+       INSTA_IMG_ORIGIN
      , INSTA_IMG_SRC
   FROM TB_INSTAGRAM
   LEFT JOIN TB_INSTA_IMAGE IMG ON (IMG_NO = INSTA_IMG_NO)
