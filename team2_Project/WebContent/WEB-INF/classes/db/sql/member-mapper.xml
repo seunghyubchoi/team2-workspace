@@ -109,5 +109,6 @@ INTO TB_MEMBER
 		SET ACT_YN = 'N'
 	WHERE MEM_ID = ?
 	AND MEM_PWD = ?
+
 	</entry>
 </properties>
