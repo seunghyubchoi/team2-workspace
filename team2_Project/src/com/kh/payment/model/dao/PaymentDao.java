@@ -14,6 +14,7 @@ import static com.kh.common.JDBCTemplate.*;
 
 import com.kh.myPage.model.vo.Cart;
 import com.kh.payment.model.vo.Location;
+import com.kh.product.model.vo.Product;
 
 public class PaymentDao {
 	
@@ -188,4 +189,34 @@ public class PaymentDao {
 		return result;
 	}
 
+	public Product selectPayment(Connection conn,int cno) {
+		Product p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPayment");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cno);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				p = new Product(rset.getString("brand_name"),
+								rset.getString("product_name"),
+								rset.getString("product_img_src"),
+								rset.getInt("product_price"),
+								rset.getInt("product_discount"),
+								rset.getString("cart_size"),
+								rset.getInt("cart_qnt"),
+								rset.getInt("product_no"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
+	}
 }

@@ -9,6 +9,7 @@ import com.kh.myPage.model.vo.Cart;
 import com.kh.payment.model.dao.PaymentDao;
 import com.kh.payment.model.vo.Location;
 import com.kh.product.model.dao.ProductDao;
+import com.kh.product.model.vo.Product;
 
 public class PaymentService {
 
@@ -81,6 +82,15 @@ public class PaymentService {
 		}
 		close(conn);
 		return result;
+	}
+	
+	public Product selectPayment(int cno) {
+		Connection conn = getConnection();
+		
+		Product p  = new PaymentDao().selectPayment(conn, cno);
+		close(conn);
+		
+		return p;
 	}
 
 }

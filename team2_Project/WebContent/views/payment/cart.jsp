@@ -150,9 +150,13 @@
           <tr>
           <th>총 주문상품수</th>
           <td width="170" height="40" id="total-qnt">0개</td>
+          <div id="hidden-qnt"></div>
           <tr>
             <th>총 주문금액</th>
             <td height="40" id="total-price">0원</td>
+             <div id="hidden-cno">
+             <input type='hidden' name='cno' value=''>
+             </div>
           </tr>
           <tr>
             <th>배송비</th>
@@ -164,7 +168,7 @@
           </tr>
         </table>
         <div class="d-grid gap-2" style="margin-top: 20px;">
-          <button class="btn btn-primary" type="button" style="background-color: pink; border-color: pink;">결제하러
+          <button class="btn btn-primary" id="payment-btn" type="button" style="background-color: pink; border-color: pink;">결제하러
             가기</button>
         </div>
       </div>
@@ -172,7 +176,7 @@
   </div>
 
   <script>
-	
+  	let carts= [];
     $(document).ready(function () {
       $("#cbx_chkAll").click(function () {
         if ($("#cbx_chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
@@ -224,13 +228,9 @@
     	let totalMileage = 0;
     	$('input:checkbox[name="chk"]').each(function(){
     		if($(this).is(":checked") == true){
-    	        var price_goods = 
-			
-    	        	parseInt($(this).parents('tr').find('input[name=cart-price]').val());
+    	        var price_goods = parseInt($(this).parents('tr').find('input[name=cart-price]').val());
     	        totalPrice = totalPrice + price_goods;
-    	        var qnt_goods = 
-    	        	
-    	        	parseInt($(this).parents('tr').find('input[name=amount]').val());	
+    	        var qnt_goods = parseInt($(this).parents('tr').find('input[name=amount]').val());	
     	        totalQnt = totalQnt + qnt_goods;
     		}
     	})
@@ -248,6 +248,22 @@
         	$('#total-price').text(0+'원');
         	$('#total-mileage').text(0+'원');
     	}
+    })
+    
+    $("#payment-btn").click(function(){
+    	let cartNo = [];
+    	$('input:checkbox[name="chk"]').each(function(){
+    		if($(this).is(":checked") == true){
+    	        var cart_no = $(this).val();
+    	        	cartNo.push(cart_no);
+    	  
+    	      
+    		}
+    	})
+    	const carts = cartNo.join(',');
+    	console.log(carts);
+    	location.href = '<%= contextPath %>/list.pa?cno=' + carts;
+    
     })
   </script>
 
