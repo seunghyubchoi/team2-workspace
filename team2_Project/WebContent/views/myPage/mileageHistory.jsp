@@ -6,120 +6,100 @@
         <meta charset="UTF-8">
         <title>Insert title here</title>
 
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
-
-        <!-- jQuery library -->
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
-
-        <!-- Popper JS -->
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-        <!-- Latest compiled JavaScript -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
+       
 
         <style>
-            #wrap {
-                margin: auto;
-                width: 1500px;
-                padding-top: 20px;
-                height: 100%;
-            }
+         .content_subTitle {
+            text-align: left;
+            font-weight: 900;
+            font-size: 1.6em;
+            margin-bottom: 60px;
+         }
 
-            #menu_list {
-                width: 30%;
-                float: left;
-                height: 100%;
+         #mileageBox{
+            
+            border: 1px #cb7cdd solid;
+            width: 80%;
+            height: 200px;
+            border-radius: 30px;
+            margin: 0 auto;
+            box-shadow: 0 0 4px;
+            margin-bottom: 60px
+            
+         }
 
-            }
+         #mileageBox p {
+           text-align: center;
+           margin: auto;
+           padding-top: 33px;
+           font-size: 1.2em;
+           
+         }
 
-            .list_name {
-                width: 100%;
-                padding-bottom: 2.5rem;
-                padding-left: 4rem;
+         #mileageBox span{
+            font-size: 1.7em;
+            font-weight: 700;
+            color: #cb7cdd;
+         }
+        
+         
+         #mileageTable{
+            width: 80%;
+            height: 100%;
+            text-align: left;
+            margin: auto;
+            font-size: 1.2em;
+            
+         }
 
-            }
+         #mileageTable li{
+            padding: 5px;
+         }
 
-            .list_name a {
-                color: rgb(51, 51, 51);
-                font-size: 1.5rem;
-                text-decoration: none;
-                font-weight: bold;
-
-            }
-
-            #menu_content {
-                float: right;
-                width: 70%;
-                height: 100%;
-                text-align: center;
-            }
-
-
-            #content_title p {
-                text-align: left;
-                font-size: 2rem;
-                font-weight: bolder;
-                padding-bottom: 3rem;
-            }
-
-            #member_info {
-                width: 100%;
-                color: rgb(51, 51, 51)
-            }
-
-
-            #member_table {
-                text-align: left;
-                width: 100%;
-                height: 100%;
-            }
-
-            #member_table th {
-                padding-bottom: 30px;
-
-            }
-
-            #member_table td {
-                padding-left: 10px;
-                padding-bottom: 30px;
-            }
-
-            .btn {
-                border: #C7A9CC;
-                background-color: #C7A9CC;
-            }
-
-            .btn:hover {
-                background-color: #9a77a1;
-
-            }
+         #mileageTable td:nth-child(2){
+            text-align: right;
+            color: #cb7cdd;
+            font-weight: 700;
+         }
         </style>
+
     </head>
 
-    <body>
-        <%@include file="../common/menubar.jsp" %>
+   <body>
+	<%@include file="../common/menu.jsp"%>
+	<%@include file="../common/leftList.jsp"%>
+	<div id="content_title">
+		<p>적립금내역</p>
 
-            <!-- 비밀번호 입력 전  -->
+	</div>
+    <div id="content">
+        <p class="content_subTitle">보유 포인트</p>
+        <div id="mileageBox">
+            <p>보유하고 계신 포인트는<br>
+            <span>100p</span><br>
+            입니다.</p>
+        </div>
+        <p class="content_subTitle">포인트 내역</p>
+        <table id="mileageTable" >
+            <tr>
+                <td >
+                    <li>적립 : 숏패딩 2 colors (화이트)</li>
+                </td>
+                <td>+300p</td>
+            </tr>
+            <tr>
+                <td >
+                    <li>사용 : 긴목도리 2 colors (블랙)</li>
+                </td>
+                
 
-            <div id="wrap">
-                <div id="menu_list">
-                    <div class="list_name"><a href="<%= contextPath%>/myPage.mp">회원정보관리</a></div>
-                    <div class="list_name"><a href="<%= contextPath%>/orderHistory.mp">주문내역</a></div>
-                    <div class="list_name"><a href="<%= contextPath%>/mileageHistory.mp">적립금내역</a></div>
-                    <div class="list_name"><a href="<%= contextPath%>/likes.mp">좋아요</a></div>
-                    <div class="list_name"><a href="<%= contextPath%>/follow.mp">팔로잉/팔로워</a></div>
-                </div>
-                <div id="menu_content">
-                    <div id="content_title">
-                        <p>적립금내역</p>
-                    </div>
-               
-                </div>
-            </div>
+                <td>-200p</td>
+            </tr>
+        </table>
+    </div>
+	<%@include file="../common/footer.jsp"%>
 
 
-    </body>
+</body>
 
     </html>

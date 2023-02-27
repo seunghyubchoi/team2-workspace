@@ -460,7 +460,7 @@ label.right {
                     </div>
                     <div id="login3">
                     <a href="#" class="btn-3d-1">마이페이지</a>
-                    <a href="#" class="btn-3d-4">장바구니</a>
+                    <a href="<%=contextPath%>/list.ca?mno=<%=loginUser.getMemNo()%>" class="btn-3d-4">장바구니</a>
                     <a href="<%= contextPath %>/logout.me" class="btn-3d-2">로그아웃</a>
                 </div> 
                 <%} %>

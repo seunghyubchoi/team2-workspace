@@ -171,6 +171,9 @@ a {
 	text-align: center;
 }
 </style>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -191,25 +194,27 @@ a {
 			</div>
 			<div id="head2">
 				<div id="head2_1">
-					<div id=memmem></div>
+					<form action="<%= contextPath %>/search.pr" method="get">
+						<div id=memmem></div>
 					<div id="search">
-						<input type="text" id="searchbar"
+						<input type="text" id="searchbar" name="product"
 							placeholder="검색을 원하는 상품을 입력해주세요.">
 						<button type="submit" class="btn-3d">검색</button>
 					</div>
-
+					</form>
 				</div>
 				<div id="head2_2">
 					<ul class="menu">
 						<li><a href="<%= contextPath %>/list.co">뭐입지그램</a></li>
 						<li><a href="#">상품</a>
-							<ul class="submenu">
+							<ul class="submenu" id="categoty-name">
 								<li><a href="#">아우터</a></li>
 								<li><a href="#">상의</a></li>
 								<li><a href="#">하의</a></li>
 								<li><a href="#">신발</a></li>
 								<li><a href="#">악세사리</a></li>
-							</ul></li>
+							</ul>
+							</li>
 						<li><a href="#">고객센터</a>
 							<ul class="submenu">
 								<li><a href="#">공지사항</a></li>
@@ -221,6 +226,13 @@ a {
 							</li>
 					</ul>
 				</div>
+				<script>
+				$(function(){
+					$("#categoty-name>li>a").click(function(){
+						location.href='<%= contextPath %>/category.pr?cname=' + $(this).text();
+					})
+				})
+				</script>
 			</div>
 		</div>
 
