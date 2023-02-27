@@ -10,7 +10,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <title>Insert title here</title>
 <style>
 * {
@@ -360,8 +360,10 @@ ul.join_box {
 	<div class="container">
 		<div class="signin-signup">
 			<form action="<%=contextPath %>/login.me" name="loginform"
+
 				class="sign-in-form">
                 <h2 class="title" style="margin-left: 75px;">로그인</h2>
+
                 <div class="input-field">
                     <input type="text" id="id" name="userId" placeholder="ID">
                 </div>

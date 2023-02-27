@@ -210,6 +210,43 @@ public class PaymentDao {
 								rset.getInt("cart_qnt"),
 								rset.getInt("product_no"));
 			}
+				} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+			return p;
+
+		}	
+
+	public ArrayList<Location> selectLocationList(Connection conn, int memNo) {
+		ArrayList<Location> list = new ArrayList<Location>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLocationList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(
+						 new Location(
+								  rset.getInt("loc_no")
+								, rset.getInt("mem_no")
+								, rset.getString("loc_address_name")
+								, rset.getString("loc_name")
+								, rset.getString("loc_phone")
+								, rset.getString("loc_address")
+								, rset.getString("loc_address_dtl")
+								, rset.getString("loc_post_code")
+								, rset.getString("del_yn")
+								, rset.getString("loc_yn")
+								)
+						);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -217,6 +254,158 @@ public class PaymentDao {
 			close(rset);
 			close(pstmt);
 		}
-		return p;
+		
+		return list;
 	}
+
+	public Location selectLocationByLocationNo(Connection conn, int locNo) {
+		Location location = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectLocationByLocationNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, locNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				location = new Location(
+						  rset.getInt("loc_no")
+						, rset.getInt("mem_no")
+						, rset.getString("loc_address_name")
+						, rset.getString("loc_name")
+						, rset.getString("loc_phone")
+						, rset.getString("loc_address")
+						, rset.getString("loc_address_dtl")
+						, rset.getString("loc_post_code")
+						, rset.getString("del_yn")
+						, rset.getString("loc_yn")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return location;
+	}
+
+	public int updateLocation(Connection conn, Location l) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateLocation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, l.getLocAddressName());
+			pstmt.setString(2, l.getLocName());
+			pstmt.setString(3, l.getLocPhone());
+			pstmt.setString(4, l.getLocAddress());
+			pstmt.setString(5, l.getLocAddressDtl());
+			pstmt.setString(6, l.getLocPostCode());
+			pstmt.setString(7, l.getLocYn());
+			pstmt.setInt(8, l.getLocNo());
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertLocation(Connection conn, Location l) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertLocation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, l.getMemNo());
+			pstmt.setString(2, l.getLocAddressName());
+			pstmt.setString(3, l.getLocName());
+			pstmt.setString(4, l.getLocPhone());
+			pstmt.setString(5, l.getLocAddress());
+			pstmt.setString(6, l.getLocAddressDtl());
+			pstmt.setString(7, l.getLocPostCode());
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteLocation(Connection conn, int locNo) {
+		int result = 0; 
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteLocation");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, locNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	
+	}
+
+	public int insertFirstLocation(Connection conn, Location l) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFirstLocation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, l.getMemNo());
+			pstmt.setString(2, l.getLocAddressName());
+			pstmt.setString(3, l.getLocName());
+			pstmt.setString(4, l.getLocPhone());
+			pstmt.setString(5, l.getLocAddress());
+			pstmt.setString(6, l.getLocAddressDtl());
+			pstmt.setString(7, l.getLocPostCode());
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateLocationSetN(Connection conn, int memNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateLocationSetN");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }
