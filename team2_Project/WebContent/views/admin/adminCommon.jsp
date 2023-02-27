@@ -84,7 +84,7 @@ pageEncoding="UTF-8"%>
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" id="notice" href="<%= contextPath%>/noticeList.ma">공지사항</a>
+                    <a class="collapse-item" id="notice" href="noticeList.ma">공지사항</a>
                     <a class="collapse-item" id="qna" href="<%= contextPath%>/qnaList.ma">Q&A</a>
                     <a class="collapse-item" id="community" href="<%= contextPath%>/communityList.ma">뭐입지그램</a>
                 </div>
@@ -113,22 +113,6 @@ pageEncoding="UTF-8"%>
         </li>
 
     </ul>
-
-    <!-- <script>
-        $(function(){
-            $(".nav-item").click(function(){
-                $(".nav-item").each(function(){
-                    if ($(this).hasClass("active")) {
-                        $(this).removeClass('active')
-                    }
-                });
-        
-                console.log($(this));
-                $(this).addClass("active");
-            });
-        });
-    </script> -->
-
 
     <!-- End of Sidebar -->
 

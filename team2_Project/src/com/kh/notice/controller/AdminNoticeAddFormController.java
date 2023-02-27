@@ -1,8 +1,8 @@
-package com.kh.manager.controller;
+package com.kh.notice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,17 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.notice.model.service.ManageNoticeService;
+import com.kh.notice.model.vo.Notice;
+
 /**
- * Servlet implementation class NoticeListController
+ * Servlet implementation class AdminNoticeAddController
  */
-@WebServlet("/noticeList.ma")
-public class NoticeListController extends HttpServlet {
+@WebServlet("/noticeAddView.ma")
+public class AdminNoticeAddFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListController() {
+    public AdminNoticeAddFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,8 +38,8 @@ public class NoticeListController extends HttpServlet {
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스 입니다.");
 			request.getRequestDispatcher("views/admin/adminLogin.jsp").forward(request, response);
 		} else {
-			request.setAttribute("sidebar", "notice");
-			request.getRequestDispatcher("views/admin/adminNoticeMain.jsp").forward(request, response);
+			
+			request.getRequestDispatcher("views/admin/adminNoticeAdd.jsp").forward(request, response);
 		}
 	}
 

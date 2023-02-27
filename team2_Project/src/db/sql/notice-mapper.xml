@@ -1,5 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+<!-- 공지사항 리스트 조회 쿼리 -->
+<entry key="selectList">
+	SELECT
+	       NOTICE_NO
+	     , NOTICE_TITLE
+	     , NOTICE_DATE
+	  FROM TB_NOTICE
+</entry>
+
+<!-- 이미지 등록 쿼리 -->
+<entry key="insertImg">
+	INSERT
+	  INTO TB_NOTICE_ATTACHMENT
+	  (
+	    FILE_NO
+	  , ORIGIN_NAME
+	  , CHANGE_NAME
+	  , FILE_PATH
+	  )
+	  VALUES
+	  (
+	    SEQ_NFNO.NEXTVAL
+	  , ?
+	  , ?
+	  , ?
+	  )
+</entry>
+
+<!-- 공지사항 등록 쿼리 -->
+<entry key="insertNotice">
+	INSERT 
+	  INTO TB_NOTICE
+	  (
+	    NOTICE_NO
+	  , NOTICE_TITLE
+	  , NOTICE_CONTENT
+	  , MANAGER_NO
+	  )
+	VALUES
+	  (
+	    SEQ_NOTICE.NEXTVAL
+	  , ?
+	  , ?
+	  , ?
+	  )
+</entry>
+
+<!-- 첨부파일 등록 쿼리 -->
+<entry key="insertAttechment">
+	INSERT
+	  INTO TB_NOTICE_ATTACHMENT
+	  (
+	    FILE_NO
+	  , REF_BNO
+	  , ORIGIN_NAME
+	  , CHANGE_NAME
+	  , FILE_PATH
+	  )
+	  VALUES
+	  (
+	    SEQ_NFNO.NEXTVAL
+	  , SEQ_NOTICE.CURRVAL
+	  , ?
+	  , ?
+	  , ?
+	  )
+</entry>
 
 </properties>
+
+
+
+
+
+
+
+

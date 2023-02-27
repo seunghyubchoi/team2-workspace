@@ -25,8 +25,14 @@ public class Notice { // class start
 		this.managerNo = managerNo;
 	}
 
+	public Notice(int noticeNo, String noticeTitle, Date noticeDate) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeTitle = noticeTitle;
+		this.noticeDate = noticeDate;
+	}
+
 	// method
-	// getter setter
 	public int getNoticeNo() {
 		return noticeNo;
 	}

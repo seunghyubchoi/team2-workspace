@@ -52,11 +52,14 @@ $(document).ready(function () {
   });
 
   $("div.notice").append('<button id="btn_del_notice" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#commonModal">삭제</button>');
-  $("div.notice").append('<a id="btn_add_notice" class="btn btn-primary btn-table">추가</a>');
+  $("div.notice").append('<a id="btn_add_notice" class="btn btn-primary btn-table" href="noticeAddView.ma">추가</a>');
   
-  $("#btn_add_notice").click(function(){
-    $(this).attr("href", "adminNoticeAdd.jsp");
-  });
+  // var contextPath ="team2_Project";
+  // var contextPath ="<%= contextPath%>";
+
+  // $("#btn_add_notice").click(function(){
+  //   $(this).attr("href", "/noticeAdd.ma");
+  // });
 
   $('#QnATable').DataTable({
     dom: '<"top"f<"dt_btn QnA">>t<"bottom"ip>',

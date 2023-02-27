@@ -11004,11 +11004,9 @@ body.sidebar-toggled footer.sticky-footer {
   margin-bottom: 10px !important;
 }
 
-.input-file-button{
-  padding: 6px 25px;
-  background-color:#FF6600;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
+.file-name{
+  font-weight: 300;
+  font-size: small;
+  margin-top: 1.3rem;
+  margin-left: 0.5rem;
 }
-

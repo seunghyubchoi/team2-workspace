@@ -53,25 +53,6 @@
     e.preventDefault();
   });
 
-  // 희연 추가
-
-  // $(".nav-item").click(function(){
-  //     $(".nav-item").attr("class", "nav-link");
-  //     console.log($(this));
-
-  //     $(this).addClass("active");
-  // });
-
-  // $(".nav-item").click(function(){
-  //   $(".nav-item").each(function(){
-  //     if ($(this).hasClass("active")) {
-  //       $(this).removeClass('active')
-  //     }
-  //   });
-    
-  //   $(this).addClass("active");
-  // });
-
 })(jQuery); // End of use strict
 
 function sidebarActiveDelete(){
@@ -88,15 +69,23 @@ function sidebarActiveDelete(){
 }
   
 function sidebarActive(sidebarId){
-  // $(".nav-item").each(function(){
-  //   if ($(this).hasClass("active")) {
-  //     $(this).removeClass('active')
-  //   }
-  // });
   $(sidebarId).addClass("active");
 }
 
 function sidebarCollapseActive(collapseId){
   $(collapseId).addClass("active");
   $("#collapsePages").addClass("show");
+}
+
+function checkAll(box){
+  if(box.checked == true){
+    $(".noticeCheckbox").attr("checked", true);
+  }else{
+    $(".noticeCheckbox").attr("checked", false);
+  }
+}
+
+function changeValue(a)
+{
+	$("#notice-add-file span").text(a.files[0].name);
 }

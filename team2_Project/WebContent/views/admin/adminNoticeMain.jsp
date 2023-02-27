@@ -1,5 +1,10 @@
+<%@page import="com.kh.notice.model.vo.Notice"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,19 +56,21 @@
                         <table class="table table-bordered dataTables" id="noticeTable" width="100%" cellspacing="0" style="text-align: center;">
                             <thead>
                                 <tr>
-                                    <th id="check1"><input type="checkbox" id="checkAll"></th>
+                                    <th id="check1"><input type="checkbox" id="checkAll" onclick="checkAll(this);"></th>
                                     <th style="width: 60px">번호</th>
                                     <th>제목</th>
                                     <th style="width: 200px">작성일</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            	<% for(Notice n : list){ %>
                                 <tr>
-                                    <td><input type="checkbox" name="changeList"></td>
-                                    <td>3</td>
-                                    <td><a href="#">어쩌구 저쩌구</a></td>
-                                    <td>2021-10-22</td>
+                                    <td><input type="checkbox" name="deleteList" class="noticeCheckbox"></td>
+                                    <td><%= n.getNoticeNo()%></td>
+                                    <td><a href="#"><%= n.getNoticeTitle() %></a></td>
+                                    <td><%= n.getNoticeDate() %></td>
                                 </tr>
+                            	<%} %>
                             </tbody>
                         </table>
                     </div>
