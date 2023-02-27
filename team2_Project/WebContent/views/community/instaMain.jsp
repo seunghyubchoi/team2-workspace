@@ -1,7 +1,9 @@
+<%@page import="com.kh.community.model.vo.Instagram"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	String contextPath = request.getContextPath(); 
+	ArrayList<Instagram> list = (ArrayList<Instagram>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -13,100 +15,10 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
 <script src="../../resources/js/jquery-3.6.3.min.js"></script>
-<style>
-div {
-	/* border: 1px solid black; */
-}
-
-.input-box {
-	display: flex;
-	margin: 15px;
-	width: 400px;
-	padding: 6px;
-	border-radius: 15px;
-	border: 1px solid #e2e2e2;
-}
-
-.input-box i {
-	flex: 1;
-}
-
-.input-box input {
-	flex: 7;
-	border: none;
-	outline: none;
-}
-
-.product_container {
-	font-size: 18px;
-	font-weight: 700;
-	line-height: 1.5;
-	padding-top: 30px;
-	padding-bottom: 30px;
-}
-
-#searchBar {
-	padding-top: 50px;
-}
-
-#category_link {
-	text-align: left;
-	padding-left: 40px;
-	padding-top: 30px;
-	color: gray;
-	font-size: 20px;
-	font-weight: 570;
-}
-
-#category_link div {
-	padding-top: 15px;
-}
-
-#category_link a {
-	text-decoration: none;
-	color: gray
-}
-
-.product_link {
-	text-decoration: none;
-	color: black;
-}
-
-.product_link:hover {
-	text-decoration: underline
-}
-</style>
 </head>
 <body>
-	<div class="container text-center">
-		<div class="row">
-			<div id="input_logo" class="col">
-				<img src="../resources/image/로고1.png" width="80%" height="200px"
-					alt="">
-			</div>
-			<div id="searchBar" class="col">
-				<div class="input-box">
-					<i class="fa-solid i1 fa-magnifying-glass"></i> <input type="text">
-					<i class="fa-solid fa-keyboard"></i> <i
-						class="fa-solid fa-microphone"></i>
-					<button type="button" class="btn btn-outline-info"
-						style="border-color: plum; color: plum">검색</button>
-				</div>
-			</div>
-			<div class="col"></div>
-		</div>
-	</div>
-	<ul class="nav justify-content-center">
-		<li class="nav-item"><a class="nav-link active"
-			aria-current="page" href="#" style="color: plum">뭐입지그램</a></li>
-		<li class="nav-item"><a class="nav-link" href="#"
-			style="color: plum">쇼핑</a></li>
-		<li class="nav-item"><a class="nav-link" href="#"
-			style="color: plum">고객센터</a></li>
-	</ul>
-	<div>
-		<hr>
-	</div>
+	<%@include file="../common/menubar.jsp"%>
+
 	<div class="container text-center">
 		<div class="row">
 			<div class="col">
@@ -120,93 +32,28 @@ div {
 			</div>
 			<div class="col"></div>
 			<div class="col">
+				<% if (loginUser != null) { %>
+				<!-- 로그인한 회원만 보이게 -->
 				<div style="padding-top: 35px; float: right;">
-					<a class="btn btn-secondary btn-lg" href="<%= contextPath %>/upload.co" role="button">스타일올리기</a>
+					<a class="btn btn-secondary btn-lg"
+						href="<%= contextPath %>/upload.co" role="button">스타일올리기</a>
 				</div>
+				<% } %>
 			</div>
 		</div>
 		<div class="container text-center">
 			<div class="row row-cols-4" style="padding-top: 35px;">
+				<% if (list.isEmpty()) { %>
+				<p>조회된 게시글이 없습니다.</p>
+				<% } else { %>
+				<% for (Instagram insta : list) { %>
 				<div class="col">
-					<a href="#"> <img
-						src="https://images.seoulstore.com/products/17d78e1a1d54940a3170b29f099a4f10.jpg"
+					<a href="#"> <img src="<%= insta.getInstaImgSrc() %>"
 						class="img-fluid" alt="...">
 					</a>
 				</div>
-				<div class="col">
-					<a href="#"> <img
-						src="https://images.seoulstore.com/products/17d78e1a1d54940a3170b29f099a4f10.jpg"
-						class="img-fluid" alt="...">
-					</a>
-				</div>
-				<div class="col">
-					<a href="#"> <img
-						src="https://images.seoulstore.com/products/17d78e1a1d54940a3170b29f099a4f10.jpg"
-						class="img-fluid" alt="...">
-					</a>
-				</div>
-				<div class="col">
-					<a href="#"> <img
-						src="https://images.seoulstore.com/products/17d78e1a1d54940a3170b29f099a4f10.jpg"
-						class="img-fluid" alt="...">
-					</a>
-				</div>
-			</div>
-		</div>
-		<div class="container text-center">
-			<div class="row row-cols-4" style="padding-top: 75px;">
-				<div class="col">
-					<a href="#"> <img
-						src="https://image.msscdn.net/images/goods_img/20230209/3071087/3071087_16759089265066_500.jpg"
-						class="img-fluid" alt="...">
-					</a>
-				</div>
-				<div class="col">
-					<a href="#"> <img
-						src="https://image.msscdn.net/images/goods_img/20230209/3071087/3071087_16759089265066_500.jpg"
-						class="img-fluid" alt="...">
-					</a>
-				</div>
-				<div class="col">
-					<a href="#"> <img
-						src="https://image.msscdn.net/images/goods_img/20230209/3071087/3071087_16759089265066_500.jpg"
-						class="img-fluid" alt="...">
-					</a>
-				</div>
-				<div class="col">
-					<a href="#"> <img
-						src="https://image.msscdn.net/images/goods_img/20230209/3071087/3071087_16759089265066_500.jpg"
-						class="img-fluid" alt="...">
-					</a>
-				</div>
-			</div>
-		</div>
-		<div class="container text-center">
-			<div class="row row-cols-4" style="padding-top: 75px;">
-				<div class="col">
-					<a href="#"> <img
-						src="https://image.msscdn.net/images/goods_img/20230126/3040812/3040812_16747144454303_500.jpg"
-						class="img-fluid" alt="...">
-					</a>
-				</div>
-				<div class="col">
-					<a href="#"> <img
-						src="https://image.msscdn.net/images/goods_img/20230126/3040812/3040812_16747144454303_500.jpg"
-						class="img-fluid" alt="...">
-					</a>
-				</div>
-				<div class="col">
-					<a href="#"> <img
-						src="https://image.msscdn.net/images/goods_img/20230126/3040812/3040812_16747144454303_500.jpg"
-						class="img-fluid" alt="...">
-					</a>
-				</div>
-				<div class="col">
-					<a href="#"> <img
-						src="https://image.msscdn.net/images/goods_img/20230126/3040812/3040812_16747144454303_500.jpg"
-						class="img-fluid" alt="...">
-					</a>
-				</div>
+				<% } %>
+				<% } %>
 			</div>
 		</div>
 
@@ -224,9 +71,12 @@ div {
 			</ul>
 		</nav>
 	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
+	
+	<script>
+		$(".img-fluid").cl/ick(function() {
+			location.href = "<%= contextPath %>/feed.co"
+		})
+	</script>
+	
 </body>
 </html>
