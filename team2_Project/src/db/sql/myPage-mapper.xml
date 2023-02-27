@@ -23,7 +23,40 @@
 		WHERE M1.MEM_NO = ?
 		AND F.ACT_YN = 'Y'
 	</entry>
+	<entry key="deleteFollowing">
+		UPDATE (
+		SELECT M1.MEM_NO, M2.MEM_ID, F.ACT_YN
+		FROM
+		TB_MEMBER M1, TB_MEMBER M2, TB_FOLLOW F
+		WHERE M1.MEM_NO =
+		F.FOLLOWING_ID
+		AND M2.MEM_NO = F.FOLLOWER_ID
+		AND M1.MEM_NO = ?
+		AND
+		M2.MEM_ID = ?
+		)
+		SET ACT_YN ='N'
+
+	</entry>
+
+
 	<entry key="deleteFollower">
+
+		UPDATE (
+		SELECT M1.MEM_NO, M2.MEM_ID, F.ACT_YN
+		FROM
+		TB_MEMBER M1, TB_MEMBER M2, TB_FOLLOW F
+		WHERE M1.MEM_NO =
+		F.FOLLOWING_ID
+		AND M2.MEM_NO= F.FOLLOWER_ID
+		AND M2.MEM_NO = ?
+		AND
+		M1.MEM_ID = ?
+		)
+		SET ACT_YN ='N'
+	</entry>
+
+	<entry key="cancelDeleteFollowing">
 		UPDATE (
 		SELECT M1.MEM_NO, M2.MEM_ID, F.ACT_YN
 		FROM TB_MEMBER M1, TB_MEMBER M2, TB_FOLLOW F
@@ -32,7 +65,7 @@
 		AND M1.MEM_NO = ?
 		AND M2.MEM_ID = ?
 		)
-		SET ACT_YN ='N'
-
+		SET ACT_YN ='Y'
 	</entry>
+
 </properties>
