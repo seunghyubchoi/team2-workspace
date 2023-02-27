@@ -194,6 +194,29 @@ public class MemberDao {
 		return m;
 	}
 
+
+	public int insertMember(Connection conn,Member m) {
+		int result =0;
+		PreparedStatement pstmt =null;
+		String sql =prop.getProperty("insertMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemId());
+			pstmt.setString(2, m.getMemPwd());
+			pstmt.setString(3, m.getMemName());
+			pstmt.setString(4, m.getEmail() );
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getAdCheck());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (SQLException e) {
+      		e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+}
 	public int deleteMember(Connection conn, String memId, String memPwd) {
 		int result = 0; 
 		PreparedStatement pstmt = null;
@@ -204,14 +227,12 @@ public class MemberDao {
 			pstmt.setString(2, memPwd);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+    		e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
 		return result;
-	
-	}
 
-	
+}
 
 }
