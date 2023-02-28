@@ -1,4 +1,8 @@
+<%@page import="com.kh.myPage.model.vo.MileageHistory"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% ArrayList<MileageHistory> list =  (ArrayList<MileageHistory>)request.getAttribute("list"); %>
+    
     <!DOCTYPE html>
     <html>
 
@@ -81,20 +85,23 @@
         </div>
         <p class="content_subTitle">포인트 내역</p>
         <table id="mileageTable" >
-            <tr>
+        <%if(list.isEmpty()) { %>
+        	<tr>
                 <td >
-                    <li>적립 : 숏패딩 2 colors (화이트)</li>
+                    <p>포인트 내역이 없습니다<p>
                 </td>
-                <td>+300p</td>
             </tr>
-            <tr>
-                <td >
-                    <li>사용 : 긴목도리 2 colors (블랙)</li>
-                </td>
-                
-
-                <td>-200p</td>
-            </tr>
+        <%} else { %>
+	       	<%for(MileageHistory m : list) { %>
+	       		 <tr>
+	                <td >
+	                    <li><%=m.getMileageNo() %>.<%= m.getMileageHistory() %> : <%=m.() %></li>
+	                </td>              
+	                <td>-200p</td>
+	            </tr>
+	        <%} %>
+        <%} %>
+            
         </table>
     </div>
 	<%@include file="../common/footer.jsp"%>
