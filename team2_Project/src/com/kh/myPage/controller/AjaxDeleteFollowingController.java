@@ -11,16 +11,16 @@ import com.google.gson.Gson;
 import com.kh.myPage.model.service.MyPageService;
 
 /**
- * Servlet implementation class AjaxDeleteFollowerController
+ * Servlet implementation class AjaxDeleteFollowingController
  */
-@WebServlet("/deleteFollower.mp")
-public class AjaxDeleteFollowerController extends HttpServlet {
+@WebServlet("/deleteFollowing.mp")
+public class AjaxDeleteFollowingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxDeleteFollowerController() {
+    public AjaxDeleteFollowingController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,15 +30,13 @@ public class AjaxDeleteFollowerController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
-		String followerId = request.getParameter("followerId");
+		String followingId = request.getParameter("followingId");
 		
-		int result = new MyPageService().deleteFollower(memNo, followerId);
+		int result = new MyPageService().deleteFollowing(memNo, followingId);
 		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(result,response.getWriter());
-		
-		
-		
+
 	}
 
 	/**
