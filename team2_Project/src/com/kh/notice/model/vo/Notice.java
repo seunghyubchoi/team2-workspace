@@ -40,8 +40,7 @@ public class Notice { // class start
 		this.noticeDate = noticeDate;
 		this.managerNo = managerNo;
 	}
-
-	// method
+	
 	public int getNoticeNo() {
 		return noticeNo;
 	}
