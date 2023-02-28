@@ -23,16 +23,65 @@
 		WHERE M1.MEM_NO = ?
 		AND F.ACT_YN = 'Y'
 	</entry>
-	<entry key="deleteFollower">
+	<entry key="deleteFollowing">
 		UPDATE (
 		SELECT M1.MEM_NO, M2.MEM_ID, F.ACT_YN
-		FROM TB_MEMBER M1, TB_MEMBER M2, TB_FOLLOW F
-		WHERE M1.MEM_NO = F.FOLLOWING_ID
-		AND M2.MEM_NO= F.FOLLOWER_ID
+		FROM
+		TB_MEMBER M1, TB_MEMBER M2, TB_FOLLOW F
+		WHERE M1.MEM_NO =
+		F.FOLLOWING_ID
+		AND M2.MEM_NO = F.FOLLOWER_ID
 		AND M1.MEM_NO = ?
-		AND M2.MEM_ID = ?
+		AND
+		M2.MEM_ID = ?
 		)
 		SET ACT_YN ='N'
 
+	</entry>
+
+
+	<entry key="deleteFollower">
+
+		UPDATE (
+		SELECT M1.MEM_NO, M2.MEM_ID, F.ACT_YN
+		FROM
+		TB_MEMBER M1, TB_MEMBER M2, TB_FOLLOW F
+		WHERE M1.MEM_NO =
+		F.FOLLOWING_ID
+		AND M2.MEM_NO= F.FOLLOWER_ID
+		AND M2.MEM_NO = ?
+		AND
+		M1.MEM_ID = ?
+		)
+		SET ACT_YN ='N'
+	</entry>
+
+	<entry key="cancelDeleteFollowing">
+		UPDATE (
+		SELECT M1.MEM_NO, M2.MEM_ID, F.ACT_YN
+		FROM
+		TB_MEMBER M1, TB_MEMBER M2, TB_FOLLOW F
+		WHERE M1.MEM_NO =
+		F.FOLLOWING_ID
+		AND M2.MEM_NO= F.FOLLOWER_ID
+		AND M1.MEM_NO = ?
+		AND
+		M2.MEM_ID = ?
+		)
+		SET ACT_YN ='Y'
+	</entry>
+
+
+	<entry key="selectMileageHistory">
+		SELECT
+		MILEAGE_NO
+		, MILEAGE_HISTORY
+		, MILEAGE
+		, PRODUCT_NAME
+		, MEM_NO
+		FROM TB_MILEAGE_HISTORY
+		JOIN TB_PRODUCT USING (PRODUCT_NO)
+		WHERE MEM_NO=?
+		ORDER BY MILEAGE_NO DESC
 	</entry>
 </properties>
