@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.kh.myPage.model.dao.MyPageDao;
 import com.kh.myPage.model.vo.Follow;
+import com.kh.myPage.model.vo.MileageHistory;
 
 public class MyPageService {
 
@@ -58,6 +59,14 @@ public class MyPageService {
 		}
 		close(conn);
 		return result; 
+	}
+
+	public ArrayList<MileageHistory> selectMileageHistory(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<MileageHistory> list = new MyPageDao().selectMileageHistory(conn, memNo);
+		close(conn);
+		return list;
+
 	}
 
 }

@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.kh.member.model.dao.MemberDao;
 import com.kh.myPage.model.vo.Follow;
+import com.kh.myPage.model.vo.MileageHistory;
 
 public class MyPageDao {
 
@@ -145,6 +146,37 @@ public class MyPageDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public ArrayList<MileageHistory> selectMileageHistory(Connection conn, int memNo) {
+		ArrayList<MileageHistory> list = new ArrayList<MileageHistory>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+ 
+		String sql = prop.getProperty("selectMileageHistory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new MileageHistory(rset.getInt("mileage_no")
+						,rset.getString("mileage_history")
+						,rset.getInt("mileage")
+						,rset.getString("product_name")
+						,rset.getInt("mem_no")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 }
