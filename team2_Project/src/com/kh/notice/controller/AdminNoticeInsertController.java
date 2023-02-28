@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.common.MyFileRenamePolicy;
-import com.kh.notice.model.service.ManageNoticeService;
+import com.kh.notice.model.service.AdminNoticeService;
 import com.kh.notice.model.vo.Attachment;
 import com.kh.notice.model.vo.Notice;
 import com.oreilly.servlet.MultipartRequest;
@@ -61,12 +61,11 @@ public class AdminNoticeInsertController extends HttpServlet {
 				at.setFilePath("resources/admin/notice_upfiles/");
 			}
 			
-			int result = new ManageNoticeService().insertNotice(n, at);
+			int result = new AdminNoticeService().insertNotice(n, at);
 			
 			HttpSession session = request.getSession();
 			
 			if(result > 0) {
-				// alert 안뜸 수정해야됨
 				session.setAttribute("alertMsg", "공지사항을 추가하였습니다.");
 			}else {
 				session.setAttribute("alertMsg", "공지사항 추가에 실패했습니다.");

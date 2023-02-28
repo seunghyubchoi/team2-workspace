@@ -72,7 +72,6 @@ pageEncoding="UTF-8"%>
                             </div>
                             <div id="notice-add-bottom" class="mb-3 display-flex">
                                 <div id="notice-add-file" style="display: flex;">
-                                    <!-- <input type="file" name="noticeFile" id="noticeFile" class="btn btn-sm"> -->
                                     <label className="input-file-button" class="btn btn-secondary" for="notice-file">
                                         파일추가
                                       </label>

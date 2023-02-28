@@ -13,19 +13,20 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.kh.common.MyFileRenamePolicy;
 import com.kh.notice.model.service.AdminNoticeService;
 import com.kh.notice.model.vo.Attachment;
+import com.kh.notice.model.vo.Notice;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class AdminNoticeImgController
+ * Servlet implementation class AdminNoticeModifyController
  */
-@WebServlet("/addImg.nt")
-public class AdminNoticeImgController extends HttpServlet {
+@WebServlet("/modify.nt")
+public class AdminNoticeModifyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminNoticeImgController() {
+    public AdminNoticeModifyController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,43 +38,50 @@ public class AdminNoticeImgController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
-			
-			String returnValue = "";
-			
 			int maxSize = 10 * 1024 * 1024;
 			
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/admin/notice_upfiles/");
 			
 			MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
-			Attachment at = null; // 처음에는 null로 초기화, 넘어온 첨부파일이 있다면 생성
-			// multipartRequest.getOriginalFileName("키"); : 넘어온 첨부파일 있었을 경우 "원본명" | 없었을경우 null
-			if(multipartRequest.getOriginalFileName("upload") != null) {
+			int noticeNo = Integer.parseInt(multipartRequest.getParameter("noticeNo"));
+			String noticeTitle = multipartRequest.getParameter("noticeTitle");
+			String noticeContent = multipartRequest.getParameter("noticeContent");
+			String noticeWriter = multipartRequest.getParameter("noticeWriter");
+			
+			Notice n = new Notice();
+			n.setNoticeNo(noticeNo);
+			n.setNoticeTitle(noticeTitle);
+			n.setNoticeContent(noticeContent);
+			n.setManagerNo(noticeWriter);
+			
+			Attachment at= null;
+			if(multipartRequest.getOriginalFileName("notice-file") != null) {
 				at = new Attachment();
-				at.setOriginName(multipartRequest.getOriginalFileName("upload"));
-				at.setChangeName(multipartRequest.getFilesystemName("upload"));
+				at.setOriginName(multipartRequest.getOriginalFileName("notice-file"));
+				at.setChangeName(multipartRequest.getFilesystemName("notice-file"));
 				at.setFilePath("resources/admin/notice_upfiles/");
+				
+				if(multipartRequest.getParameter("originFileNo") != null) {
+					at.setFileNo(Integer.parseInt(multipartRequest.getParameter("originFileNo")));
+					
+				}else {
+					at.setRefBno(noticeNo);
+					
+				}
 			}
 			
-			// 4. 서비스 요청 (요청처리)
-			int result = new AdminNoticeService().insertImg(at);
-			
-			// 5. 응답뷰 지정
-			returnValue = at.getFilePath() + at.getChangeName();
-			
-			returnValue = "{" + "\"uploaded\": 1," + "\"fileName\": \""+at.getChangeName()+"\"," + "\"url\":\""+returnValue+"\"" + "}";
+			int result = new AdminNoticeService().updateNotice(n, at);
 			
 			HttpSession session = request.getSession();
 			
-			if(result > 0) { 
-				response.setContentType("application/json; charset=utf-8");
-				response.getWriter().write(returnValue);
+			if(result > 0) {
+				session.setAttribute("alertMsg", "공지사항을 수정하였습니다.");
 			}else {
-				session.setAttribute("alertMsg", "이미지 등록 실패");
-				
+				session.setAttribute("alertMsg", "공지사항 수정에 실패했습니다.");
 			}
+			response.sendRedirect(request.getContextPath() + "/noticeList.ma");
 		}
-		
 	}
 
 	/**

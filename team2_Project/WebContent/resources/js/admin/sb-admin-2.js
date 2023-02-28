@@ -68,24 +68,27 @@ function sidebarActiveDelete(){
   });
 }
   
-function sidebarActive(sidebarId){
+function sidebarActive(sidebarId) {
   $(sidebarId).addClass("active");
 }
 
-function sidebarCollapseActive(collapseId){
+function sidebarCollapseActive(collapseId) {
   $(collapseId).addClass("active");
   $("#collapsePages").addClass("show");
 }
 
-function checkAll(box){
-  if(box.checked == true){
-    $(".noticeCheckbox").attr("checked", true);
-  }else{
-    $(".noticeCheckbox").attr("checked", false);
-  }
-}
-
-function changeValue(a)
-{
+function changeValue(a) {
 	$("#notice-add-file span").text(a.files[0].name);
 }
+
+function deleteList() {
+  var arr = new Array();
+  var list = $("input[name=deleteCheck");
+  for (var i = 0; i < list.length; i++){
+    if(list[i].checked){
+      arr.push(list[i].value);
+    }
+  }
+  $("#deleteList").val(arr);
+}
+
