@@ -13,7 +13,7 @@
 <script src="https://kit.fontawesome.com/65b9d5555c.js"
 	crossorigin="anonymous"></script>
 <style>
-div {
+/* div {
 	/* border: 1px solid black; */
 }
 
@@ -79,7 +79,7 @@ div {
 	font-size: 25px;
 	float: left;
 	padding: 5px;
-}
+} */
 
 .btn {
 	width: 90px;
@@ -93,35 +93,7 @@ div {
 <body>
 	<%@include file="../common/menubar.jsp" %>
 	
-	<div class="container text-center">
-		<div class="row">
-			<div id="input_logo" class="col">
-				<img src="../resources/image/로고1.png" width="80%" height="200px"
-					alt="">
-			</div>
-			<div id="searchBar" class="col">
-				<div class="input-box">
-					<i class="fa-solid i1 fa-magnifying-glass"></i> <input type="text">
-					<i class="fa-solid fa-keyboard"></i> <i
-						class="fa-solid fa-microphone"></i>
-					<button type="button" class="btn btn-outline-info"
-						style="border-color: plum; color: plum">검색</button>
-				</div>
-			</div>
-			<div class="col"></div>
-		</div>
-	</div>
-	<ul class="nav justify-content-center">
-		<li class="nav-item"><a class="nav-link active"
-			aria-current="page" href="#" style="color: plum">뭐입지그램</a></li>
-		<li class="nav-item"><a class="nav-link" href="#"
-			style="color: plum">쇼핑</a></li>
-		<li class="nav-item"><a class="nav-link" href="#"
-			style="color: plum">고객센터</a></li>
-	</ul>
-	<div>
-		<hr>
-	</div>
+	
 	<div class="container text-center">
 		<div class="row row-cols-2" style="padding-top: 55px;">
 			<div class="col">
