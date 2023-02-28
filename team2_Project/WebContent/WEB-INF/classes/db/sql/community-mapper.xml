@@ -22,6 +22,6 @@ SELECT
  WHERE DEL_YN = 'N'
  GROUP BY INSTA_IMG_ORIGIN
         , INSTA_IMG_SRC
- ORDER BY 3 DESC;
+ ORDER BY 3 DESC
 </entry>
 </properties>
