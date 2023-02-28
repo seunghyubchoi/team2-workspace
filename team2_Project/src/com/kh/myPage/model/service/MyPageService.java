@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.kh.myPage.model.dao.MyPageDao;
 import com.kh.myPage.model.vo.Follow;
+import com.kh.myPage.model.vo.MileageHistory;
 
 public class MyPageService {
 
@@ -33,7 +34,39 @@ public class MyPageService {
 			rollback(conn);
 		}
 		close(conn);
-		return 0; 
+		return result; 
+	}
+
+	public int deleteFollowing(int memNo, String followingId) {
+		Connection conn = getConnection();
+		int result = new MyPageDao().deleteFollowing(conn, memNo, followingId);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result; 
+	}
+
+	public int cancelDeleteFollowing(int memNo, String followingId) {
+		Connection conn = getConnection();
+		int result = new MyPageDao().cancelDeleteFollowing(conn, memNo, followingId);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result; 
+	}
+
+	public ArrayList<MileageHistory> selectMileageHistory(int memNo) {
+		Connection conn = getConnection();
+		ArrayList<MileageHistory> list = new MyPageDao().selectMileageHistory(conn, memNo);
+		close(conn);
+		return list;
+
 	}
 
 }

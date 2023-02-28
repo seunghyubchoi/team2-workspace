@@ -7,26 +7,40 @@ public class Notice { // class start
 	private int noticeNo;
 	private String noticeTitle;
 	private String noticeContent;
-	private String noticeFile;
 	private Date noticeDate;
 	private String managerNo;
+	private String delYn;
 	
 	// constructor
 	public Notice() {}
 
-	public Notice(int noticeNo, String noticeTitle, String noticeContent, String noticeFile, Date noticeDate,
-			String managerNo) {
+	public Notice(int noticeNo, String noticeTitle, String noticeContent, Date noticeDate, String managerNo,
+			String delYn) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
-		this.noticeFile = noticeFile;
+		this.noticeDate = noticeDate;
+		this.managerNo = managerNo;
+		this.delYn = delYn;
+	}
+
+	public Notice(int noticeNo, String noticeTitle, Date noticeDate) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeTitle = noticeTitle;
+		this.noticeDate = noticeDate;
+	}
+
+	public Notice(int noticeNo, String noticeTitle, String noticeContent, Date noticeDate, String managerNo) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
 		this.noticeDate = noticeDate;
 		this.managerNo = managerNo;
 	}
-
-	// method
-	// getter setter
+	
 	public int getNoticeNo() {
 		return noticeNo;
 	}
@@ -51,14 +65,6 @@ public class Notice { // class start
 		this.noticeContent = noticeContent;
 	}
 
-	public String getNoticeFile() {
-		return noticeFile;
-	}
-
-	public void setNoticeFile(String noticeFile) {
-		this.noticeFile = noticeFile;
-	}
-
 	public Date getNoticeDate() {
 		return noticeDate;
 	}
@@ -74,11 +80,19 @@ public class Notice { // class start
 	public void setManagerNo(String managerNo) {
 		this.managerNo = managerNo;
 	}
+	
+	public String getDelYn() {
+		return delYn;
+	}
+
+	public void setDelYn(String delYn) {
+		this.delYn = delYn;
+	}
 
 	@Override
 	public String toString() {
 		return "Notice [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
-				+ ", noticeFile=" + noticeFile + ", noticeDate=" + noticeDate + ", managerNo=" + managerNo + "]";
+				+ ", noticeDate=" + noticeDate + ", managerNo=" + managerNo + ", delYn=" + delYn + "]";
 	}
-	
+
 } // class end

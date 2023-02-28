@@ -1,29 +1,26 @@
 package com.kh.myPage.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.myPage.model.service.MyPageService;
-import com.kh.myPage.model.vo.MileageHistory;
 
 /**
- * Servlet implementation class MileageHistoryPageController
+ * Servlet implementation class AjaxAddFollowingController
  */
-@WebServlet("/mileageHistory.mp")
-public class MileageHistoryPageController extends HttpServlet {
+@WebServlet("/cancelDeleteFollowing.mp")
+public class AjaxCancelDeleteFollowingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MileageHistoryPageController() {
+    public AjaxCancelDeleteFollowingController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,13 +30,12 @@ public class MileageHistoryPageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		String followingId = request.getParameter("followingId");
 		
-		ArrayList<MileageHistory> list = new MyPageService().selectMileageHistory(memNo);
-		request.setAttribute("memNo", memNo);
-		request.setAttribute("list", list);
+		int result = new MyPageService().cancelDeleteFollowing(memNo, followingId);
 		
-		RequestDispatcher view = request.getRequestDispatcher("views/myPage/mileageHistory.jsp");
-		view.forward(request, response);
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(result,response.getWriter());
 	}
 
 	/**

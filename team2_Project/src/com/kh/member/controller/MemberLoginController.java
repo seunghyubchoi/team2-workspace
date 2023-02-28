@@ -39,12 +39,12 @@ public class MemberLoginController extends HttpServlet {
 		System.out.println(loginUser);
 		if(loginUser == null) {
 			request.setAttribute("errorMsg", "로그인 실패!");
-			RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("views/Login/Login.jsp");
 			view.forward(request, response);		
 		} else {
 			HttpSession session = request.getSession(); 
 			session.setAttribute("loginUser", loginUser);
-			RequestDispatcher view = request.getRequestDispatcher("views/mainPage/homemain.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 			view.forward(request, response);
 		}
 	}

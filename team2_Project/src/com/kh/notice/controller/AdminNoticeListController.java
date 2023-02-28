@@ -1,29 +1,29 @@
-package com.kh.myPage.controller;
+package com.kh.notice.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.kh.myPage.model.service.MyPageService;
-import com.kh.myPage.model.vo.MileageHistory;
+import com.kh.notice.model.service.AdminNoticeService;
+import com.kh.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class MileageHistoryPageController
+ * Servlet implementation class NoticeListController
  */
-@WebServlet("/mileageHistory.mp")
-public class MileageHistoryPageController extends HttpServlet {
+@WebServlet("/noticeList.ma")
+public class AdminNoticeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MileageHistoryPageController() {
+    public AdminNoticeListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,21 +32,24 @@ public class MileageHistoryPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		HttpSession session = request.getSession();
 		
-		ArrayList<MileageHistory> list = new MyPageService().selectMileageHistory(memNo);
-		request.setAttribute("memNo", memNo);
-		request.setAttribute("list", list);
-		
-		RequestDispatcher view = request.getRequestDispatcher("views/myPage/mileageHistory.jsp");
-		view.forward(request, response);
+		if(session.getAttribute("loginManager") == null) {
+			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스 입니다.");
+			request.getRequestDispatcher("views/admin/adminLogin.jsp").forward(request, response);
+		} else {
+			ArrayList<Notice> list = new AdminNoticeService().selectList();
+			
+			request.setAttribute("list", list);
+			request.setAttribute("sidebar", "notice");
+			request.getRequestDispatcher("views/admin/adminNoticeMain.jsp").forward(request, response);
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

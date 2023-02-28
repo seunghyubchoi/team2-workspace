@@ -31,17 +31,12 @@ public class AjaxDeleteFollowerController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		String followerId = request.getParameter("followerId");
-		//System.out.println(followerId);
-		
-		
 		
 		int result = new MyPageService().deleteFollower(memNo, followerId);
-		if(result > 0) {
-			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(result,response.getWriter());
-		} else {
-			
-		}
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(result,response.getWriter());
+		
 		
 		
 	}

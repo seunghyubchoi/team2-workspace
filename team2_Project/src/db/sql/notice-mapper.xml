@@ -1,5 +1,184 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+<!-- 공지사항 리스트 조회 쿼리 -->
+<entry key="selectList">
+	SELECT
+	       NOTICE_NO
+	     , NOTICE_TITLE
+	     , NOTICE_DATE
+	  FROM TB_NOTICE
+	 WHERE DEL_YN = 'N'
+</entry>
+
+<!-- 이미지 등록 쿼리 -->
+<entry key="insertImg">
+	INSERT
+	  INTO TB_NOTICE_ATTACHMENT
+	  (
+	    FILE_NO
+	  , ORIGIN_NAME
+	  , CHANGE_NAME
+	  , FILE_PATH
+	  )
+	  VALUES
+	  (
+	    SEQ_NFNO.NEXTVAL
+	  , ?
+	  , ?
+	  , ?
+	  )
+</entry>
+
+<!-- 공지사항 등록 쿼리 -->
+<entry key="insertNotice">
+	INSERT 
+	  INTO TB_NOTICE
+	  (
+	    NOTICE_NO
+	  , NOTICE_TITLE
+	  , NOTICE_CONTENT
+	  , MANAGER_NO
+	  )
+	VALUES
+	  (
+	    SEQ_NOTICE.NEXTVAL
+	  , ?
+	  , ?
+	  , ?
+	  )
+</entry>
+
+<!-- 첨부파일 등록 쿼리 -->
+<entry key="insertAttechment">
+	INSERT
+	  INTO TB_NOTICE_ATTACHMENT
+	  (
+	    FILE_NO
+	  , REF_BNO
+	  , ORIGIN_NAME
+	  , CHANGE_NAME
+	  , FILE_PATH
+	  )
+	  VALUES
+	  (
+	    SEQ_NFNO.NEXTVAL
+	  , SEQ_NOTICE.CURRVAL
+	  , ?
+	  , ?
+	  , ?
+	  )
+</entry>
+
+<!-- 공지사항 세부조회 쿼리 -->
+<entry key="selectNotice">
+	SELECT 
+	       NOTICE_NO
+	     , NOTICE_TITLE
+	     , NOTICE_CONTENT
+	     , NOTICE_DATE
+	     , MANAGER_NAME
+	  FROM TB_NOTICE
+	  JOIN TB_MANAGER USING (MANAGER_NO)
+	 WHERE NOTICE_NO = ?
+</entry>
+
+<entry key="selectAttachment">
+	SELECT
+	       FILE_NO
+	     , ORIGIN_NAME
+	     , CHANGE_NAME
+	     , FILE_PATH
+	  FROM TB_NOTICE_ATTACHMENT
+	 WHERE REF_BNO = ?
+</entry>
+
+<entry key="updateNotice">
+	UPDATE 
+	       TB_NOTICE
+	   SET NOTICE_TITLE = ?
+	     , NOTICE_CONTENT = ?
+	     , NOTICE_DATE = SYSDATE
+	     , MANAGER_NO = ?
+	 WHERE NOTICE_NO = ?
+</entry>
+
+<!-- 첨부파일 수정 쿼리 -->
+<entry key="updateAttachment">
+	UPDATE
+	       TB_NOTICE_ATTACHMENT
+	   SET ORIGIN_NAME = ?
+	     , CHANGE_NAME = ?
+	     , FILE_PATH = ?
+	 WHERE FILE_NO = ? 
+</entry>
+
+<!-- 수정 내 첨부파일 등록 쿼리 -->
+<entry key="insertNewAttachment">
+	INSERT
+	  INTO TB_NOTICE_ATTACHMENT
+	     (
+	       FILE_NO
+	     , REF_BNO
+	     , ORIGIN_NAME
+	     , CHANGE_NAME
+	     , FILE_PATH
+	     )
+	VALUES 
+	     (
+	       SEQ_NFNO.NEXTVAL
+	     , ?
+	     , ?
+	     , ?
+	     , ?
+	     )
+</entry>
+
+<entry key="deleteNotice">
+	UPDATE TB_NOTICE 
+	   SET DEL_YN = 'Y'
+	 WHERE NOTICE_NO 
+	    IN 
+	     (
+	       SELECT REGEXP_SUBSTR(A.TXT, '[^,]+', 1, LEVEL) TXT
+	         FROM 
+	            ( 
+	              SELECT ? TXT 
+	                FROM dual
+	             ) A
+	      CONNECT 
+	           BY INSTR(A.TXT, ',', 1, LEVEL-1) > 0
+	      )
+</entry>
+
+<entry key="deleteAttachment">
+	UPDATE TB_NOTICE_ATTACHMENT
+	   SET DEL_YN = 'Y'
+	 WHERE REF_BNO
+	    IN 
+	     (
+	       SELECT REGEXP_SUBSTR(A.TXT, '[^,]+', 1, LEVEL) TXT
+	         FROM 
+	            ( 
+	              SELECT ? TXT 
+	                FROM dual
+	             ) A
+	      CONNECT 
+	           BY INSTR(A.TXT, ',', 1, LEVEL-1) > 0
+	      )
+</entry>
+
+<entry key="selectNoticeList">
+SELECT
+NOTICE_NO
+,NOTICE_TITLE
+,NOTICE_DATE
+FROM TB_NOTICE
+ORDER BY NOTICE_NO DESC
+</entry>
 
 </properties>
+
+
+
+

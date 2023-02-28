@@ -1,29 +1,27 @@
-package com.kh.myPage.controller;
+package com.kh.notice.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.kh.myPage.model.service.MyPageService;
-import com.kh.myPage.model.vo.MileageHistory;
+import com.kh.manager.model.service.ManagerService;
+import com.kh.notice.model.service.AdminNoticeService;
 
 /**
- * Servlet implementation class MileageHistoryPageController
+ * Servlet implementation class AdminNoticeDeleteController
  */
-@WebServlet("/mileageHistory.mp")
-public class MileageHistoryPageController extends HttpServlet {
+@WebServlet("/delete.nt")
+public class AdminNoticeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MileageHistoryPageController() {
+    public AdminNoticeDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,21 +30,24 @@ public class MileageHistoryPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		String deleteList = request.getParameter("deleteList");
 		
-		ArrayList<MileageHistory> list = new MyPageService().selectMileageHistory(memNo);
-		request.setAttribute("memNo", memNo);
-		request.setAttribute("list", list);
+		int result = new AdminNoticeService().deleteNotice(deleteList);
 		
-		RequestDispatcher view = request.getRequestDispatcher("views/myPage/mileageHistory.jsp");
-		view.forward(request, response);
+		HttpSession session = request.getSession();
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "공지사항을 삭제하였습니다.");
+		}else {
+			session.setAttribute("alertMsg", "공지사항 삭제에 실패했습니다.");
+		}
+		response.sendRedirect(request.getContextPath() + "/noticeList.ma");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
