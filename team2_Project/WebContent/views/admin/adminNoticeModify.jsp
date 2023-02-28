@@ -1,5 +1,11 @@
+<%@page import="com.kh.notice.model.vo.Attachment"%>
+<%@page import="com.kh.notice.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%
+	Notice n = (Notice)request.getAttribute("n");
+	Attachment at = (Attachment)request.getAttribute("at");
+%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -16,61 +22,19 @@ pageEncoding="UTF-8"%>
 
 <body id="page-top">
 
-    <!-- include common element  -->
-    <%@ include file="adminCommon.jsp" %>
-    
     <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="display: flex;">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <!-- include common element  -->
+        <%@ include file="adminCommon.jsp" %>
 
-            <a class="sidebar-brand align-items-center justify-content-center" href="index.html" id="logoWrapper">
-                <img src="../../resources/img/admin/W4T_crop.svg" alt="" id="logo">
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-clipboard"></i>
-                    <span>게시판관리</span>
-                </a>
-                <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item active" href="adminNoticeMain.jsp">공지사항</a>
-                        <a class="collapse-item" href="adminQnAMain.jsp">Q&A</a>
-                        <a class="collapse-item" href="adminW4RMain.jsp">뭐입지그램</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="adminMemberMain.jsp">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>회원관리</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="adminPrductMain.jsp">
-                    <i class="fas fa-fw fa-tags"></i>
-                    <span>상품관리</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="adminOrderMain.jsp">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>주문 관리</span></a>
-            </li>
-
-        </ul>
-        <!-- End of Sidebar -->
+        <script>
+            $(function(){
+                sidebarActiveDelete();
+                sidebarActive("#board");
+                sidebarCollapseActive("#notice");
+            })
+        </script>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -96,36 +60,44 @@ pageEncoding="UTF-8"%>
                 <div class="container-fluid mb-5">
 
                     <div class="content-wrapper" align="center">
-                        <form action="modify.nt">
+                        <form action="<%= contextPath %>/modify.nt" method="post" enctype="multipart/form-data">
+                        	<input type="hidden" name="noticeNo" value=<%= n.getNoticeNo()%>>
+                        	<input type="hidden" name="noticeWriter" value=<%= loginManager.getManagerNo()%>>
                             <div class="mb-3" align="left">
-                                <h3>작성일 : yyyy년 mm월 dd일</h3>
+                                <h3>작성일 : <%= n.getNoticeDate()%></h3>
                             </div>
                             <div id="noticeAddTop" class="mb-3">
                                 <input type="text" name="noticeTitle" class="input form-control bg-light border-0 small"
-                                    placeholder="제목을 입력해주세요">
+                                    value="<%= n.getNoticeTitle()%>" placeholder="제목을 입력해주세요" required>
                             </div>
                             <div id="noticeAddMiddle" class="mb-3">
-                                <textarea class="form-control" id="noticeContent"></textarea>
+                                <textarea class="form-control" id="noticeContent" name="noticeContent" required><%= n.getNoticeContent() %></textarea>
                 
                                 <script type="text/javascript">
                                     CKEDITOR.replace('noticeContent'
                                         , {
-                                            height: 350, width: "100%"
+                                            height: 350, width: "100%",
+                                            filebrowserImageUploadUrl: 'addImg.nt'
                                         });
                                 </script>
                             </div>
                             <div id="notice-add-bottom" class="mb-3 display-flex">
-                                <div id="noticeAddFile">
-                                    <!-- <input type="file" name="noticeFile" id="noticeFile" class="btn btn-sm"> -->
+                                <div id="notice-add-file" style="display: flex;">
                                     <label className="input-file-button" class="btn btn-secondary" for="notice-file">
                                         파일추가
                                       </label>
-                                      <input type="file" name="notice-file" id="notice-file" style="display: none;">
+                                      <input type="file" name="notice-file" id="notice-file" style="display: none;" onchange="changeValue(this)">
+                                      <% if(at != null){ %>
+                                      		<span class="file-name" ><%= at.getOriginName()%></span>
+                                      		<input type="hidden" name="originFileNo" value="<%= at.getFileNo()%>">
+                                      <%}else{ %>
+                                      		<span class="file-name" >파일없음</span>
+                                      <%} %>
                                 </div>
-                                <div id="noticeAddBtns" class="table-buttons mr-0 ml-auto" align="right">
-                                    <button type="button" id="noticeAddBack" class="btn btn-secondary" data-toggle="modal"
+                                <div id="notice-add-btns" class="table-buttons mr-0 ml-auto" align="right">
+                                    <button type="button" id="notice-add-back" class="btn btn-secondary" data-toggle="modal"
                                         data-target="#backModal">뒤로가기</button>
-                                    <button type="submit" id="noticeAddGo" class="btn btn-primary">수정</button>
+                                    <button type="submit" id="notice-add-go" class="btn btn-primary">수정</button>
                                 </div>
                             </div>
                         </form>
