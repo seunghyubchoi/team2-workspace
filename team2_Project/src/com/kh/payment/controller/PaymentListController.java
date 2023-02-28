@@ -14,6 +14,7 @@ import org.json.simple.JSONArray;
 
 import com.kh.member.model.vo.Member;
 import com.kh.payment.model.service.PaymentService;
+import com.kh.payment.model.vo.Location;
 import com.kh.product.model.vo.Product;
 
 /**
@@ -38,13 +39,15 @@ public class PaymentListController extends HttpServlet {
 		String cno =  request.getParameter("cno");
 		int mno = ((Member)(request.getSession().getAttribute("loginUser"))).getMemNo();
 		String[] carts = cno.split(",");
-		 System.out.println(Arrays.toString(carts));
 		 ArrayList<Product> pList = new ArrayList();
 		 for(String c : carts) {
 		 Product p = new PaymentService().selectPayment(Integer.parseInt(c));
 		 pList.add(p);
 		 }
-		 ArrayList<Location> lList = new PaymentService().selectLocation(mno);
+		 ArrayList<Location> lList = new PaymentService().selectLocationList(mno);
+		 request.setAttribute("pList", pList);
+		 request.setAttribute("lList", lList);
+		 request.getRequestDispatcher("views/payment/payment.jsp").forward(request, response);
 	}
 
 	/**
