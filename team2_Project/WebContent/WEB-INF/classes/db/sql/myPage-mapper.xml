@@ -71,7 +71,7 @@
 		SET ACT_YN ='Y'
 	</entry>
 
-
+<!-- 적립금 : 옵션명 가져오지 않는 sql문
 	<entry key="selectMileageHistory">
 		SELECT
 		MILEAGE_NO
@@ -84,4 +84,20 @@
 		WHERE MEM_NO = ?
 		ORDER BY MILEAGE_NO DESC
 	</entry>
+-->
+
+<!-- 적립금 : 옵션명 가져오는 sql문 -->
+	<entry key="selectMileageHistory">
+		SELECT
+		MILEAGE_NO
+		, MILEAGE_HISTORY
+		, MILEAGE
+		, PRODUCT_NAME
+		, MEM_NO
+		FROM TB_MILEAGE_HISTORY
+		JOIN TB_PRODUCT USING (PRODUCT_NO)
+		WHERE MEM_NO = ?
+		ORDER BY MILEAGE_NO DESC
+	</entry>
+
 </properties>

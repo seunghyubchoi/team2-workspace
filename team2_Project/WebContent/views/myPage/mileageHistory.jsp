@@ -129,7 +129,7 @@ for (MileageHistory m : list) {
 			<%
 				}
 			%>
-
+			
 		</table>
 	</div>
 	<%@include file="../common/footer.jsp"%>
