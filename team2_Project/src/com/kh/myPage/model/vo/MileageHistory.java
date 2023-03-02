@@ -6,18 +6,21 @@ public class MileageHistory {
 	private int mileage;
 	private String productNo;
 	private int memNo;
+	private String optionSize;
 		
 	public MileageHistory() {
 		
 	}
 
-	public MileageHistory(int mileageNo, String mileageHistory, int mileage, String productNo, int memNo) {
+	public MileageHistory(int mileageNo, String mileageHistory, int mileage, String productNo, int memNo,
+			String optionSize) {
 		super();
 		this.mileageNo = mileageNo;
 		this.mileageHistory = mileageHistory;
 		this.mileage = mileage;
 		this.productNo = productNo;
 		this.memNo = memNo;
+		this.optionSize = optionSize;
 	}
 
 	public int getMileageNo() {
@@ -60,10 +63,19 @@ public class MileageHistory {
 		this.memNo = memNo;
 	}
 
+	public String getOptionSize() {
+		return optionSize;
+	}
+
+	public void setOptionSize(String optionSize) {
+		this.optionSize = optionSize;
+	}
+
 	@Override
 	public String toString() {
 		return "MileageHistory [mileageNo=" + mileageNo + ", mileageHistory=" + mileageHistory + ", mileage=" + mileage
-				+ ", productNo=" + productNo + ", memNo=" + memNo + "]";
+				+ ", productNo=" + productNo + ", memNo=" + memNo + ", optionSize=" + optionSize + "]";
 	}
 
+	
 }

@@ -167,6 +167,7 @@ public class MyPageDao {
 						,rset.getInt("mileage")
 						,rset.getString("product_name")
 						,rset.getInt("mem_no")
+						,rset.getString("option_size")
 						));
 			}
 		} catch (SQLException e) {

@@ -112,7 +112,7 @@ for (MileageHistory m : list) {
 			%>
 			<tr>
 				<td>
-					<li><%=m.getMileageHistory()%> : <%=m.getProductNo()%></li>
+					<li><%=m.getMileageHistory()%> : <%=m.getProductNo()%>(<%=m.getOptionSize() %>)</li>
 				</td>
 				<td>
 					<%
@@ -129,7 +129,7 @@ for (MileageHistory m : list) {
 			<%
 				}
 			%>
-
+			
 		</table>
 	</div>
 	<%@include file="../common/footer.jsp"%>
