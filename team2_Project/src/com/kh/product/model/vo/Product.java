@@ -50,19 +50,19 @@ public class Product {
 		this.productImgSrc = productImgSrc;
 	}
 	
-	
+		
 
 	public Product(String brandName, String productName, String productImgSrc, int productPrice, int productDiscount,
-			String cartSize, int cartQnt,int productNo) {
+			int productNo, String cartSize, int cartQnt) {
 		super();
 		this.brandName = brandName;
 		this.productName = productName;
 		this.productImgSrc = productImgSrc;
 		this.productPrice = productPrice;
 		this.productDiscount = productDiscount;
+		this.productNo = productNo;
 		this.cartSize = cartSize;
 		this.cartQnt = cartQnt;
-		this.productNo = productNo;
 	}
 
 	public int getProductNo() {

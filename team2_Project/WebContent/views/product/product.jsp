@@ -441,7 +441,7 @@
             <div class="modal-footer" id="modal_button">
               <button type="submit" class="btn btn-primary">장바구니 담기</button>
                </form>
-              <button type="button" class="btn btn-primary">결제하기</button>
+              <button type="button" class="btn btn-primary" onclick="directPayment();">결제하기</button>
             </div>
           </div>
         </div>
@@ -465,6 +465,10 @@
 		  $("#productAmount").val("1");
                }
        
+       function directPayment(){
+    	   let size = $("input[name=size]").val();
+    	   location.href="<%= contextPath %>/list.pa?pno=<%= p.getProductNo() %>&size="+$("select[name=size]").val()+"&qnt="+$("input[name=amount]").val();
+       }
        
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

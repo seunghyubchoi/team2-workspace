@@ -36,13 +36,23 @@ public class PaymentListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String cno =  request.getParameter("cno");
-		int mno = ((Member)(request.getSession().getAttribute("loginUser"))).getMemNo();
-		String[] carts = cno.split(",");
+		String pno = request.getParameter("pno");
+		 int mno = ((Member)(request.getSession().getAttribute("loginUser"))).getMemNo();
 		 ArrayList<Product> pList = new ArrayList();
-		 for(String c : carts) {
-		 Product p = new PaymentService().selectPayment(Integer.parseInt(c));
-		 pList.add(p);
+		 if(pno == null) {
+			 String cno =  request.getParameter("cno");
+				String[] carts = cno.split(",");
+			 for(String c : carts) {
+				 Product p = new PaymentService().selectPayment(Integer.parseInt(c));
+				 pList.add(p);
+				 }
+			
+		 }else {
+			 String size = request.getParameter("size");
+			 String qnt = request.getParameter("qnt");
+			 Product p = new PaymentService().selectPayment2(Integer.parseInt(pno),size,Integer.parseInt(qnt));
+			pList.add(p);
+			System.out.println(p);
 		 }
 		 ArrayList<Location> lList = new PaymentService().selectLocationList(mno);
 		 request.setAttribute("pList", pList);

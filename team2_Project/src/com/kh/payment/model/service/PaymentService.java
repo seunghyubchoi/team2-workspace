@@ -180,5 +180,14 @@ public class PaymentService {
 		close(conn);
 		return result;
 	}
+	
+	public Product selectPayment2(int pno,String size, int qnt) {
+		Connection conn = getConnection();
+		
+		Product p  = new PaymentDao().selectPayment2(conn,pno,size,qnt);
+		close(conn);
+		
+		return p;
+	}
 
 }

@@ -206,9 +206,10 @@ public class PaymentDao {
 								rset.getString("product_img_src"),
 								rset.getInt("product_price"),
 								rset.getInt("product_discount"),
+								rset.getInt("product_no"),
 								rset.getString("cart_size"),
-								rset.getInt("cart_qnt"),
-								rset.getInt("product_no"));
+								rset.getInt("cart_qnt")
+								);
 			}
 				} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -407,5 +408,38 @@ public class PaymentDao {
 		}
 		return result;
 	}
+	
+	public Product selectPayment2(Connection conn,int pno,String size, int qnt) {
+		Product p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPayment2");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pno);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				p = new Product(rset.getString("brand_name"),
+						rset.getString("product_name"),
+						rset.getString("product_img_src"),
+						rset.getInt("product_price"),
+						rset.getInt("product_discount"),
+						rset.getInt("product_no"),
+						size,
+						qnt);
+			}
+				} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+			return p;
+
+		}	
+
 
 }

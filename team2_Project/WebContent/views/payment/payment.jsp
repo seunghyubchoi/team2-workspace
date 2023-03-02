@@ -86,6 +86,11 @@
 
     #orderInfo tr {
       text-align: left;
+       margin-left:80px;
+    }
+    
+    #orderInfo div {
+      padding-left:120px;
     }
 
     #delivery th {
@@ -198,16 +203,23 @@
             <th width="180" style="font-weight: 900; text-align: left; font-size: 20px;">주문자 정보</th>
           </tr>
           <tr>
-            <th>이름</th>
-            <td><input type="text" value="" name="order-name" placeholder="수취인 이름"></td>
+            <th colspan="2" height="50"><div>이름</div></th>
+            <td></td>
           </tr>
           <tr>
-            <th>이메일</th>
-            <td> <input type="email" value=""></td>
+            <th colspan="2"><div><input type="text" value="" name="order-name" placeholder="수령인 이름" required></div></th>
           </tr>
           <tr>
-            <th>전화번호</td>
-            <td><input type="tel" name="order-phone" value=""></td>
+            <th colspan="2" height="45"><div>전화번호</div></td> 
+          </tr>
+          <tr>
+            <th colspan="2"><div><input type="tel" name="order-phone" value="" placeholder="수령인 전화번호" required></div></td>
+          </tr>
+           <tr>
+            <th colspan="2" height="45"><div>이메일</div></td> 
+          </tr>
+           <tr>
+            <th colspan="2"><div><input type="email" name="order-email" value=""></div></td>
           </tr>
         </table>
         <div class="topLine"></div>
