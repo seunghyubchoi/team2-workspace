@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.common.MyFileRenamePolicy;
+import com.kh.community.model.service.CommunityService;
+import com.kh.community.model.vo.InstaImage;
+import com.kh.community.model.vo.Instagram;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -33,15 +36,44 @@ public class InstaInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		request.setCharacterEncoding("UTF-8");
 
 		if (ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10 * 1024 * 1024;
 
-			String savePath = request.getSession().getServletContext().getRealPath("resources/insta_upfiles/");
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/insta_upfiles/");
 
-			MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			Instagram insta = new Instagram();
+			insta.setComContent("content");
+			insta.setInstaId(multiRequest.getParameter("instaId"));
+			insta.setComTag(multiRequest.getParameter("tags"));
+			insta.setMemNo(Integer.parseInt(multiRequest.getParameter("memNo")));
+			
+			InstaImage img = new InstaImage();
+
+			for (int i = 1; i < 1; i++) {
+				String key = "file" + i;
+				
+				if (multiRequest.getOriginalFileName(key) != null) {
+					img.setInstaImgOrigin(multiRequest.getOriginalFileName(key));
+					img.setinstaImgChange(multiRequest.getFilesystemName(key));
+					img.setInstaImgSrc("resources/insta_upfiles/");
+				}
+			}
+			int result = new CommunityService().insertInsta(insta, img);
+			
+			if (result > 0) {
+				request.getSession().setAttribute("alertMsg", "게시글이 등록되었습니다.");
+				response.sendRedirect(request.getContextPath() + "/list.co");
+			} else {
+				request.getSession().setAttribute("alertMsg", "게시글 등록 실패.");
+				response.sendRedirect(request.getContextPath() + "/list.co");
+			}
 		}
+		
 	}
 
 	/**

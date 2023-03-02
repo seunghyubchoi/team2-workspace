@@ -71,10 +71,12 @@
             <div id="content">
                 <h1>스타일 업로드</h1>
                 <br>
-                <form action="<%=contextPath%>/feed.co" method="post" enctype="multipart/form-data">
+                <form action="<%=contextPath%>/insert.co" method="post" enctype="multipart/form-data">
 
+					<input type="hidden" name="memNo" value="<%= loginUser.getMemNo() %>">
+					
                     <h3>사진</h3>
-                    <img id="preview" style="width: 200px; height: 200px;" data-bs-toggle="modal"
+                    <img id="preview" name="file" tyle="width: 200px; height: 200px;" data-bs-toggle="modal"
                         data-bs-target="#exampleModal"> <input type="file" onchange="readURL(this);" data-width="300"
                         data-height="450" required> <br> <br>
 
@@ -263,15 +265,15 @@
 
                     <h3>설명</h3>
                     <h5>스타일을 소개해주세요.</h5>
-                    <textarea name="" id="" cols="100" rows="10" maxlength="300"></textarea>
+                    <textarea name="content" id="" cols="100" rows="10" maxlength="300"></textarea>
                     <br> <br>
                     <h3>인스타 아이디</h3>
                     <h5>입력하신 인스타 아이디는 회원 정보에 자동 저장됩니다.</h5>
-                    <input type="text" value="<%= instaId %>"> <br> <br>
+                    <input type="text" name="instaId" value="<%= instaId %>"> <br> <br>
                     <h3>태그 추가</h3>
 
                     <input id="tag-input" name="tags" placeholder="태그를 입력하세용">
-					<div id="tag-container"></div>
+					<div id="tag-container" ></div>
 
 					<script>
 					const tagInput = document.getElementById('tag-input');
