@@ -22,6 +22,18 @@
 	</div>
 	<div id="content">
 		<!-- <p>좋아요한 스타일이 없습니다.</p> -->
+		<div class="list-area">
+			<!-- 썸네일 한 개-->
+			<div class="thumbnail" align="center">
+			<input type="hidden" value="">
+				<img src="" alt="" width="200" height="150">
+				<p>
+					<a href=""><img src="" alt=""></a>
+					
+				</p>
+			</div>
+			
+		</div>
 	</div>
 	<%@include file="../common/footer.jsp"%>
 
