@@ -44,6 +44,7 @@ public class ManagerDao {
 						rset.getInt("manager_no")
 						, rset.getString("manager_id")
 						, rset.getString("manager_pwd")
+						, rset.getString("manager_name")
 						);
 					
 				}

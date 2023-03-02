@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="selectList">
+	SELECT 
+	       QNA_NO
+	     , QNA_TITLE
+	     , QNA_DATE
+	     , QNA_VIEW_COUNT
+	     , ANS_YN
+	     , HERADER_CONTENT
+	     , MEM_NAME
+	  FROM TB_INQUIRE I
+	  JOIN TB_MEMBER USING (MEM_NO)
+	  JOIN TB_HEADER USING (HEADER_NO)
+	 WHERE I.DEL_YN = 'N'
+</entry>
+
+<entry key="selectInquire">
+	SELECT 
+	       QNA_NO
+	     , QNA_TITLE
+	     , QNA_CONTENT
+	     , QNA_DATE
+	     , ANS_CONTENT
+	     , ANS_DATE
+	     , ANS_YN
+	     , HERADER_CONTENT
+	     , MANAGER_NO
+	     , MEM_ID
+	  FROM TB_INQUIRE I
+	  JOIN TB_MEMBER USING (MEM_NO)
+	  JOIN TB_HEADER USING (HEADER_NO)
+	 WHERE QNA_NO = ?
+</entry>
+
+<entry key="updateInquire">
+	UPDATE TB_INQUIRE
+	   SET MANAGER_NO = ?
+	     , ANS_YN = ?
+	     , ANS_CONTENT = ?
+	     , ANS_DATE = SYSDATE
+	 WHERE QNA_NO = ?
+</entry>
+
+<entry key="deleteInquire">
+	UPDATE TB_INQUIRE
+	   SET DEL_YN = 'Y'
+	 WHERE QNA_NO
+	    IN 
+	     (
+	       SELECT REGEXP_SUBSTR(A.TXT, '[^,]+', 1, LEVEL) TXT
+	         FROM 
+	            ( 
+	              SELECT ? TXT 
+	                FROM dual
+	             ) A
+	      CONNECT 
+	           BY INSTR(A.TXT, ',', 1, LEVEL-1) > 0
+	      )
+</entry>
+
+</properties>
