@@ -126,7 +126,7 @@ public class CommunityDao {
 			pstmt.setString(1, insta.getComContent());
 			pstmt.setString(2, insta.getInstaId());
 			pstmt.setString(3, insta.getComTag());
-			pstmt.setInt(4, insta.getMemNo());
+			pstmt.setString(4, insta.getMemNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -145,5 +145,23 @@ public class CommunityDao {
 		PreparedStatement pstmt = null;
 		
 		String sql = prop.getProperty("insertInstaimg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, img.getInstaImgOrigin());
+			pstmt.setString(2, img.getInstaImgChange());
+			pstmt.setString(3, img.getInstaImgSrc());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

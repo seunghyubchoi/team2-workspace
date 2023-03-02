@@ -76,7 +76,7 @@
 					<input type="hidden" name="memNo" value="<%= loginUser.getMemNo() %>">
 					
                     <h3>사진</h3>
-                    <img id="preview" name="file" tyle="width: 200px; height: 200px;" data-bs-toggle="modal"
+                    <img id="preview" name="upfile" tyle="width: 200px; height: 200px;" data-bs-toggle="modal"
                         data-bs-target="#exampleModal"> <input type="file" onchange="readURL(this);" data-width="300"
                         data-height="450" required> <br> <br>
 
@@ -286,6 +286,8 @@
 					    if (tag !== '') {
 					      const tagEl = document.createElement('span');
 					      tagEl.classList.add('tag');
+					      
+					      //input value() 값을 넣어주는 .add()
 					      tagEl.textContent = '#' + tag;
 					      tagContainer.appendChild(tagEl);
 					      this.value = '';

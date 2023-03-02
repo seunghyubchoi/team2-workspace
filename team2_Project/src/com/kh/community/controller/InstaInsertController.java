@@ -42,27 +42,30 @@ public class InstaInsertController extends HttpServlet {
 		if (ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10 * 1024 * 1024;
 
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/insta_upfiles/");
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/img/insta/");
 
-			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			String content = multipartRequest.getParameter("content");
+			String instaId = multipartRequest.getParameter("instaId");
+			String tags = multipartRequest.getParameter("tags");
+			String memNo = multipartRequest.getParameter("memNo");
 			
 			Instagram insta = new Instagram();
 			insta.setComContent("content");
-			insta.setInstaId(multiRequest.getParameter("instaId"));
-			insta.setComTag(multiRequest.getParameter("tags"));
-			insta.setMemNo(Integer.parseInt(multiRequest.getParameter("memNo")));
+			insta.setInstaId("instaId");
+			insta.setComTag("tags");
+			insta.setMemNo("memNo");
 			
-			InstaImage img = new InstaImage();
-
-			for (int i = 1; i < 1; i++) {
-				String key = "file" + i;
-				
-				if (multiRequest.getOriginalFileName(key) != null) {
-					img.setInstaImgOrigin(multiRequest.getOriginalFileName(key));
-					img.setinstaImgChange(multiRequest.getFilesystemName(key));
-					img.setInstaImgSrc("resources/insta_upfiles/");
-				}
+			InstaImage img = null;
+			
+			if (multipartRequest.getOriginalFileName("upfile") != null) {
+				img = new InstaImage();
+				img.setInstaImgOrigin(multipartRequest.getOriginalFileName("upfile"));
+				img.setinstaImgChange(multipartRequest.getFilesystemName("upfile"));
+				img.setInstaImgSrc("resources/img/insta/");
 			}
+
 			int result = new CommunityService().insertInsta(insta, img);
 			
 			if (result > 0) {

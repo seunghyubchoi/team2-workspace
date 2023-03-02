@@ -70,8 +70,26 @@ INSERT
      )
      VALUES
      (
-       SEQ_CNO.NEXTVAL
+       SEQ_INSTAGRAM.NEXTVAL
      , ?
+     , ?
+     , ?
+     , ?
+     )
+</entry>
+
+<entry key="insertInstaimg">
+INSERT
+  INTO TB_INSTA_IMAGE
+     (
+       INSTA_IMG_NO
+     , INSTA_IMG_ORIGIN
+     , INSTA_IMG_CHANGE
+     , INSTA_IMG_SRC
+     )
+     VALUES
+     (
+       SEQ_INSTA_IMAGE.NEXTVAL
      , ?
      , ?
      , ?

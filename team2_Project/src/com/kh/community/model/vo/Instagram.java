@@ -11,7 +11,7 @@ public class Instagram {
 	private String instaId;
 	private int imgNo;
 	private String delYn;
-	private int memNo;
+	private String memNo;
 	private Date uploadDate;
 
 	private String instaImgName;
@@ -22,7 +22,7 @@ public class Instagram {
 	}
 
 	// 매개변수 생성자
-	public Instagram(int comNo, String comContent, String comTag, String instaId, int imgNo, String delYn, int memNo,
+	public Instagram(int comNo, String comContent, String comTag, String instaId, int imgNo, String delYn, String memNo,
 			Date uploadDate) {
 		super();
 		this.comNo = comNo;
@@ -106,11 +106,11 @@ public class Instagram {
 		this.delYn = delYn;
 	}
 
-	public int getMemNo() {
+	public String getMemNo() {
 		return memNo;
 	}
 
-	public void setMemNo(int memNo) {
+	public void setMemNo(String memNo) {
 		this.memNo = memNo;
 	}
 
