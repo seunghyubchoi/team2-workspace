@@ -1,6 +1,8 @@
-package com.kh.manager.controller;
+package com.kh.notice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,17 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.notice.model.service.AdminNoticeService;
+import com.kh.notice.model.vo.Notice;
+
 /**
- * Servlet implementation class QnAListController
+ * Servlet implementation class NoticeListController
  */
-@WebServlet("/qnaList.ma")
-public class QnAListController extends HttpServlet {
+@WebServlet("/noticeList.nt")
+public class AdminNoticeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnAListController() {
+    public AdminNoticeListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +38,10 @@ public class QnAListController extends HttpServlet {
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스 입니다.");
 			request.getRequestDispatcher("views/admin/adminLogin.jsp").forward(request, response);
 		} else {
-			request.getRequestDispatcher("views/admin/adminQnAMain.jsp").forward(request, response);
+			ArrayList<Notice> list = new AdminNoticeService().selectList();
+			
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("views/admin/adminNoticeMain.jsp").forward(request, response);
 		}
 	}
 

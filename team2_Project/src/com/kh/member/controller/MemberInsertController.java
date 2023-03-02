@@ -22,9 +22,9 @@ public class MemberInsertController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	request.setCharacterEncoding("UTF-8"); //ÀÎÄÚµù
+	request.setCharacterEncoding("UTF-8"); 
 	
-	//Àü´Ş°ª º¯¼ö °´Ã¼ ±â·Ï
+	
 	String memId = request.getParameter("memId");
 	String memPwd =request.getParameter("memPwd");
 	String memName = request.getParameter("memName");
@@ -40,15 +40,15 @@ public class MemberInsertController extends HttpServlet {
 	Member m = new Member(memId,memPwd,memName,email,phone,adCheck);
 	int result = new MemberService().insertMember(m);
 	
-	System.out.println(result + "!!!@!@!@!@!@!");
+//	System.out.println(result + "!!!@!@!@!@!@!");
 	
 	if(result>0) {
 		HttpSession session = request.getSession();
-		session.setAttribute("alertMsg", "³»ÀÏ¹¹ÀÔÁö? È¸¿øÀÌ µÇ½Å°É È¯¿µÇÕ´Ï´Ù.");
+		session.setAttribute("alertMsg", "ë‚´ì¼ ë­ì…ì§€ íšŒì›ì´ ë˜ì‹ ê±¸ í™˜ì˜í•©ë‹ˆë‹¤.");
 		RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 		view.forward(request, response);
 	}else {
-		request.setAttribute("errorMsg", "È¸¿ø°¡ÀÔ¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+		request.setAttribute("errorMsg", "íšŒì›ê°€ì… ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.");
 		RequestDispatcher view = request.getRequestDispatcher("/views/common/errorPage.jsp");
 		view.forward(request, response);	
 	}

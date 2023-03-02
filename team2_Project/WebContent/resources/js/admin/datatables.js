@@ -28,53 +28,64 @@ $(document).ready(function () {
   $('#noticeTable').DataTable({
     dom: '<"top"f<"dt_btn notice">>t<"bottom"ip>',
     lengthChange: false,
-    // columnDefs: [
-    //   {targets: 0, width: "5px"},
-    //   {targets: 1, width: "40px"},
-    //   {targets: 3, width: "50px"}
-    // ],
     language: lang_kor,
     order: [[1, 'desc']],
     ordering: [[1, false]],
     scrollX: 580,
-    // responsive: false,
-    // columnDefs: [ 
-    //   {
-    //   orderable: false,
-    //   targets:   0
-    //   },
-    //   {
-    //     width: "100px",
-    //     target: 3
-    //   }
-    // ]
-    
+    columnDefs: [
+      {
+        targets : 0,
+        orderable: false,
+        className: "select-checkbox",
+        defaultContent: '',
+        width: "50px !important"
+      }
+    ],
+    select: {
+      style: "multi",
+      selector: "td:first-child"
+    },
   });
 
-  $("div.notice").append('<button id="btn_del_notice" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#commonModal">삭제</button>');
-  $("div.notice").append('<a id="btn_add_notice" class="btn btn-primary btn-table">추가</a>');
-  
-  $("#btn_add_notice").click(function(){
-    $(this).attr("href", "adminNoticeAdd.jsp");
+  $("div.notice").append('<button id="btn_del_notice" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#NoticeDeleteModal" onclick="deleteList();">삭제</button>');
+  $("div.notice").append('<a id="btn_add_notice" class="btn btn-primary btn-table" href="noticeAddForm.ma">추가</a>');
+
+  var $checkAll = $('#checkAll');
+  $checkAll.change(function () {
+    var $this = $(this);
+    var checked = $this.prop('checked'); 
+    $('input[name="deleteCheck"]').prop('checked', checked);
+  });
+
+  var boxes = $('input[name="deleteCheck"]');
+  boxes.change(function () {
+
+    var boxLength = boxes.length;
+    var checkedLength = $('input[name="deleteCheck"]:checked').length;
+    var selectAll = (boxLength == checkedLength);
+
+    $checkAll.prop('checked', selectAll);
+
   });
 
   $('#QnATable').DataTable({
     dom: '<"top"f<"dt_btn QnA">>t<"bottom"ip>',
     lengthChange: false,
-    // columnDefs: [
-    //   {targets: 0, width: 5},
-    //   {targets: 1, width: 40},
-    //   {targets: 2, width: 60},
-    //   {targets: 4, width: 50},
-    //   {targets: 6, width: 50}
-    // ],
     language: lang_kor,
-    order: [[1, 'desc']],
-    ordering: [[0, false]],
+    order: [[6, 'desc']],
+    columnDefs: [
+      {
+        targets : 0,
+        orderable: false,
+        className: "select-checkbox",
+        defaultContent: '',
+        width: "50px !important"
+      }
+    ],
     scrollX: 580,
   });
 
-  $("div.QnA").append('<button id="btn_del_QnA" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#commonModal">삭제</button>');
+  $("div.QnA").append('<button id="btn_del_QnA" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#qnaDeleteModal" onclick="deleteList();">삭제</button>');
 
   $("#btn_del_QnA").click(function(){
     $("#menuName").val("QnA");
@@ -137,12 +148,6 @@ $(document).ready(function () {
     $("#checkBtn").html("삭제")
 
     switch($(this).attr("id")){
-      case "btn_del_notice" : 
-        $("#menuName").val("notice");
-        break;
-      case "btn_del_QnA" : 
-        $("#menuName").val("QnA");
-       break;
       case "btn_del_pro" : 
         $("#menuName").val("product");
         break;
