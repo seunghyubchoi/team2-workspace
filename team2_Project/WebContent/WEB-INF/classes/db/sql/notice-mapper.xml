@@ -168,11 +168,16 @@
 	      )
 </entry>
 
+<entry key="selectNoticeList">
+SELECT
+NOTICE_NO
+,NOTICE_TITLE
+,NOTICE_DATE
+FROM TB_NOTICE
+ORDER BY NOTICE_NO DESC
+</entry>
+
 </properties>
-
-
-
-
 
 
 
