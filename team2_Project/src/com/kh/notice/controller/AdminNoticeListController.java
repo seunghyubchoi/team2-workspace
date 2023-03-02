@@ -16,7 +16,7 @@ import com.kh.notice.model.vo.Notice;
 /**
  * Servlet implementation class NoticeListController
  */
-@WebServlet("/noticeList.ma")
+@WebServlet("/noticeList.nt")
 public class AdminNoticeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -41,7 +41,6 @@ public class AdminNoticeListController extends HttpServlet {
 			ArrayList<Notice> list = new AdminNoticeService().selectList();
 			
 			request.setAttribute("list", list);
-			request.setAttribute("sidebar", "notice");
 			request.getRequestDispatcher("views/admin/adminNoticeMain.jsp").forward(request, response);
 		}
 	}
