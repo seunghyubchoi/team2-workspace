@@ -80,7 +80,7 @@ public class AdminNoticeModifyController extends HttpServlet {
 			}else {
 				session.setAttribute("alertMsg", "공지사항 수정에 실패했습니다.");
 			}
-			response.sendRedirect(request.getContextPath() + "/noticeList.ma");
+			response.sendRedirect(request.getContextPath() + "/noticeList.nt");
 		}
 	}
 

@@ -83,7 +83,7 @@ function changeValue(a) {
 
 function deleteList() {
   var arr = new Array();
-  var list = $("input[name=deleteCheck");
+  var list = $("input[name=deleteCheck]");
   for (var i = 0; i < list.length; i++){
     if(list[i].checked){
       arr.push(list[i].value);
@@ -92,3 +92,10 @@ function deleteList() {
   $("#deleteList").val(arr);
 }
 
+function notCom(){
+  var ansYn = $("input[name=ansYn]");
+
+  ansYn.val("N");
+
+  $("#comBtn").click();
+}
