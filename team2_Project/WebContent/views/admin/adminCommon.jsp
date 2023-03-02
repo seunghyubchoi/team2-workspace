@@ -84,8 +84,8 @@ pageEncoding="UTF-8"%>
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" id="notice" href="noticeList.ma">공지사항</a>
-                    <a class="collapse-item" id="qna" href="<%= contextPath%>/qnaList.ma">Q&A</a>
+                    <a class="collapse-item" id="notice" href="noticeList.nt">공지사항</a>
+                    <a class="collapse-item" id="qna" href="<%= contextPath%>/qnaList.qa">Q&A</a>
                     <a class="collapse-item" id="community" href="<%= contextPath%>/communityList.ma">뭐입지그램</a>
                 </div>
             </div>
@@ -137,7 +137,7 @@ pageEncoding="UTF-8"%>
     </div>
 
     <!-- Button Process Modal-->
-    <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="commonModalLabel"
+    <!-- <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="commonModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -160,7 +160,7 @@ pageEncoding="UTF-8"%>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Back Button Modal-->
     <div class="modal fade" id="backModal" tabindex="-1" role="dialog" aria-labelledby="backModalLabel"

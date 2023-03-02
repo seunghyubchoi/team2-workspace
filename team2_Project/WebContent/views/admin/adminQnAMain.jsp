@@ -1,5 +1,10 @@
+<%@page import="com.kh.inquire.model.vo.Inquire"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%
+	ArrayList<Inquire> list = (ArrayList<Inquire>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -62,11 +67,30 @@ pageEncoding="UTF-8"%>
                                     <th>작성자</th>
                                     <th>작성일</th>
                                     <th>상태</th>
+                                    <th>조회수</th>
                                     <th>답변하기</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                <% for(Inquire i : list){ %>
+                                <tr>
+                                	<td><input type="checkbox" name="deleteCheck" class="inquireCheckbox" value="<%= i.getQnaNo() %>"></td>
+                                    <td><%= i.getQnaNo() %></td>
+                                    <td><%= i.getHeaderNo() %></td>
+                                    <td><a href="<%= contextPath%>/detailForm.qa?ino=<%= i.getQnaNo() %>"><%= i.getQnaTitle() %></a></td>
+                                    <td><%= i.getMemNo() %></td>
+                                    <td><%= i.getQnaDate() %></td>
+                                    <td>
+                                    	<% if(i.getAnsYn().equals("N")){ %>
+                                    	진행중
+                                    	<%}else{ %>
+                                    	답변완료
+                                    	<%} %>
+                                    </td>
+                                    <td><%= i.getQndViewCount() %></td>
+                                    <td><a class="btn btn-sm btn-secondary" href="<%= contextPath%>/detailForm.qa?ino=<%= i.getQnaNo() %>">답변하기</a></td>
+                                </tr>
+                                <%} %>
                             </tbody>
                         </table>
                         
@@ -83,6 +107,32 @@ pageEncoding="UTF-8"%>
 
     </div>
     <!-- End of Page Wrapper -->
+
+    
+    <!-- DeleteButton Process Modal-->
+    <div class="modal fade" id="qnaDeleteModal" tabindex="-1" role="dialog" aria-labelledby="qnaDeleteModal"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="qnaDeleteModal">삭제하기</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    선택된 항목을 정말 삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <form action="<%= contextPath %>/delete.qa" method="post">
+                        <input type="hidden" id="deleteList" name="deleteList">
+                        <button type="submit" class="btn btn-warning" id="checkBtn">삭제</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 

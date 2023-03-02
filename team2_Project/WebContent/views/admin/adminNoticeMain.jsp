@@ -98,7 +98,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body" id="commonModalBody">
+                <div class="modal-body">
                     선택된 항목을 정말 삭제하시겠습니까?
                 </div>
                 <div class="modal-footer">

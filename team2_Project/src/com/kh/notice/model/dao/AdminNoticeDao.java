@@ -291,8 +291,6 @@ public class AdminNoticeDao {
 		
 		String sql = prop.getProperty("deleteNotice");
 		
-		System.out.println("받고나서 " + sql);
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			

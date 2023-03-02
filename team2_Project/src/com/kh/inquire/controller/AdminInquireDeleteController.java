@@ -1,8 +1,6 @@
-package com.kh.notice.controller;
+package com.kh.inquire.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,19 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.notice.model.vo.Notice;
+import com.kh.inquire.model.service.AdminInquireService;
 
 /**
- * Servlet implementation class AdminNoticeAddController
+ * Servlet implementation class AdminInquireDeleteController
  */
-@WebServlet("/noticeAddForm.ma")
-public class AdminNoticeAddFormController extends HttpServlet {
+@WebServlet("/delete.qa")
+public class AdminInquireDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminNoticeAddFormController() {
+    public AdminInquireDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,15 +29,21 @@ public class AdminNoticeAddFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("이거타나??");
+		
+		String deleteList = request.getParameter("deleteList");
+		
+		
+		int result = new AdminInquireService().deleteInquire(deleteList);
+		
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("loginManager") == null) {
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스 입니다.");
-			request.getRequestDispatcher("views/admin/adminLogin.jsp").forward(request, response);
-		} else {
-			
-			request.getRequestDispatcher("views/admin/adminNoticeAdd.jsp").forward(request, response);
+		if(result > 0) {
+			session.setAttribute("alertMsg", "QnA를 삭제하였습니다.");
+		}else {
+			session.setAttribute("alertMsg", "QnA 삭제에 실패했습니다.");
 		}
+		response.sendRedirect(request.getContextPath() + "/qnaList.qa");
 	}
 
 	/**
