@@ -17,7 +17,7 @@
 		FROM TB_LOCATION
 		WHERE MEM_NO = ?
 		AND LOC_YN = 'Y'
-		AND DEL_YN = 'Y'
+		AND DEL_YN = 'N'
 	</entry>
 	<entry key="selectLocationList">
 	SELECT 
@@ -33,7 +33,7 @@
 		  , LOC_YN
 	FROM TB_LOCATION
 	WHERE MEM_NO = ?
-	AND DEL_YN = 'Y'
+	AND DEL_YN = 'N'
 	</entry>
 	<entry key="selectLocationByLocationNo">
 		SELECT 
@@ -49,7 +49,7 @@
 		      , LOC_YN
 		FROM TB_LOCATION
 		WHERE LOC_NO = ?
-		AND DEL_YN = 'Y'
+		AND DEL_YN = 'N'
 	</entry>
 	<entry key="updateLocation">
 	UPDATE TB_LOCATION
@@ -92,13 +92,13 @@
         , ?
         , ?
         , ?
-        , 'Y'
+        , 'N'
         , 'N'
         )
 	</entry>
 	<entry key="deleteLocation">
 	UPDATE TB_LOCATION
-	   SET DEL_YN = 'N'
+	   SET DEL_YN = 'Y'
 	 WHERE LOC_NO = ?
 	</entry>
 	<entry key="insertFirstLocation">
@@ -126,7 +126,7 @@
         , ?
         , ?
         , ?
-        , 'Y'
+        , 'N'
         , 'Y'
         )
 	</entry>
