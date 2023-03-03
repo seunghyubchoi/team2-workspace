@@ -272,13 +272,14 @@
                     <input type="text" name="instaId" value="<%= instaId %>"> <br> <br>
                     <h3>태그 추가</h3>
 
-                    <input id="tag-input" name="tags" placeholder="태그를 입력하세용">
+                    <input id="tag-input"placeholder="태그를 입력하세용">
+                    <input type="hidden" name="tags">
 					<div id="tag-container" ></div>
 
 					<script>
 					const tagInput = document.getElementById('tag-input');
 					const tagContainer = document.getElementById('tag-container');
-					const tags = []; // 태그 저장할 배열
+					// const tags = []; // 태그 저장할 배열
 
 					tagInput.addEventListener('keydown', function(event) {
 					  if (event.keyCode === 13) {
@@ -293,12 +294,18 @@
 					      tagEl.textContent = '#' + tag;
 					      tagContainer.appendChild(tagEl);
 					      this.value = '';
-					      tags.push(tag); // 생성된 태그 배열에 추가
-					      tagInput.value = tag;
+					      // tags.push(tag); // 생성된 태그 배열에 추가
+					      
 					      
 					    }
 					  }
 					});
+					
+					const hiddenInput = document.querySelector('input[name=tags]');
+					
+					setInterval(() => {
+					  hiddenInput.value = Array.from(tagContainer.children).map(el => el.textContent).join(',');
+					}, 1000);
 					</script>
 
                     <br> <br> <br> <br> <input type="checkbox" required> 콘텐츠 활동 동의 (필수)

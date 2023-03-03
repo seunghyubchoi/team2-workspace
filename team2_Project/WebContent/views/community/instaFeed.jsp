@@ -1,8 +1,10 @@
+<%@page import="com.kh.community.model.vo.InstaImage"%>
 <%@page import="com.kh.community.model.vo.Instagram"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 	Instagram insta = (Instagram)request.getAttribute("insta");
+	InstaImage img = (InstaImage)request.getAttribute("img");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,7 +104,7 @@
 		<div class="row row-cols-2" style="padding-top: 55px;">
 			<div class="col">
 				<img
-					src="https://image.msscdn.net/mfile_s01/_shopstaff/view.staff_63eb3cebe45ea.jpg?20230214165104"
+					src="<%= img.getInstaImgSrc() %>"
 					alt="..." class="img-fluid" style="width: 500px; height: 600px;">
 			</div>
 			<div class="col">
@@ -127,11 +129,7 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<button type="button" class="btn btn-secondary">스트리트</button>
-								<button type="button" class="btn btn-secondary">힙합</button>
-								<button type="button" class="btn btn-secondary">유니크</button>
-								<button type="button" class="btn btn-secondary">겨울</button>
-								<button type="button" class="btn btn-secondary">따뜻한</button>
+								<button type="button" class="btn btn-secondary"><%= insta.getComTag() %></button>
 							</td>
 						</tr>
 					</table>

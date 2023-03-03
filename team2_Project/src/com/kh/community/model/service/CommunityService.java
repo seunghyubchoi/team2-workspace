@@ -68,4 +68,24 @@ public class CommunityService {
 		
 		return result1 * result2;
 	}
+	
+	public Instagram selectInsta(int comNo) {
+		Connection conn = getConnection();
+		
+		Instagram insta = new CommunityDao().selectInsta(conn, comNo);
+		
+		close(conn);
+		
+		return insta;
+	}
+	
+	public InstaImage selectInstaImg(int comNo) {
+		Connection conn = getConnection();
+		
+		InstaImage img = new CommunityDao().selectInstaImg(conn, comNo);
+		
+		close(conn);
+		
+		return img;
+	}
 }

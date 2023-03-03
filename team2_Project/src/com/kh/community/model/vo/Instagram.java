@@ -9,7 +9,6 @@ public class Instagram {
 	private String comContent;
 	private String comTag;
 	private String instaId;
-	private int imgNo;
 	private String delYn;
 	private String memNo;
 	private Date uploadDate;
@@ -22,14 +21,13 @@ public class Instagram {
 	}
 
 	// 매개변수 생성자
-	public Instagram(int comNo, String comContent, String comTag, String instaId, int imgNo, String delYn, String memNo,
+	public Instagram(int comNo, String comContent, String comTag, String instaId, String delYn, String memNo,
 			Date uploadDate) {
 		super();
 		this.comNo = comNo;
 		this.comContent = comContent;
 		this.comTag = comTag;
 		this.instaId = instaId;
-		this.imgNo = imgNo;
 		this.delYn = delYn;
 		this.memNo = memNo;
 		this.uploadDate = uploadDate;
@@ -39,6 +37,14 @@ public class Instagram {
 		super();
 		this.instaImgName = instaImgName;
 		this.instaImgSrc = instaImgSrc;
+	}
+
+	public Instagram(int comNo, String comContent, String comTag, String instaId) {
+		super();
+		this.comNo = comNo;
+		this.comContent = comContent;
+		this.comTag = comTag;
+		this.instaId = instaId;
 	}
 
 	// setter/getter
@@ -90,14 +96,6 @@ public class Instagram {
 		this.instaId = instaId;
 	}
 
-	public int getImgNo() {
-		return imgNo;
-	}
-
-	public void setImgNo(int imgNo) {
-		this.imgNo = imgNo;
-	}
-
 	public String getDelYn() {
 		return delYn;
 	}
@@ -125,7 +123,7 @@ public class Instagram {
 	@Override
 	public String toString() {
 		return "Instagram [comNo=" + comNo + ", comContent=" + comContent + ", comTag=" + comTag + ", instaId="
-				+ instaId + ", imgNo=" + imgNo + ", delYn=" + delYn + ", memNo=" + memNo + ", uploadDate=" + uploadDate
+				+ instaId + ", delYn=" + delYn + ", memNo=" + memNo + ", uploadDate=" + uploadDate
 				+ "]";
 	}
 

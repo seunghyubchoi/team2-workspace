@@ -164,4 +164,64 @@ public class CommunityDao {
 		
 		return result;
 	}
+	
+	public Instagram selectInsta(Connection conn, int comNo) {
+		Instagram insta = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectInsta");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, comNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				insta = new Instagram(rset.getInt("com_no"),
+									  rset.getString("insta_id"),
+									  rset.getString("com_content"),
+									  rset.getString("com_tag"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return insta;
+	}
+	
+	public InstaImage selectInstaImg(Connection conn, int comNo) {
+		InstaImage img = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectInstaImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, comNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				img = new InstaImage(rset.getString("insta_img_change"),
+									 rset.getString("insta_img_src"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return img;
+	}
 }
