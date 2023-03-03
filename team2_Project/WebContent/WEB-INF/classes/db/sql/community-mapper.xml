@@ -8,5 +8,91 @@ SELECT
   FROM TB_INSTAGRAM
   LEFT JOIN TB_INSTA_IMAGE IMG ON (IMG_NO = INSTA_IMG_NO)
  WHERE DEL_YN = 'N'
+ ORDER
+    BY UPLOAD_DATE DESC
+</entry>
+
+<entry key="likeInstaList">
+SELECT 
+       INSTA_IMG_ORIGIN
+     , INSTA_IMG_SRC
+     , COUNT(LIKE_NO)
+  FROM TB_INSTAGRAM 
+  LEFT JOIN TB_INSTA_IMAGE ON (IMG_NO = INSTA_IMG_NO)
+  LEFT JOIN TB_LIKE USING (COM_NO)
+ WHERE DEL_YN = 'N'
+ GROUP BY INSTA_IMG_ORIGIN
+        , INSTA_IMG_SRC
+ ORDER BY 3 DESC
+</entry>
+
+<entry key="insertAnswer">
+INSERT
+  INTO TB_ANSWER_INSTAGRAM
+  (
+  	   ANS_NO
+  	 , ANS_CONTENT
+  	 , COM_NO
+  	 , MEM_NO
+  	 )
+  	 VALUES
+  	 (
+  	   SEQ_ANSWER_INSTAGRAM
+  	 , ?
+  	 , ?
+  	 , ?
+  	 )
+</entry>
+
+<entry key="selectAnswerList">
+SELECT
+	   ANS_NO
+	 , ANS_CONTENT
+	 , MEM_ID
+	 , TO_CHAR(ANS_DATE, 'YY/MM/DD HH:MI') "ANS_DATE"
+  FORM TB_ANSWER_INSTAGRAM AN
+  JOIN MEMBER ON (MEM_NO = MEM_NO)
+ WHERE AN.DEL_YN = 'N'
+   AND COM_NO = ?
+ ORDER
+ 	BY COM_NO DESC
+</entry>
+
+<entry key="insertInsta">
+INSERT
+  INTO TB_INSTAGRAM
+     (
+       COM_NO
+     , COM_CONTENT
+     , INSTA_ID
+     , COM_TAG
+     , MEM_NO
+     )
+     VALUES
+     (
+       SEQ_INSTAGRAM.NEXTVAL
+     , ?
+     , ?
+     , ?
+     , ?
+     )
+</entry>
+
+<entry key="insertInstaimg">
+INSERT
+  INTO TB_INSTA_IMAGE
+     (
+       INSTA_IMG_NO
+     , INSTA_IMG_ORIGIN
+     , INSTA_IMG_CHANGE
+     , INSTA_IMG_SRC
+     )
+     VALUES
+     (
+       SEQ_INSTA_IMAGE.NEXTVAL
+     , ?
+     , ?
+     , ?
+     )
 </entry>
 </properties>

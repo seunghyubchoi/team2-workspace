@@ -7,19 +7,19 @@ public class AnswerInstagram {
 	// 필드부 선언
 	private int ansNo;
 	private String ansContent;
-	private DATE ansDate;
+	private String ansDate;
 	private String addAnsYn;
 	private int ogAnsNo;
 	private String delYn;
 	private int comNo;
-	private int memNo;
+	private String memNo;
 	
 	// 기본 생성자
 	public AnswerInstagram() {}
 
 	// 매개변수 생성자
-	public AnswerInstagram(int ansNo, String ansContent, DATE ansDate, String addAnsYn, int ogAnsNo, String delYn,
-			int comNo, int memNo) {
+	public AnswerInstagram(int ansNo, String ansContent, String ansDate, String addAnsYn, int ogAnsNo, String delYn,
+			int comNo, String memNo) {
 		super();
 		this.ansNo = ansNo;
 		this.ansContent = ansContent;
@@ -31,6 +31,14 @@ public class AnswerInstagram {
 		this.memNo = memNo;
 	}
 	
+	public AnswerInstagram(int ansNo, String ansContent, String ansDate, String memNo) {
+		super();
+		this.ansNo = ansNo;
+		this.ansContent = ansContent;
+		this.ansDate = ansDate;
+		this.memNo = memNo;
+	}
+
 	// setter/getter
 	public int getAnsNo() {
 		return ansNo;
@@ -48,11 +56,11 @@ public class AnswerInstagram {
 		this.ansContent = ansContent;
 	}
 	
-	public DATE getAnsDate() {
+	public String getAnsDate() {
 		return ansDate;
 	}
 	
-	public void setAnsDate(DATE ansDate) {
+	public void setAnsDate(String ansDate) {
 		this.ansDate = ansDate;
 	}
 	
@@ -88,11 +96,11 @@ public class AnswerInstagram {
 		this.comNo = comNo;
 	}
 	
-	public int getMemNo() {
+	public String getMemNo() {
 		return memNo;
 	}
 	
-	public void setMemNo(int memNo) {
+	public void setMemNo(String memNo) {
 		this.memNo = memNo;
 	}
 	
