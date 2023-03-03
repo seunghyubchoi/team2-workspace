@@ -1,31 +1,26 @@
 package com.kh.myPage.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.community.model.vo.Instagram;
-import com.kh.community.model.vo.Like;
+import com.google.gson.Gson;
 import com.kh.myPage.model.service.MyPageService;
-import com.kh.myPage.model.vo.Follow;
 
 /**
- * Servlet implementation class LikesPageController
+ * Servlet implementation class AjaxDeleteLikeController
  */
-@WebServlet("/likes.mp")
-public class LikesPageController extends HttpServlet {
+@WebServlet("/deleteLike.mp")
+public class AjaxDeleteLikeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LikesPageController() {
+    public AjaxDeleteLikeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,16 +30,12 @@ public class LikesPageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
-
+		int comNo = Integer.parseInt(request.getParameter("comNo"));
 		
-		ArrayList<Instagram> LikeList = new MyPageService().selectLikeList(memNo);
-
-		request.setAttribute("memNo", memNo);
-		request.setAttribute("LikeList", LikeList);
-		
-		
-		RequestDispatcher view = request.getRequestDispatcher("views/myPage/likes.jsp");
-		view.forward(request, response);
+		int result = new MyPageService().deleteLike(memNo, comNo);
+		System.out.println(result);
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(result,response.getWriter());
 	}
 
 	/**
