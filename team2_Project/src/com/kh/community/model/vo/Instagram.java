@@ -18,6 +18,12 @@ public class Instagram {
 	public Instagram() {}
 
 	// 매개변수 생성자
+	
+	
+	
+	
+	
+	
 	public Instagram(int comNo, String comContent, String comTag, String instaId, int imgNo, String delYn, int memNo) {
 		super();
 		this.comNo = comNo;
@@ -30,6 +36,13 @@ public class Instagram {
 	}
 	
 	
+
+	public Instagram(int comNo, String instaId, String instaImgSrc) {
+		super();
+		this.comNo = comNo;
+		this.instaId = instaId;
+		this.instaImgSrc = instaImgSrc;
+	}
 
 	public Instagram(String instaImgName, String instaImgSrc) {
 		super();
