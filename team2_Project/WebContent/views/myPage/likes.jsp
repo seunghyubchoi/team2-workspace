@@ -9,8 +9,11 @@
 
 		<style>
 			.list-area {
-				width: 760px;
-				margin: auto;
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				
+				
 			}
 
 			.thumbnail {
@@ -24,6 +27,11 @@
 				cursor: pointer;
 				opacity: 0.7
 			}
+			
+			#content{
+				
+			}
+
 		</style>
 	</head>
 
@@ -36,37 +44,21 @@
 				<div id="content">
 					<!-- <p>좋아요한 스타일이 없습니다.</p> -->
 					<div class="list-area">
+						
 						<!-- 썸네일 한 개-->
 						<div class="thumbnail" align="center">
 							<input type="hidden" value="">
-							<img src="" alt="" width="200" height="150">
+							<img src="" alt="" width="250" height="280">
 							<p>
 								<img src="../../resources/img/heartRed.png" alt="" id="heart">
 								<span>hhhy2</span>
 								<a href=""><img src="../../resources/img/instagram.png" alt="" id="instaLogo"></a>
 							</p>
 						</div>
-						<!-- 썸네일 한 개-->
-						<div class="thumbnail" align="center">
-							<input type="hidden" value="">
-							<img src="" alt="" width="200" height="150">
-							<p>
-								<img src="../../resources/img/heartRed.png" alt="" id="heart">
-								<span>hhhy2</span>
-								<a href=""><img src="../../resources/img/instagram.png" alt="" id="instaLogo"></a>
-							</p>
-						</div>
-						<!-- 썸네일 한 개-->
-						<div class="thumbnail" align="center">
-							<input type="hidden" value="">
-							<img src="" alt="" width="200" height="150">
-							<p>
-								<img src="../../resources/img/heartRed.png" alt="" id="heart">
-								<span>hhhy2</span>
-								<a href=""><img src="../../resources/img/instagram.png" alt="" id="instaLogo"></a>
-							</p>
-						</div>
+						
+						
 
+						
 					</div>
 				</div>
 				<%@include file="../common/footer.jsp" %>
