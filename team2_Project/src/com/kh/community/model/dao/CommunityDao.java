@@ -126,7 +126,7 @@ public class CommunityDao {
 			pstmt.setString(1, insta.getComContent());
 			pstmt.setString(2, insta.getInstaId());
 			pstmt.setString(3, insta.getComTag());
-			pstmt.setString(4, insta.getMemNo());
+			pstmt.setInt(4, Integer.parseInt(insta.getMemNo()));
 			
 			result = pstmt.executeUpdate();
 			

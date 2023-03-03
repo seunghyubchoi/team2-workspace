@@ -52,10 +52,10 @@ public class InstaInsertController extends HttpServlet {
 			String memNo = multipartRequest.getParameter("memNo");
 			
 			Instagram insta = new Instagram();
-			insta.setComContent("content");
-			insta.setInstaId("instaId");
-			insta.setComTag("tags");
-			insta.setMemNo("memNo");
+			insta.setComContent(content);
+			insta.setInstaId(instaId);
+			insta.setComTag(tags);
+			insta.setMemNo(memNo);
 			
 			InstaImage img = null;
 			
@@ -65,7 +65,7 @@ public class InstaInsertController extends HttpServlet {
 				img.setinstaImgChange(multipartRequest.getFilesystemName("upfile"));
 				img.setInstaImgSrc("resources/img/insta/");
 			}
-
+			
 			int result = new CommunityService().insertInsta(insta, img);
 			
 			if (result > 0) {
