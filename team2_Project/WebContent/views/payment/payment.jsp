@@ -26,6 +26,7 @@
   <title>Document</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+     
   <style>
     .input-box {
       display: flex;
@@ -132,6 +133,9 @@
       text-align: left;
       padding-left: 5px;
     }
+    #hidden-btn{
+     display : none;
+    }
   </style>
 </head>
 
@@ -162,12 +166,13 @@
             <input type="button" id="slide-button" class="img-button" onclick="slide();">
           </div>
         </div>
-          <form>
+          <form  action="<%=contextPath %>/order.pa" method="post">
         <div class="row" id="orderInformation" style="display: none">
          <% for(Product p : pList){ %>
          <input type="hidden" name="pno" value="<%=p.getProductNo() %>">
          <input type="hidden" name="psize" value="<%=p.getCartSize() %>">
          <input type="hidden" name="pqnt" value="<%=p.getCartQnt() %>">
+         <input type="hidden" name="totalqnt" value="<%=totalQnt %>">
           <div class="col-4">
             <div style="text-align: center;">
               <img src="<%=p.getProductImgSrc() %>" width="60%"
@@ -176,7 +181,7 @@
           </div>
           <div class="col-8" id="product_detail">
             <div style="margin-top: 10px; font-weight: 700;"><%= p.getBrandName() %></div>
-            <div><%= p.getProductName() %></div>
+            <div id="product-name"><%= p.getProductName() %></div>
             <table style="margin-top: 10px; margin-left: 5px;">
               <tr>
                 <th width="102px" style="text-align: left; font-size: 16px;">size</th>
@@ -203,24 +208,23 @@
             <th width="180" style="font-weight: 900; text-align: left; font-size: 20px;">주문자 정보</th>
           </tr>
           <tr>
-            <th colspan="2" height="50"><div>이름</div></th>
+            <th colspan="2" height="50"><div>수령인 이름</div></th>
             <td></td>
           </tr>
           <tr>
-            <th colspan="2"><div><input type="text" value="" name="order-name" placeholder="수령인 이름" required></div></th>
+            <th colspan="2"><div><input type="text" name="order-name" placeholder="수령인 이름" value="<%= loginUser.getMemName() %>" required></div></th>
           </tr>
           <tr>
-            <th colspan="2" height="45"><div>전화번호</div></td> 
+            <th colspan="2" height="45"><div>수령인 전화번호</div></td> 
           </tr>
           <tr>
-            <th colspan="2"><div><input type="tel" name="order-phone" value="" placeholder="수령인 전화번호" required></div></td>
+            <th colspan="2"><div><input type="tel" name="order-phone"  placeholder="수령인 전화번호" value="<%= loginUser.getPhone() %>" required></div></th>
           </tr>
            <tr>
             <th colspan="2" height="45"><div>이메일</div></td> 
           </tr>
            <tr>
-            <th colspan="2"><div><input type="email" name="order-email" value=""></div></td>
-          </tr>
+            <th colspan="2"><div><input type="email" name="order-email" value="<%= loginUser.getEmail()%>"></div></th>
         </table>
         <div class="topLine"></div>
         <table id="orderInfo" style="margin-top: 20px; margin-left: 10px;">
@@ -248,8 +252,8 @@
             <td colspan="2" width="100" height="35" style="text-align: left;">
               <select id="delivery_select" class="form-select" aria-label="Default select example">
                 <option selected>배송 시 요청사항을 적어주세요</option>
-                <option value="1">부재 시 경비실에 맡겨주세요</option>
-                <option value="2">부재 시 집앞에 놔주세요</option>
+                <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요</option>
+                <option value="부재 시 집앞에 놔주세요">부재 시 집앞에 놔주세요</option>
                 <option value="3" onclick="directInput();">직접입력</option>
               </select>
             </td>
@@ -258,6 +262,7 @@
             <td colspan="2"><textarea name="" id="direct_input" cols="60" rows="4" style="display: none;"></textarea></td>
           </tr>
         </table>
+         <input type="hidden" name="rqrmn" value="">
         <div class="topLine"></div>
         <table id="orderInfo" style="margin-top: 20px; margin-left: 10px;">
           <tr>
@@ -270,14 +275,14 @@
           <tr>
             <td></td>
             <td>
-              <input type="number" id="input-mileage" name="amount" min="0" max="">
+              <input type="number" id="input-mileage" name="amount" min="0" max="" value="0">
             </td>
           </tr>
           <tr>
             <td></td>
             <td>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="check-mileage" onclick="mileage();">
+                <input class="form-check-input" type="checkbox" name="useMileage" value="" id="check-mileage" onclick="mileage();">
                 <label class="form-check-label" for="check-mileage">
                   전액 사용하기
                 </label>
@@ -292,19 +297,19 @@
         <table class="estmtPyamn">
           <tr>
             <th>주문 상품 수</th>
-            <td width="170" height="40"><%= totalQnt %>개</td>
+            <td width="170" height="30"><%= totalQnt %>개</td>
           </tr>
           <tr>
             <th>주문금액</th>
-            <td id="order-price" height="40"><%= df.format(discountPrice)%>원</td>
+            <td id="order-price" height="30"><%= df.format(discountPrice)%>원</td>
           </tr>
           <tr>
             <th>배송비</th>
-            <td height="40">무료</td>
+            <td height="30">무료</td>
           </tr>
           <tr>
             <th>할인금액</th>
-            <td height="40"><%= df.format(totalPrice-discountPrice)%>원</td>
+            <td height="30"><%= df.format(totalPrice-discountPrice)%>원</td>
           </tr>
         </table>
         <div class="topLine"></div>
@@ -316,6 +321,7 @@
           <tr>
             <th>적립 마일리지</th>
             <td height="40"><%= df.format(discountPrice/100)%>원</td>
+            <input type="hidden" name="saveMileage" value="<%=discountPrice/100 %>">
           </tr>
         </table>
         <div class="topLine"></div>
@@ -361,10 +367,11 @@
           </div>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 20px; margin-bottom: 50px;">
-          <button class="btn btn-primary" type="submit"
-            style="background-color: pink; border-color: pink;">결제하기</button>
+          <button class="btn btn-primary" id="payment-btn" type="button"
+            style="background-color: pink; border-color: pink;" onclick="iamport();">결제하기</button>
         </div>
       </div>
+      <button type="submit" id="hidden-btn">숨셔진버튼</button>
       </form> 
       <div class="col-2">
 
@@ -428,6 +435,7 @@
       </div>
     </div>
   </div>
+ <!--   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script> -->
   <script>
   let finalPrice = 0;
     function slide() {
@@ -487,9 +495,75 @@
     			$("input[name=order-phone]").val($(this).parents('tr').find($(".loc-phone")).text())
     		}
     	})
+    });
+    
+    $("#delivery_select").change(function(){
+    	if($("#delivery_select option:selected").val()=="3"){
+    		$("#direct_input").change(function(){
+    			$("input[name=rqrmn]").val($("#direct_input").val());
+    		})
+    	}else{
+    		$("input[name=rqrmn]").val($("#delivery_select option:selected").val());
+    	}
     })
   </script>
+  
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script>
+function iamport(){
+	const bName=  $("input[name=order-email]").val();
+	const bPhone = $("input[name=order-phone]").val();
+	const bEmail = $("input[name=order-email]").val();
+	const bAddr = $("#sample6_address").val();
+	const bCode = $("#sample6_postcode").val();
+	const bAddr2 = $("#sample6_detailAddress").val();
+	
+	if(bName!="" && bPhone!="" && bEmail != "" && bAddr != "" && bCode != "" && bAddr2 != ""){
+		
+	if($("#flexCheckDefault").is(":checked")){	
+    //가맹점 식별코드
+    IMP.init('imp91623210');
+    IMP.request_pay({
+        pg : "html5_inicis",
+        pay_method : 'card',
+        merchant_uid : 'merchant_' + new Date().getTime(),
+        name : '의류/패션잡화' , //결제창에서 보여질 이름
+        amount : 100, //실제 결제되는 가격
+        buyer_email : bEmail,
+        buyer_name : bName,
+        buyer_tel : bPhone,
+        buyer_addr : bAddr+bAddr2,
+        buyer_postcode : bCode
+    }, function(rsp) {
+        console.log(rsp);
+        if ( rsp.success ) {
+            var msg = '결제가 완료되었습니다.';
+            msg += '고유ID : ' + rsp.imp_uid;
+            msg += '상점 거래ID : ' + rsp.merchant_uid;
+            msg += '결제 금액 : ' + rsp.paid_amount;
+            msg += '카드 승인번호 : ' + rsp.apply_num;
+            
+            $("#hidden-btn").trigger('click');
+        } else {
+            var msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;  
+        }
+        alert(msg) 
+        $("#hidden-btn").trigger('click');
+    });
+	}else{
+		alert('결제동의에 체크해주세요!!');
+	
+	}
+}else{
+	alert('필수 입력사항을 입력해주세요!!');
+	
+}
 
+}
+</script>
+
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.kh.myPage.model.vo.Cart;
 import com.kh.payment.model.dao.PaymentDao;
 import com.kh.payment.model.vo.Location;
+import com.kh.payment.model.vo.Order;
 import com.kh.product.model.dao.ProductDao;
 import com.kh.product.model.vo.Product;
 
@@ -189,5 +190,45 @@ public class PaymentService {
 		
 		return p;
 	}
+	
+	public int insertOrder(Order o) {
+		Connection conn = getConnection();
+		
+		int result = new PaymentDao().insertOrder(conn,o);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int insertOrderDtl(int pNo, String pSize, int pQnt) {
+	Connection conn = getConnection();
+		
+		int result = new PaymentDao().insertOrderDtl(conn,pNo,pSize,pQnt);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int updateOptionQnt(int pNo, String pSize, int pQnt) {
+		Connection conn = getConnection();
+			
+			int result = new PaymentDao().updateOptionQnt(conn,pNo,pSize,pQnt);
+			if(result>0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			close(conn);
+			return result;
+		}
+
 
 }

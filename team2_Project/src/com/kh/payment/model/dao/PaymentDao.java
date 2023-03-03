@@ -14,6 +14,7 @@ import static com.kh.common.JDBCTemplate.*;
 
 import com.kh.myPage.model.vo.Cart;
 import com.kh.payment.model.vo.Location;
+import com.kh.payment.model.vo.Order;
 import com.kh.product.model.vo.Product;
 
 public class PaymentDao {
@@ -441,5 +442,79 @@ public class PaymentDao {
 
 		}	
 
+	public int insertOrder(Connection conn ,Order o) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertOrder");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, o.getMemNo());
+			pstmt.setInt(2, o.getOrderQnt());
+			pstmt.setString(3, o.getRcpName());
+			pstmt.setString(4, o.getRcpPhone());
+			pstmt.setString(5, o.getRcpAddress());
+			pstmt.setString(6, o.getRcpAddressDtl());
+			pstmt.setString(7, o.getRcpPostCode());
+			pstmt.setString(8, o.getRcpMsg());
+			pstmt.setInt(9, o.getSaveMileage());
+			pstmt.setInt(10, o.getUseMileage());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertOrderDtl(Connection conn,int pNo,String pSize,int pQnt) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertOrderDtl");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, pNo);
+			pstmt.setString(2, pSize);
+			pstmt.setInt(3, pQnt);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateOptionQnt(Connection conn,int pNo,String pSize,int pQnt) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateOptionQnt");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, pQnt);
+			pstmt.setInt(2, pNo);
+			pstmt.setString(3, pSize);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }

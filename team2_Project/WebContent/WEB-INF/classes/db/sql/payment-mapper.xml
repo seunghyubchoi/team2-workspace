@@ -218,4 +218,45 @@ SELECT
         AND IMG_TYPE = 1
         AND P.DEL_YN = 'N'
 	</entry>
+	<entry key="insertOrder">
+	INSERT 
+    INTO TB_ORDER 
+    VALUES(
+    SEQ_ORDER.NEXTVAL
+    ,?
+    ,?
+    ,DEFAULT
+    ,DEFAULT
+    ,NULL
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    )
+	</entry>
+	<entry key="insertOrderDtl">
+	INSERT 
+    INTO TB_DTL_ORDER 
+    VALUES(
+    SEQ_DTL_ORDER.NEXTVAL
+    ,(SELECT * 
+    FROM (SELECT ORDER_NO
+    FROM TB_ORDER
+    ORDER BY ORDER_NO DESC)
+    WHERE ROWNUM =1)
+    ,?
+    ,?
+    ,?
+    )    
+	</entry>
+	<entry key="updateOptionQnt">
+	 UPDATE TB_OPTION
+	   SET OPTION_STOCK = OPTION_STOCK - ?
+	 WHERE PRODUCT_NO = ?
+       AND OPTION_SIZE = ?
+	</entry>
 </properties>
