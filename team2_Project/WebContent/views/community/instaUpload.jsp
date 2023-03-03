@@ -314,10 +314,15 @@
                         않은 글은 본인의 동의 없이 관리자가 임의대로 삭제할 수 있습니다.
                     </h5>
                     <br> <br>
-                    <button>취소</button>
+                    <button onclick="goToMain();">취소</button>
                     <button>업로드</button>
 
-
+					<!-- 취소 버튼 클릭 시 인스타 메인 화면으로 돌아가기 -->
+					<script>
+						function goToMain() {
+							location.href = "<%= contextPath %>/list.co";
+						}
+					</script>
                 </form>
             </div>
             <script src="resources/js/dist/tag.js"></script>

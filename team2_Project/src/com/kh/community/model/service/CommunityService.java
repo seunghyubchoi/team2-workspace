@@ -52,11 +52,12 @@ public class CommunityService {
 		Connection conn = getConnection();
 		
 		int result1 = new CommunityDao().insertInsta(conn, insta);
-		int result2 = 1;
-		
-		if (img != null) {
-			result2 = new CommunityDao().insertInstaimg(conn, img);
-		}
+		int result2 = new CommunityDao().insertInstaimg(conn, img);
+		/*
+		 * int result2 = 1;
+		 * 
+		 * if (img != null) { result2 = new CommunityDao().insertInstaimg(conn, img); }
+		 */
 		
 		if (result1 > 0 && result2 > 0) {
 			commit(conn);

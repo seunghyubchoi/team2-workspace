@@ -104,7 +104,7 @@
 		<div class="row row-cols-2" style="padding-top: 55px;">
 			<div class="col">
 				<img
-					src="<%= img.getInstaImgSrc() %>"
+					src="<%= contextPath %>/<%= img.getInstaImgSrc() %>"
 					alt="..." class="img-fluid" style="width: 500px; height: 600px;">
 			</div>
 			<div class="col">
