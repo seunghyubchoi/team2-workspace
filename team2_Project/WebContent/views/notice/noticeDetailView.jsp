@@ -1,5 +1,10 @@
+<%@page import="com.kh.notice.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<% 
+Notice n =(Notice)request.getAttribute("notice");
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -313,43 +318,30 @@ a {
                 <div class="board_view_wrap">
                     <div class="board_view">
                         <div class="title">
-                            글 제목이 들어갑니다.
+                            <%=n.getNoticeTitle() %>
                         </div>
                         <div class="info">
                             <dl>
-                                <dt>번호</dt>
-                                <dd>1</dd>
+                                <dt>글번호</dt>
+                                <dd><%=n.getNoticeNo() %></dd>
                             </dl>
                             <dl>
                                 <dt>글쓴이</dt>
-                                <dd>최관리자</dd>
+                                <dd><%=n.getManagerNo() %></dd>
                             </dl>
                             <dl>
                                 <dt>작성일</dt>
-                                <dd>2021.1.16</dd>
+                                <dd><%=n.getNoticeDate() %></dd>
                             </dl>
+                           
                         </div>
                         <div class="cont">
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
-                            2조 프로젝트 중입니다<br>
+                            <%=n.getNoticeContent() %><br>
+                            
                         </div>
                     </div>
                     <div class="bt_wrap">
-                        <a href="공지사항목록.html" class="on">목록</a>
-                        <a href="#" class="off">수정</a>
-                        <!-- 관리자 페이지에서 수정할건가요? -->
+                        <a href="<%=contextPath%>/nlist.no" class="on">목록</a>
                     </div>
                 </div>
             </div>

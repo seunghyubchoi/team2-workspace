@@ -19,17 +19,23 @@ public class NoticeDetailController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int noticeNo = Integer.parseInt(request.getParameter("num"));
-		 Notice n = new NoticeService().selectNotice(noticeNo);
-		 request.setAttribute("notice", n);
-		 request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
-		 
+		System.out.println(noticeNo);
+		new NoticeService().increaseCount(noticeNo);
+		int result = new NoticeService().increaseCount(noticeNo);
+		if(result>0) { 
+			 Notice n = new NoticeService().selectNotice(noticeNo);
+			 request.setAttribute("notice", n);
+			 request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
+		}else {
+			request.setAttribute("errorMsg", "공지사항 조회 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
 	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
