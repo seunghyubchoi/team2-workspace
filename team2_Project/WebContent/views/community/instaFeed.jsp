@@ -11,15 +11,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Document</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="../../resources/js/jquery-3.6.3.min.js"></script>
-<script src="https://kit.fontawesome.com/65b9d5555c.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/65b9d5555c.js" crossorigin="anonymous"></script>
 <style>
-/* div {
+div {
 	/* border: 1px solid black; */
 }
 
@@ -85,7 +82,7 @@
 	font-size: 25px;
 	float: left;
 	padding: 5px;
-} */
+} 
 
 .btn {
 	width: 90px;
@@ -99,12 +96,11 @@
 <body>
 	<%@include file="../common/menubar.jsp" %>
 	
-	
 	<div class="container text-center">
 		<div class="row row-cols-2" style="padding-top: 55px;">
 			<div class="col">
 				<img
-					src="<%= contextPath %>/<%= img.getInstaImgSrc() %>"
+					src="https://image.msscdn.net/mfile_s01/_street_images/88866/street_640021e4739ae.jpg?"
 					alt="..." class="img-fluid" style="width: 500px; height: 600px;">
 			</div>
 			<div class="col">
@@ -112,31 +108,32 @@
 				<div class="row" style="height: 40%;">
 					<table border="0">
 						<tr>
-							<td style="width: 10%;"><b style="font-size: 25px;"><%= insta.getInstaId() %></b>
+							<td style="width: 10%;"><b style="font-size: 25px;">INSTA01</b>
 							</td>
 							<td>
 								<ul class="icon" style="list-style: none;">
-									<li><i class="fa fa-solid fa-user-plus"></i></li>
+									<li><i class="fa fa-solid fa-user-plus follow-btn"></i></li>
 									<li><i class="fa fa-solid fa-share-nodes"></i></li>
 									<li><i class="fa fa-brands fa-instagram"></i></li>
 									<li><i class="fa fa-regular fa-heart"></i></li>
+									<li><span class="fa" style="font-size: 1px;">0</span></li>
 								</ul>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2" style="text-align: left;"><span><b>
-										<%= insta.getComContent() %> </b></span></td>
+							<td colspan="2" style="text-align: left;">
+								<span><b>내용이 들어가는 자리 </b></span>
+							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<button type="button" class="btn btn-secondary"><%= insta.getComTag() %></button>
+								<button type="button" class="btn btn-secondary">태그</button>
 							</td>
 						</tr>
 					</table>
-
 				</div>
 			</div>
-
+			
 			<div id="answer-area" class="col-8" style="height: 500px; padding: 40px;">
 				<table>
 					<thead>
@@ -164,7 +161,7 @@
 					<tbody></tbody>
 				</table>
 				
-				<script>
+				<%-- <script>
 					$(function() {
 						selectAnswerList();
 						
@@ -211,16 +208,103 @@
 							}
 						})
 					}
-				</script>
+				</script> --%>
 			</div>
 			<div class="col-4"></div>
 		</div>
 	</div>
 
+	<script>
+			  // 페이지가 로드될 때 실행되는 함수
+			  $(document).ready(function() {
+			    // 팔로우 버튼 요소
+			    var followBtn = $(".follow-btn");
+			    
+			    // 팔로우/언팔로우 상태 저장 변수
+			    var isFollowing = false;
+			    
+			    followBtn.click(function() {
+			      // 팔로우/언팔로우 요청을 보낼 사용자 ID
+			      var userId = followBtn.data("mem-id");
+			      
+			      if (!isFollowing) {
+			        // 팔로우 요청
+			        $.ajax({
+			          method: "POST",
+			          url: "follow.co",
+			          data: { mem_id: memId },
+			          success: function() {
+			            // 팔로우 상태로 변경
+			            isFollowing = true;
+			            // 버튼 아이콘 변경
+			            followBtn.removeClass("fa-user-plus");
+			            followBtn.addClass("fa-user-minus");
+			          }
+			        });
+			      } else {
+			        // 언팔로우 요청
+			        $.ajax({
+			          method: "POST",
+			          url: "unfollow.co",
+			          data: { mem_id: memId },
+			          success: function() {
+			            // 언팔로우 상태로 변경
+			            isFollowing = false;
+			            // 버튼 아이콘 변경
+			            followBtn.removeClass("fa-user-minus");
+			            followBtn.addClass("fa-user-plus");
+			          }
+			        });
+			      }
+			    });
+			  });
+			</script>
+			
+			<!-- <script>
+			// 팔로우 상태 초기값 설정
+			let isFollowing = false;
+
+			followBtn.click(function() {
+			  if (isFollowing) {
+			    // 언팔로우
+			    isFollowing = false;
+			    // 버튼 아이콘 변경
+			    followBtn.removeClass("fa-user-minus");
+			    followBtn.addClass("fa-user-plus");
+			  } else {
+			    // 팔로우
+			    isFollowing = true;
+			    // 버튼 아이콘 변경
+			    followBtn.removeClass("fa-user-plus");
+			    followBtn.addClass("fa-user-minus");
+			  }
+			});
+			</script> -->
+			
+			<!-- <script>
+			$(".follow-btn").click(function() {
+			  var memId = $(this).data("mem-id");
+			  $.ajax({
+			    type: "POST",
+			    url: "/follow",
+			    data: { memId: memId },
+			    success: function(data) {
+			    	if (data.result === 'success') {
+			    		// 팔로우 성공 시 팔로우 버튼 비활성화
+			    	    $('#follow-btn').prop('disabled', true);
+			    	}
+			    },
+			    error: function(xhr, status, error) {
+			      // 팔로우 실패 처리
+			    }
+			  });
+			});
+			</script> -->
+			
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
+		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"crossorigin="anonymous">
+	</script>
 </body>
 
 </html>

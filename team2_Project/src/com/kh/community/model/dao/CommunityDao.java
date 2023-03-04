@@ -172,6 +172,7 @@ public class CommunityDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectInsta");
+		System.out.println("SQL: " + sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -186,6 +187,8 @@ public class CommunityDao {
 									  rset.getString("com_content"),
 									  rset.getString("com_tag"));
 			}
+			System.out.println("Instagram: " + comNo);
+			System.out.println("Instagram: " + insta);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -203,6 +206,7 @@ public class CommunityDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectInstaImg");
+		System.out.println("SQL: " + sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -215,6 +219,8 @@ public class CommunityDao {
 				img = new InstaImage(rset.getString("insta_img_change"),
 									 rset.getString("insta_img_src"));
 			}
+			System.out.println("InstaImage: " + comNo);
+			System.out.println("InstaImage: " + img);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
