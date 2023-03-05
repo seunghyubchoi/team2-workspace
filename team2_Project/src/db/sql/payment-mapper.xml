@@ -274,6 +274,7 @@ SELECT
     SEQ_MILEAGE_HISTORY.NEXTVAL
     ,'사용'
     ,?
+    ,?
     ,(SELECT * 
     FROM (SELECT ORDER_NO
     FROM TB_ORDER

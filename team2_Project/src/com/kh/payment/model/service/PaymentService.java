@@ -243,10 +243,10 @@ public class PaymentService {
 		return result;
 	}
 	
-	public int insertMileageHistory(int useMileage) {
+	public int insertMileageHistory(int mNo,int useMileage) {
 		Connection conn = getConnection();
 		
-		int result = new PaymentDao().insertMileageHistory(conn,useMileage);
+		int result = new PaymentDao().insertMileageHistory(conn,mNo,useMileage);
 		if(result>0) {
 			commit(conn);
 		}else {

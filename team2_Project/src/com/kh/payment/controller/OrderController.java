@@ -56,7 +56,7 @@ public class OrderController extends HttpServlet {
 		int result1 = new PaymentService().insertOrder(o); // TB_ORDER 테이블에 INSERT
 		if(result1>0) {
 			int result5 = new PaymentService().updateMileage(mNo,useMileage); // 회원의 사용 마일리지 차감
-			int result6 = new PaymentService().insertMileageHistory(useMileage); // TB_MILEAGE_HISTORY 테이블에 INSERT
+			int result6 = new PaymentService().insertMileageHistory(mNo,useMileage); // TB_MILEAGE_HISTORY 테이블에 INSERT
 			for(int i =0;i<pNo.length;i++) {
 				result2 = new PaymentService().insertOrderDtl(Integer.parseInt(pNo[i]),pSize[i],Integer.parseInt(pQnt[i]));  // TB_DTL_ORDER 테이블에 INSERT
 				result3 = new PaymentService().updateOptionQnt(Integer.parseInt(pNo[i]),pSize[i],Integer.parseInt(pQnt[i])); // 상품 수량 차감

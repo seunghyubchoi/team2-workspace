@@ -539,7 +539,7 @@ public class PaymentDao {
 		return result;
 	}
 	
-	public int insertMileageHistory(Connection conn,int useMileage) {
+	public int insertMileageHistory(Connection conn,int mNo,int useMileage) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
@@ -547,6 +547,7 @@ public class PaymentDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, useMileage);
+			pstmt.setInt(2, mNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
