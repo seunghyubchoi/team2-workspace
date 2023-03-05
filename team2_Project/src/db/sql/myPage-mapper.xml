@@ -23,16 +23,104 @@
 		WHERE M1.MEM_NO = ?
 		AND F.ACT_YN = 'Y'
 	</entry>
-	<entry key="deleteFollower">
+	<entry key="deleteFollowing">
 		UPDATE (
 		SELECT M1.MEM_NO, M2.MEM_ID, F.ACT_YN
-		FROM TB_MEMBER M1, TB_MEMBER M2, TB_FOLLOW F
-		WHERE M1.MEM_NO = F.FOLLOWING_ID
-		AND M2.MEM_NO= F.FOLLOWER_ID
+		FROM
+		TB_MEMBER M1, TB_MEMBER M2, TB_FOLLOW F
+		WHERE M1.MEM_NO =
+		F.FOLLOWING_ID
+		AND M2.MEM_NO = F.FOLLOWER_ID
 		AND M1.MEM_NO = ?
-		AND M2.MEM_ID = ?
+		AND
+		M2.MEM_ID = ?
 		)
 		SET ACT_YN ='N'
 
 	</entry>
+
+
+	<entry key="deleteFollower">
+
+		UPDATE (
+		SELECT M1.MEM_NO, M2.MEM_ID, F.ACT_YN
+		FROM
+		TB_MEMBER M1, TB_MEMBER M2, TB_FOLLOW F
+		WHERE M1.MEM_NO =
+		F.FOLLOWING_ID
+		AND M2.MEM_NO= F.FOLLOWER_ID
+		AND M2.MEM_NO = ?
+		AND
+		M1.MEM_ID = ?
+		)
+		SET ACT_YN ='N'
+	</entry>
+
+	<entry key="cancelDeleteFollowing">
+		UPDATE (
+		SELECT M1.MEM_NO, M2.MEM_ID, F.ACT_YN
+		FROM
+		TB_MEMBER M1, TB_MEMBER M2, TB_FOLLOW F
+		WHERE M1.MEM_NO =
+		F.FOLLOWING_ID
+		AND M2.MEM_NO= F.FOLLOWER_ID
+		AND M1.MEM_NO = ?
+		AND
+		M2.MEM_ID = ?
+		)
+		SET ACT_YN ='Y'
+	</entry>
+
+
+	<!-- 적립금 : 옵션명 가져오는 sql문 <entry key="selectMileageHistory"> SELECT H.MILEAGE_NO 
+		, H.MILEAGE_HISTORY , H.MILEAGE , H.MEM_NO , O.OPTION_SIZE , P.PRODUCT_NAME 
+		FROM TB_MILEAGE_HISTORY H JOIN TB_ORDER O ON (H.ORDER_NO = O.ORDER_NO) JOIN 
+		TB_PRODUCT P ON (O.PRODUCT_NO = P.PRODUCT_NO) WHERE H.MEM_NO = ? ORDER BY 
+		H.MILEAGE_NO DESC </entry> -->
+
+
+	<entry key="selectMileageHistory">
+		SELECT
+		MILEAGE_NO
+		, MILEAGE_HISTORY
+		, MILEAGE
+		,
+		PRODUCT_NAME
+		, MEM_NO
+		FROM TB_MILEAGE_HISTORY
+		JOIN TB_PRODUCT USING
+		(PRODUCT_NO)
+		WHERE MEM_NO = ?
+	</entry>
+
+	<entry key="selectLikeList">
+		SELECT
+		G.COM_NO
+		, G.INSTA_ID
+		, I.INSTA_IMG_SRC
+		FROM
+		TB_LIKE L
+		JOIN TB_INSTAGRAM G ON (G.COM_NO = L.COM_NO)
+		JOIN
+		TB_INSTA_IMAGE I ON (I.INSTA_IMG_NO = G.IMG_NO)
+		WHERE L.MEM_NO = ?
+	</entry>
+
+	<entry key="deleteLike">
+		DELETE FROM TB_LIKE
+		WHERE MEM_NO = ?
+		AND COM_NO = ?
+
+	</entry>
+
+	<entry key="insertLike">
+		INSERT
+		INTO TB_LIKE
+		(LIKE_NO
+		, MEM_NO
+		, COM_NO)
+		VALUES(SEQ_LIKE.NEXTVAL,?,?)
+	</entry>
+
+
 </properties>

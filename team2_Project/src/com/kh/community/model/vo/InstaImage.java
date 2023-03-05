@@ -4,20 +4,20 @@ public class InstaImage {
 	
 	// 필드부 생성
 	private int instaImgNo;
-	private String instaImgName;
+	private String instaImgOrigin;
 	private String instaImgSrc;
-	private int comNo;
+	private String instaImgChange;
 	
 	// 기본 생성자
 	public InstaImage() {}
 
 	// 매개변수 생성자
-	public InstaImage(int instaImgNo, String instaImgName, String instaImgSrc, int comNo) {
+	public InstaImage(int instaImgNo, String instaImgOrigin, String instaImgSrc, String instaImgChange) {
 		super();
 		this.instaImgNo = instaImgNo;
-		this.instaImgName = instaImgName;
+		this.instaImgOrigin = instaImgOrigin;
 		this.instaImgSrc = instaImgSrc;
-		this.comNo = comNo;
+		this.instaImgChange = instaImgChange;
 	}
 
 	// setter/getter
@@ -29,12 +29,12 @@ public class InstaImage {
 		this.instaImgNo = instaImgNo;
 	}
 
-	public String getInstaImgName() {
-		return instaImgName;
+	public String getInstaImgOrigin() {
+		return instaImgOrigin;
 	}
 
-	public void setInstaImgName(String instaImgName) {
-		this.instaImgName = instaImgName;
+	public void setInstaImgOrigin(String instaImgOrigin) {
+		this.instaImgOrigin = instaImgOrigin;
 	}
 
 	public String getInstaImgSrc() {
@@ -45,19 +45,19 @@ public class InstaImage {
 		this.instaImgSrc = instaImgSrc;
 	}
 
-	public int getComNo() {
-		return comNo;
+	public String getInstaImgChange() {
+		return instaImgChange;
 	}
 
-	public void setComNo(int comNo) {
-		this.comNo = comNo;
+	public void setinstaImgChange(String instaImgChange) {
+		this.instaImgChange = instaImgChange;
 	}
 
 	// toString
 	@Override
 	public String toString() {
-		return "InstaImage [instaImgNo=" + instaImgNo + ", instaImgName=" + instaImgName + ", instaImgSrc="
-				+ instaImgSrc + ", comNo=" + comNo + "]";
+		return "InstaImage [instaImgNo=" + instaImgNo + ", instaImgName=" + instaImgOrigin + ", instaImgSrc="
+				+ instaImgSrc + ", comNo=" + instaImgChange + "]";
 	}
 	
 }

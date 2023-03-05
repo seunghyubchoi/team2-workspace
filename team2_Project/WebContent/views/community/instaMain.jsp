@@ -23,13 +23,35 @@
 		<div class="row">
 			<div class="col">
 				<div style="padding-top: 35px; width: 200px;">
-					<select class="form-select form-select-lg mb-3"
+					<select id="instaSelect" class="form-select form-select-lg mb-3"
 						aria-label=".form-select-lg example">
 						<option value="1">최신순</option>
 						<option value="2">좋아요순</option>
 					</select>
 				</div>
 			</div>
+
+			<script>
+			const instaSelect = document.getElementById('instaSelect');
+			
+			function instaSelectChange() {
+				
+				var sortValue = instaSelect.value;
+				
+				if (sortValue === '1') {
+					  location.href = '<%= contextPath %>/list.co?sort=latest';
+				  } else if (sortValue === '2') {
+					  location.href = '<%= contextPath %>/list.co?sort=likes';
+				  }
+			}
+			
+			instaSelect.addEventListener('change', instaSelectChanged);
+			
+			
+			
+			
+			
+			</script>
 			<div class="col"></div>
 			<div class="col">
 				<% if (loginUser != null) { %>
@@ -47,9 +69,9 @@
 				<p>조회된 게시글이 없습니다.</p>
 				<% } else { %>
 				<% for (Instagram insta : list) { %>
-				<div class="col">
+				<div class="col" style="padding-bottom: 35px">
 					<a href="#"> <img src="<%= insta.getInstaImgSrc() %>"
-						class="img-fluid" alt="...">
+						class="img-fluid" alt="인스타 사진" style="width: 100%; height: 100%;">
 					</a>
 				</div>
 				<% } %>
@@ -71,12 +93,12 @@
 			</ul>
 		</nav>
 	</div>
-	
+
 	<script>
-		$(".img-fluid").cl/ick(function() {
+		$(".img-fluid").click(function() {
 			location.href = "<%= contextPath %>/feed.co"
 		})
 	</script>
-	
+
 </body>
 </html>

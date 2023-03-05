@@ -49,7 +49,7 @@ public class LoginController extends HttpServlet {
 			// 세션 처리 해줘야 함
 			session.setAttribute("loginManager", loginManager);
 		
-			response.sendRedirect(request.getContextPath() + "/noticeList.ma");
+			response.sendRedirect(request.getContextPath() + "/noticeList.nt");
 		}
 	}
 

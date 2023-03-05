@@ -77,8 +77,8 @@ div{
 #searchbar {
 	width: 700px;
         height: 55px;
-        margin-top: 15px;
         margin-left: 60px;
+        margin-top:100px;
         border-radius: 20px;
         border: 3px solid #e091d6;
 }
@@ -87,7 +87,7 @@ div{
 	position: relative;
 	display: inline-block;
 	font-size: 20px;
-	padding: 12px 35px;
+	padding: 13px 35px;
 	color: white;
 	margin: 20px 10px 10px;
 	border-radius: 15px;
@@ -112,6 +112,7 @@ div{
 li {
 	list-style: none;
 	font-size:14px;
+	width: 237px;
 }
 
 a {
@@ -126,7 +127,7 @@ a {
 }
 
 .menu>li {
-	width: 20%; /*20*5=100%*/
+  width: 20%; /*20*5=100%*/
   float: left;
   text-align: center;
   line-height: 40px;
@@ -189,8 +190,9 @@ a {
 		<!--header-->
 		<div id="header">
 			<div id="head1">
+				<a href="<%= contextPath %>/index.jsp">
 				<img src="<%= contextPath%>/resources/img/logo1.png" width=100% height=100%
-					style="padding: 20px 30px 10px 0px;">
+					style="padding: 20px 30px 10px 0px;"></a>
 			</div>
 			<div id="head2">
 				<div id="head2_1">
@@ -217,7 +219,7 @@ a {
 							</li>
 						<li><a href="#">고객센터</a>
 							<ul class="submenu">
-								<li><a href="#">공지사항</a></li>
+								<li><a href="<%=contextPath %>/nlist.no?cpage=1">공지사항</a></li>
 								<li><a href="#">문의사항</a></li>
 								<li><a href="#">submenu03</a></li>
 								<li><a href="#">submenu04</a></li>

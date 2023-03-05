@@ -26,13 +26,13 @@ ArrayList<Follow> followList = (ArrayList<Follow>) request.getAttribute("followL
 	width: 50%;
 }
 
-#followList p {
+#followList p, #followingList p {
 	font-size: 1.5em;
 	font-weight: 700;
 	padding: 50px;
 }
 
-#followTable {
+#followTable, #followingTable {
 	
 	width: 60%;
 	height: 100%;
@@ -40,10 +40,10 @@ ArrayList<Follow> followList = (ArrayList<Follow>) request.getAttribute("followL
 	margin: auto;
 	font-size: 1.2em;
 }
-#followTable td {
+#followTable td, #followingTable td {
 	padding: 8px;
 }
-#followTable td:nth-child(2) {
+#followTable td:nth-child(2), #followingTable td:nth-child(2)  {
 	text-align: right;
 	font-weight: 700;
 }
@@ -55,6 +55,7 @@ ArrayList<Follow> followList = (ArrayList<Follow>) request.getAttribute("followL
 	<%@include file="../common/leftList.jsp"%>
 	<div id="content_title">
 		<p>팔로잉/팔로워</p>
+		<img src="../../resources/img/heartEmpty.png" alt="">
 	</div>
 	<div id="content">
 		<div id="btnBox">
@@ -65,7 +66,7 @@ ArrayList<Follow> followList = (ArrayList<Follow>) request.getAttribute("followL
 			<%
 				if (followList.isEmpty()) {
 			%>
-			<p>해당하는 회원이 없습니다</p>
+			<p id="noList">팔로우하는 회원이 없습니다</p>
 			<%
 				} else {
 			%>
@@ -88,6 +89,16 @@ ArrayList<Follow> followList = (ArrayList<Follow>) request.getAttribute("followL
 			<%
 				}
 			%>
+		</div>
+		<div id="followingList">
+			<p id="noList2"></p>
+			<table id="followingTable">
+				<tbody id="followingTableBody">
+					
+				</tbody>
+			</table>
+			
+		</div>
 			
 			<!-- 팔로워 삭제 -->
                     	<div class="modal" id="deleteFollower">
@@ -104,7 +115,7 @@ ArrayList<Follow> followList = (ArrayList<Follow>) request.getAttribute("followL
                     						<input type="hidden" name="memNo" id="memNo" value="<%=memNo%>"> 
                     						<input type="hidden" name="followerId" value="" id="followerId">  
                     						<b><span id="targetId"></span>님을 정말로 삭제하시겠습니까?<br>
-                    						<div class="btn btn-sm btn-danger" onclick="deleteFollower();">삭제</div>
+                    						<div class="btn btn-sm btn-danger" id="deleteFollowerBtn">삭제</div>
                     					</form>
                     				</div>
                     			</div>
@@ -112,40 +123,71 @@ ArrayList<Follow> followList = (ArrayList<Follow>) request.getAttribute("followL
                     	</div>
 			
 			<script>
+			
+			$(document).ready(function() {
+			    $('#followingList').css('display', 'none');
+			});
+			
                         function selectFollowingList() {
                         	$.ajax({
                         		url:"followingList.mp",
                         		data: {memNo:<%=memNo%>},
                         		type:"post",
                         		success:function(result){
-                        			$("#followBtn").css("background-color","#C7A9CC");
-                        			$("#follwingBtn").css("background-color","#9a77a1");
+                        			if(result.length == 0) {
+                        				$("#followList").hide();
+                            			$("#followingList").show();
+                            			$("#followBtn").css("background-color","#C7A9CC");
+                            			$("#follwingBtn").css("background-color","#9a77a1");
+                            			
+                            			$("#followBtn").hover(function(){
+                            					$(this).css('background-color','#9a77a1');  
+                            					},function(){
+                            				    $(this).css('background-color','#C7A9CC');
+                            				    })
+                            			
+                            			$("#follwingBtn").hover(function(){
+                            					$(this).css('background-color','#9a77a1');  
+                            					},function(){
+                            				    $(this).css('background-color','#9a77a1');
+                            				    })
+                            				    
+                            				    $("#noList2").text("팔로잉하는 회원이 없습니다");
+                        				
+                        				
+                        			} else{
+                        				console.log(result.length);
+                            			$("#followList").hide();
+                            			$("#noList2").hide();
+                            			$("#followingList").show();
+                            			$("#followBtn").css("background-color","#C7A9CC");
+                            			$("#follwingBtn").css("background-color","#9a77a1");
+                            			
+                            			$("#followBtn").hover(function(){
+                            					$(this).css('background-color','#9a77a1');  
+                            					},function(){
+                            				    $(this).css('background-color','#C7A9CC');
+                            				    })
+                            			
+                            			$("#follwingBtn").hover(function(){
+                            					$(this).css('background-color','#9a77a1');  
+                            					},function(){
+                            				    $(this).css('background-color','#9a77a1');
+                            				    })
+                            			
+                            			
+                            			//$("#followTableBody").empty();
+                            			
+                            			let value = "";
+                            			for(let i = 0; i < result.length; i++) {
+                    						value += "<tr>"
+                								+ "<td>" + result[i].followerId + "</td>"
+                								+ "<td>" + "<button type='button' class='btn btn-primary mb-2' id='addDelFollowingBtn' onclick='addDelFollowingBtn(this);' value='" + result[i].followerId + "'>팔로잉</button>" + "</td>"
+                								+ "</tr>"
+                    					}
+                            			$("#followingTableBody").html(value);
+                        			}
                         			
-                        			$("#followBtn").hover(function(){
-                        					$(this).css('background-color','#9a77a1');  
-                        					},function(){
-                        				    $(this).css('background-color','#C7A9CC');
-                        				    })
-                        			
-                        			$("#follwingBtn").hover(function(){
-                        					$(this).css('background-color','#9a77a1');  
-                        					},function(){
-                        				    $(this).css('background-color','#9a77a1');
-                        				    })
-                        			
-                        			
-                        			//$("#followTableBody").empty();
-                        			
-                        			
-                        			
-                        			let value = "";
-                        			for(let i = 0; i < result.length; i++) {
-                						value += "<tr>"
-            								+ "<td>" + result[i].followerId + "</td>"
-            								+ "<td>" + "<button type='button' class='btn btn-primary mb-2'>팔로잉</button>" + "</td>"
-            								+ "</tr>"
-                					}
-                        			$("#followTableBody").html(value);
                         		},
                         		error: function() {
                         			console.log("ajax 통신 실패!!")
@@ -153,13 +195,16 @@ ArrayList<Follow> followList = (ArrayList<Follow>) request.getAttribute("followL
                         	})
                         }
                         
-                        
+                       
                         function selectFollowerList(){
                         	$.ajax({
                         		url:"followerList.mp",
                         		data: {memNo:<%=memNo%>},
                         		type:"post",
                         		success:function(result){
+                        			
+                        			$("#followingList").hide();
+                        			$("#followList").show();
                         			$("#followBtn").css("background-color","#9a77a1");
                         			$("#follwingBtn").css("background-color","#C7A9CC");
                         			
@@ -180,9 +225,14 @@ ArrayList<Follow> followList = (ArrayList<Follow>) request.getAttribute("followL
                         			for(let i = 0; i < result.length; i++) {
                 						value += "<tr>"
             								+ "<td>" + result[i].followerId + "</td>"
-            								+ "<td>" + "<button type='button' class='btn btn-primary mb-2'>삭제</button>" + "</td>"
+            								+ "<td>" 
+            								+ "<button type='button' class='btn btn-primary mb-2'  data-toggle='modal' data-target='#deleteFollower' onclick='deleteAlert(this);' value='" 
+            								+ result[i].followerId + "'>삭제</button>" 
+                        					+ "</td>"
             								+ "</tr>"
                 					}
+                        			
+                        			
                         			$("#followTableBody").html(value);
                         		},
                         		error:function(){
@@ -192,33 +242,84 @@ ArrayList<Follow> followList = (ArrayList<Follow>) request.getAttribute("followL
                         }                        
                         function deleteAlert(e){
                         	//console.log($(e).val());
-                        	$("#followerId").attr("name", $(e).val());
-                        	console.log($("#followerId").attr("name"));
+                        	$("#followerId").val($(e).val());
+                        	//console.log($("#followerId").attr("name"));
                         	$("#targetId").text($(e).val());
                         }
                         
-                        function deleteFollower() {
-                                                	
+                        $(function(){
+                        	$("#deleteFollowerBtn").on("click", function(){
+                        		let queryString = $("form[name=deleteFollower]").serialize();
+                        		console.log(queryString);
+                        		$.ajax({
+                            		url:"deleteFollower.mp",
+                            		data: queryString,
+                            		type: "post",
+                            		success: function(result) {
+                            			location.reload();
+                            		},
+                            		error: function() {
+                            			console.log("ajax 통신 실패!!")
+
+                            		}
+                            	})
+                        	})
+                        	
+                        })
+                        
+                        function addDelFollowingBtn(e){
+                        	//console.log($(e).val());
+                        	let id = $(e).val();
+                        	console.log(id);
                         	$.ajax({
-                        		url:"deleteFollower.mp",
+                        		url:"deleteFollowing.mp",
                         		data: {
-                        			followerId: $("#followerId").attr("name"),
-                        			memNo: <%=memNo%>
+                        			memNo:<%=memNo%>,
+                        			followingId:id
                         		},
-                        		type: "post",
+                        		type:"post",
                         		success: function(result) {
-                        			alert("하잉")
+                        			$(e).removeAttr("onclick");
+                        			$(e).attr("onclick", "cancelDeleteFollowing(this)")
+                        			$(e).css("background-color","white");
+                        			$(e).css("color","#9a77a1");
+                        			
+                   
                         		},
                         		error: function() {
                         			console.log("ajax 통신 실패!!")
-
                         		}
                         	})
                         }
-                    	
+                        
+                        function cancelDeleteFollowing(e) {
+                        	let id = $(e).val();
+                        	console.log(id);
+                        	$.ajax({
+                        		url:"cancelDeleteFollowing.mp",
+                        		data: {
+                        			memNo:<%=memNo%>,
+                        			followingId:id
+                        		},
+                        		type:"post",
+                        		success: function(result) {
+                        			$(e).removeAttr("onclick");
+                        			$(e).attr("onclick", "addDelFollowingBtn(this)")
+                        			$(e).css("background-color","#C7A9CC");
+                        			$(e).css("color","white");
+                        			
+                        			
+                        		},
+                        		error: function() {
+                        			console.log("ajax 통신 실패!!")
+                        		}
+                        	})
+                        }
+                        
+                        
+                        
                           
                         </script>
-		</div>
 	</div>
 	<%@include file="../common/footer.jsp"%>
 

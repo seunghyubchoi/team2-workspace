@@ -11,8 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.community.model.vo.Instagram;
+import com.kh.community.model.vo.Like;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.myPage.model.vo.Follow;
+import com.kh.myPage.model.vo.MileageHistory;
 
 public class MyPageDao {
 
@@ -101,6 +104,131 @@ public class MyPageDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int deleteFollowing(Connection conn, int memNo, String followingId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteFollowing");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setString(2, followingId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+
+		}
+		
+
+		return result;
+	}
+
+	public int cancelDeleteFollowing(Connection conn, int memNo, String followingId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("cancelDeleteFollowing");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setString(2, followingId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<MileageHistory> selectMileageHistory(Connection conn, int memNo) {
+		ArrayList<MileageHistory> list = new ArrayList<MileageHistory>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+ 
+		String sql = prop.getProperty("selectMileageHistory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new MileageHistory(rset.getInt("mileage_no")
+						,rset.getString("mileage_history")
+						,rset.getInt("mileage")
+						,rset.getString("product_name")
+						,rset.getInt("mem_no")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Instagram> selectLikeList(Connection conn, int memNo) {
+		ArrayList<Instagram> list = new ArrayList<Instagram>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectLikeList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new Instagram(rset.getInt("com_no")
+									 , rset.getString("insta_id")
+									 , rset.getString("insta_img_src")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int deleteLike(Connection conn, int memNo, int comNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, comNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+
+		}
+		
+
 		return result;
 	}
 

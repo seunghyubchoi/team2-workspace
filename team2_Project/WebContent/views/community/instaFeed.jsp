@@ -1,5 +1,9 @@
+<%@page import="com.kh.community.model.vo.Instagram"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	Instagram insta = (Instagram)request.getAttribute("insta");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +17,7 @@
 <script src="https://kit.fontawesome.com/65b9d5555c.js"
 	crossorigin="anonymous"></script>
 <style>
-div {
+/* div {
 	/* border: 1px solid black; */
 }
 
@@ -79,7 +83,7 @@ div {
 	font-size: 25px;
 	float: left;
 	padding: 5px;
-}
+} */
 
 .btn {
 	width: 90px;
@@ -93,35 +97,7 @@ div {
 <body>
 	<%@include file="../common/menubar.jsp" %>
 	
-	<div class="container text-center">
-		<div class="row">
-			<div id="input_logo" class="col">
-				<img src="../resources/image/로고1.png" width="80%" height="200px"
-					alt="">
-			</div>
-			<div id="searchBar" class="col">
-				<div class="input-box">
-					<i class="fa-solid i1 fa-magnifying-glass"></i> <input type="text">
-					<i class="fa-solid fa-keyboard"></i> <i
-						class="fa-solid fa-microphone"></i>
-					<button type="button" class="btn btn-outline-info"
-						style="border-color: plum; color: plum">검색</button>
-				</div>
-			</div>
-			<div class="col"></div>
-		</div>
-	</div>
-	<ul class="nav justify-content-center">
-		<li class="nav-item"><a class="nav-link active"
-			aria-current="page" href="#" style="color: plum">뭐입지그램</a></li>
-		<li class="nav-item"><a class="nav-link" href="#"
-			style="color: plum">쇼핑</a></li>
-		<li class="nav-item"><a class="nav-link" href="#"
-			style="color: plum">고객센터</a></li>
-	</ul>
-	<div>
-		<hr>
-	</div>
+	
 	<div class="container text-center">
 		<div class="row row-cols-2" style="padding-top: 55px;">
 			<div class="col">
@@ -134,7 +110,7 @@ div {
 				<div class="row" style="height: 40%;">
 					<table border="0">
 						<tr>
-							<td style="width: 10%;"><b style="font-size: 25px;">yuuuunh</b>
+							<td style="width: 10%;"><b style="font-size: 25px;"><%= insta.getInstaId() %></b>
 							</td>
 							<td>
 								<ul class="icon" style="list-style: none;">
@@ -147,8 +123,7 @@ div {
 						</tr>
 						<tr>
 							<td colspan="2" style="text-align: left;"><span><b>
-										가을 언제 오냐고~ 나도 까죽자켓 입구 싶다고! 그나저나 슈펜에서 보라끌레르 제품제공 해줬는데 부츠가 매~끈
-										하게 잘빠지고 스판이 쫀쫀해서 착용감도 편하고 날씬해 보이기까지~ </b></span></td>
+										<%= insta.getComContent() %> </b></span></td>
 						</tr>
 						<tr>
 							<td colspan="2">
@@ -163,13 +138,82 @@ div {
 
 				</div>
 			</div>
-			<div class="col-8"
-				style="height: 500px; padding: 40px; margin-left: 35px; text-align: left">
-				<i class="fa-regular fa-circle-user"
-					style="font-size: 30px; padding: 5px;"></i> <input type="text"
-					style="width: 450px; height: 35px;" placeholder="로그인 후 댓글을 작성해주세요.">
-				<button type="button"
-					style="width: 75px; height: 35px; border: 1px solid lightslategrey;">작성</button>
+
+			<div id="answer-area" class="col-8" style="height: 500px; padding: 40px;">
+				<table>
+					<thead>
+						<tr>
+							<td>
+								<i class="fa-regular fa-circle-user" style="font-size: 30px; padding: 5px;"></i> 
+							</td>
+							<% if (loginUser != null) { %>
+								<td>
+									<textarea id="answerContent" rows="2" cols="60" style="resize: none"></textarea>
+								</td>
+								<td>
+									<button onclick="insertAnswer();" style="width: 75px; height: 55px; margin-top: -5px; border: 1px solid lightslategrey;">작성</button>
+								</td>
+							<% } else { %>
+								<td>
+									<textarea rows="2" cols="60" style="resize: none">로그인 후 이용 가능한 서비스입니다.</textarea>
+								</td>
+								<td>
+									<button style="width: 75px; height: 55px; margin-top: -5px;" disabled="disabled">작성</button>
+								</td>
+							<% } %>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				
+				<script>
+					$(function() {
+						selectAnswerList();
+						
+						setInterval(selectAnswerList, 1000);
+					})
+					
+					function insertAnswer() {
+						$.ajax({
+							url : "answerInsert.co",
+							data : {
+								content : $("#answerContent").val(),
+								cno : <%= insta.getComNo() %>
+							},
+							type : "post",
+							success : function(result) {
+								if (result > 0) {
+									selectAnswerList();
+									$("#answerContent").val("");
+								}
+							},
+							error : function() {
+								console.log("댓글 작성 ajax 통신 실패")
+							}
+						})
+					}
+					
+					function selectAnswerList() {
+						$.ajax({
+							url : "answerList.co",
+							data : {cno : <%= insta.getComNo() %>},
+							success : function(list) {
+								let value = "";
+								for (let i = 0; i < list.length; i++) {
+									value += "<tr>"
+										   + "<td>" + list[i].memNo + "</td>"
+										   + "<td>" + list[i].ansContent + "</td>"
+										   + "<td>" + list[i].ansDate + "</td>"
+										   + "</tr>"
+								}
+								$("#answer-area tbody").html(value);
+							},
+							error : function() {
+								console.log("댓글 목록 ajax 통신 실패")
+							}
+						})
+					}
+				</script>
 			</div>
 			<div class="col-4"></div>
 		</div>

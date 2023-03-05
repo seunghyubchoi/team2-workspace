@@ -1,5 +1,10 @@
+<%@page import="com.kh.notice.model.vo.Notice"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,12 +63,14 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            	<% for(Notice n : list){ %>
                                 <tr>
-                                    <td><input type="checkbox" name="changeList"></td>
-                                    <td>3</td>
-                                    <td><a href="#">어쩌구 저쩌구</a></td>
-                                    <td>2021-10-22</td>
+                                    <td><input type="checkbox" name="deleteCheck" class="noticeCheckbox" value="<%= n.getNoticeNo()%>"></td>
+                                    <td><%= n.getNoticeNo()%></td>
+                                    <td><a href="<%= contextPath%>/modifyView.nt?nno=<%= n.getNoticeNo()%>"><%= n.getNoticeTitle() %></a></td>
+                                    <td><%= n.getNoticeDate() %></td>
                                 </tr>
+                            	<%} %>
                             </tbody>
                         </table>
                     </div>
@@ -79,6 +86,31 @@
 
     </div>
     <!-- End of Page Wrapper -->
+
+    <!-- DeleteButton Process Modal-->
+    <div class="modal fade" id="NoticeDeleteModal" tabindex="-1" role="dialog" aria-labelledby="NoticeDeleteModal"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="NoticeDeleteModal">삭제하기</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    선택된 항목을 정말 삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <form action="<%= contextPath %>/delete.nt" method="post">
+                        <input type="hidden" id="deleteList" name="deleteList">
+                        <button type="submit" class="btn btn-warning" id="checkBtn">삭제</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>  
 </body>
 
 </html>

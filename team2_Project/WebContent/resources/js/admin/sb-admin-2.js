@@ -53,25 +53,6 @@
     e.preventDefault();
   });
 
-  // 희연 추가
-
-  // $(".nav-item").click(function(){
-  //     $(".nav-item").attr("class", "nav-link");
-  //     console.log($(this));
-
-  //     $(this).addClass("active");
-  // });
-
-  // $(".nav-item").click(function(){
-  //   $(".nav-item").each(function(){
-  //     if ($(this).hasClass("active")) {
-  //       $(this).removeClass('active')
-  //     }
-  //   });
-    
-  //   $(this).addClass("active");
-  // });
-
 })(jQuery); // End of use strict
 
 function sidebarActiveDelete(){
@@ -87,16 +68,34 @@ function sidebarActiveDelete(){
   });
 }
   
-function sidebarActive(sidebarId){
-  // $(".nav-item").each(function(){
-  //   if ($(this).hasClass("active")) {
-  //     $(this).removeClass('active')
-  //   }
-  // });
+function sidebarActive(sidebarId) {
   $(sidebarId).addClass("active");
 }
 
-function sidebarCollapseActive(collapseId){
+function sidebarCollapseActive(collapseId) {
   $(collapseId).addClass("active");
   $("#collapsePages").addClass("show");
+}
+
+function changeValue(a) {
+	$("#notice-add-file span").text(a.files[0].name);
+}
+
+function deleteList() {
+  var arr = new Array();
+  var list = $("input[name=deleteCheck]");
+  for (var i = 0; i < list.length; i++){
+    if(list[i].checked){
+      arr.push(list[i].value);
+    }
+  }
+  $("#deleteList").val(arr);
+}
+
+function notCom(){
+  var ansYn = $("input[name=ansYn]");
+
+  ansYn.val("N");
+
+  $("#comBtn").click();
 }

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.community.model.service.CommunityService;
+
 /**
  * Servlet implementation class InstaFeedController
  */
@@ -26,8 +28,9 @@ public class InstaFeedController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		int comNo = Integer.parseInt(request.getParameter("cno"));
 		
+		int result = new CommunityService().selectInstagram();
 		
 		request.getRequestDispatcher("views/community/instaFeed.jsp").forward(request, response);
 	}
