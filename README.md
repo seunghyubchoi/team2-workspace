@@ -35,3 +35,8 @@
   - GitHub Desktop
 - 디자인
   - kakao oven
+## 5. 라이브러리 및 오픈소스
+관리자화면 : https://startbootstrap.com/theme/sb-admin-2
+CKEditor : https://ckeditor.com/ckeditor-4/
+dataTables : https://datatables.net/
+
