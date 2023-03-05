@@ -225,7 +225,7 @@ div {
 			    
 			    followBtn.click(function() {
 			      // 팔로우/언팔로우 요청을 보낼 사용자 ID
-			      var userId = followBtn.data("mem-id");
+			      var memID = followBtn.data("mem-id");
 			      
 			      if (!isFollowing) {
 			        // 팔로우 요청
