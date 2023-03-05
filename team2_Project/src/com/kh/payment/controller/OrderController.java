@@ -36,8 +36,13 @@ public class OrderController extends HttpServlet {
 		String[] pNo = request.getParameterValues("pno"); // 주문한 상품 번호
 		String[] pSize = request.getParameterValues("psize"); // 상품 사이즈
 		String[] pQnt = request.getParameterValues("pqnt"); // 상품 수량
-
-		Order o = new Order();
+		String cno = request.getParameter("cno");
+		int mNo = ((Member)(request.getSession().getAttribute("loginUser"))).getMemNo(); // 적립마일리지
+		int useMileage = Integer.parseInt(request.getParameter("amount")); // 사용마일리지
+		int result2 = 0;
+		int result3 = 0;
+		int result4 = 1;
+		Order o = new Order(); 
 		o.setOrderQnt(Integer.parseInt(request.getParameter("totalqnt")));
 		o.setRcpName(request.getParameter("order-name"));
 		o.setRcpPhone(request.getParameter("order-phone"));
@@ -45,18 +50,26 @@ public class OrderController extends HttpServlet {
 		o.setRcpAddressDtl(request.getParameter("Daddress"));
 		o.setRcpPostCode(request.getParameter("Lcode"));
 		o.setRcpMsg(request.getParameter("rqrmn"));
-		o.setMemNo(((Member)(request.getSession().getAttribute("loginUser"))).getMemNo());
+		o.setMemNo(mNo);
 		o.setSaveMileage(Integer.parseInt(request.getParameter("saveMileage")));
-		o.setUseMileage(Integer.parseInt(request.getParameter("useMileage")));
-		int result1 = new PaymentService().insertOrder(o);
+		o.setUseMileage(useMileage);
+		int result1 = new PaymentService().insertOrder(o); // TB_ORDER 테이블에 INSERT
 		if(result1>0) {
+			int result5 = new PaymentService().updateMileage(mNo,useMileage); // 회원의 사용 마일리지 차감
+			int result6 = new PaymentService().insertMileageHistory(useMileage); // TB_MILEAGE_HISTORY 테이블에 INSERT
 			for(int i =0;i<pNo.length;i++) {
-				int result2 = new PaymentService().insertOrderDtl(Integer.parseInt(pNo[i]),pSize[i],Integer.parseInt(pQnt[i]));
-				int result3 = new PaymentService().updateOptionQnt(Integer.parseInt(pNo[i]),pSize[i],Integer.parseInt(pQnt[i]));
-					if(result3*result3>0) {
-						System.out.println("성공!");
-					}
+				result2 = new PaymentService().insertOrderDtl(Integer.parseInt(pNo[i]),pSize[i],Integer.parseInt(pQnt[i]));  // TB_DTL_ORDER 테이블에 INSERT
+				result3 = new PaymentService().updateOptionQnt(Integer.parseInt(pNo[i]),pSize[i],Integer.parseInt(pQnt[i])); // 상품 수량 차감
 				
+				if(cno != null) { // 장바구니를 통해서 주문했다면 결제된 상품의 장바구니 삭제
+					String[] carts = cno.split(",");
+					result4 = new PaymentService().deleteCart(Integer.parseInt(carts[i]));
+				}
+					
+				
+			}
+			if(result2*result3*result4*result5*result6>0) { 
+				System.out.println("성공!");
 			}
 		}else {
 			

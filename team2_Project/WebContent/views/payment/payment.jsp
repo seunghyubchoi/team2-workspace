@@ -7,6 +7,7 @@
 <%
 	ArrayList<Product> pList = (ArrayList<Product>)request.getAttribute("pList");
 	ArrayList<Location> lList = (ArrayList<Location>)request.getAttribute("lList");
+	String cno = (String)request.getAttribute("cno");
 	DecimalFormat df = new DecimalFormat("###,###");
 	int discountPrice = 0;
 	int totalQnt = 0;
@@ -173,6 +174,9 @@
          <input type="hidden" name="psize" value="<%=p.getCartSize() %>">
          <input type="hidden" name="pqnt" value="<%=p.getCartQnt() %>">
          <input type="hidden" name="totalqnt" value="<%=totalQnt %>">
+         <% if(cno!=null){ %>
+         <input type="hidden" name="cno" value="<%=cno %>">
+         <% } %>
           <div class="col-4">
             <div style="text-align: center;">
               <img src="<%=p.getProductImgSrc() %>" width="60%"
@@ -459,7 +463,7 @@
 
     function mileage() {
       if (!$('#check-mileage').is(':checked')) {
-        $('#input-mileage').val('');
+        $('#input-mileage').val('0');
         $("#discount-mileage").text("0원");
         $("#final-payment").text($("#order-price").text());
       } else {
@@ -473,7 +477,7 @@
 
     $("#input-mileage").change(function(){
     	if($("#input-mileage").val()><%=loginUser.getMileage() %>){
-    		 $('#input-mileage').val('');
+    		 $('#input-mileage').val('0');
     	        $("#discount-mileage").text("0원");
     	        $("#final-payment").text($("#order-price").text());
     	}else{
@@ -549,7 +553,7 @@ function iamport(){
             msg += '에러내용 : ' + rsp.error_msg;  
         }
         alert(msg) 
-        $("#hidden-btn").trigger('click');
+      // $("#hidden-btn").trigger('click');
     });
 	}else{
 		alert('결제동의에 체크해주세요!!');

@@ -112,7 +112,8 @@ public class PaymentDao {
 								  rset.getString("cart_size"),
 								  rset.getInt("mileage"),
 								  rset.getString("brand_name"),
-								  rset.getString("product_img_src")));
+								  rset.getString("product_img_src"),
+								  rset.getInt("option_stock")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -506,6 +507,46 @@ public class PaymentDao {
 			pstmt.setInt(1, pQnt);
 			pstmt.setInt(2, pNo);
 			pstmt.setString(3, pSize);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateMileage(Connection conn,int mNo,int useMileage) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateMileage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, useMileage);
+			pstmt.setInt(2, mNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertMileageHistory(Connection conn,int useMileage) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertMileageHistory");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, useMileage);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

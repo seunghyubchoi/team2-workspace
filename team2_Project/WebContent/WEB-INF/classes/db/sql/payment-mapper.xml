@@ -153,15 +153,18 @@ SELECT
   , MILEAGE
   , BRAND_NAME
   , PRODUCT_IMG_SRC
+  , OPTION_STOCK
   FROM TB_CART C
 JOIN TB_PRODUCT P ON (C.PRODUCT_NO = P.PRODUCT_NO)
 JOIN TB_MEMBER M ON(C.MEM_NO = M.MEM_NO)
 JOIN TB_BRAND B ON(B.BRAND_NO = P.BRAND_NO)
 JOIN TB_PRODUCT_IMAGE PI ON (PI.PRODUCT_NO = P.PRODUCT_NO)
+JOIN TB_OPTION O ON(C.PRODUCT_NO = O.PRODUCT_NO)
     WHERE 
         C.MEM_NO = ?
+    AND OPTION_SIZE = CART_SIZE
     AND C.DEL_YN = 'N' 
-    AND IMG_TYPE = 1  
+    AND IMG_TYPE = 1 
 	</entry>
 	<entry key="deleteCart">
 	UPDATE
@@ -258,5 +261,25 @@ SELECT
 	   SET OPTION_STOCK = OPTION_STOCK - ?
 	 WHERE PRODUCT_NO = ?
        AND OPTION_SIZE = ?
+	</entry>
+	<entry key="updateMileage">
+	UPDATE TB_MEMBER
+	   SET MILEAGE = MILEAGE - ?
+	 WHERE MEM_NO = ?
+	</entry>
+	<entry key="insertMileageHistory">
+	INSERT 
+    INTO TB_MILEAGE_HISTORY
+    VALUES(
+    SEQ_MILEAGE_HISTORY.NEXTVAL
+    ,'사용'
+    ,?
+    ,(SELECT * 
+    FROM (SELECT ORDER_NO
+    FROM TB_ORDER
+    ORDER BY ORDER_NO DESC)
+    WHERE ROWNUM =1)
+    )    
+      
 	</entry>
 </properties>

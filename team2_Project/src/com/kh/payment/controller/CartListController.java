@@ -32,9 +32,7 @@ public class CartListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int MemNo = Integer.parseInt(request.getParameter("mno")) ;
-		
 		ArrayList<Cart> list = new PaymentService().selectCart(MemNo);
-		
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/payment/cart.jsp").forward(request, response);
 	}

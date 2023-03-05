@@ -434,7 +434,8 @@
                 </div>
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">수량</label>
-                  <input type="number" id="productAmount" name="amount" min="0" max="20" step="1" value="1">
+                  <input type="number" id="productAmount" name="amount" min="1" max="" step="1" value="1">
+                  <input type = "hidden" name = "product-qnt" value="">
                 </div>
 
             </div>
@@ -460,6 +461,7 @@
     	  <% for(Option o: opList) { %>
 		  if(value=="<%= o.getOptionSize() %>"){
 			  $("#productAmount").attr("max","<%=o.getStock() %>");
+			  $("input[name=product-qnt]").val(<%=o.getStock() %>);
 		  }
 		  <% } %>
 		  $("#productAmount").val("1");

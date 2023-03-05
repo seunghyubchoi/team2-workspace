@@ -46,13 +46,12 @@ public class PaymentListController extends HttpServlet {
 				 Product p = new PaymentService().selectPayment(Integer.parseInt(c));
 				 pList.add(p);
 				 }
-			
+			request.setAttribute("cno", cno);
 		 }else {
 			 String size = request.getParameter("size");
 			 String qnt = request.getParameter("qnt");
 			 Product p = new PaymentService().selectPayment2(Integer.parseInt(pno),size,Integer.parseInt(qnt));
 			pList.add(p);
-			System.out.println(p);
 		 }
 		 ArrayList<Location> lList = new PaymentService().selectLocationList(mno);
 		 request.setAttribute("pList", pList);

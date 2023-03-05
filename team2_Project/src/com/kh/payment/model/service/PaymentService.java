@@ -230,5 +230,30 @@ public class PaymentService {
 			return result;
 		}
 
+	public int updateMileage(int mNo,int useMileage) {
+		Connection conn = getConnection();
+		
+		int result = new PaymentDao().updateMileage(conn,mNo,useMileage);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int insertMileageHistory(int useMileage) {
+		Connection conn = getConnection();
+		
+		int result = new PaymentDao().insertMileageHistory(conn,useMileage);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 }
