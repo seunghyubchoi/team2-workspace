@@ -90,4 +90,16 @@ public class MyPageService {
 		return result; 
 	}
 
+	public int insertLike(int memNo, int comNo) {
+		Connection conn = getConnection();
+		int result = new MyPageDao().insertLike(conn, memNo, comNo);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result; 
+	}
+
 }

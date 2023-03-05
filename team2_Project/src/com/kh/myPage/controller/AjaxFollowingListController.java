@@ -34,9 +34,7 @@ public class AjaxFollowingListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		ArrayList<Follow> follwingList = new MyPageService().selectFollowingList(memNo);
-		for(Follow f : follwingList) {
-			System.out.println(f);
-		}
+		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(follwingList,response.getWriter());
 		

@@ -127,22 +127,24 @@ ArrayList<Instagram> LikeList = (ArrayList<Instagram>) request.getAttribute("Lik
                     		}
                     	})
                     }
-                    
-                    <%-- function cancelDeleteFollowing(e) {
-                    	let id = $(e).val();
-                    	console.log(id);
+					
+					
+					 function cancelDeleteLike(e) {
+						 let imgurl = "<%=contextPath%>/resources/img/heartRed.png"
+								
+		                    	let cNo = $(e).siblings(":input").val();
                     	$.ajax({
-                    		url:"cancelDeleteFollowing.mp",
+                    		url:"insertLike.mp",
                     		data: {
                     			memNo:<%=memNo%>,
-                    			followingId:id
+                    			comNo:cNo
                     		},
                     		type:"post",
                     		success: function(result) {
                     			$(e).removeAttr("onclick");
-                    			$(e).attr("onclick", "addDelFollowingBtn(this)")
-                    			$(e).css("background-color","#C7A9CC");
-                    			$(e).css("color","white");
+                    			$(e).attr("onclick", "DeleteLike(this)")
+                    			$(e).removeAttr("src");
+                    			$(e).attr("src", imgurl);
                     			
                     			
                     		},
@@ -150,7 +152,7 @@ ArrayList<Instagram> LikeList = (ArrayList<Instagram>) request.getAttribute("Lik
                     			console.log("ajax 통신 실패!!")
                     		}
                     	})
-                    } --%>
+                    } 
                     
                     
                     

@@ -435,7 +435,7 @@
 								num++;
 							%>
 							<tr>
-								<td></td>
+								
 								<td><button type="submit" class="btn btn-sm btn-danger"
 										value="<%=l.getLocNo()%>">수정하기</button>
 									<button type="button" class="btn btn-sm btn-danger"
