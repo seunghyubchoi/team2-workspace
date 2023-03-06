@@ -79,7 +79,7 @@
 		<p>회원정보 관리</p>
 	</div>
 	<div id="content">
-		<form action="<%=contextPath%>/update.me" method="post">
+	<form action="<%=contextPath%>/update.me" method="post">
 			<table id="content_table">
 				<tr>
 					<th>ID</th>
@@ -87,8 +87,7 @@
 						name="memId" value="<%=memId%>" readonly></td>
 					<td>
 						<button type="button" class="btn btn-primary mb-2"
-							data-toggle="modal" data-target="#updatePwdModal">비밀번호
-							변경</button>
+							data-toggle="modal" data-target="#updatePwdModal" style="float:right">비밀번호 변경</button>
 					</td>
 				</tr>
 				<tr>
@@ -111,8 +110,7 @@
 				<tr>
 					<th>생년월일</th>
 
-					<td><input type="text" class="form-control mb-2 mr-sm-2"
-						value="<%=birthday%>" name="birthday"></td>
+					<td><input type="date" class="form-control mb-2 mr-sm-2" value="<%=birthday%>" name="birthday" min="1923-01-11" ></td>
 
 
 
@@ -147,7 +145,7 @@
 					<%
 						}
 					%>
-					<td>
+					<td style="float:right">
 						<button type="button" id="btn_newLoc" class="btn btn-primary mb-2"
 							data-toggle="modal" data-target="#newLocation">
 							<!-- onclick="return validateLoc();" -->
@@ -198,24 +196,27 @@
 				</tr>
 			</table>
 			<script>
+			
+			let now_utc = Date.now() // 지금 날짜를 밀리초로
+			let timeOff = new Date().getTimezoneOffset()*60000; // 분단위를 밀리초로 변환
+			let today = new Date(now_utc-timeOff).toISOString().substring(0, 10); // 오늘 날짜
+			
+			$("input[name='birthday']").attr("max", today);
+			
+			
+			
 			function checkPwd() {
 				location.href = "<%=contextPath%>/myPage.mp";
-			}
-											$(function () {
-												const gender = "<%=gender%>";
-												$("#gender").children().each(function () {
-													if ($(this).val() == gender) {
-														// console.log($(this).val());
-														$(this).attr("selected", "selected"); // attr적용안될경우 prop으로 
-
-													}
-
-												});
-
+						}
+			$(function () {
+				const gender = "<%=gender%>";
+				$("#gender").children().each(function () {
+						if ($(this).val() == gender) {
+							$(this).attr("selected", "selected"); // attr적용안될경우 prop으로 
+								}
+							});
 												
-
-							const adCheck = "<%=adCheck%>";
-
+				const adCheck = "<%=adCheck%>";
 					$("input[type=checkbox]").each(function() {
 						if (adCheck.search($(this).val()) != -1) {
 							$(this).attr("checked", true); // input 태그에 checked=true라는 속성생기는 거라 봐도 됨
@@ -227,7 +228,7 @@
 
 		</form>
 	</div>
-
+	
 	<!-- 새로운 배송지 Modal -->
 	<div class="modal" id="newLocation">
 		<div class="modal-dialog">
@@ -323,25 +324,21 @@
 	function backToMyPage(){
 		location.href = "<%=contextPath%>/memberInfo.mp";
 		}
-
 		function sample6_execDaumPostcode() {
 			new daum.Postcode(
 					{
 						oncomplete : function(data) {
 							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
 							// 각 주소의 노출 규칙에 따라 주소를 조합한다.
 							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 							var addr = ''; // 주소 변수
 							var extraAddr = ''; // 참고항목 변수
-
 							//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
 							if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
 								addr = data.roadAddress;
 							} else { // 사용자가 지번 주소를 선택했을 경우(J)
 								addr = data.jibunAddress;
 							}
-
 							// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
 							if (data.userSelectedType === 'R') {
 								// 법정동명이 있을 경우 추가한다. (법정리는 제외)
@@ -363,11 +360,9 @@
 								}
 								// 조합된 참고항목을 해당 필드에 넣는다.
 								document.getElementById("sample6_extraAddress").value = extraAddr;
-
 							} else {
 								document.getElementById("sample6_extraAddress").value = '';
 							}
-
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
 							document.getElementById('sample6_postcode').value = data.zonecode;
 							document.getElementById("sample6_address").value = addr;
@@ -378,8 +373,7 @@
 					}).open();
 		}
 	</script>
-
-
+	
 	<!-- 배송지 목록 Modal -->
 	<div class="modal" id="locationList">
 		<div class="modal-dialog">
@@ -405,7 +399,6 @@
 						%>
 						<%
 							// int i=0;
-
 						for (Location l : list) {
 						%>
 						<form action="<%=contextPath%>/modifyLoc.lo" method="post">
@@ -462,11 +455,8 @@
 					</table>
 					<script>
 						$(function() {
-
 							// 새로운 배송지 추가 클릭 시 2개면?
-							let num =
-					<%=num%>
-						;
+							let num = <%=num%>;
 							$("#btn_newLoc").click(function() {
 								if (num == 2) {
 									alert("새로운 배송지를 추가할 수 없습니다.");
@@ -483,40 +473,18 @@
 								}
 							})
 							// radio로 기본배송지 선택 (사용안함)
-							$('input[name="defaultLocation"]')
-									.change(
-											function() {
-												$(
-														'input[name="defaultLocation"]')
-														.each(
-																function() {
-																	let checked = $(
-																			this)
-																			.prop(
-																					'checked');
-																	let defaultLocMsg = $(
-																			this)
-																			.next();
-																	if (checked) {
-																		$(
-																				defaultLocMsg)
-																				.text(
-																						"기본배송지");
-																	} else {
-																		$(
-																				defaultLocMsg)
-																				.text(
-																						"");
-																	}
-																})
-											})
-
-						})
-
+							$('input[name="defaultLocation"]').change(function() {
+								$('input[name="defaultLocation"]').each(function() {
+									let checked = $(this).prop('checked');
+									let defaultLocMsg = $(this).next();
+										if (checked) {$(defaultLocMsg).text("기본배송지");
+											} else {$(defaultLocMsg).text("");
+										}
+									})
+								})
+							})
 						function validateLoc() {
-							let num =
-					<%=num%>
-						;
+							let num = <%=num%>;
 							console.log(num);
 							if (num == 2) {
 								alert("새로운 배송지를 추가할 수 없습니다.");
@@ -533,23 +501,19 @@
 			</div>
 		</div>
 	</div>
-	<!-- 배송지 삭제 -->
 	<div class="modal" id="deleteLocation">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<!-- Modal Header -->
 				<div class="modal-header">
 					<h4 class="modal-title">배송지 삭제</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-				<!-- Modal body -->
 				<div class="modal-body" align="center">
-					<form action="<%=contextPath%>/delete.lo" method="post"
-						onsubmit="return validateLocDel();">
-						<input type="hidden" name="memNo" value="<%=memNo%>"> <input
-							type="hidden" name="locNo" value="" id="locDelete">  <b>정말로 삭제하시겠습니까?<br>
-
-							<button type="submit" class="btn btn-sm btn-danger">삭제</button>
+					<form action="<%=contextPath%>/delete.lo" method="post" onsubmit="return validateLocDel();">
+						<input type="hidden" name="memNo" value="<%=memNo%>">
+						<input type="hidden" name="locNo" value="" id="locDelete">
+						<p>정말로 삭제하시겠습니까?</p><br>
+						<button type="submit" class="btn btn-sm btn-danger">삭제</button>
 					</form>
 				</div>
 			</div>
@@ -582,10 +546,11 @@
 			}
 			
 			$("#locDelete").attr('value', $(e).val())
-			 console.log($("#locDelete").val());
+			 //console.log($("#locDelete").val());
 		}
 	</script>
-	<!-- 비밀번호 변경 -->
+	
+		<!-- 비밀번호 변경 -->
 	<div class="modal" id="updatePwdModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -628,7 +593,6 @@
 						if ($("input[name=updatePwd]").val() != $(
 								"input[name=checkPwd]").val()) {
 							alert("변경할 비밀번호가 일치하지 않습니다");
-
 							return false;
 						}
 					}
@@ -651,8 +615,8 @@
 				<!-- Modal body -->
 				<div class="modal-body" align="center">
 					<form action="<%=contextPath%>/delete.me" method="post">
-						<input type="hidden" name="memId" value="<%=memId%>"> <b>탈퇴
-							후 복구가 불가능합니다<br> 정말로 탈퇴하시겠습니까?<br>
+						<input type="hidden" name="memId" value="<%=memId%>"> 
+						<b>탈퇴 후 복구가 불가능합니다<br> 정말로 탈퇴하시겠습니까?<br><br>
 						</b> 비밀번호 : <input type="password" name="memPwd" required> <br>
 						<br>
 						<button type="submit" class="btn btn-sm btn-danger">탈퇴하기</button>

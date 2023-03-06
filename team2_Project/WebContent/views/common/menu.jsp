@@ -228,8 +228,8 @@ background-color: #fd98ba;
 	border-color:#fd98ba;
 }
 .btn-primary{
-background-color: #fd98ba;
-	border-color:#fd98ba;
+background-color: #e2bbe7;
+	border-color:#e2bbe7;
 }
 .btn-primary:active !important{
 background-color: #fd98ba;

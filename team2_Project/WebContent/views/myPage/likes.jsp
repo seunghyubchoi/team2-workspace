@@ -7,7 +7,6 @@
 	int memNo = (int) request.getAttribute("memNo");
 ArrayList<Instagram> LikeList = (ArrayList<Instagram>) request.getAttribute("LikeList");
 PageInfo pi = (PageInfo) request.getAttribute("pi");
-
 int currentPage = pi.getCurrentPage();
 int startPage = pi.getStartPage();
 int endPage = pi.getEndPage();
@@ -25,13 +24,11 @@ int maxPage = pi.getMaxPage();
 .wrap{
 	height: 2300px !important;
 }
-
 .list-area {
 	display: flex;
 	/*  justify-content: space-between; */
 	flex-wrap: wrap;
 }
-
 .thumbnail {
 	overflow: hidden;
 	box-sizing: border-box;
@@ -40,24 +37,19 @@ int maxPage = pi.getMaxPage();
 	margin: 14px;
 	display: inline-block;
 }
-
 .thumbnailImg:hover, .heart:hover, .instaLogo:hover {
 	cursor: pointer;
 	opacity: 0.7
 }
-
 .thumbnailMenu {
 	margin-top: 10px;
 }
-
 .heart, .instaLogo {
 	width: 30px;
 }
-
 .heart {
 	float: left;
 }
-
 .instaLogo {
 	float: right;
 }
@@ -174,16 +166,12 @@ int maxPage = pi.getMaxPage();
 					
 					
 					 function cancelDeleteLike(e) {
-						 let imgurl = "<%=contextPath%>
-			/resources/img/heartRed.png"
-
+						 let imgurl = "<%=contextPath%>/resources/img/heartRed.png"
 				let cNo = $(e).siblings(":input").val();
 				$.ajax({
 					url : "insertLike.mp",
 					data : {
-						memNo :
-		<%=memNo%>
-			,
+						memNo :<%=memNo%>,
 						comNo : cNo
 					},
 					type : "post",
@@ -192,7 +180,6 @@ int maxPage = pi.getMaxPage();
 						$(e).attr("onclick", "DeleteLike(this)")
 						$(e).removeAttr("src");
 						$(e).attr("src", imgurl);
-
 					},
 					error : function() {
 						console.log("ajax 통신 실패!!")
