@@ -37,7 +37,7 @@ public class OrderController extends HttpServlet {
 		String[] pSize = request.getParameterValues("psize"); // 상품 사이즈
 		String[] pQnt = request.getParameterValues("pqnt"); // 상품 수량
 		String cno = request.getParameter("cno");
-		int mNo = ((Member)(request.getSession().getAttribute("loginUser"))).getMemNo(); // 적립마일리지
+		int mNo = ((Member)(request.getSession().getAttribute("loginUser"))).getMemNo(); 
 		int useMileage = Integer.parseInt(request.getParameter("amount")); // 사용마일리지
 		int result2 = 0;
 		int result3 = 0;

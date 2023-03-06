@@ -268,11 +268,15 @@
         </div>
        
         <div id="max_price" class="col-6">
+        <% if(loginUser!=null){ %>
          <% if(p.getProductPrice()*(((100-p.getProductDiscount())*0.01))>loginUser.getMileage()){ %>
           <%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01))-loginUser.getMileage())%>원
           <% } else { %>
           0원
           <% } %>
+          <% } else{ %>
+          <%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01)))%> 원
+          <%} %>
         </div>
       </div>
       <div class="row">
@@ -280,7 +284,11 @@
           보유 마일리지
         </div>
         <div id="mileage_price" class="col-6">
+        <% if(loginUser != null){ %>
          <%= loginUser.getMileage()%>원
+         <% } else { %>
+         0원
+         <% } %>
         </div>
         <div id="topLine"></div>
       </div>
@@ -315,7 +323,7 @@
             </tr>
           </table>
         </div>
-        <div class="row" id="pay_button" style="margin-top: 80px;">
+        <div class="row" id="pay_button" style="margin-top: 40px; margin-bottom:40px" >
           <div class="col">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
               data-bs-whatever="@mdo">주문하기</button>
@@ -421,8 +429,8 @@
               </div>
             </div>
             <div class="modal-body">
+              <% if(loginUser != null){ %>
               <form action="<%=contextPath %>/insert.ca" method="post">
-              <input type = "hidden" name = "mno" value="<%=loginUser.getMemNo()%>">
               <input type = "hidden" name = "pno" value="<%=p.getProductNo()%>">
                 <div class="mb-3">
                   <select id="productSize" class="form-select" aria-label="Default select example" name="size" onchange="selectboxChange(this.value);">
@@ -440,9 +448,31 @@
 
             </div>
             <div class="modal-footer" id="modal_button">
+          
               <button type="submit" class="btn btn-primary">장바구니 담기</button>
                </form>
               <button type="button" class="btn btn-primary" onclick="directPayment();">결제하기</button>
+              <% }else{ %>
+               <input type = "hidden" name = "pno" value="<%=p.getProductNo()%>">
+                <div class="mb-3">
+                  <select id="productSize" class="form-select" aria-label="Default select example" name="size" onchange="selectboxChange(this.value);">
+                    <label for="message-text" class="col-form-label">사이즈(옵션)</label>
+                   <% for(Option o : opList) { %>
+                    <option value="<%= o.getOptionSize() %>"><%= o.getOptionSize() %></option>
+                    <% } %>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">수량</label>
+                  <input type="number" id="productAmount" name="amount" min="1" max="" step="1" value="1">
+                  <input type = "hidden" name = "product-qnt" value="">
+                </div>
+
+            </div>
+            <div class="modal-footer" id="modal_button">
+              <button type="submit" class="btn btn-primary" onclick="alertLogin();">장바구니 담기</button>
+               <button type="button" class="btn btn-primary" onclick="alertLogin();">결제하기</button>
+              <% } %>
             </div>
           </div>
         </div>
@@ -472,6 +502,10 @@
     	   location.href="<%= contextPath %>/list.pa?pno=<%= p.getProductNo() %>&size="+$("select[name=size]").val()+"&qnt="+$("input[name=amount]").val();
        }
        
+       function alertLogin(){
+    	   alert('로그인을 하고 이용해주세요!');
+    	   location.href="<%= contextPath %>/login.me";
+       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

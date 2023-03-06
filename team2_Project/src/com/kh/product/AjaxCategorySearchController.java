@@ -1,4 +1,4 @@
-package com.kh.product.controller;
+package com.kh.product;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,16 +14,16 @@ import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
 
 /**
- * Servlet implementation class CategorySearchController
+ * Servlet implementation class AjaxCategorySearchController
  */
-@WebServlet("/category.pr")
-public class CategorySearchController extends HttpServlet {
+@WebServlet("/ajaxCategory.pr")
+public class AjaxCategorySearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CategorySearchController() {
+    public AjaxCategorySearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,21 +32,15 @@ public class CategorySearchController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String categoryName = request.getParameter("cname");
 		ArrayList<Product> list = new ArrayList();
-		int page = 1;
-		if(request.getParameter("val") != null) {
-			int value = Integer.parseInt(request.getParameter("val"));
-			
-			list = new ProductService().categorySort(categoryName,value);
-			request.setAttribute("value", value);
-		}else {
-			
-			list = new ProductService().categorySearch(categoryName,page);
-		}
-		request.setAttribute("cname", categoryName);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/product/category.jsp").forward(request, response);
+		String categoryName = request.getParameter("cname");
+		int page = Integer.parseInt(request.getParameter("page"));
+		list = new ProductService().categorySearch(categoryName,page);
+		System.out.println(categoryName);
+		System.out.println(list);
+		System.out.println(page);
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(list,response.getWriter());
 	}
 
 	/**

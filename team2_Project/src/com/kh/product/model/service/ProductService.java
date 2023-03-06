@@ -13,10 +13,10 @@ import com.kh.product.model.vo.Review;
 
 public class ProductService {
 	
-	public ArrayList<Product> categorySearch(String categoryName){
+	public ArrayList<Product> categorySearch(String categoryName, int page){
 		Connection conn = getConnection();
 		
-		ArrayList<Product> list = new ProductDao().categorySearch(conn, categoryName);
+		ArrayList<Product> list = new ProductDao().categorySearch(conn, categoryName,page);
 		close(conn);
 		return list;
 	}
