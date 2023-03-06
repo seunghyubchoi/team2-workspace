@@ -1,114 +1,196 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="loginMember">
-		SELECT 
-		    MEM_NO,
-		    MEM_ID,
-		    MEM_PWD,
-		    MEM_NAME,
-		    EMAIL,
-		    PHONE,
-		    ENROLL_DATE,
-		    AD_CHECK,
-		    GENDER,
-		    BIRTHDAY,
-		    INSTA_ID,
-		    ACT_YN,
-		    MILEAGE
-		FROM TB_MEMBER
-		WHERE MEM_ID = ?
-		AND MEM_PWD = ?
-		AND ACT_YN = 'Y'
-	</entry>
-	
-	
-		<entry key="passwordCheck">
-		SELECT 
-		    MEM_NO,
-		    MEM_ID,
-		    MEM_PWD,
-		    MEM_NAME,
-		    EMAIL,
-		    PHONE,
-		    ENROLL_DATE,
-		    AD_CHECK,
-		    GENDER,
-		    BIRTHDAY,
-		    INSTA_ID,
-		    ACT_YN,
-		    MILEAGE
-		FROM TB_MEMBER
-		WHERE MEM_ID = ?
-		AND MEM_PWD = ?
-		AND ACT_YN = 'Y'
-	</entry>
-	
-	<entry key="updateMember">
-		UPDATE TB_MEMBER 
-		    SET GENDER = ?
-		      , BIRTHDAY = ?
-		      , PHONE = ?
-		      , EMAIL = ?
-		      , INSTA_ID = ?
-		      , AD_CHECK = ?
-	    WHERE MEM_ID = ?
-	</entry>
-	
-	<entry key="selectMember">
-		SELECT
-			  MEM_NO
-		    , MEM_ID
-			, MEM_PWD
-			, MEM_NAME
-			, EMAIL
-			, PHONE
-			, ENROLL_DATE
-			, AD_CHECK
-			, GENDER
-			, BIRTHDAY
-			, INSTA_ID
-			, ACT_YN
-			, MILEAGE
-		FROM TB_MEMBER
-		WHERE MEM_ID = ?
-	</entry>
-	
-	<entry key="updatePwd">
-		UPDATE TB_MEMBER
-			   SET MEM_PWD = ?
-		WHERE MEM_ID = ?
-		AND MEM_PWD = ?
-	</entry>
-
-	<entry key="insertMember">
-INSERT
-INTO TB_MEMBER
-(
-   MEM_NO
-  ,MEM_ID
-  ,MEM_PWD
-  ,MEM_NAME
-  ,EMAIL
-  ,PHONE
-  ,AD_CHECK
-  )
-  VALUES
-  (
-  SEQ_MEMBER.NEXTVAL
-  ,?
-  ,?
-  ,?
-  ,?
-  ,?
-  ,?
-  )
+<entry key="loginMember">
+	SELECT 
+	    MEM_NO,
+	    MEM_ID,
+	    MEM_PWD,
+	    MEM_NAME,
+	    EMAIL,
+	    PHONE,
+	    ENROLL_DATE,
+	    AD_CHECK,
+	    GENDER,
+	    BIRTHDAY,
+	    INSTA_ID,
+	    ACT_YN,
+	    MILEAGE
+	FROM TB_MEMBER
+	WHERE MEM_ID = ?
+	AND MEM_PWD = ?
+	AND ACT_YN = 'Y'
 </entry>
-	<entry key="deleteMember">
+	
+<entry key="passwordCheck">	
+	SELECT 
+	    MEM_NO,
+	    MEM_ID,
+	    MEM_PWD,
+	    MEM_NAME,
+	    EMAIL,
+	    PHONE,
+	    ENROLL_DATE,
+	    AD_CHECK,
+	    GENDER,
+	    BIRTHDAY,
+	    INSTA_ID,
+	    ACT_YN,
+	    MILEAGE
+	FROM TB_MEMBER
+	WHERE MEM_ID = ?
+	AND MEM_PWD = ?
+	AND ACT_YN = 'Y'
+</entry>
+	
+<entry key="updateMember">
+	UPDATE TB_MEMBER 
+	    SET GENDER = ?
+	      , BIRTHDAY = ?
+	      , PHONE = ?
+	      , EMAIL = ?
+	      , INSTA_ID = ?
+	      , AD_CHECK = ?
+    WHERE MEM_ID = ?
+</entry>
+	
+<entry key="selectMember">
+	SELECT
+		  MEM_NO
+	    , MEM_ID
+		, MEM_PWD
+		, MEM_NAME
+		, EMAIL
+		, PHONE
+		, ENROLL_DATE
+		, AD_CHECK
+		, GENDER
+		, BIRTHDAY
+		, INSTA_ID
+		, ACT_YN
+		, MILEAGE
+	FROM TB_MEMBER
+	WHERE MEM_ID = ?
+</entry>
+	
+<entry key="updatePwd">
+	UPDATE TB_MEMBER
+		   SET MEM_PWD = ?
+	WHERE MEM_ID = ?
+	AND MEM_PWD = ?
+</entry>
+
+<entry key="insertMember">
+	INSERT
+	INTO TB_MEMBER
+	(
+	   MEM_NO
+	  ,MEM_ID
+	  ,MEM_PWD
+	  ,MEM_NAME
+	  ,EMAIL
+	  ,PHONE
+	  ,AD_CHECK
+	  )
+	  VALUES
+	  (
+	  SEQ_MEMBER.NEXTVAL
+	  ,?
+	  ,?
+	  ,?
+	  ,?
+	  ,?
+	  ,?
+	  )
+</entry>
+
+<entry key="deleteMember">
 	UPDATE TB_MEMBER
 		SET ACT_YN = 'N'
 	WHERE MEM_ID = ?
 	AND MEM_PWD = ?
+</entry>
+	
+<entry key="selectList">
+	SELECT
+	       MEM_NO
+	     , MEM_ID
+	     , MEM_NAME
+	     , ENROLL_DATE
+	  FROM TB_MEMBER
+	 WHERE ACT_YN = 'Y'
+</entry>
 
-	</entry>
+<entry key="selectMemberAdmin">
+	SELECT
+		   MEM_NO
+	     , MEM_ID
+		 , MEM_PWD
+		 , MEM_NAME
+		 , EMAIL
+		 , PHONE
+		 , ENROLL_DATE
+		 , AD_CHECK
+		 , GENDER
+		 , BIRTHDAY
+		 , INSTA_ID
+		 , ACT_YN
+		 , MILEAGE
+	 FROM TB_MEMBER
+	WHERE MEM_NO = ?
+</entry>
+
+<entry key="selectLocationList">
+	SELECT 
+	        LOC_NO
+	      , MEM_NO
+	      , LOC_ADDRESS_NAME
+	      , LOC_NAME
+	      , LOC_PHONE
+	      , LOC_ADDRESS
+	      , LOC_ADDRESS_DTL
+	      , LOC_POST_CODE
+	      , DEL_YN
+		  , LOC_YN
+	   FROM TB_LOCATION
+	  WHERE MEM_NO = ?
+	    AND DEL_YN = 'N'
+</entry>
+
+<entry key="insertMileage">
+	INSERT
+	  INTO TB_MILEAGE_HISTORY
+	  (
+	    MILEAGE_NO
+	  , MILEAGE_HISTORY
+	  , MILEAGE
+	  , MEM_NO
+	  , ORDER_NO
+      )
+    VALUES
+	  (
+	   SEQ_MILEAGE_HISTORY.NEXTVAL
+	  , '적립'
+	  , ?
+	  , ?
+	  , NULL
+	  )
+</entry>
+
+<entry key="deleteMemberList">
+	UPDATE TB_MEMBER
+	   SET ACT_YN = 'N'
+	 WHERE MEM_NO 
+	    IN 
+	     (
+	       SELECT REGEXP_SUBSTR(A.TXT, '[^,]+', 1, LEVEL) TXT
+	         FROM 
+	            ( 
+	              SELECT ? TXT 
+	                FROM dual
+	             ) A
+	      CONNECT 
+	           BY INSTR(A.TXT, ',', 1, LEVEL-1) > 0
+	      )
+</entry>
 </properties>
