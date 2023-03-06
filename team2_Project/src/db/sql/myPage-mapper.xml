@@ -2,27 +2,80 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="selectFollowerList">
-		SELECT M1.MEM_NO "MEM_NO", M1.MEM_ID "LOGIN_ID",
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT
+		M1.MEM_NO "MEM_NO", M1.MEM_ID "LOGIN_ID",
+		M2.MEM_ID "FOLLOWERS"
+		FROM
+		TB_FOLLOW F
+		JOIN TB_MEMBER M1 ON (FOLLOWER_ID= M1.MEM_NO)
+		JOIN TB_MEMBER
+		M2 ON (FOLLOWING_ID = M2.MEM_NO)
+		WHERE M1.MEM_NO = ?
+		AND F.ACT_YN = 'Y')
+		A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+	<entry key="selectFollowerCount">
+		SELECT COUNT(*) COUNT
+		FROM (SELECT M1.MEM_NO "MEM_NO",
+		M1.MEM_ID "LOGIN_ID",
 		M2.MEM_ID "FOLLOWERS"
 		FROM TB_FOLLOW F
-		JOIN TB_MEMBER M1 ON (FOLLOWER_ID
-		= M1.MEM_NO)
-		JOIN TB_MEMBER M2 ON (FOLLOWING_ID = M2.MEM_NO)
-		WHERE
-		M1.MEM_NO = ?
-		AND F.ACT_YN = 'Y'
+		JOIN
+		TB_MEMBER M1 ON (FOLLOWER_ID= M1.MEM_NO)
+		JOIN TB_MEMBER M2 ON
+		(FOLLOWING_ID = M2.MEM_NO)
+		WHERE M1.MEM_NO = ?
+		AND F.ACT_YN = 'Y')
 	</entry>
+
+
+
 	<entry key="selectFollowingList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+		FROM (
 		SELECT M1.MEM_NO "MEM_NO", M1.MEM_ID "LOGIN_ID",
 		M2.MEM_ID "FOLLOWING"
-		FROM TB_FOLLOW F
+		FROM
+		TB_FOLLOW F
 		JOIN TB_MEMBER M1 ON
 		(FOLLOWING_ID = M1.MEM_NO)
-		JOIN TB_MEMBER M2 ON (FOLLOWER_ID =
+		JOIN
+		TB_MEMBER M2 ON (FOLLOWER_ID =
 		M2.MEM_NO)
 		WHERE M1.MEM_NO = ?
-		AND F.ACT_YN = 'Y'
+		AND
+		F.ACT_YN = 'Y') A
+		)
+		WHERE RNUM BETWEEN ? AND ?
 	</entry>
+
+
+	<entry key="selectFollowingCount">
+		SELECT COUNT(*) COUNT
+		FROM ( SELECT M1.MEM_NO "MEM_NO",
+		M1.MEM_ID "LOGIN_ID",
+		M2.MEM_ID
+		"FOLLOWING"
+		FROM TB_FOLLOW F
+		JOIN
+		TB_MEMBER M1 ON
+		(FOLLOWING_ID =
+		M1.MEM_NO)
+		JOIN TB_MEMBER M2 ON
+		(FOLLOWER_ID =
+		M2.MEM_NO)
+		WHERE M1.MEM_NO = ?
+		AND F.ACT_YN = 'Y')
+	</entry>
+
+
 	<entry key="deleteFollowing">
 		UPDATE (
 		SELECT M1.MEM_NO, M2.MEM_ID, F.ACT_YN

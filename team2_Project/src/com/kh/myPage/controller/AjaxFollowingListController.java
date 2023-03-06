@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.common.PageInfo;
 import com.kh.myPage.model.service.MyPageService;
 import com.kh.myPage.model.vo.Follow;
 
@@ -33,10 +34,51 @@ public class AjaxFollowingListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
-		ArrayList<Follow> follwingList = new MyPageService().selectFollowingList(memNo);
+		System.out.println("AjaxFollowingListController 컨트롤러 탐");
 		
+		int listCount;			
+		int currentPage;		
+		int pageLimit;			
+		int boardLimit;			
+		
+		int maxPage;			
+		int startPage;			
+		int endPage;		
+		
+		listCount = new MyPageService().selectFollowingCount(memNo);
+		
+		currentPage = Integer.parseInt(request.getParameter("cpage"));
+		System.out.println(memNo+"cpage");
+		pageLimit = 10;
+		boardLimit = 10;
+		
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		endPage = startPage + pageLimit - 1;
+		if (endPage > maxPage) {
+			endPage = maxPage;
+		}
+		PageInfo pi2 = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		System.out.println("listCount" + listCount);
+		System.out.println("currentPage" + currentPage);
+		System.out.println("pageLimit" + pageLimit);
+		System.out.println("boardLimit" + boardLimit);
+		System.out.println("maxPage" + maxPage);
+		System.out.println("startPage" + startPage);
+		System.out.println("endPage" + endPage);
+		
+
+		ArrayList<Follow> follwingList = new MyPageService().selectFollowingList(pi2, memNo);
+		
+		
+		Gson gson = new Gson();
 		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(follwingList,response.getWriter());
+		//response.getWriter().write(gson.toJson(pi2));
+		gson.toJson(follwingList,response.getWriter());
+		gson.toJson(follwingList,response.getWriter());
+		//new Gson().toJson(pi2, response.getWriter());
+		
 		
 	}
 

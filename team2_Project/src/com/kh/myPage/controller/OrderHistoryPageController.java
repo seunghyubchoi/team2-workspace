@@ -28,6 +28,8 @@ public class OrderHistoryPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
+
 		RequestDispatcher view = request.getRequestDispatcher("views/myPage/orderHistory.jsp");
 		view.forward(request, response);
 	}

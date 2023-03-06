@@ -58,7 +58,7 @@ for (MileageHistory m : list) {
 
 #mileageTable {
 	width: 80%;
-	height: 100%;
+	/*  height: 100%; */
 	text-align: left;
 	margin: auto;
 	font-size: 1.2em;

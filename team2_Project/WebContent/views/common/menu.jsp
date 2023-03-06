@@ -191,6 +191,7 @@ background-color: #9a77a1;
 
 #content {
 	width: 100%;
+	height:1000px;
 	color: rgb(51, 51, 51)
 }
 
