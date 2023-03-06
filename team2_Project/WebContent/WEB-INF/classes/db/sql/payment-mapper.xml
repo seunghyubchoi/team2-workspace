@@ -188,6 +188,7 @@ JOIN TB_OPTION O ON(C.PRODUCT_NO = O.PRODUCT_NO)
     SET CART_QNT = ?
     WHERE CART_NO = ?
 	</entry>
+
 	<entry key="selectPayment">
 SELECT 
     BRAND_NAME
@@ -283,4 +284,37 @@ SELECT
     )    
       
 	</entry>
+	
+<entry key="adminInsertLocation">
+	INSERT 
+    INTO TB_LOCATION 
+        (
+          LOC_NO
+        , MEM_NO
+        , LOC_ADDRESS_NAME
+        , LOC_NAME
+        , LOC_PHONE
+        , LOC_ADDRESS
+        , LOC_ADDRESS_DTL
+        , LOC_POST_CODE
+        , LOC_YN
+        )
+        VALUES
+        (
+          SEQ_LOCATION.NEXTVAL
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        )
+</entry>
+<entry key="updateLocYn">
+	UPDATE TB_LOCATION
+	   SET LOC_YN = 'N'
+	 WHERE MEM_NO = ?
+</entry>
 </properties>
