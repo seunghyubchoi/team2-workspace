@@ -96,11 +96,23 @@ $(document).ready(function () {
     lengthChange: false,
     language: lang_kor,
     order: [[1, 'desc']],
-    ordering: [[0, false]],
+    columnDefs: [
+      {
+        targets : 0,
+        orderable: false,
+        className: "select-checkbox",
+        defaultContent: '',
+        width: "50px !important"
+      },
+      {
+        targets : 5,
+        orderable: false,
+      }
+    ],
     scrollX: 580,
   });
 
-  $("div.member").append('<button id="btn_del_mem" class="btn btn-warning btn-table btn-deact" data-toggle="modal" data-target="#commonModal">탈퇴</button>');
+  $("div.member").append('<button id="btn_del_mem" class="btn btn-warning btn-table btn-deact" data-toggle="modal" data-target="#memberDeactModal" onclick="deleteList();">탈퇴</button>');
 
   $('#productTable').DataTable({
     dom: '<"top"f<"dt_btn product">>t<"bottom"ip>',
@@ -158,16 +170,6 @@ $(document).ready(function () {
         $("#menuName").val("w4t");
         break;
     }
-  });
-
-  $(".btn-deact").click(function(){
-
-    $("#commonModalLabel").html("탈퇴");
-    $("#commonModalBody").html("선택된 회원을 정말 탈퇴하시겠습니까?");
-    $("#checkBtn").html("탈퇴")
-
-    $("#menuName").val("deact");
-
   });
 
   $(".btn-cancle").click(function(){

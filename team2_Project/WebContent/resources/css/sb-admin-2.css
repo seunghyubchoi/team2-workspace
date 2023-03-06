@@ -11010,3 +11010,7 @@ body.sidebar-toggled footer.sticky-footer {
   margin-top: 1.3rem;
   margin-left: 0.5rem;
 }
+
+.scale-120{
+  transform : scale(1.2);
+}

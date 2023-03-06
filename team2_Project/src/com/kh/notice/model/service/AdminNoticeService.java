@@ -121,9 +121,9 @@ public class AdminNoticeService { // class start
 	public int deleteNotice(String deleteList) {
 		Connection conn = getConnection();
 		
-		int result1 = new AdminNoticeDao().deleteNotice(conn, deleteList);
+		int result = new AdminNoticeDao().deleteNotice(conn, deleteList);
 		
-		if(result1 > 0) {
+		if(result > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -131,7 +131,7 @@ public class AdminNoticeService { // class start
 		
 		close(conn);
 		
-		return result1;
+		return result;
 		
 	}
 
