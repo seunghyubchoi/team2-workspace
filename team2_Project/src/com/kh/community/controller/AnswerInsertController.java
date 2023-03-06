@@ -1,28 +1,27 @@
-package com.kh.payment.controller;
+package com.kh.community.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.myPage.model.vo.Cart;
-import com.kh.payment.model.service.PaymentService;
+import com.kh.community.model.service.CommunityService;
+import com.kh.community.model.vo.AnswerInstagram;
+import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class CartListController
+ * Servlet implementation class AnswerInsertController
  */
-@WebServlet("/list.ca")
-public class CartListController extends HttpServlet {
+@WebServlet("/answerInsert.co")
+public class AnswerInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartListController() {
+    public AnswerInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,10 +30,20 @@ public class CartListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int MemNo = Integer.parseInt(request.getParameter("mno")) ;
-		ArrayList<Cart> list = new PaymentService().selectCart(MemNo);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/payment/cart.jsp").forward(request, response);
+		String answerContent = request.getParameter("content");
+		int ComNo = Integer.parseInt(request.getParameter("cno"));
+		
+		int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
+		
+		AnswerInstagram answer = new AnswerInstagram();
+		answer.setAnsContent(answerContent);
+		answer.setComNo(ComNo);
+		answer.setMemNo(String.valueOf(memNo));
+		
+		int result = new CommunityService().insertAnswer(answer);
+		
+		response.getWriter().print(result);
+		
 	}
 
 	/**

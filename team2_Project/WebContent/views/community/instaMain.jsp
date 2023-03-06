@@ -69,9 +69,9 @@
 				<p>조회된 게시글이 없습니다.</p>
 				<% } else { %>
 				<% for (Instagram insta : list) { %>
-				<div class="col">
+				<div class="col" style="padding-bottom: 35px">
 					<a href="#"> <img src="<%= insta.getInstaImgSrc() %>"
-						class="img-fluid" alt="인스타 사진">
+						class="img-fluid" alt="인스타 사진" style="width: 100%; height: 100%;">
 					</a>
 				</div>
 				<% } %>

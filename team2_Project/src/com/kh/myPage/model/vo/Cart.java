@@ -13,6 +13,7 @@ public class Cart {
 	private int mileage;
 	private String brandName;
 	private String productImgSrc;
+	private int optionStock;
 	
 	public Cart() {
 		
@@ -31,9 +32,11 @@ public class Cart {
 	}
 
 	
+	
+
 
 	public Cart(String productName, int productDiscount, int productPrice, int cartNo, int cartQnt, String cartSize,
-			int mileage, String brandName, String productImgSrc) {
+			int mileage, String brandName, String productImgSrc, int optionStock) {
 		super();
 		this.productName = productName;
 		this.productDiscount = productDiscount;
@@ -44,6 +47,7 @@ public class Cart {
 		this.mileage = mileage;
 		this.brandName = brandName;
 		this.productImgSrc = productImgSrc;
+		this.optionStock = optionStock;
 	}
 
 
@@ -175,6 +179,19 @@ public class Cart {
 		this.productImgSrc = productImgSrc;
 	}
 
+	
+	
+
+	public int getOptionStock() {
+		return optionStock;
+	}
+
+
+
+	public void setOptionStock(int optionStock) {
+		this.optionStock = optionStock;
+	}
+
 
 
 	@Override
@@ -182,9 +199,12 @@ public class Cart {
 		return "Cart [cartNo=" + cartNo + ", cartQnt=" + cartQnt + ", productNo=" + productNo + ", memNo=" + memNo
 				+ ", cartSize=" + cartSize + ", delYn=" + delYn + ", productName=" + productName + ", productDiscount="
 				+ productDiscount + ", productPrice=" + productPrice + ", mileage=" + mileage + ", brandName="
-				+ brandName + ", productImgSrc=" + productImgSrc + "]";
+				+ brandName + ", productImgSrc=" + productImgSrc + ", optionStock=" + optionStock + "]";
 	}
 
+
+
+	
 
 
 

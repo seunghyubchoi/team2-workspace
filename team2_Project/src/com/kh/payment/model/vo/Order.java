@@ -16,12 +16,16 @@ public class Order {
 	private String rcpAddressDtl;
 	private String rcpPostCode;
 	private String rcpMsg;
+	private int saveMileage;
+	private int useMileage;
 	
 	public Order() {}
 	
+	
+	
 	public Order(int orderNo, int memNo, int productNo, int orderQnt, Date orderDate, String orderStatus,
 			String rcpAddressName, String rcpName, String rcpPhone, String rcpAddress, String rcpAddressDtl,
-			String rcpPostCode, String rcpMsg) {
+			String rcpPostCode, String rcpMsg, int saveMileage, int useMileage) {
 		super();
 		this.orderNo = orderNo;
 		this.memNo = memNo;
@@ -36,7 +40,11 @@ public class Order {
 		this.rcpAddressDtl = rcpAddressDtl;
 		this.rcpPostCode = rcpPostCode;
 		this.rcpMsg = rcpMsg;
+		this.saveMileage = saveMileage;
+		this.useMileage = useMileage;
 	}
+
+
 
 	public int getOrderNo() {
 		return orderNo;
@@ -141,15 +149,41 @@ public class Order {
 	public void setRcpMsg(String rcpMsg) {
 		this.rcpMsg = rcpMsg;
 	}
+	
+
+	public int getSaveMileage() {
+		return saveMileage;
+	}
+
+
+
+	public void setSaveMileage(int saveMileage) {
+		this.saveMileage = saveMileage;
+	}
+
+
+
+	public int getUseMileage() {
+		return useMileage;
+	}
+
+
+
+	public void setUseMileage(int useMileage) {
+		this.useMileage = useMileage;
+	}
+
+
 
 	@Override
 	public String toString() {
 		return "Order [orderNo=" + orderNo + ", memNo=" + memNo + ", productNo=" + productNo + ", orderQnt=" + orderQnt
 				+ ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", rcpAddressName=" + rcpAddressName
 				+ ", rcpName=" + rcpName + ", rcpPhone=" + rcpPhone + ", rcpAddress=" + rcpAddress + ", rcpAddressDtl="
-				+ rcpAddressDtl + ", rcpPostCode=" + rcpPostCode + ", rcpMsg=" + rcpMsg + "]";
+				+ rcpAddressDtl + ", rcpPostCode=" + rcpPostCode + ", rcpMsg=" + rcpMsg + ", saveMileage=" + saveMileage
+				+ ", useMileage=" + useMileage + "]";
 	}
-	
-	
+
+
 	
 }

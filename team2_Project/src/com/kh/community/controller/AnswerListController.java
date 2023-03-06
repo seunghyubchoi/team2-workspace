@@ -1,4 +1,4 @@
-package com.kh.payment.controller;
+package com.kh.community.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.myPage.model.vo.Cart;
-import com.kh.payment.model.service.PaymentService;
+import com.google.gson.Gson;
+import com.kh.community.model.service.CommunityService;
+import com.kh.community.model.vo.AnswerInstagram;
 
 /**
- * Servlet implementation class CartListController
+ * Servlet implementation class AnswerListController
  */
-@WebServlet("/list.ca")
-public class CartListController extends HttpServlet {
+@WebServlet("/answerList.co")
+public class AnswerListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartListController() {
+    public AnswerListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,10 +32,13 @@ public class CartListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int MemNo = Integer.parseInt(request.getParameter("mno")) ;
-		ArrayList<Cart> list = new PaymentService().selectCart(MemNo);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/payment/cart.jsp").forward(request, response);
+		int comNo = Integer.parseInt(request.getParameter("cno"));
+		
+		ArrayList<AnswerInstagram> list = new CommunityService().selectAnswerList(comNo);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**
