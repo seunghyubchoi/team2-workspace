@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import com.kh.myPage.model.vo.Cart;
 import com.kh.payment.model.dao.PaymentDao;
 import com.kh.payment.model.vo.Location;
+import com.kh.payment.model.vo.Order;
 import com.kh.product.model.dao.ProductDao;
+import com.kh.product.model.vo.Product;
 
 public class PaymentService {
 
@@ -81,6 +83,15 @@ public class PaymentService {
 		}
 		close(conn);
 		return result;
+	}
+	
+	public Product selectPayment(int cno) {
+		Connection conn = getConnection();
+		
+		Product p  = new PaymentDao().selectPayment(conn, cno);
+		close(conn);
+		
+		return p;
 	}
 
 	public ArrayList<Location> selectLocationList(int memNo) {
@@ -165,6 +176,80 @@ public class PaymentService {
 		if(result > 0) {
 			commit(conn);
 		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public Product selectPayment2(int pno,String size, int qnt) {
+		Connection conn = getConnection();
+		
+		Product p  = new PaymentDao().selectPayment2(conn,pno,size,qnt);
+		close(conn);
+		
+		return p;
+	}
+	
+	public int insertOrder(Order o) {
+		Connection conn = getConnection();
+		
+		int result = new PaymentDao().insertOrder(conn,o);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int insertOrderDtl(int pNo, String pSize, int pQnt) {
+	Connection conn = getConnection();
+		
+		int result = new PaymentDao().insertOrderDtl(conn,pNo,pSize,pQnt);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int updateOptionQnt(int pNo, String pSize, int pQnt) {
+		Connection conn = getConnection();
+			
+			int result = new PaymentDao().updateOptionQnt(conn,pNo,pSize,pQnt);
+			if(result>0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			close(conn);
+			return result;
+		}
+
+	public int updateMileage(int mNo,int useMileage) {
+		Connection conn = getConnection();
+		
+		int result = new PaymentDao().updateMileage(conn,mNo,useMileage);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int insertMileageHistory(int mNo,int useMileage) {
+		Connection conn = getConnection();
+		
+		int result = new PaymentDao().insertMileageHistory(conn,mNo,useMileage);
+		if(result>0) {
+			commit(conn);
+		}else {
 			rollback(conn);
 		}
 		close(conn);
