@@ -1,4 +1,4 @@
-package com.kh.product;
+package com.kh.product.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +35,14 @@ public class AjaxCategorySearchController extends HttpServlet {
 		ArrayList<Product> list = new ArrayList();
 		String categoryName = request.getParameter("cname");
 		int page = Integer.parseInt(request.getParameter("page"));
-		list = new ProductService().categorySearch(categoryName,page);
+		if(request.getParameter("val") != null) {
+			int value = Integer.parseInt(request.getParameter("val"));
+			System.out.println(value);
+			list = new ProductService().categorySort(categoryName,value,page);
+		}else {
+			
+			list = new ProductService().categorySearch(categoryName,page);
+		}
 		System.out.println(categoryName);
 		System.out.println(list);
 		System.out.println(page);

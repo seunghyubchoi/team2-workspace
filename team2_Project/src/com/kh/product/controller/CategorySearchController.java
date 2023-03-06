@@ -38,7 +38,7 @@ public class CategorySearchController extends HttpServlet {
 		if(request.getParameter("val") != null) {
 			int value = Integer.parseInt(request.getParameter("val"));
 			
-			list = new ProductService().categorySort(categoryName,value);
+			list = new ProductService().categorySort(categoryName,value,page);
 			request.setAttribute("value", value);
 		}else {
 			

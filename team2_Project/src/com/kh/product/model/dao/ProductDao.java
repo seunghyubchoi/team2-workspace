@@ -61,7 +61,7 @@ public class ProductDao {
 		return list;
 	}
 	
-	public ArrayList<Product> categorySort(Connection conn,String categoryName,int value){
+	public ArrayList<Product> categorySort(Connection conn,String categoryName,int value, int page){
 		ArrayList<Product> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -74,6 +74,7 @@ public class ProductDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, categoryName);
+			pstmt.setInt(2, page);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {

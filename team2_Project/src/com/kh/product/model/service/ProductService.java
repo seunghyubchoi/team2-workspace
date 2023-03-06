@@ -21,10 +21,10 @@ public class ProductService {
 		return list;
 	}
 	
-	public ArrayList<Product> categorySort(String categoryName,int value){
+	public ArrayList<Product> categorySort(String categoryName,int value,int page){
 		Connection conn = getConnection();
 		
-		ArrayList<Product> list = new ProductDao().categorySort(conn,categoryName,value);
+		ArrayList<Product> list = new ProductDao().categorySort(conn,categoryName,value,page);
 		close(conn);
 		return list;
 	}
