@@ -3,8 +3,9 @@
 <properties>
 <entry key="selectInstaList">
 SELECT
-       INSTA_IMG_ORIGIN
+       COM_NO
      , INSTA_IMG_SRC
+     , INSTA_IMG_CHANGE
   FROM TB_INSTAGRAM
   LEFT JOIN TB_INSTA_IMAGE IMG ON (COM_NO = REF_CNO)
  WHERE DEL_YN = 'N'

@@ -15,6 +15,33 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
 <script src="../../resources/js/jquery-3.6.3.min.js"></script>
+<style>
+ .btn-3d-1:hover,.btn-3d-3:active,.btn-3d-4:active {background-color: #fd98ba; color: rgb(70, 69, 69);}
+  .btn-3d-1:active,.btn-3d-2:active,.btn-3d-3:active,.btn-3d-4:active {
+	top: 3px;
+  }
+.btn-3d-3 {
+	position: relative;
+	display: inline-block;
+	font-size: 20px;
+	padding: 6px 30px;
+	color: white;
+	align-self: left;
+	border-radius: 6px;
+	text-align: center;
+	transition: top .01s linear;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+	background-color: #d49de2;
+	box-shadow: 0 0 0 1px #cb98df inset,
+		  0 0 0 2px rgba(255,255,255,0.15) inset,
+		  0 8px 0 0 rgba(219, 155, 245, 0.7),
+		  0 8px 0 1px rgba(0,0,0,.4),
+		  0 8px 8px 1px rgba(0,0,0,0.5);
+	/* margin-left: 1320px; 
+	margin-top: 10px;*/
+	margin-bottom: 10px;
+  }
+</style>
 </head>
 <body>
 	<%@include file="../common/menubar.jsp"%>
@@ -57,8 +84,9 @@
 				<% if (loginUser != null) { %>
 				<!-- 로그인한 회원만 보이게 -->
 				<div style="padding-top: 35px; float: right;">
-					<a class="btn btn-secondary btn-lg"
-						href="<%= contextPath %>/upload.co" role="button">스타일올리기</a>
+					<%-- <a class="btn btn-secondary btn-lg"
+						href="<%= contextPath %>/upload.co" role="button">스타일올리기</a> --%>
+					<a href="<%= contextPath %>/upload.co" class=" btn-3d-3">STYLE UP</a>
 				</div>
 				<% } %>
 			</div>
@@ -71,7 +99,7 @@
 				<% for (Instagram insta : list) { %>
 				<div class="col thumbnail" style="padding-bottom: 35px">
 					<input type="hidden" value="<%= insta.getComNo() %>">
-					<img src="<%= insta.getInstaImgSrc() %>"
+					<img src="<%= insta.getInstaImgSrc() + insta.getInstaImgChange() %>"
 						class="img-fluid" alt="인스타 사진" style="width: 100%; height: 100%;">
 				</div>
 				<% } %>

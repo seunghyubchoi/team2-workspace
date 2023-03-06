@@ -41,10 +41,12 @@ public class CommunityDao {
 			rset = pstmt.executeQuery();
 			
 			while (rset.next()) {
-				list.add(new Instagram(rset.getString("insta_img_origin"),
+				list.add(new Instagram(rset.getInt("com_no"),
+									   rset.getString("insta_img_change"),
 									   rset.getString("insta_img_src")
 									   ));
 			}
+			System.out.println("list : " + list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -129,7 +131,6 @@ public class CommunityDao {
 			pstmt.setInt(4, Integer.parseInt(insta.getMemNo()));
 			
 			result = pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -154,9 +155,7 @@ public class CommunityDao {
 			pstmt.setString(3, img.getInstaImgSrc());
 			
 			result = pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -183,9 +182,9 @@ public class CommunityDao {
 			
 			if (rset.next()) {
 				insta = new Instagram(rset.getInt("com_no"),
-									  rset.getString("insta_id"),
 									  rset.getString("com_content"),
-									  rset.getString("com_tag"));
+									  rset.getString("com_tag"),
+									  rset.getString("insta_id"));
 			}
 			System.out.println("Instagram: " + comNo);
 			System.out.println("Instagram: " + insta);
@@ -217,6 +216,7 @@ public class CommunityDao {
 			
 			if (rset.next()) {
 				img = new InstaImage(rset.getString("insta_img_change"),
+									 rset.getString("insta_img_origin"),
 									 rset.getString("insta_img_src"));
 			}
 			System.out.println("InstaImage: " + comNo);

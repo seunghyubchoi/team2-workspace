@@ -22,9 +22,10 @@ public class InstaImage {
 		this.instaImgChange = instaImgChange;
 	}
 
-	public InstaImage(String instaImgSrc, String instaImgChange) {
+	public InstaImage(String instaImgSrc, String instaImgOrigin, String instaImgChange) {
 		super();
 		this.instaImgSrc = instaImgSrc;
+		this.instaImgOrigin = instaImgOrigin;
 		this.instaImgChange = instaImgChange;
 	}
 

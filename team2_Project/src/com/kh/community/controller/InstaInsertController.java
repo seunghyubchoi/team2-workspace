@@ -38,14 +38,14 @@ public class InstaInsertController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-
+		
 		if (ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10 * 1024 * 1024;
-
+			
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/img/insta/");
 
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
+			System.out.println(savePath + 1323);
 			/*
 			 * String content = multiRequest.getParameter("content"); String instaId =
 			 * multiRequest.getParameter("instaId"); String tags =
@@ -60,8 +60,11 @@ public class InstaInsertController extends HttpServlet {
 			
 			Instagram insta = new Instagram();
 			insta.setMemNo(multiRequest.getParameter("memNo"));
+			insta.setComContent(multiRequest.getParameter("content"));
 			insta.setInstaId(multiRequest.getParameter("instaId"));
 			insta.setComTag(multiRequest.getParameter("tags"));
+			
+			System.out.println(multiRequest.getOriginalFileName("upfile"));
 			
 			InstaImage img = new InstaImage();
 			if (multiRequest.getOriginalFileName("upfile") != null) {

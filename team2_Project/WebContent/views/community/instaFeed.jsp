@@ -100,7 +100,7 @@ div {
 		<div class="row row-cols-2" style="padding-top: 55px;">
 			<div class="col">
 				<img
-					src="https://image.msscdn.net/mfile_s01/_street_images/88866/street_640021e4739ae.jpg?"
+					src="<%= img.getInstaImgSrc()%>"
 					alt="..." class="img-fluid" style="width: 500px; height: 600px;">
 			</div>
 			<div class="col">
@@ -108,7 +108,7 @@ div {
 				<div class="row" style="height: 40%;">
 					<table border="0">
 						<tr>
-							<td style="width: 10%;"><b style="font-size: 25px;">INSTA01</b>
+							<td style="width: 10%;"><b style="font-size: 25px;"><%= insta.getInstaId() %></b>
 							</td>
 							<td>
 								<ul class="icon" style="list-style: none;">
@@ -122,12 +122,20 @@ div {
 						</tr>
 						<tr>
 							<td colspan="2" style="text-align: left;">
-								<span><b>내용이 들어가는 자리 </b></span>
+								<span><b><%= insta.getComContent() %></b></span>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<button type="button" class="btn btn-secondary">태그</button>
+								<%
+								  String[] arrTag = (String[])request.getAttribute("arrTag");
+								System.out.println(arrTag);
+								%>
+								<% for (int i = 0; i < arrTag.length; i++) { %>
+								  <button type="button" class="btn btn-secondary"><%= arrTag[i] %></button>
+								<% } %> 
+								
+								<%-- <button type="button" class="btn btn-secondary"><%= insta.getComTag() %></button> --%>
 							</td>
 						</tr>
 					</table>

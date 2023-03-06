@@ -38,6 +38,13 @@ public class InstaFeedController extends HttpServlet {
 		request.setAttribute("insta", insta);
 		request.setAttribute("img", img);
 		
+		System.out.println(insta.getComTag().split(","));
+		
+		String[] arrTag = insta.getComTag().split(",");
+		
+		request.setAttribute("arrTag", arrTag);
+		System.out.println(arrTag + "태그태그");
+		
 		request.getRequestDispatcher("views/community/instaFeed.jsp").forward(request, response);
 	}
 

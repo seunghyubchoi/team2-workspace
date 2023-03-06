@@ -76,8 +76,8 @@
 					<input type="hidden" name="memNo" value="<%= loginUser.getMemNo() %>">
 					
                     <h3>사진</h3>
-                    <img id="preview" name="upfile" style="width: 200px; height: 200px;" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"> <input type="file" onchange="readURL(this);" data-width="300"
+                    <img id="preview" style="width: 200px; height: 200px;" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"> <input type="file" name="upfile" onchange="readURL(this);" data-width="300"
                         data-height="450" required> <br> <br>
 
                     <script>
@@ -275,11 +275,11 @@
                     <input id="tag-input"placeholder="태그를 입력하세용">
                     <input type="hidden" name="tags">
 					<div id="tag-container" ></div>
-
+					
 					<script>
 					const tagInput = document.getElementById('tag-input');
 					const tagContainer = document.getElementById('tag-container');
-					// const tags = []; // 태그 저장할 배열
+					const tags = []; // 태그 저장할 배열
 
 					tagInput.addEventListener('keydown', function(event) {
 					  if (event.keyCode === 13) {
@@ -294,7 +294,7 @@
 					      tagEl.textContent = '#' + tag;
 					      tagContainer.appendChild(tagEl);
 					      this.value = '';
-					      // tags.push(tag); // 생성된 태그 배열에 추가
+					      tags.push(tag); // 생성된 태그 배열에 추가
 					      
 					      
 					    }
