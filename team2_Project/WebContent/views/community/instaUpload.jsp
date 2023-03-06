@@ -203,11 +203,12 @@
                                                 </table>
                                             </div>
                                             <div class="col">
-                                                <div class="row" style="height: 85%;">
+                                                <div class="row back" style="height: 85%;">
                                                     <img id="modalImg" src="resources/6.jpg" alt=""
                                                         style="height: 600px; width: 550px;">
                                                 </div>
                                                 <div class="row"></div>
+                                                
                                             </div>
                                         </div>
 
