@@ -61,18 +61,11 @@ public class FollowPageController extends HttpServlet {
 		}
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		
 		ArrayList<Follow> followList = new MyPageService().selectFollowerList(pi, memNo);
 
-		
-		
-		
-		
 		request.setAttribute("memNo", memNo);
 		request.setAttribute("pi", pi);
 		request.setAttribute("followList", followList);
-		
-		
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/myPage/follow.jsp");
 		view.forward(request, response);

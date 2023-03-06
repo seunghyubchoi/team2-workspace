@@ -13,6 +13,27 @@ import com.kh.myPage.model.vo.Follow;
 import com.kh.myPage.model.vo.MileageHistory;
 
 public class MyPageService {
+	
+	
+	public int selectFollowerCount(int memNo) {
+		Connection conn = getConnection();
+
+		int listCount = new MyPageDao().selectFollowerCount(conn, memNo);
+
+		close(conn);
+
+		return listCount;
+	}
+
+	public int selectFollowingCount(int memNo) {
+		Connection conn = getConnection();
+
+		int listCount = new MyPageDao().selectFollowingCount(conn, memNo);
+
+		close(conn);
+
+		return listCount;
+	}
 
 	public ArrayList<Follow> selectFollowerList(PageInfo pi, int memNo) {
 		Connection conn = getConnection();
@@ -72,10 +93,21 @@ public class MyPageService {
 		return list;
 
 	}
-
-	public ArrayList<Instagram> selectLikeList(int memNo) {
+	
+	// 좋아요
+	public int selectLikeCount(int memNo) {
 		Connection conn = getConnection();
-		ArrayList<Instagram> list = new MyPageDao().selectLikeList(conn, memNo);
+
+		int listCount = new MyPageDao().selectLikeCount(conn, memNo);
+
+		close(conn);
+
+		return listCount;
+	}
+
+	public ArrayList<Instagram> selectLikeList(PageInfo pi, int memNo) {
+		Connection conn = getConnection();
+		ArrayList<Instagram> list = new MyPageDao().selectLikeList(conn, pi, memNo);
 		close(conn);
 		return list;
 	}
@@ -104,24 +136,5 @@ public class MyPageService {
 		return result;
 	}
 
-	public int selectFollowerCount(int memNo) {
-		Connection conn = getConnection();
-
-		int listCount = new MyPageDao().selectFollowerCount(conn, memNo);
-
-		close(conn);
-
-		return listCount;
-	}
-
-	public int selectFollowingCount(int memNo) {
-		Connection conn = getConnection();
-
-		int listCount = new MyPageDao().selectFollowingCount(conn, memNo);
-
-		close(conn);
-
-		return listCount;
-	}
-
+	
 }

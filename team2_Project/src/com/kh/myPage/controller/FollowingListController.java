@@ -3,6 +3,7 @@ package com.kh.myPage.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,16 +16,16 @@ import com.kh.myPage.model.service.MyPageService;
 import com.kh.myPage.model.vo.Follow;
 
 /**
- * Servlet implementation class AjaxFollowingListController
+ * Servlet implementation class FollowingListController
  */
 @WebServlet("/followingList.mp")
-public class AjaxFollowingListController extends HttpServlet {
+public class FollowingListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxFollowingListController() {
+    public FollowingListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +35,7 @@ public class AjaxFollowingListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
-		System.out.println("AjaxFollowingListController 컨트롤러 탐");
+		
 		
 		int listCount;			
 		int currentPage;		
@@ -48,7 +49,7 @@ public class AjaxFollowingListController extends HttpServlet {
 		listCount = new MyPageService().selectFollowingCount(memNo);
 		
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
-		System.out.println(memNo+"cpage");
+	
 		pageLimit = 10;
 		boardLimit = 10;
 		
@@ -59,25 +60,18 @@ public class AjaxFollowingListController extends HttpServlet {
 		if (endPage > maxPage) {
 			endPage = maxPage;
 		}
-		PageInfo pi2 = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		System.out.println("listCount" + listCount);
-		System.out.println("currentPage" + currentPage);
-		System.out.println("pageLimit" + pageLimit);
-		System.out.println("boardLimit" + boardLimit);
-		System.out.println("maxPage" + maxPage);
-		System.out.println("startPage" + startPage);
-		System.out.println("endPage" + endPage);
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 
-		ArrayList<Follow> follwingList = new MyPageService().selectFollowingList(pi2, memNo);
+		ArrayList<Follow> follwingList = new MyPageService().selectFollowingList(pi, memNo);
+		request.setAttribute("memNo", memNo);
+		request.setAttribute("pi", pi);
+		request.setAttribute("follwingList", follwingList);
 		
 		
-		Gson gson = new Gson();
-		response.setContentType("application/json; charset=utf-8");
-		//response.getWriter().write(gson.toJson(pi2));
-		gson.toJson(follwingList,response.getWriter());
-		gson.toJson(follwingList,response.getWriter());
-		//new Gson().toJson(pi2, response.getWriter());
+		
+		RequestDispatcher view = request.getRequestDispatcher("views/myPage/following.jsp");
+		view.forward(request, response);
 		
 		
 	}

@@ -145,8 +145,25 @@
 		(PRODUCT_NO)
 		WHERE MEM_NO = ?
 	</entry>
+	
+	<entry key="selectLikeCount">
+		SELECT COUNT(*) COUNT
+		FROM (SELECT
+		G.COM_NO
+		, G.INSTA_ID
+		, I.INSTA_IMG_SRC
+		FROM
+		TB_LIKE L
+		JOIN TB_INSTAGRAM G ON (G.COM_NO = L.COM_NO)
+		JOIN
+		TB_INSTA_IMAGE I ON (I.INSTA_IMG_NO = G.IMG_NO)
+		WHERE L.MEM_NO = ?)
+	</entry>
 
 	<entry key="selectLikeList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+		FROM (
 		SELECT
 		G.COM_NO
 		, G.INSTA_ID
@@ -156,7 +173,9 @@
 		JOIN TB_INSTAGRAM G ON (G.COM_NO = L.COM_NO)
 		JOIN
 		TB_INSTA_IMAGE I ON (I.INSTA_IMG_NO = G.IMG_NO)
-		WHERE L.MEM_NO = ?
+		WHERE L.MEM_NO = ?) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 
 	<entry key="deleteLike">
