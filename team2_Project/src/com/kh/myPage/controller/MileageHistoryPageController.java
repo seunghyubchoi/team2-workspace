@@ -34,6 +34,7 @@ public class MileageHistoryPageController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
+		
 		ArrayList<MileageHistory> list = new MyPageService().selectMileageHistory(memNo);
 		request.setAttribute("memNo", memNo);
 		request.setAttribute("list", list);

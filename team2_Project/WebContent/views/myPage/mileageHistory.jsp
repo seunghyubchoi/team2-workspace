@@ -26,6 +26,11 @@ for (MileageHistory m : list) {
 
 
 <style>
+
+li{
+	width: none;
+}
+
 .content_subTitle {
 	text-align: left;
 	font-weight: 900;
@@ -58,7 +63,7 @@ for (MileageHistory m : list) {
 
 #mileageTable {
 	width: 80%;
-	height: 100%;
+	/*  height: 100%; */
 	text-align: left;
 	margin: auto;
 	font-size: 1.2em;
@@ -112,16 +117,19 @@ for (MileageHistory m : list) {
 			%>
 			<tr>
 				<td>
-					<li><%=m.getMileageHistory()%> : <%=m.getProductNo()%></li>
+					<p><%=m.getMileageHistory()%> : <%=m.getProductNo()%></p>
 				</td>
 				<td>
+				<p>
 					<%
 						if (m.getMileageHistory().equals("사용")) {
 					%> - <%
 						} else {
 					%> +<%
 						}
-					%><%=m.getMileage()%></td>
+					%><%=m.getMileage()%>
+					</p>
+					</td>
 			</tr>
 			<%
 				}

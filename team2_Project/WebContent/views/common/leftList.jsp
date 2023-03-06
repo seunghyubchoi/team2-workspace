@@ -63,16 +63,16 @@
 			<a href="<%=contextPath%>/myPage.mp">회원정보관리</a>
 		</div>
 		<div class="list_name">
-			<a href="<%=contextPath%>/orderHistory.mp?memNo=<%=loginUser.getMemNo() %>">주문내역</a>
+			<a href="<%=contextPath%>/orderHistory.mp?memNo=<%=loginUser.getMemNo() %>&cpage=1">주문내역</a>
 		</div>
 		<div class="list_name">
-			<a href="<%=contextPath%>/mileageHistory.mp?memNo=<%=loginUser.getMemNo() %>">적립금내역</a>
+			<a href="<%=contextPath%>/mileageHistory.mp?memNo=<%=loginUser.getMemNo() %>&cpage=1">적립금내역</a>
 		</div>
 		<div class="list_name">
-			<a href="<%=contextPath%>/likes.mp?memNo=<%=loginUser.getMemNo() %>">좋아요</a>
+			<a href="<%=contextPath%>/likes.mp?memNo=<%=loginUser.getMemNo() %>&cpage=1">좋아요</a>
 		</div>
 		<div class="list_name">
-			<a href="<%=contextPath%>/follow.mp?memNo=<%=loginUser.getMemNo() %>">팔로잉/팔로워</a>
+			<a href="<%=contextPath%>/follow.mp?memNo=<%=loginUser.getMemNo() %>&cpage=1">팔로잉/팔로워</a>
 		</div>
 	</div>
 	<!-- left list end-->

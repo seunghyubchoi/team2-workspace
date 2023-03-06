@@ -305,7 +305,7 @@
 							<tr>
 								<td align="center">
 									<button type="button" class="btn btn-primary mb-2"
-										onclick="backToMyPage();">뒤로가기</button>
+										 data-dismiss="modal">뒤로가기</button>
 									<button type="submit" class="btn btn-primary mb-2">저장하기</button>
 								</td>
 							</tr>
@@ -435,7 +435,7 @@
 								num++;
 							%>
 							<tr>
-								<td></td>
+								
 								<td><button type="submit" class="btn btn-sm btn-danger"
 										value="<%=l.getLocNo()%>">수정하기</button>
 									<button type="button" class="btn btn-sm btn-danger"
