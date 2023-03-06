@@ -434,14 +434,15 @@
                 </div>
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">수량</label>
-                  <input type="number" id="productAmount" name="amount" min="0" max="20" step="1" value="1">
+                  <input type="number" id="productAmount" name="amount" min="1" max="" step="1" value="1">
+                  <input type = "hidden" name = "product-qnt" value="">
                 </div>
 
             </div>
             <div class="modal-footer" id="modal_button">
               <button type="submit" class="btn btn-primary">장바구니 담기</button>
                </form>
-              <button type="button" class="btn btn-primary">결제하기</button>
+              <button type="button" class="btn btn-primary" onclick="directPayment();">결제하기</button>
             </div>
           </div>
         </div>
@@ -460,11 +461,16 @@
     	  <% for(Option o: opList) { %>
 		  if(value=="<%= o.getOptionSize() %>"){
 			  $("#productAmount").attr("max","<%=o.getStock() %>");
+			  $("input[name=product-qnt]").val(<%=o.getStock() %>);
 		  }
 		  <% } %>
 		  $("#productAmount").val("1");
                }
        
+       function directPayment(){
+    	   let size = $("input[name=size]").val();
+    	   location.href="<%= contextPath %>/list.pa?pno=<%= p.getProductNo() %>&size="+$("select[name=size]").val()+"&qnt="+$("input[name=amount]").val();
+       }
        
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

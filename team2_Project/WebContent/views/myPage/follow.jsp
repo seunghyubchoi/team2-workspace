@@ -55,6 +55,7 @@ ArrayList<Follow> followList = (ArrayList<Follow>) request.getAttribute("followL
 	<%@include file="../common/leftList.jsp"%>
 	<div id="content_title">
 		<p>팔로잉/팔로워</p>
+		<img src="../../resources/img/heartEmpty.png" alt="">
 	</div>
 	<div id="content">
 		<div id="btnBox">

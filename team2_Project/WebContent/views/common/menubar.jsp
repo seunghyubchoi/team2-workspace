@@ -219,7 +219,7 @@ a {
 							</li>
 						<li><a href="#">고객센터</a>
 							<ul class="submenu">
-								<li><a href="<%=contextPath %>/nlist.no">공지사항</a></li>
+								<li><a href="<%=contextPath %>/nlist.no?cpage=1">공지사항</a></li>
 								<li><a href="#">문의사항</a></li>
 								<li><a href="#">submenu03</a></li>
 								<li><a href="#">submenu04</a></li>

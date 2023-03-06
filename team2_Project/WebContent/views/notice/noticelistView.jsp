@@ -1,11 +1,19 @@
+<%@page import="com.kh.common.PageInfo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kh.notice.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+
 <%
- ArrayList<Notice> list =(ArrayList<Notice>)request.getAttribute("list");
+PageInfo pi =(PageInfo)request.getAttribute("pi");
+ArrayList<Notice> list =(ArrayList<Notice>)request.getAttribute("list");
+int currentPage = pi.getCurrentPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+int maxPage = pi.getMaxPage();
 %>
 <html>
 <head>
@@ -335,6 +343,7 @@ a {
                             <div class="num">번호</div>
                             <div class="title">제목</div>
                             <div class="date">작성일</div>
+                            <div class="count">조회수</div>
                         </div>
                 <%if(list.isEmpty()){ %>
                 	<p>존재하는 공지사항이 없습니다.</p>
@@ -342,12 +351,14 @@ a {
 	                <% for (Notice n: list){ %>
 	                        <div class="llist">
 	                            <div class="num"><%=n.getNoticeNo() %></div>
-	                            <div class="title"><a href="공지사항확인.html"><%=n.getNoticeTitle() %></a></div>
+	                            <div class="title"><%=n.getNoticeTitle() %></a></div>
 	                            <div class="date"><%=n.getNoticeDate() %></div>
+	                            <div class="count"><%=n.getCount()%></div>
 	                        </div>
 	        		 <%} %>
                     <%} %>
                     </div>
+               <!--
                     <div class="board_page">
                         <a href="#" class="bt first"><<</a>
                         <a href="#" class="bt prev"><</a>
@@ -358,7 +369,30 @@ a {
                         <a href="#" class="num">5</a>
                         <a href="#" class="bt next">></a>
                         <a href="#" class="bt last">>></a>
-                    </div>
+                    </div>-->
+                    
+           
+                     <div class="paging-area" align="center" style="width=600px; text-align:center; margin-top:10px; font-size:18px;">
+        	<% if(currentPage != 1) { %>
+            	<button style="background-color: transparent; color: white;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= currentPage - 1 %>'">&lt;</button>
+            <% } %>
+            
+            
+            <% for(int p = startPage; p <= endPage; p++) { %>
+            	<% if(p == currentPage) { %>
+            		<button style="background-color: transparent; color: white; border: 1px solid white;" disabled><%= p %></button>
+            	<% } else { %>
+            		<button style="background-color: transparent; color: white;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= p %>'"><%= p %></button>
+            	<% } %>
+            <% } %>
+            
+            <% if(currentPage != maxPage) { %>
+            	<button style="background-color: transparent; color: white;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= currentPage + 1 %>'">&gt;</button>
+            <% } %>
+            
+        </div>
+
+                   
                 </div>
             </div>  
             </div>
@@ -373,7 +407,6 @@ a {
 			$(".llist").click(function(){
 				const num =$(this).children().eq(0).text();
 				console.log(num);
-				
 				location.href ='<%=contextPath%>/ndetail.no?num='+num;
 			
 			})

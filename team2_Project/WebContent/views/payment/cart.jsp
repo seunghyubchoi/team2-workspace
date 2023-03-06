@@ -64,6 +64,12 @@
     .estmtPyamn td {
       text-align: right;
     }
+    .cart-empty{
+    text-align: center;
+    font-size :30px;
+    font-weight: 700;
+    color : gray;
+    }
   </style>
 </head>
 
@@ -76,8 +82,16 @@
       </div>
       <div class="col-11" style="text-align: left; padding-top: 20px; font-size: 25px; font-weight: 800;">
         장바구니
-      </div>
+      </div> 
     </div>
+    <% if(list.isEmpty()){ %>
+      <div style="text-align: center; padding-top: 100px; padding-bottom: 50px;">
+                      <img src="<%= contextPath%>/resources/img/cart.png"
+                        width="10%" height="10%" alt="">
+                    </div>
+    <div class="cart-empty">장바구니가 비어있어요</div>
+     <div class="cart-empty">장바구니에 상품을 담아보세요!</div>
+    <% }else{%>
     <div class="row" style="padding-top: 40px;">
       <div class="col-1">
       </div>
@@ -102,6 +116,42 @@
           <form action="<%=contextPath %>/delete.ca" method="post">
           <input type="hidden" name="mno" value="<%=loginUser.getMemNo() %>">
           <% for(Cart c : list){ %>
+          <% if(c.getOptionStock() == 0){ %>
+          <tr>
+              <th scope="row"><%= count %></th>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="chk" value="<%=c.getCartNo() %>" id="flexCheckDefault">
+                </div>
+              </td>
+              <td>
+                <div class="row">
+                  <div class="col-5">
+                    <div style="text-align: left;">
+                      <img src="<%= contextPath%>/resources/img/soldout.png"
+                        width="100%" height="90px" alt="">
+                    </div>
+                  </div>
+                  <div class="col-7" id="product_detail">
+                    <div style="font-weight: 600;">[<%= c.getBrandName() %>] <%= c.getProductName() %></div>
+                    <div style="font-size: 14px; color: gray;">사이즈 : <%= c.getCartSize() %></div>
+                  </div>
+
+                </div>
+              </td>
+              <td> <%= df.format(c.getProductPrice()*(((100-c.getProductDiscount())*0.01))*c.getCartQnt())%>원</td>
+              <input type="hidden" name="cart-price" value="<%=c.getProductPrice()*(((100-c.getProductDiscount())*0.01))*c.getCartQnt() %>">
+              <td>
+                <div class="count-wrap _count">
+                <input type="number" class="cartQnt" name="amount" min="0" max="0" step="0" value="0"  readonly/>
+                <input type="hidden" name="cno" value="<%=c.getCartNo() %>">
+                </div>
+              </td>
+              <td>0원</td>
+              <td> 무료</td>
+            </tr>
+            <% count++; %>
+          <% }else{ %>
             <tr>
               <th scope="row"><%= count %></th>
               <td>
@@ -128,7 +178,7 @@
               <input type="hidden" name="cart-price" value="<%=c.getProductPrice()*(((100-c.getProductDiscount())*0.01))*c.getCartQnt() %>">
               <td>
                 <div class="count-wrap _count">
-                <input type="number" class="cartQnt" name="amount" min="1" max="" step="1" value="<%=c.getCartQnt()%>">
+                <input type="number" class="cartQnt" name="amount" min="1" max="<%=c.getOptionStock() %>" step="1" value="<%=c.getCartQnt()%>">
                 <input type="hidden" name="cno" value="<%=c.getCartNo() %>">
                 </div>
               </td>
@@ -136,6 +186,7 @@
               <td> 무료</td>
             </tr>
             <% count++; %>
+            <%} %>
             <% } %>
           </tbody>
         </table>
@@ -150,9 +201,13 @@
           <tr>
           <th>총 주문상품수</th>
           <td width="170" height="40" id="total-qnt">0개</td>
+          <div id="hidden-qnt"></div>
           <tr>
             <th>총 주문금액</th>
             <td height="40" id="total-price">0원</td>
+             <div id="hidden-cno">
+             <input type='hidden' name='cno' value=''>
+             </div>
           </tr>
           <tr>
             <th>배송비</th>
@@ -164,15 +219,16 @@
           </tr>
         </table>
         <div class="d-grid gap-2" style="margin-top: 20px;">
-          <button class="btn btn-primary" type="button" style="background-color: pink; border-color: pink;">결제하러
+          <button class="btn btn-primary" id="payment-btn" type="button" style="background-color: pink; border-color: pink;">결제하러
             가기</button>
         </div>
       </div>
     </div>
+    <% } %>
   </div>
 
   <script>
-	
+  	let carts= [];
     $(document).ready(function () {
       $("#cbx_chkAll").click(function () {
         if ($("#cbx_chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
@@ -224,13 +280,9 @@
     	let totalMileage = 0;
     	$('input:checkbox[name="chk"]').each(function(){
     		if($(this).is(":checked") == true){
-    	        var price_goods = 
-			
-    	        	parseInt($(this).parents('tr').find('input[name=cart-price]').val());
+    	        var price_goods = parseInt($(this).parents('tr').find('input[name=cart-price]').val());
     	        totalPrice = totalPrice + price_goods;
-    	        var qnt_goods = 
-    	        	
-    	        	parseInt($(this).parents('tr').find('input[name=amount]').val());	
+    	        var qnt_goods = parseInt($(this).parents('tr').find('input[name=amount]').val());	
     	        totalQnt = totalQnt + qnt_goods;
     		}
     	})
@@ -248,6 +300,30 @@
         	$('#total-price').text(0+'원');
         	$('#total-mileage').text(0+'원');
     	}
+    })
+    
+    $("#payment-btn").click(function(){
+    	let sum = 0;
+    	let cartNo = [];
+    	$('input:checkbox[name="chk"]').each(function(){
+    		if($(this).is(":checked") == true){
+    			if($(this).parents('tr').find('input[name=amount]').val()=='0'){
+        			alert('체크된 상품중 품절된 상품이 있습니다.')
+        			sum = 1;
+        		}
+    	        var cart_no = $(this).val();
+    	        	cartNo.push(cart_no);
+    	  
+    		}
+    		
+    	})
+    	if(sum == 1){
+    		return;
+    	}
+    	const carts = cartNo.join(',');
+    	console.log(carts);
+    	location.href = '<%= contextPath %>/list.pa?cno=' + carts;
+    
     })
   </script>
 
