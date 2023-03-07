@@ -144,11 +144,16 @@ pageEncoding="UTF-8"%>
 		                                        <input type="hidden" name="locYn<%= count %>" value="<%= l.getLocYn() %>"><br>
 
 		                                    </td>
-		                                    <td><button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                data-target="#Location" onclick="modifyLocation(<%= count%>);">수정</button></td>
+		                                    <td>
+		                                    	<button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                data-target="#Location" onclick="modifyLocation(<%= count%>);">수정</button>
+                                            </td>
 		                                </tr>
 		                                <tr>
-		                                    <td><button class="btn btn-secondary">삭제</button></td>
+		                                    <td>
+		                                    	<button type="button"class="btn btn-secondary" data-toggle="modal"
+                                                data-target="#locationDeleteModal" onclick="deleteLocation(<%= count%>);">삭제</button>
+	                                    	</td>
 		                                </tr>
 		                                <% count++; %>
                                 	<%} %>
@@ -317,6 +322,32 @@ pageEncoding="UTF-8"%>
 		</div>
 	</div>
     <!-- Mileage Modal -->
+    
+	<!-- deleteLocation Process Modal-->
+	<div class="modal fade" id="locationDeleteModal" tabindex="-1" role="dialog" aria-labelledby="locationDeleteModal"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="locationDeleteModal">삭제하기</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    배송지를 정말 삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <form action="<%= contextPath %>/adminDelete.lo" method="post">
+                        <input type="hidden" id="deleteNo" name="deleteNo">
+                        <input type="hidden" name="memNo" value="<%= m.getMemNo()%>">
+                        <button type="submit" class="btn btn-warning" id="checkBtn">삭제</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         $(function(){
