@@ -1,5 +1,10 @@
+<%@page import="com.kh.member.model.vo.Member"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -25,12 +30,6 @@ pageEncoding="UTF-8"%>
             $(function(){
                 sidebarActiveDelete();
                 sidebarActive("#member");
-                // $(".nav-item").each(function(){
-                // if ($(this).hasClass("active")) {
-                //     $(this).removeClass('active')
-                // }
-                // });
-                // $("#member").addClass("active");
             })
         </script>
 
@@ -67,11 +66,19 @@ pageEncoding="UTF-8"%>
                                     <th>이름</th>
                                     <th>가입일</th>
                                     <th>수정</th>
-                                    <th>탈퇴</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                <% for(Member m : list) { %>
+	                                <tr>
+	                                	<td><input type="checkbox" name="deleteCheck" value="<%= m.getMemNo() %>"></td>
+	                                    <td><%= m.getMemNo() %></td>
+	                                    <td><a href="<%= contextPath%>/detailForm.me?mno=<%= m.getMemNo() %>"><%= m.getMemId() %></a></td>
+	                                    <td><%= m.getMemName()%></td>
+	                                    <td><%= m.getEnrollDate() %></td>
+	                                    <td><a class="btn btn-sm btn-secondary" href="<%= contextPath%>/detailForm.me?mno=<%= m.getMemNo() %>">수정</a></td>
+	                                </tr>
+                                <%} %>
                             </tbody>
 
                         </table>
@@ -89,6 +96,31 @@ pageEncoding="UTF-8"%>
 
     </div>
     <!-- End of Page Wrapper -->
+
+    <!-- DeactButton Process Modal-->
+    <div class="modal fade" id="memberDeactModal" tabindex="-1" role="dialog" aria-labelledby="memberDeactModal"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="memberDeactModal">탈퇴하기</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    선택된 회원을 정말 탈퇴하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <form action="<%= contextPath %>/deleteList.me" method="post">
+                        <input type="hidden" id="deleteList" name="deleteList">
+                        <button type="submit" class="btn btn-warning" id="checkBtn">탈퇴</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </body>

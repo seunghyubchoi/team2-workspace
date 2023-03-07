@@ -44,7 +44,7 @@ public class AdminIquireDao {
 									 rset.getDate("QNA_DATE"),
 									 rset.getInt("QNA_VIEW_COUNT"),
 									 rset.getString("ANS_YN"),
-									 rset.getString("HERADER_CONTENT"),
+									 rset.getString("HEADER_CONTENT"),
 									 rset.getString("MEM_NAME")
 						));
 			}
@@ -80,7 +80,7 @@ public class AdminIquireDao {
 								rset.getString("ANS_CONTENT"),
 								rset.getDate("ANS_DATE"),
 								rset.getString("ANS_YN"),
-								rset.getString("HERADER_CONTENT"),
+								rset.getString("HEADER_CONTENT"),
 								rset.getString("MANAGER_NO"),
 								rset.getString("MEM_ID")
 						);
