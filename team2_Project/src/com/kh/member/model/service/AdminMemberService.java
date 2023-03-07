@@ -78,4 +78,20 @@ public class AdminMemberService {
 		return result;
 	}
 
+	public int updateMember(Member m) {
+		Connection conn = getConnection();
+		
+		int result = new AdminMemberDao().updateMember(conn, m);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 }

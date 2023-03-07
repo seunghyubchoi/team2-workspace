@@ -74,6 +74,8 @@ pageEncoding="UTF-8"%>
                     <div class="content-wrapper">
 
                         <form action="adminModify.me">
+                        <input type="hidden" name="memNo" value="<%= m.getMemNo() %>">
+                        <input type="hidden" name="memId" value="<%= m.getMemId() %>">
                             <table class="table table-primary table-bordered">
                                 <tr>
                                     <td class="text-right w-120px"><h5>아이디</h5></td>
@@ -91,19 +93,19 @@ pageEncoding="UTF-8"%>
                                 </tr>
                                 <tr>
                                     <td class="text-right w-120px"><h5>이름</h5></td>
-                                    <td colspan="2"><input type="text" value="<%= m.getMemName() %>" required></td>
+                                    <td colspan="2"><%= m.getMemName() %></td>
                                     <td class="text-right w-120px"><h5>생년월일</h5></td>
-                                    <td colspan="2"><input type="date" value="<%= m.getBirthday() %>"></td>
+                                    <td colspan="2"><input type="date" name="birthday" value="<%= m.getBirthday() %>"></td>
                                 </tr>
                                 <tr>
                                     <td class="text-right w-120px"><h5>이메일주소</h5></td>
-                                    <td colspan="2"><input type="email" value="<%= m.getEmail() %>"></td>
+                                    <td colspan="2"><input type="email" name="email" value="<%= m.getEmail() %>"></td>
                                     <td class="text-right w-120px"><h5>전화번호</h5></td>
-                                    <td colspan="2"><input type="phone" value="<%= m.getPhone() %>" required></td>
+                                    <td colspan="2"><input type="phone" name="phone" value="<%= m.getPhone() %>" required></td>
                                 </tr>
                                 <tr>
                                     <td class="text-right w-120px"><h5>sns아이디</h5></td>
-                                    <td colspan="2">@<input type="text" value="<%= m.getInstaId() %>"></td>
+                                    <td colspan="2">@<input type="text" name="instaId" value="<%= m.getInstaId() %>"></td>
                                     <td class="text-right w-120px"><h5>적립금</h5></td>
                                     <td colspan="2">
                                         <input type="number" value="<%= m.getMileage() %>" readonly>
@@ -115,11 +117,11 @@ pageEncoding="UTF-8"%>
                                     <td colspan="2" class="text-left"><h5>마케팅 선택 동의 사항</h5></td>
                                     <td colspan="4">
                                         <div>
-                                            <input type="checkbox" name="adCheck" id="game" value="이메일" class="scale-120">
-                                            <label for="game" class="mb-0 mr-2">이메일</label>
+                                            <input type="checkbox" name="adCheck" id="email" value="이메일" class="scale-120">
+                                            <label for="email" class="mb-0 mr-2">이메일</label>
     
-                                            <input type="checkbox" name="adCheck" id="movie" value="문자" class="scale-120">
-                                            <label for="movie" class="mb-0">문자</label>
+                                            <input type="checkbox" name="adCheck" id="sms" value="문자" class="scale-120">
+                                            <label for="sms" class="mb-0">문자</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -365,6 +367,12 @@ pageEncoding="UTF-8"%>
                 }
             });
         });
+		
+		let now_utc = Date.now() // 지금 날짜를 밀리초로
+		let timeOff = new Date().getTimezoneOffset()*60000; // 분단위를 밀리초로 변환
+		let today = new Date(now_utc-timeOff).toISOString().substring(0, 10); // 오늘 날짜
+		
+		$("input[name='birthday']").attr("max", today);
     </script>
 
 </body>
