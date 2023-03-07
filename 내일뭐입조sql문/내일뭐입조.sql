@@ -713,6 +713,8 @@ INSERT INTO TB_FOLLOW
 VALUES(SEQ_FOLLOW.NEXTVAL, 2,3,DEFAULT);
 INSERT INTO TB_FOLLOW
 VALUES(SEQ_FOLLOW.NEXTVAL, 2,4,DEFAULT);
+INSERT INTO TB_FOLLOW
+VALUES(SEQ_FOLLOW.NEXTVAL, 2,1,DEFAULT);
 
 INSERT INTO TB_REVIEW 
 VALUES(SEQ_REVIEW.NEXTVAL, '와 진짜 너무 예뻐여ㅠㅠ', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',1,1,1);
@@ -751,6 +753,7 @@ INSERT INTO TB_LIKE VALUES(SEQ_LIKE.NEXTVAL,3,5);
 INSERT INTO TB_LIKE VALUES(SEQ_LIKE.NEXTVAL,4,1);
 INSERT INTO TB_LIKE VALUES(SEQ_LIKE.NEXTVAL,2,3);
 
+
 INSERT INTO TB_SPEECHBUBBLE VALUES(SEQ_SPEECHBUBBLE.NEXTVAL, '멋진숏자켓', 'S', 189000, 'https://www.seoulstore.com/products/1523056/detail?ecommerceListName=brandPdt_978', 2, 1, 2, 2);
 INSERT INTO TB_SPEECHBUBBLE VALUES(SEQ_SPEECHBUBBLE.NEXTVAL, '멋진운동화', '220', 25900, 'https://www.nike.com/kr/t/%EC%9D%B8%EB%B9%88%EC%84%9C%EB%B8%94-3-%EC%97%AC%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-UbyT9MX4/DR2660-100', 1, 1, 1, 4);
 INSERT INTO TB_SPEECHBUBBLE VALUES(SEQ_SPEECHBUBBLE.NEXTVAL, '멋진후드티', 'M', 33900, 'https://www.seoulstore.com/products/1548017/detail?ecommerceListName=searchResult_%EC%95%84%EB%94%94%EB%8B%A4%EC%8A%A4', 3, 2, 3, 2);
@@ -782,6 +785,8 @@ INSERT INTO TB_LOCATION VALUES(SEQ_LOCATION.NEXTVAL,2,'윤화배송지','이윤화','010
 INSERT INTO TB_LOCATION VALUES(SEQ_LOCATION.NEXTVAL,3,'혜정배송지','전혜정','01066632524','여의도 자이아파트','105동 809호','07324','N','Y');
 INSERT INTO TB_LOCATION VALUES(SEQ_LOCATION.NEXTVAL,4,'지용배송지','정지용','01068642725','신길 목련아파트','101동 303호','07362','N','Y');
 INSERT INTO TB_LOCATION VALUES(SEQ_LOCATION.NEXTVAL,5,'승협하우스','최승협','01060652926','여의도 자이아파트','106동 1103호','07324','N','Y');
+
+INSERT INTO TB_ORDER VALUES(SEQ_ORDER.NEXTVAL,1,1,DEFAULT,'상품준비중',NULL,'박희연','01062612122','역삼 래미안 아파트','101동303호','06218',NULL,400,200);
 
 INSERT INTO TB_ORDER VALUES(SEQ_ORDER.NEXTVAL,1,1,DEFAULT,'배송완료',NULL,'박희연','01062612122','역삼 래미안 아파트','101동303호','06218',NULL,400,200);
 INSERT INTO TB_ORDER VALUES(SEQ_ORDER.NEXTVAL,2,1,DEFAULT,'배송완료',NULL,'이윤화','01064622323','역삼 래미안 아파트','103동503호','06218','부재시 문앞에 두고가주세요',500,300);
@@ -839,6 +844,13 @@ INSERT INTO TB_MILEAGE_HISTORY VALUES(SEQ_MILEAGE_HISTORY.NEXTVAL,'적립',300,3,3
 INSERT INTO TB_MILEAGE_HISTORY VALUES(SEQ_MILEAGE_HISTORY.NEXTVAL,'적립',100,4,4);
 INSERT INTO TB_MILEAGE_HISTORY VALUES(SEQ_MILEAGE_HISTORY.NEXTVAL,'적립',150,5,5);
 INSERT INTO TB_MILEAGE_HISTORY VALUES(SEQ_MILEAGE_HISTORY.NEXTVAL,'적립',200,5,5);
+
+insert into tb_dtl_order values (seq_dtl_order.nextval, 1, 1, 'S', 1);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 2, 1, 'M', 2);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 3, 1, 'L', 1);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 3, 1, 'S', 1);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 1, 'XL', 1);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 1, 'L', 1);
 
 
 commit;

@@ -21,14 +21,14 @@ int maxPage = pi.getMaxPage();
 
 
 <style>
-.wrap{
-	height: 2300px !important;
-}
+
+
 .list-area {
 	display: flex;
 	/*  justify-content: space-between; */
 	flex-wrap: wrap;
 }
+
 .thumbnail {
 	overflow: hidden;
 	box-sizing: border-box;
@@ -37,19 +37,24 @@ int maxPage = pi.getMaxPage();
 	margin: 14px;
 	display: inline-block;
 }
+
 .thumbnailImg:hover, .heart:hover, .instaLogo:hover {
 	cursor: pointer;
 	opacity: 0.7
 }
+
 .thumbnailMenu {
 	margin-top: 10px;
 }
+
 .heart, .instaLogo {
 	width: 30px;
 }
+
 .heart {
 	float: left;
 }
+
 .instaLogo {
 	float: right;
 }
@@ -92,14 +97,9 @@ int maxPage = pi.getMaxPage();
 			<%
 				}
 			%>
-			<%
-				}
-			%>
-
 		</div>
-		
 		<br> <br>
-<div class="paging-area" align="center">
+		<div class="paging-area" align="center">
 			<%
 				if (currentPage != 1) {
 			%>
@@ -114,7 +114,8 @@ int maxPage = pi.getMaxPage();
 			<%
 				if (p == currentPage) {
 			%>
-			<button class="btn btn-primary mb-2" style="background: pink" disabled><%=p%></button>
+			<button class="btn btn-primary mb-2" style="background: pink"
+				disabled><%=p%></button>
 			<%
 				} else {
 			%>
@@ -135,6 +136,14 @@ int maxPage = pi.getMaxPage();
 				}
 			%>
 		</div>
+
+		<%
+			}
+		%>
+
+
+
+
 
 		<script>
 					
@@ -166,7 +175,8 @@ int maxPage = pi.getMaxPage();
 					
 					
 					 function cancelDeleteLike(e) {
-						 let imgurl = "<%=contextPath%>/resources/img/heartRed.png"
+						 let imgurl = "<%=contextPath%>
+			/resources/img/heartRed.png"
 				let cNo = $(e).siblings(":input").val();
 				$.ajax({
 					url : "insertLike.mp",

@@ -12,30 +12,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.common.PageInfo;
 import com.kh.myPage.model.service.MyPageService;
-import com.kh.myPage.model.vo.MileageHistory;
+import com.kh.payment.model.vo.OrderDtlA;
 
 /**
- * Servlet implementation class MileageHistoryPageController
+ * Servlet implementation class OrderHistoryCancelPageController
  */
-@WebServlet("/mileageHistory.mp")
-public class MileageHistoryPageController extends HttpServlet {
+@WebServlet("/orderHistoryCancel.mp")
+public class OrderHistoryCancelPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public OrderHistoryCancelPageController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public MileageHistoryPageController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
+
 		int listCount;
 		int currentPage;
 		int pageLimit;
@@ -45,12 +44,11 @@ public class MileageHistoryPageController extends HttpServlet {
 		int startPage;
 		int endPage;
 
-		listCount = new MyPageService().selectMileageCount(memNo);
-
+		listCount = new MyPageService().selectOrderHistoryCancelCount(memNo);
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
 		pageLimit = 10;
-		boardLimit = 8;
-
+		boardLimit = 3;
+		
 		maxPage = (int) Math.ceil((double) listCount / boardLimit);
 
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
@@ -60,21 +58,23 @@ public class MileageHistoryPageController extends HttpServlet {
 		}
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 
-		ArrayList<MileageHistory> list = new MyPageService().selectMileageHistory(pi, memNo);
+		ArrayList<OrderDtlA> orderHistoryCancelList = new MyPageService().selectOrderHistoryCancelList(pi, memNo);
+
 		request.setAttribute("memNo", memNo);
 		request.setAttribute("pi", pi);
-		request.setAttribute("list", list);
-
-		RequestDispatcher view = request.getRequestDispatcher("views/myPage/mileageHistory.jsp");
+		request.setAttribute("orderHistoryCancelList", orderHistoryCancelList);
+		
+		
+		
+		
+		RequestDispatcher view = request.getRequestDispatcher("views/myPage/orderHistoryCancel.jsp");
 		view.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

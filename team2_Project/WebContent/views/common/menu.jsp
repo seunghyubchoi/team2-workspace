@@ -41,7 +41,7 @@ div {
 
 .wrap {
 	width: 1500px;
-	height: 1800px;
+	height: 2300px;
 	margin: auto;
 }
 

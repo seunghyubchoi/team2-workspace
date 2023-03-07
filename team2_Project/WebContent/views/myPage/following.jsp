@@ -75,7 +75,17 @@ int maxPage = pi.getMaxPage();
 			<%
 				if (follwingList.isEmpty()) {
 			%>
-			<p id="noList">팔로잉하는 회원이 없습니다</p>
+			<table id="followingTable">
+				<tbody id="followingTableBody">
+					
+					<tr>
+						<td><p id="noList">팔로잉하는 회원이 없습니다</p></td>
+						
+					</tr>
+					
+				</tbody>
+			</table>
+			
 			<%
 				} else {
 			%>
