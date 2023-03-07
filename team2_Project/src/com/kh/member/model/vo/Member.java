@@ -68,6 +68,19 @@ public class Member {
 		this.enrollDate = enrollDate;
 	}
 
+	public Member(int memNo, String memName, String email, String phone, String adCheck, String gender, String birthday,
+			String instaId) {
+		super();
+		this.memNo = memNo;
+		this.memName = memName;
+		this.email = email;
+		this.phone = phone;
+		this.adCheck = adCheck;
+		this.gender = gender;
+		this.birthday = birthday;
+		this.instaId = instaId;
+	}
+
 	public int getMemNo() {
 		return memNo;
 	}
