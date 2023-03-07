@@ -40,6 +40,7 @@ public class ProductDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, categoryName);
 			pstmt.setInt(2, page);
+			pstmt.setInt(3, page);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
@@ -75,7 +76,7 @@ public class ProductDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, categoryName);
 			pstmt.setInt(2, page);
-			
+			pstmt.setInt(3, page);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Product(rset.getInt("product_no"),
@@ -97,7 +98,7 @@ public class ProductDao {
 	}
 	
 	
-	public ArrayList<Product> productSearch(Connection conn,String product){
+	public ArrayList<Product> productSearch(Connection conn,String product,int page){
 		ArrayList<Product> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -107,7 +108,8 @@ public class ProductDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, product);
 			pstmt.setString(2, product);
-			
+			pstmt.setInt(3, page);
+			pstmt.setInt(4, page);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Product(rset.getInt("product_no"),
@@ -128,7 +130,7 @@ public class ProductDao {
 		return list;
 	}
 	
-	public ArrayList<Product> productSort(Connection conn,String product, int value){
+	public ArrayList<Product> productSort(Connection conn,String product, int value,int page){
 		ArrayList<Product> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -142,7 +144,8 @@ public class ProductDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, product);
 			pstmt.setString(2, product);
-			
+			pstmt.setInt(3, page);
+			pstmt.setInt(4, page);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Product(rset.getInt("product_no"),
@@ -304,5 +307,56 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public int listCount(Connection conn, String categoryName) {
+		// select문 => ResultSet 객체 (한개) => int형 변수
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("listCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, categoryName);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count"); // spl문에 별칭을 줌
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	public int listCount2(Connection conn, String product) {
+		// select문 => ResultSet 객체 (한개) => int형 변수
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("listCount2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, product);
+			pstmt.setString(2, product);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count"); // spl문에 별칭을 줌
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
 	}
 }

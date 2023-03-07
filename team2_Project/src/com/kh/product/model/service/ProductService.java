@@ -30,18 +30,18 @@ public class ProductService {
 	}
 	
 	
-	public ArrayList<Product> productSearch(String product){
+	public ArrayList<Product> productSearch(String product, int page){
 		Connection conn = getConnection();
 		
-		ArrayList<Product> list = new ProductDao().productSearch(conn, product);
+		ArrayList<Product> list = new ProductDao().productSearch(conn, product,page);
 		close(conn);
 		return list;
 	}
 	
-	public ArrayList<Product> productSort(String product, int value){
+	public ArrayList<Product> productSort(String product, int value,int page){
 		Connection conn = getConnection();
 		
-		ArrayList<Product> list = new ProductDao().productSort(conn,product,value);
+		ArrayList<Product> list = new ProductDao().productSort(conn,product,value,page);
 		close(conn);
 		return list;
 	}
@@ -93,6 +93,24 @@ public class ProductService {
 		return list;
 	}
 	
+	public int listCount(String categoryName) {
+		
+		Connection conn = getConnection();
+		
+		int result = new ProductDao().listCount(conn,categoryName);
+
+		close(conn);
+		return result;
+	}
 	
+	public int listCount2(String product) {
+		
+		Connection conn = getConnection();
+		
+		int result = new ProductDao().listCount2(conn,product);
+
+		close(conn);
+		return result;
+	}
 
 }

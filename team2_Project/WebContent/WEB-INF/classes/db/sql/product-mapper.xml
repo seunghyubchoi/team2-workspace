@@ -22,7 +22,7 @@ FROM(SELECT
     ORDER
      BY PRODUCT_NO DESC)A
         )
-        WHERE RNUM BETWEEN 1 AND ?*6
+        WHERE RNUM BETWEEN 6*(?-1) AND ?*6
 </entry>
 <entry key="categoryViewSearch">
 SELECT *
@@ -44,7 +44,7 @@ FROM(SELECT
         AND DEL_YN = 'N'
     ORDER BY PRODUCT_VIEW_COUNT DESC )A
         )
-        WHERE RNUM BETWEEN 1 AND ?*6
+        WHERE RNUM BETWEEN 6*(?-1) AND ?*6
 </entry>
 <entry key="categoryRowPrice">
 SELECT *
@@ -66,7 +66,7 @@ FROM(SELECT
         AND DEL_YN = 'N'
     ORDER BY PRODUCT_PRICE*((100-PRODUCT_DISCOUNT)*0.01))A
         )
-        WHERE RNUM BETWEEN 1 AND ?*6
+        WHERE RNUM BETWEEN 6*(?-1) AND ?*6
 </entry>
 <entry key="categoryHighPrice">
 SELECT *
@@ -88,10 +88,12 @@ FROM(SELECT
         AND DEL_YN = 'N'
     ORDER BY PRODUCT_PRICE*((100-PRODUCT_DISCOUNT)*0.01) DESC)A
         )
-        WHERE RNUM BETWEEN 1 AND ?*6
+        WHERE RNUM BETWEEN 6*(?-1) AND ?*6
 </entry>
 <entry key="productSearch">
-SELECT 
+SELECT *
+FROM(SELECT ROWNUM RNUM, A.*
+FROM(SELECT 
      PRODUCT_NO
     ,PRODUCT_NAME
     ,PRODUCT_DISCOUNT
@@ -107,10 +109,16 @@ SELECT
         OR BRAND_NAME = ?)
         AND IMG_TYPE = 1
         AND DEL_YN = 'N'
+         ORDER
+     BY PRODUCT_NO DESC)A
+        )
+        WHERE RNUM BETWEEN 8*(?-1) AND ?*8
 </entry>
 
 <entry key="productViewSearch">
-SELECT 
+SELECT *
+FROM(SELECT ROWNUM RNUM, A.*
+FROM(SELECT 
      PRODUCT_NO
     ,PRODUCT_NAME
     ,PRODUCT_DISCOUNT
@@ -126,10 +134,14 @@ SELECT
         OR BRAND_NAME = ?)
         AND IMG_TYPE = 1
         AND DEL_YN = 'N'
-        ORDER BY PRODUCT_VIEW_COUNT DESC 
+        ORDER BY PRODUCT_VIEW_COUNT DESC)A
+        )
+        WHERE RNUM BETWEEN 8*(?-1) AND ?*8
 </entry>
 <entry key="productRowPrice">
-SELECT 
+SELECT *
+FROM(SELECT ROWNUM RNUM, A.*
+FROM(SELECT 
      PRODUCT_NO
     ,PRODUCT_NAME
     ,PRODUCT_DISCOUNT
@@ -145,10 +157,14 @@ SELECT
         OR BRAND_NAME = ?)
         AND IMG_TYPE = 1
         AND DEL_YN = 'N'
-        ORDER BY PRODUCT_PRICE*((100-PRODUCT_DISCOUNT)*0.01)
+        ORDER BY PRODUCT_PRICE*((100-PRODUCT_DISCOUNT)*0.01))A
+        )
+        WHERE RNUM BETWEEN 8*(?-1) AND ?*8
 </entry>
 <entry key="productHighPrice">
-SELECT 
+SELECT *
+FROM(SELECT ROWNUM RNUM, A.*
+FROM(SELECT 
      PRODUCT_NO
     ,PRODUCT_NAME
     ,PRODUCT_DISCOUNT
@@ -164,7 +180,9 @@ SELECT
         OR BRAND_NAME = ?)
         AND IMG_TYPE = 1
         AND DEL_YN = 'N'
-        ORDER BY PRODUCT_PRICE*((100-PRODUCT_DISCOUNT)*0.01) DESC
+        ORDER BY PRODUCT_PRICE*((100-PRODUCT_DISCOUNT)*0.01) DESC)A
+        )
+        WHERE RNUM BETWEEN 8*(?-1) AND ?*8
 </entry>
 <entry key="productDetail">
 SELECT 
@@ -217,5 +235,22 @@ JOIN TB_MEMBER USING(MEM_NO)
 WHERE PRODUCT_NO2 = ?
      AND DEL_YN = 'N'
      ORDER BY REVIEW_DATE DESC  
+</entry>
+<entry key="listCount">
+SELECT 
+        COUNT(*) count
+    FROM TB_PRODUCT P
+    JOIN TB_CATEGORY C ON(P.CATEGORY_NO = C.CATEGORY_NO)
+  WHERE CATEGORY_NAME = ?
+    AND DEL_YN = 'N'
+</entry>
+<entry key="listCount2">
+SELECT 
+        COUNT(*) count
+    FROM TB_PRODUCT
+    JOIN TB_BRAND USING(BRAND_NO)
+  WHERE (PRODUCT_NAME LIKE '%' || ? || '%' 
+        OR BRAND_NAME = ?)
+    AND DEL_YN = 'N'
 </entry>
 </properties>

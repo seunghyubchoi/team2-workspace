@@ -88,7 +88,7 @@
 	    bottom: 50px;
 	    display: none;
 	    z-index: 999;
-	}
+		}
 	   </style>
 </head>
 
@@ -167,8 +167,8 @@
                                         <%=p.getBrandName() %></h5>
                                 </a>
                                <a href="<%= contextPath %>/product.pr?pno=<%= p.getProductNo()%>"> <div style="text-align: left; color: gray;"><%=p.getProductName() %></div></a>
-                                <div style="text-align: left; font-weight: 600; color: plum;">
-                                    <span style="color: gray; text-decoration:line-through;"><%=df.format(p.getProductPrice())%></span> 
+                                <div style='color:gray; text-decoration:line-through; text-align: left; font-weight: 600;'><%=df.format(p.getProductPrice())%></div>
+                                <div style="text-align: left; font-weight: 600; color: plum;"><%=p.getProductDiscount() %>%
                                     <span><%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01))) %></span>
                                 </div>
                             </div>
@@ -209,22 +209,19 @@
 	})
 	
 	var page = 1;
-
 	$(window).scroll(function() {
     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-      console.log(++page);
+    	page += 1;
+  	  console.log(page)
      $.ajax({
     	 url:"ajaxCategory.pr",
     	 data : {'page' : page,
     		 	'cname' :"<%= cname%>",
     		 	'val' : $("#productSorting option:selected").val()},
     	 type : "get",
-    	 success:function(result){
-    		
-    		 console.log(result)
-    		 console.log(result.length);
+    	 success:function(result){	
     		 let length = result.length;
-    		 for(var i = 6*(page-1);i<length;i++) {
+    		 for(var i = 1 ;i<length;i++) {
     			 $("#product-list").append(
     					 "<div class='col' style='margin-bottom: 30px;'>"+
     	                 "<div class='card' style='width: 18rem;'>"+
@@ -242,20 +239,23 @@
     	                        result[i].productName+
     	                        "</div>"+
     	                        "</a>"+
-    	                         "<div style='text-align: left; font-weight: 600; color: plum;'>"+
-    	                         "<span class='test1' style='color:gray; text-decoration:line-through;'>" +
-    	                         result[i].productPrice +' ' +
-    	                         "</span>" +
-    	                             "<span class='test1 style='display:inline;'>"+
-    	                             result[i].productPrice*(100-result[i].productDiscount)*0.01 + 
-    	                             "</span]>"+
+    	                        "<div class='test1' style='color:gray; text-decoration:line-through; text-align: left; font-weight: 600;'>" +
+ 	                       		  result[i].productPrice +' ' +
+ 	                         	"</div>" +
+  	                         "<div style='text-align: left; font-weight: 600; color: plum;'>"+
+  	                         "<div class='test1';'>" +
+  	                         result[i].productDiscount +'% ' +
+  	                         "<span class='test1 style='display:inline;'>"+
+	                             result[i].productPrice*(100-result[i].productDiscount)*0.01 + 
+	                             "</span>"+
+  	                         "</div>" +
     	                         "</div>"+
-    	                         
     	                     "</div>"+
     	                 "</div>"+
     	                 "</div>"	 
     			);
     		  };
+ 
     		  $(".test1").each(function(){
     			  let test2 = ($(this).text()+'').replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     			  $(this).text(test2);

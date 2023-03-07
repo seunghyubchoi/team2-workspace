@@ -14,16 +14,16 @@ import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
 
 /**
- * Servlet implementation class AjaxCategorySearchController
+ * Servlet implementation class AjaxProductSearchController
  */
-@WebServlet("/ajaxCategory.pr")
-public class AjaxCategorySearchController extends HttpServlet {
+@WebServlet("/ajaxProduct.pr")
+public class AjaxProductSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCategorySearchController() {
+    public AjaxProductSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,25 +32,26 @@ public class AjaxCategorySearchController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String product = request.getParameter("product").toUpperCase(); // 입력받은 값 모두 대문자로 변환 
 		ArrayList<Product> list = new ArrayList();
-		String categoryName = request.getParameter("cname");
 		int page = Integer.parseInt(request.getParameter("page"));
-		int listCount = new ProductService().listCount(categoryName);
-		int pageLimit = 6;
+		int listCount = new ProductService().listCount2(product);
+		int pageLimit = 8;
 		System.out.println(page);
+		System.out.println(listCount);
+		System.out.println(product);
 		if(page*pageLimit-listCount<pageLimit) {
-		if(request.getParameter("val") != null && !(request.getParameter("val").equals("상품 정렬")) ) {
+		if(request.getParameter("val") != null && !(request.getParameter("val").equals("상품 정렬"))) {
 			int value = Integer.parseInt(request.getParameter("val"));
-			System.out.println(value);
-			list = new ProductService().categorySort(categoryName,value,page);
+			list = new ProductService().productSort(product, value,page);
 		}else {
 			
-			list = new ProductService().categorySearch(categoryName,page);
-		}	
+		list = new ProductService().productSearch(product,page);
+		}
+		System.out.println(list);
+		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(list,response.getWriter());
-		}else {
-			
 		}
 	}
 
