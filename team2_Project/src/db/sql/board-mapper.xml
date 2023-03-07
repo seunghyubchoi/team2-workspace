@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="selectList">
+SELECT *
+FROM(SELECT ROWNUM RNUM, A.*
+    FROM(SELECT
+        QNA_NO
+        ,QNA_TITLE
+        ,QNA_DATE
+        ,MEM_NAME
+        ,QNA_VIEW_COUNT
+        FROM TB_INQUIRE
+        JOIN TB_MEMBER USING(MEM_NO)
+        WHERE DEL_YN ='N'
+        ORDER BY QNA_NO DESC
+        )A
+        )
+        WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+	<entry key="selectListCount">
+		SELECT
+COUNT(*) count
+FROM TB_INQUIRE
+WHERE DEL_YN ='N'
+	</entry>
+	
+<entry key="increaseCount">
+ UPDATE
+TB_INQUIRE
+SET QNA_VIEW_COUNT = QNA_VIEW_COUNT + 1
+WHERE QNA_NO = ?
+AND DEL_YN = 'N'
+	
+</entry>
+
+<entry key="selectBoard">
+SELECT
+QNA_NO
+,QNA_TITLE
+,QNA_CONTENT
+,QNA_DATE
+,ANS_CONTENT
+,ANS_DATE
+,QNA_VIEW_COUNT
+,ANS_YN
+,MEM_NAME
+,QCATEGORY
+,MANAGER_ID
+FROM TB_INQUIRE
+JOIN TB_MEMBER USING(MEM_NO)
+JOIN TB_MANAGER USING(MANAGER_NO)
+WHERE QNA_NO =?
+</entry>
+  
+  <entry key="selectCategoryList">
+		SELECT
+		       HEADER_NO
+		     , HERADER_CONTENT
+		  FROM TB_HEADER
+	</entry>
+	
+ <entry key="insertBoard">
+		INSERT 
+		  INTO TB_INQUIRE
+		     (
+		       QNA_NO
+		     , QCATEGORY
+		     , QNA_TITLE
+		     , QNA_CONTENT
+		     , MEM_NO
+		     )
+		VALUES
+		     (
+		       SEQ_INQUIRE.NEXTVAL
+		     , ?
+		     , ?
+		     , ?
+		     , ?
+		     )
+	</entry>	
+	
+</properties>
+
+
+
+

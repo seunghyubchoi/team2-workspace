@@ -1,26 +1,17 @@
-<%@page import="com.kh.common.PageInfo"%>
+<%@page import="com.kh.product.model.vo.Category"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
-<%@page import="com.kh.notice.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<% ArrayList<Category>list =(ArrayList<Category>)request.getAttribute("list");
+    %>
+    
 <!DOCTYPE html>
-
-
-<%
-PageInfo pi =(PageInfo)request.getAttribute("pi");
-ArrayList<Notice> list =(ArrayList<Notice>)request.getAttribute("list");
-int currentPage = pi.getCurrentPage();
-int startPage = pi.getStartPage();
-int endPage = pi.getEndPage();
-int maxPage = pi.getMaxPage();
-%>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
 html {
     font-size: 10px;
 }
@@ -73,7 +64,7 @@ a {
     margin-left: 0;
 }
 
-.bt_wrap a.on {
+.on {
     border-radius: 10px;
   background-color: #e0abe8;
 	box-shadow: 0 0 0 1px #eed3f9 inset,
@@ -83,7 +74,7 @@ a {
 		  0 8px 8px 1px rgba(242, 184, 253, 0.5);
 }
 
-.bt_wrap a.off {
+.off {
     border-radius: 10px;
     background-color: #b4a3c8;
 	box-shadow: 0 0 0 1px #a69ea9 inset,
@@ -314,91 +305,49 @@ a {
     border: 0;
     resize: vertical;
 }
-
- #line1{
-	border: #E0BFE6 solid 5px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin-left:20px;
-	margin-right:20px;
-  }
-
 </style>
 </head>
 <body>
 <%@include file="../common/menubar.jsp"%>
-	
-	<div class="wrap">
-            <!--content-->
-            <div id="content" method="post">
+            <div id="content">
              <div id="line1"></div>
-             <div class="board_wrap">
-                <div class="board_title">
-                    <strong>공지사항</strong>
-                    <p>내일 뭐입지 공지사항을 안내해드립니다.</p>
-                </div>
-                <div class="board_list_wrap">
-                    <div class="board_list">
-                        <div class="top">
-                            <div class="num">번호</div>
-                            <div class="title">제목</div>
-                            <div class="date">작성일</div>
-                            <div class="count">조회수</div>
-                        </div>
-                <%if(list.isEmpty()){ %>
-                	<p>존재하는 공지사항이 없습니다.</p>
-                <%}else{ %>
-	                <% for (Notice n: list){ %>
-	                        <div class="llist">
-	                            <div class="num"><%=n.getNoticeNo() %></div>
-	                            <div class="title"><%=n.getNoticeTitle() %></a></div>
-	                            <div class="date"><%=n.getNoticeDate() %></div>
-	                            <div class="count"><%=n.getCount()%></div>
-	                        </div>
-	        		 <%} %>
-                    <%} %>
+             <form id="enroll-form" action="<%=contextPath%>/qinsert.bo" method="post">
+            <div class="board_write_wrap">
+                <div class="board_write">
+                    <div class="title">
+                        <dl>
+                            <dt>문의 제목</dt>
+                            <dd><input type="text" name="title" placeholder="제목 입력"></dd>
+                        </dl>
                     </div>
-             
-                    
-           
-                     <div class="paging-area" align="center" style="width=700px; text-align:center; margin-top:10px; font-size:18px; font-weight: 600px;">
-        	<% if(currentPage != 1) { %>
-            	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= currentPage - 1 %>'">&lt;</button>
-            <% } %>
-            
-            
-            <% for(int p = startPage; p <= endPage; p++) { %>
-            	<% if(p == currentPage) { %>
-            		<button style="background-color: transparent; color: rgb(82, 82, 82); border: 3px solid #d5aede;" disabled><%= p %></button>
-            	<% } else { %>
-            		<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2px solid #696969 ;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= p %>'"><%= p %></button>
-            	<% } %>
-            <% } %>
-            
-            <% if(currentPage != maxPage) { %>
-            	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ; " onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= currentPage + 1 %>'">&gt;</button>
-            <% } %>
-            
-        </div>
+                    <div class="info">
+                        <dl>
+                            <dt>문의종류</dt>
+                            <dd><select name="qna1" id="qna1" style="height:35px; width: 100px;">
+                            <%for(Category c: list){ %>
+                                <option value="option" name="qna"><%=c.getCategoryName()%></option>
+                                <% } %>
+                            </select>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="cont">
+                        <textarea name="content" placeholder="비방성이나 광고성 글, 또는 본 게시판의 성격과 맞지 않은 글은 본인의 동의 없이 관리자가 임의대로 삭제할 수 있습니다.
 
-                   
+답변이 필요한 상품명 및 주문번호를 작성해주시면 더 빠른 답변을 받아보실 수 있습니다.
+                        "
+                        
+                        ></textarea>
+                    </div>
                 </div>
-            </div>  
+                </div>
+                <div class="bt_wrap">
+                    <button type="submit" class="on">등록</button>
+                    <button type="reset" class="off">취소</button>
+                </div>
+                                </form>
             </div>
-            </div>
-            
 
-            
-     </body>
 
-    <script>
-		$(function(){
-			$(".llist").click(function(){
-				const num =$(this).children().eq(0).text();
-				console.log(num);
-				location.href ='<%=contextPath%>/ndetail.no?num='+num;
-			
-			})
-		})
-    </script>
+</body>
 </html>

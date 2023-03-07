@@ -1,20 +1,17 @@
-<%@page import="com.kh.common.PageInfo"%>
+<%@page import="com.kh.Qnaboard.model.vo.Board"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
-<%@page import="com.kh.notice.model.vo.Notice"%>
+<%@page import="com.kh.common.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-
-
 <%
 PageInfo pi =(PageInfo)request.getAttribute("pi");
-ArrayList<Notice> list =(ArrayList<Notice>)request.getAttribute("list");
 int currentPage = pi.getCurrentPage();
 int startPage = pi.getStartPage();
 int endPage = pi.getEndPage();
 int maxPage = pi.getMaxPage();
+ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -314,56 +311,46 @@ a {
     border: 0;
     resize: vertical;
 }
-
- #line1{
-	border: #E0BFE6 solid 5px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin-left:20px;
-	margin-right:20px;
-  }
-
 </style>
 </head>
 <body>
 <%@include file="../common/menubar.jsp"%>
-	
-	<div class="wrap">
-            <!--content-->
-            <div id="content" method="post">
+<div id="content">
              <div id="line1"></div>
-             <div class="board_wrap">
+             <div class="board_wrap" method="post">
                 <div class="board_title">
-                    <strong>공지사항</strong>
-                    <p>내일 뭐입지 공지사항을 안내해드립니다.</p>
+                    <strong>문의하기</strong>
+                    <p>상품/주문/환불/교환/기타 문의해주세요.</p>
                 </div>
                 <div class="board_list_wrap">
                     <div class="board_list">
                         <div class="top">
                             <div class="num">번호</div>
-                            <div class="title">제목</div>
+                            <div class="title">문의제목</div>
+                            <div class="writer">글쓴이</div>
                             <div class="date">작성일</div>
-                            <div class="count">조회수</div>
+                            <div class="count">조회</div>
                         </div>
-                <%if(list.isEmpty()){ %>
-                	<p>존재하는 공지사항이 없습니다.</p>
-                <%}else{ %>
-	                <% for (Notice n: list){ %>
-	                        <div class="llist">
-	                            <div class="num"><%=n.getNoticeNo() %></div>
-	                            <div class="title"><%=n.getNoticeTitle() %></a></div>
-	                            <div class="date"><%=n.getNoticeDate() %></div>
-	                            <div class="count"><%=n.getCount()%></div>
-	                        </div>
-	        		 <%} %>
+                        <% if(list.isEmpty()){ %>
+                        <p>문의내역이 없습니다.</p>
+                        <%}else{ %>
+                        <%for(Board b:list){ %>
+                        <div class="qlist">
+                            <div class="num"><%=b.getQnaNo() %></div>
+                            <div class="title"><%=b.getQnaTitle() %></a></div>
+                            <div class="writer"><%=b.getMemNo() %></div>
+                            <div class="date"><%=b.getQnaDate() %></div>
+                            <div class="count"><%=b.getCount() %></div>
+                        </div>
+                     <%} %>
                     <%} %>
                     </div>
-             
-                    
-           
-                     <div class="paging-area" align="center" style="width=700px; text-align:center; margin-top:10px; font-size:18px; font-weight: 600px;">
+
+                   
+                   
+                   <div class="paging-area" align="center" style="width=700px; text-align:center; margin-top:10px; font-size:18px; font-weight: 600px;">
         	<% if(currentPage != 1) { %>
-            	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= currentPage - 1 %>'">&lt;</button>
+            	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ;" onclick = "location.href = '<%= contextPath %>/qlist.no?cpage=<%= currentPage - 1 %>'">&lt;</button>
             <% } %>
             
             
@@ -371,34 +358,32 @@ a {
             	<% if(p == currentPage) { %>
             		<button style="background-color: transparent; color: rgb(82, 82, 82); border: 3px solid #d5aede;" disabled><%= p %></button>
             	<% } else { %>
-            		<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2px solid #696969 ;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= p %>'"><%= p %></button>
+            		<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2px solid #696969 ;" onclick = "location.href = '<%= contextPath %>/qlist.no?cpage=<%= p %>'"><%= p %></button>
             	<% } %>
             <% } %>
             
             <% if(currentPage != maxPage) { %>
-            	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ; " onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= currentPage + 1 %>'">&gt;</button>
+            	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ; " onclick = "location.href = '<%= contextPath %>/qlist.no?cpage=<%= currentPage + 1 %>'">&gt;</button>
             <% } %>
             
         </div>
-
-                   
+        <br>
+                    <div class="bt_wrap">
+                        <a href="<%= contextPath %>/qenrollForm.bo" class="on">문의하기</a>
+                    </div>
+                    <br><br>
                 </div>
             </div>  
             </div>
-            </div>
             
+            <script>
+        	$(function(){
+        		$(".qlist").click(function(){
+        			location.href='<%= contextPath %>/qdetail.no?bno=' + $(this).children().eq(0).text();
+        		})
+        	})
+        </script>
 
-            
-     </body>
 
-    <script>
-		$(function(){
-			$(".llist").click(function(){
-				const num =$(this).children().eq(0).text();
-				console.log(num);
-				location.href ='<%=contextPath%>/ndetail.no?num='+num;
-			
-			})
-		})
-    </script>
+</body>
 </html>
