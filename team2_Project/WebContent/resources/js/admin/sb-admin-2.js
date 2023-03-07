@@ -206,3 +206,7 @@ function changeLocYnBox(){
     $("#locYn").val("Y");
   }
 }
+
+function deleteLocation(num){
+  $("#deleteNo").val($("input[name=locNo" + num + "]").val());
+}

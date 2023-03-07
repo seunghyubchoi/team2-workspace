@@ -1,6 +1,7 @@
 package com.kh.payment.model.service;
 
 import com.kh.payment.model.dao.AdminPaymentDao;
+import com.kh.payment.model.dao.PaymentDao;
 import com.kh.payment.model.vo.Location;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -48,6 +49,23 @@ public class AdminPaymentService {
 		
 		if(result > 0) {
 			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int deleteLocation(int locNo) {
+		Connection conn = getConnection();	
+		
+		int result = new AdminPaymentDao().deleteLocation(conn, locNo);
+		
+		if(result > 0) {
+			commit(conn);
+			
 		}else {
 			rollback(conn);
 		}
