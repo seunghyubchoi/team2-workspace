@@ -119,6 +119,7 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="col">
+                                            
                                                 <table border="1">
                                                     <tr>
                                                         <td colspan="2">
@@ -196,11 +197,12 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2" style="text-align: center;">
-                                                            <button>취소</button>
-                                                            <button>확인</button>
+                                                            <!-- <button>취소</button>
+                                                            <button>확인</button> -->
                                                         </td>
                                                     </tr>
                                                 </table>
+                                            
                                             </div>
                                             <div class="col">
                                                 <div class="row back" style="height: 85%;">

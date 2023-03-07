@@ -100,8 +100,8 @@ public class CommunityDao {
 			while (rset.next()) {
 				list.add(new AnswerInstagram(rset.getInt("ans_no"),
 										     rset.getString("ans_content"),
-										     rset.getString("mem_id"),
-										     rset.getString("ans_date")
+										     rset.getString("ans_date"),
+										     rset.getString("mem_id")
 										     ));
 			}
 		} catch (SQLException e) {

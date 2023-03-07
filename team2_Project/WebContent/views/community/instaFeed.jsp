@@ -104,7 +104,19 @@ div {
 					alt="..." class="img-fluid" style="width: 500px; height: 600px;">
 			</div>
 			<div class="col">
-				<div class="row" style="height: 60%;"></div>
+				<div class="row justify-content-end" style="height: 60%;">
+					
+					<a href="<%= contextPath %>/list.co"
+						class="btn btn-sm" style="background-color: #e2bbe7">목록가기</a>
+		
+					<!-- 로그인한 사용자가 게시글 작성자일 경우만 보이게 -->
+					<% if (loginUser != null && String.valueOf(loginUser.getMemNo()).equals(insta.getMemNo())) { %>
+					<a href="<%= contextPath %>/update.co?cno=<%= insta.getComNo() %>"
+						class="btn btn-sm btn-warning">수정하기</a> 
+						<a href="#" class="btn btn-sm btn-danger">삭제하기</a>
+					<% } %>
+		
+				</div>
 				<div class="row" style="height: 40%;">
 					<table border="0">
 						<tr>
@@ -142,7 +154,7 @@ div {
 				</div>
 			</div>
 			
-			<div id="answer-area" class="col-8" style="height: 500px; padding: 40px;">
+			<div id="answer-area" class="col-8" style="height: 100px; padding: 40px;">
 				<table>
 					<thead>
 						<tr>
@@ -169,7 +181,7 @@ div {
 					<tbody></tbody>
 				</table>
 				
-				<%-- <script>
+				 <script>
 					$(function() {
 						selectAnswerList();
 						
@@ -201,6 +213,7 @@ div {
 							url : "answerList.co",
 							data : {cno : <%= insta.getComNo() %>},
 							success : function(list) {
+								console.log(list);
 								let value = "";
 								for (let i = 0; i < list.length; i++) {
 									value += "<tr>"
@@ -216,9 +229,10 @@ div {
 							}
 						})
 					}
-				</script> --%>
+				</script>
 			</div>
-			<div class="col-4"></div>
+			<div class="col-4">
+			</div>
 		</div>
 	</div>
 
