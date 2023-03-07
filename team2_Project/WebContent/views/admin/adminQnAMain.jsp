@@ -74,7 +74,7 @@ pageEncoding="UTF-8"%>
                             <tbody>
                                 <% for(Inquire i : list){ %>
                                 <tr>
-                                	<td><input type="checkbox" name="deleteCheck" class="inquireCheckbox" value="<%= i.getQnaNo() %>"></td>
+                                	<td><input type="checkbox" name="deleteCheck" value="<%= i.getQnaNo() %>"></td>
                                     <td><%= i.getQnaNo() %></td>
                                     <td><%= i.getHeaderNo() %></td>
                                     <td><a href="<%= contextPath%>/detailForm.qa?ino=<%= i.getQnaNo() %>"><%= i.getQnaTitle() %></a></td>
