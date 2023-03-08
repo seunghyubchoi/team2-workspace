@@ -3,27 +3,27 @@ package com.kh.myPage.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.myPage.model.service.MyPageService;
-import com.kh.myPage.model.vo.Follow;
+import com.kh.payment.model.vo.OrderDtlA;
 
 /**
- * Servlet implementation class AjaxFollowerList
+ * Servlet implementation class OrderHistoryDetailController
  */
-@WebServlet("/followerList.mp")
-public class AjaxFollowerList extends HttpServlet {
+@WebServlet("/orderHistoryDetail.mp")
+public class OrderHistoryDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxFollowerList() {
+    public OrderHistoryDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,12 +33,16 @@ public class AjaxFollowerList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
-		ArrayList<Follow> followList = new MyPageService().selectFollowerList(memNo);
-		for(Follow f : followList) {
-			System.out.println(f);
-		}
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(followList,response.getWriter());
+		int orderNo = Integer.parseInt(request.getParameter("orderNo"));
+		ArrayList<OrderDtlA> orderHistoryDetail = new MyPageService().selectOrderHistoryDetail(orderNo);
+		
+		
+		request.setAttribute("memNo", memNo);
+		request.setAttribute("orderNo", orderNo);
+		request.setAttribute("orderHistoryDetail", orderHistoryDetail);
+		RequestDispatcher view = request.getRequestDispatcher("views/myPage/orderHistoryDetail.jsp");
+		view.forward(request, response);
+
 	}
 
 	/**

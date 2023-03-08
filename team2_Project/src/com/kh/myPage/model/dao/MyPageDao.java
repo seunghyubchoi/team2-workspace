@@ -11,11 +11,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.common.PageInfo;
 import com.kh.community.model.vo.Instagram;
 import com.kh.community.model.vo.Like;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.myPage.model.vo.Follow;
 import com.kh.myPage.model.vo.MileageHistory;
+import com.kh.payment.model.vo.OrderDtlA;
 
 public class MyPageDao {
 
@@ -31,7 +33,60 @@ public class MyPageDao {
 		}
 	}
 
-	public ArrayList<Follow> selectFollowerList(Connection conn, int memNo) {
+	public int selectFollowerCount(Connection conn, int memNo) {
+		// select문 => ResultSet 객체 (한개) => int형 변수
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectFollowerCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}
+
+	public int selectFollowingCount(Connection conn, int memNo) {
+		// select문 => ResultSet 객체 (한개) => int형 변수
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectFollowingCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}
+
+	public ArrayList<Follow> selectFollowerList(Connection conn, PageInfo pi, int memNo) {
+
 		ArrayList<Follow> list = new ArrayList<Follow>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -40,7 +95,13 @@ public class MyPageDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+
 			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 
 			rset = pstmt.executeQuery();
 
@@ -57,7 +118,9 @@ public class MyPageDao {
 
 	}
 
-	public ArrayList<Follow> selectFollowingList(Connection conn, int memNo) {
+	public ArrayList<Follow> selectFollowingList(Connection conn, PageInfo pi, int memNo) {
+		// System.out.println("selectFollowingList dao 탐");
+
 		ArrayList<Follow> list = new ArrayList<Follow>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -66,7 +129,12 @@ public class MyPageDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+
 			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 
 			rset = pstmt.executeQuery();
 
@@ -80,22 +148,23 @@ public class MyPageDao {
 			close(rset);
 			close(pstmt);
 		}
+
+
 		return list;
 
-		
 	}
 
 	public int deleteFollower(Connection conn, int memNo, String followerId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		
+
 		String sql = prop.getProperty("deleteFollower");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNo);
 			pstmt.setString(2, followerId);
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -103,7 +172,7 @@ public class MyPageDao {
 		} finally {
 			close(pstmt);
 		}
-		
+
 		return result;
 	}
 
@@ -111,12 +180,12 @@ public class MyPageDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteFollowing");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNo);
 			pstmt.setString(2, followingId);
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -125,7 +194,6 @@ public class MyPageDao {
 			close(pstmt);
 
 		}
-		
 
 		return result;
 	}
@@ -134,12 +202,12 @@ public class MyPageDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("cancelDeleteFollowing");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNo);
 			pstmt.setString(2, followingId);
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -149,27 +217,21 @@ public class MyPageDao {
 		}
 		return result;
 	}
-
-	public ArrayList<MileageHistory> selectMileageHistory(Connection conn, int memNo) {
-		ArrayList<MileageHistory> list = new ArrayList<MileageHistory>();
+	
+	public int selectMileageCount(Connection conn, int memNo) {
+		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
- 
-		String sql = prop.getProperty("selectMileageHistory");
-		
+
+		String sql = prop.getProperty("selectMileageCount");
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNo);
-			
 			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new MileageHistory(rset.getInt("mileage_no")
-						,rset.getString("mileage_history")
-						,rset.getInt("mileage")
-						,rset.getString("product_name")
-						,rset.getInt("mem_no")
-						));
+
+			if (rset.next()) {
+				listCount = rset.getInt("count");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -177,11 +239,70 @@ public class MyPageDao {
 			close(rset);
 			close(pstmt);
 		}
-		
-		return list;
+
+		return listCount;
 	}
 
-	public ArrayList<Instagram> selectLikeList(Connection conn, int memNo) {
+	public ArrayList<MileageHistory> selectMileageHistory(Connection conn, PageInfo pi, int memNo) {
+		ArrayList<MileageHistory> list = new ArrayList<MileageHistory>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectMileageHistory");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new MileageHistory(rset.getInt("mileage_no"), rset.getString("mileage_history"),
+						rset.getInt("mileage"), rset.getString("product_name"), rset.getInt("mem_no")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+	
+
+	public int selectLikeCount(Connection conn, int memNo) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectLikeCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}
+	
+
+	public ArrayList<Instagram> selectLikeList(Connection conn, PageInfo pi, int memNo) {
 		ArrayList<Instagram> list = new ArrayList<Instagram>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -190,14 +311,17 @@ public class MyPageDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, memNo);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
 
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				list.add(new Instagram(rset.getInt("com_no")
-									 , rset.getString("insta_id")
-									 , rset.getString("insta_img_src")));
+				list.add(new Instagram(rset.getInt("com_no"), rset.getString("insta_id"),
+						rset.getString("insta_img_src")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -213,12 +337,12 @@ public class MyPageDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteLike");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNo);
 			pstmt.setInt(2, comNo);
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -227,9 +351,205 @@ public class MyPageDao {
 			close(pstmt);
 
 		}
-		
 
 		return result;
 	}
+
+	public int insertLike(Connection conn, int memNo, int comNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertLike");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, comNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public int selectOrderHistoryCount(Connection conn, int memNo) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectOrderHistoryCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}
+
+	public ArrayList<OrderDtlA> selectOrderHistoryList(Connection conn, PageInfo pi, int memNo) {
+		ArrayList<OrderDtlA> list = new ArrayList<OrderDtlA>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectOrderHistoryList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new OrderDtlA(rset.getString("file_path"), rset.getInt("order_no"), rset.getInt("dtl_order_no"), rset.getString("product_name"),
+						rset.getString("dtl_size"), rset.getInt("dtl_qnt"), rset.getString("order_status")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int cancelOrder(Connection conn, int orderNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("cancelOrder");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, orderNo);
+		
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int selectOrderHistoryCancelCount(Connection conn, int memNo) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectOrderHistoryCancelCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}
+
+	public ArrayList<OrderDtlA> selectOrderHistoryCancelList(Connection conn, PageInfo pi, int memNo) {
+		ArrayList<OrderDtlA> list = new ArrayList<OrderDtlA>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectOrderHistoryCancelList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new OrderDtlA(rset.getString("file_path"), rset.getInt("order_no"), rset.getInt("dtl_order_no"), rset.getString("product_name"),
+						rset.getString("dtl_size"), rset.getInt("dtl_qnt"), rset.getString("order_status")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<OrderDtlA> selectOrderHistoryDetail(Connection conn, int orderNo) {
+		ArrayList<OrderDtlA> list = new ArrayList<OrderDtlA>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectOrderHistoryDetail");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+
+			pstmt.setInt(1, orderNo);
+			
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new OrderDtlA(rset.getString("file_path")
+						, rset.getInt("order_no")
+						, rset.getInt("dtl_order_no")
+						, rset.getDate("order_date")
+						, rset.getString("rcp_name")
+						, rset.getString("rcp_phone")
+						, rset.getString("rcp_address")
+						, rset.getString("rcp_address_dtl")
+						, rset.getString("rcp_post_code")
+						, rset.getString("product_name")
+						, rset.getString("dtl_size")
+						, rset.getInt("dtl_qnt")
+						, rset.getString("order_status")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	
 
 }

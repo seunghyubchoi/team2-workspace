@@ -16,16 +16,16 @@ import com.kh.myPage.model.service.MyPageService;
 import com.kh.myPage.model.vo.Follow;
 
 /**
- * Servlet implementation class FollowPageController
+ * Servlet implementation class FollowingListController
  */
-@WebServlet("/follow.mp")
-public class FollowPageController extends HttpServlet {
+@WebServlet("/followingList.mp")
+public class FollowingListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FollowPageController() {
+    public FollowingListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,6 +36,7 @@ public class FollowPageController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
+		
 		int listCount;			
 		int currentPage;		
 		int pageLimit;			
@@ -43,12 +44,12 @@ public class FollowPageController extends HttpServlet {
 		
 		int maxPage;			
 		int startPage;			
-		int endPage;			
+		int endPage;		
 		
-		
-		listCount = new MyPageService().selectFollowerCount(memNo);
+		listCount = new MyPageService().selectFollowingCount(memNo);
 		
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
+	
 		pageLimit = 10;
 		boardLimit = 10;
 		
@@ -61,14 +62,18 @@ public class FollowPageController extends HttpServlet {
 		}
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Follow> followList = new MyPageService().selectFollowerList(pi, memNo);
 
+		ArrayList<Follow> follwingList = new MyPageService().selectFollowingList(pi, memNo);
 		request.setAttribute("memNo", memNo);
 		request.setAttribute("pi", pi);
-		request.setAttribute("followList", followList);
+		request.setAttribute("follwingList", follwingList);
 		
-		RequestDispatcher view = request.getRequestDispatcher("views/myPage/follow.jsp");
+		
+		
+		RequestDispatcher view = request.getRequestDispatcher("views/myPage/following.jsp");
 		view.forward(request, response);
+		
+		
 	}
 
 	/**
