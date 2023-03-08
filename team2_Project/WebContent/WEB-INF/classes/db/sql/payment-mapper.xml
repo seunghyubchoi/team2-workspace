@@ -369,6 +369,8 @@ SELECT
        TB_DTL_ORDER
  WHERE
        ORDER_NO = ?
+   AND 
+       DEL_YN = 'N'
 </entry>
 
 <!-- 주문상품 조회 (관리자) -->
@@ -391,6 +393,16 @@ SELECT
 	   SET 
 	       DTL_QNT = ?
 	     , DTL_SIZE = ?
+	 WHERE 
+	       DTL_ORDER_NO = ?
+</entry>
+
+<!-- 주문상세 삭제 (관리자) -->
+<entry key="deleteOrderDtl">
+	UPDATE 
+	       TB_DTL_ORDER
+	   SET 
+	       DEL_YN = 'Y'
 	 WHERE 
 	       DTL_ORDER_NO = ?
 </entry>

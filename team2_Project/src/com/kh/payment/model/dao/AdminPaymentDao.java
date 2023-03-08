@@ -303,4 +303,25 @@ public class AdminPaymentDao {
 		return result;
 	}
 
+	public int deleteOrderDtl(Connection conn, int orderDtlNo) {
+		int result = 0; 
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteOrderDtl");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, orderDtlNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

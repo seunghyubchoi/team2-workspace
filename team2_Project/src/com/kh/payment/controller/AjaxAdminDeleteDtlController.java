@@ -9,19 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.payment.model.service.AdminPaymentService;
-import com.kh.payment.model.vo.OrderDtl;
 
 /**
- * Servlet implementation class AdminUpdateOrderDtlController
+ * Servlet implementation class AjaxAdminDeleteDtlController
  */
-@WebServlet("/updateOrderDtl.od")
-public class AdminUpdateOrderDtlController extends HttpServlet {
+@WebServlet("/deleteOrderDtl.od")
+public class AjaxAdminDeleteDtlController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminUpdateOrderDtlController() {
+    public AjaxAdminDeleteDtlController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,13 +29,9 @@ public class AdminUpdateOrderDtlController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int dtlQnt = Integer.parseInt(request.getParameter("dtlQnt"));
-		String dtlSize = request.getParameter("dtlSize");
 		int orderDtlNo = Integer.parseInt(request.getParameter("orderDtlNo"));
 		
-		OrderDtl od = new OrderDtl(orderDtlNo, dtlSize, dtlQnt);
-		
-		int result = new AdminPaymentService().updateOrderDtl(od);
+		int result = new AdminPaymentService().deleteOrderDtl(orderDtlNo);
 		
 		response.setContentType("application/json; charset-utf-8");
 		new Gson().toJson(result, response.getWriter());

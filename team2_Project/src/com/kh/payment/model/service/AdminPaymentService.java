@@ -141,4 +141,21 @@ public class AdminPaymentService {
 		return result;
 	}
 
+	public int deleteOrderDtl(int orderDtlNo) {
+		Connection conn = getConnection();	
+		
+		int result = new AdminPaymentDao().deleteOrderDtl(conn, orderDtlNo);
+		
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 }

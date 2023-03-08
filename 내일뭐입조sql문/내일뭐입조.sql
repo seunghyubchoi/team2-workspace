@@ -8,6 +8,7 @@ DROP TABLE TB_LIKE;
 DROP TABLE TB_ANSWER_INSTAGRAM;
 DROP TABLE TB_SPEECHBUBBLE;
 DROP TABLE TB_CART;
+DROP TABLE TB_INQUIRE_ATTACHMENT;
 DROP TABLE TB_INQUIRE;
 DROP TABLE TB_HEADER;
 DROP TABLE TB_REVIEW_IMAGE;
@@ -19,10 +20,10 @@ DROP TABLE TB_PRODUCT;
 DROP TABLE TB_BRAND;
 DROP TABLE TB_NOTICE_ATTACHMENT; -- 추가 드랍테이블
 DROP TABLE TB_NOTICE;
-DROP TABLE TB_MANAGER;
 DROP TABLE TB_CATEGORY;
 DROP TABLE TB_INSTA_IMAGE;
 DROP TABLE TB_INSTAGRAM;
+DROP TABLE TB_MANAGER;
 DROP TABLE TB_MEMBER;
 -- SEQUENCE DROP
 DROP SEQUENCE SEQ_DTL_ORDER;
@@ -733,15 +734,15 @@ INSERT INTO TB_MANAGER VALUES(SEQ_MANAGER.NEXTVAL, 'admin05', 'pwd05', '관리�
 
 
 INSERT INTO TB_NOTICE
-VALUES(SEQ_NOTICE.NEXTVAL, '설 연휴 배송 안내!', '설 연휴 관련 배송안내입니다.', SYSDATE, 3,DEFAULT);
+VALUES(SEQ_NOTICE.NEXTVAL, '설 연휴 배송 안내!', '설 연휴 관련 배송안내입니다.', SYSDATE, 3,DEFAULT, DEFAULT);
 INSERT INTO TB_NOTICE
-VALUES(SEQ_NOTICE.NEXTVAL, '크크루삥뽕마스 이벤트', '산타가 쳐들어온다.', '2022-12-15', 4,DEFAULT);
+VALUES(SEQ_NOTICE.NEXTVAL, '크크루삥뽕마스 이벤트', '산타가 쳐들어온다.', '2022-12-15', 4,DEFAULT, DEFAULT);
 INSERT INTO TB_NOTICE
-VALUES(SEQ_NOTICE.NEXTVAL, '스포츠웨어의 정석! <나이키> 입점 안내	', 'JUST DO IT, NIKE.','2022-11-01', 1,DEFAULT);
+VALUES(SEQ_NOTICE.NEXTVAL, '스포츠웨어의 정석! <나이키> 입점 안내	', 'JUST DO IT, NIKE.','2022-11-01', 1,DEFAULT, DEFAULT);
 INSERT INTO TB_NOTICE
-VALUES(SEQ_NOTICE.NEXTVAL, '추석 연휴 배송 안내', '송편도 꼭꼭 공지사항도 꼭꼭.','2022-09-20', 2,DEFAULT);
+VALUES(SEQ_NOTICE.NEXTVAL, '추석 연휴 배송 안내', '송편도 꼭꼭 공지사항도 꼭꼭.','2022-09-20', 2,DEFAULT, DEFAULT);
 INSERT INTO TB_NOTICE
-VALUES(SEQ_NOTICE.NEXTVAL, '오잉? 여름이다! 여름 휴가 맞이 이벤트', '내일뭐입지 팀이 휴가를 갑니다', '2022-08-18', 5,DEFAULT);
+VALUES(SEQ_NOTICE.NEXTVAL, '오잉? 여름이다! 여름 휴가 맞이 이벤트', '내일뭐입지 팀이 휴가를 갑니다', '2022-08-18', 5,DEFAULT, DEFAULT);
 
 INSERT INTO TB_FOLLOW
 VALUES(SEQ_FOLLOW.NEXTVAL, 1,2,DEFAULT);
@@ -885,10 +886,10 @@ INSERT INTO TB_MILEAGE_HISTORY VALUES(SEQ_MILEAGE_HISTORY.NEXTVAL,'적립',200,5
 
 
 
-insert into tb_dtl_order values (seq_dtl_order.nextval, 1, 1, 'S', 1, DEFAULT);
-insert into tb_dtl_order values (seq_dtl_order.nextval, 2, 1, 'M', 2, DEFAULT);
-insert into tb_dtl_order values (seq_dtl_order.nextval, 2, 1, 'L', 2, DEFAULT);
-insert into tb_dtl_order values (seq_dtl_order.nextval, 3, 1, 'S', 1, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 7, 'S', 1, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 7, 'M', 2, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 7, 'FREE', 2, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 7, 'S', 1, DEFAULT);
 
 --insert into tb_dtl_order values (seq_dtl_order.nextval, 3, 1, 'L', 1);
 --insert into tb_dtl_order values (seq_dtl_order.nextval, 3, 1, 'S', 1);

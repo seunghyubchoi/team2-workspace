@@ -23,6 +23,9 @@ pageEncoding="UTF-8"%>
 
     <title>주문수정</title>
 
+    <!-- 다음 우편번호 API를 사용하기 위한 script -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 </head>
 
 <body id="page-top">
@@ -111,10 +114,10 @@ pageEncoding="UTF-8"%>
                         <hr class="hr-3">
 
                         <div id="orderLocationInfo" class="display-flex">
-                            <div>
+                            <div style="width: 15%;">
                                 <h6 style="color: #635566;"><b>배송정보</b></h6>
                             </div>
-                            <div>
+                            <div style="width: 70%;">
                                 <table class="table table-primary table-bordered">
                                     <tr>
                                         <td><input type="text" class=".input" name="locationAddressName" value="<%= o.getRcpAddressName()%>"></td>
@@ -126,14 +129,14 @@ pageEncoding="UTF-8"%>
                                         <td><input type="text" class=".input" name="locationPhone" value="<%= o.getRcpPhone()%>"></td>
                                     </tr>
                                     <tr>
-                                        <td><%= o.getRcpAddress() %></td>
-                                        <td><button class="btn btn-secondary btn-sm">주소변경</button></td>
+                                        <td><input type="text" id="sample6_address" name="rcpAddress" value="<%= o.getRcpAddress() %>" readonly></td>
+                                        <td><button class="btn btn-secondary btn-sm" onclick="sample6_execDaumPostcode();">주소변경</button></td>
                                     </tr>
                                     <tr>
-                                        <td><%= o.getRcpAddressDtl() %></td>
+                                        <td><input type="text" id="sample6_detailAddress" name="rcpAddressDtl" value="<%= o.getRcpAddressDtl() %>"></td>
                                     </tr>
                                     <tr>
-                                        <td><%= o.getRcpPostCode() %></td>
+                                        <td><input type="text" id="sample6_postcode" name="rcpPostCode" value="<%= o.getRcpPostCode() %>" readonly></td>
                                     </tr>
                                     <tr>
                                         <td><input type="text" class=".input"  name="locationMsg" value="<%= o.getRcpMsg() %>"></td>
@@ -151,32 +154,28 @@ pageEncoding="UTF-8"%>
                             <div style="width: 85%;">
                                 <table class="table table-primary table-bordered">
                                     <tr>
-                                        <td>결제완료</td>
-                                        <td class="text-right">네이버페이 간편결제</td>
-                                    </tr>
-                                    <tr>
                                         <td>주문상품 수</td>
-                                        <td class="text-right">1</td>
+                                        <td class="text-right" id="allStock"></td>
                                     </tr>
                                     <tr>
                                         <td>주문금액</td>
-                                        <td class="text-right">198,000 원</td>
+                                        <td class="text-right" id="originPrice"></td>
                                     </tr>
                                     <tr>
                                         <td>할인금액</td>
-                                        <td class="text-right" style="color: red;">-0원</td>
+                                        <td class="text-right" id="discountPrice" style="color: red;"></td>
                                     </tr>
                                     <tr>
                                         <td>적립금할인</td>
-                                        <td class="text-right">-0 원</td>
+                                        <td class="text-right">- <%= o.getUseMileage() %> 원</td>
                                     </tr>
                                     <tr>
                                         <td>적립포인트</td>
-                                        <td class="text-right">+000 원</td>
+                                        <td class="text-right">+ <%= o.getSaveMileage() %> 원</td>
                                     </tr>
                                     <tr>
                                         <td>최종결제금액</td>
-                                        <td class="text-right">198,000 원</td>
+                                        <td class="text-right" id="totalPrice"></td>
                                     </tr>
                                 </table>
                             </div>
@@ -237,7 +236,6 @@ pageEncoding="UTF-8"%>
                               +             '<td>수량</td>'
                               +             '<td><input type="number" name="dtlQnt' + i + '" value="' + odList[i].dtlQnt + '"></td>'
                               +             '<td><button type="button" class="btn btn-primary" onclick="updateOrderDtl(' + i + ');">수정하기</button></td>'
-                              +             '<input type="hidden" name="orderDtlNo' + i + '" value="' + odList[i].orderDtlNo + '">'
                               +         '</tr>'
                               +         '<tr>'
                               +             '<td>상품명</td>'
@@ -250,6 +248,8 @@ pageEncoding="UTF-8"%>
                               +             '</td>'
                               +             '<td><button class="btn btn-warning" onclick="deleteOrderDtl(' + i + ');">부분환불</button></td>'
                               +             '<input type="hidden" name="orderDtlNo' + i + '" value="' + odList[i].orderDtlNo + '">'
+                              +             '<input type="hidden" id="originPrice' + i + '"value="' + (Number(product.productPrice) * Number(odList[i].dtlQnt)) + '">'
+                              +             '<input type="hidden" id="discountPrice' + i + '"value="' + (Number(product.productPrice) * Number(product.productDiscount) / 100) + '">'
                               +         '</tr>'
                               +     '</table>';
                     }
@@ -264,6 +264,8 @@ pageEncoding="UTF-8"%>
                             }
                         });
                     }
+                    
+                    calPrice(odList.length);
                                 
 	        	},
 	        	error:function(){
@@ -356,6 +358,25 @@ pageEncoding="UTF-8"%>
                     console.log("ajax통신실패5,,,");
                 }
             });
+        }
+        
+        function calPrice(count){
+        	let allStock = 0;
+        	let originPrice = 0;
+        	let discountPrice = 0;
+            let useMileage = Number(<%= o.getUseMileage() %>);
+            
+        	for(let i = 0; i < count; i++){
+                allStock += Number($("input[name=dtlQnt" + i +"]").val());
+        		originPrice += Number($("#originPrice" + i).val());
+        		discountPrice += Number($("#discountPrice" + i).val());
+        	}
+        	
+        	$("#allStock").text(allStock + " 개");
+        	$("#originPrice").text(originPrice + " 원");
+        	$("#discountPrice").text("-" + discountPrice + " 원");
+        	$("#totalPrice").text((originPrice - discountPrice - useMileage) + "원");
+        	
         }
     </script>
 
