@@ -8,7 +8,7 @@
 	     , QNA_DATE
 	     , QNA_VIEW_COUNT
 	     , ANS_YN
-	     , HERADER_CONTENT
+	     , HEADER_CONTENT
 	     , MEM_NAME
 	  FROM TB_INQUIRE I
 	  JOIN TB_MEMBER USING (MEM_NO)
@@ -25,7 +25,7 @@
 	     , ANS_CONTENT
 	     , ANS_DATE
 	     , ANS_YN
-	     , HERADER_CONTENT
+	     , HEADER_CONTENT
 	     , MANAGER_NO
 	     , MEM_ID
 	  FROM TB_INQUIRE I
