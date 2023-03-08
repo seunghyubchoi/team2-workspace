@@ -8,7 +8,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
 
+#content_table>th{
+	width: 20%;
+}
+
+
+
+#phoneTd{
+	display: flex;
+}
+
+#phoneTd input{
+	width: 80px;
+}
+</style>
 
 
 </head>
@@ -29,13 +44,13 @@
 	String locPostCode = location.getLocPostCode();
 	String locYn = location.getLocYn();
 	%>
-	<%=locYn %>
+	
 	<div id="content_title">
 		<p>배송지 수정</p>
 	</div>
 	<div id="content">
 		<form action="<%=contextPath%>/update.lo" method="post"
-			id="updateLocationForm" onsubmit="return validateDefault();">
+			id="updateLocationForm"  onsubmit="return validateDefault();">
 			<input type="hidden" name="locNo" value="<%=locNo%>"> <input
 				type="hidden" name="locYn" value="<%=locYn%>"> <input
 				type="hidden" name="memNo" value="<%=memNo%>">
@@ -55,17 +70,70 @@
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td><input type="text" class="form-control mb-2 mr-sm-2"
-						value="<%=locPhone%>" name="locPhone" required></td>
+					<td id="phoneTd">
+					<input type="hidden" name="locPhone" value="">
+					<input type="text" class="form-control mb-2 mr-sm-2" 
+					value="<%= locPhone.substring(0,3) %>" id="phone1" maxlength="3"
+					pattern="^[0-9]{3}" onkeyup="next(this.value, 3, 'phone2')" 
+					onkeydown="checkNum(event, this.value)" required>
+					
+					<input type="text" class="form-control mb-2 mr-sm-2" 
+					value="<%= locPhone.substring(3,7) %>" id="phone2" maxlength="4"
+					pattern="[0-9]{4}" onkeyup="next(this.value, 4, 'phone3')" 
+					onkeydown="checkNum(event, this.value)" required>
+					
+					<input type="text" class="form-control mb-2 mr-sm-2" 
+					value="<%= locPhone.substring(7,11) %>" id="phone3" maxlength="4"
+					pattern="[0-9]{4}" onkeydown="checkNum(event, this.value)" required>
+
+					<script>
+						function next(val, len, nextId){
+							if(val.length == len) {
+								document.getElementById(nextId).focus();
+							}
+						}
+
+						function checkNum(event) {
+							let key = event.key;
+							console.log(key);
+							if((key >= 0 && key < 10) || key =='Backspace') {
+								return true;
+							} else {
+								event.preventDefault();
+							}
+						}
+
+						function validateDefault() {
+							if($("input[name='locYn']").val() == "Y") {
+							if(!$('input[name="locYnCheck"]').is(":checked")){
+								alert("계정 당 최소 하나의 기본배송지가 있어야 합니다.")
+								$('input[name="locYnCheck"]').prop("checked",true)
+								return false;
+							} else {
+								assemblePhone();
+							}
+							return true;
+							} else {
+								assemblePhone();
+							}
+						}
+
+						function assemblePhone() {
+							let phone = document.getElementById("phone1").value;
+							phone += document.getElementById("phone2").value;
+							phone += document.getElementById("phone3").value;
+
+							$('input[name="locPhone"]').val(phone);
+						}
+
+						
+					</script>
+				</td>
+
+
 				</tr>
 
-				<tr>
-					
-				</tr>
-				<tr>
-					<th></th>
-					
-				</tr>
+				
 				<tr>
 				<th>우편번호</th>
 					<td><input type="text" class="form-control" placeholder="우편번호"
@@ -75,19 +143,19 @@
 				
 				
 				<tr>
-				<th>주소</th>
+				<th>도로명 주소</th>
 					<td><input type="text" class="form-control mb-2 mr-sm-2"
-						id="sample6_address" value="<%=locAddress%>" name="locAddress" placeholder="주소"
+						id="sample6_address" value="<%=locAddress%>" name="locAddress" placeholder="도로명 주소"
 						required readonly></td>
 				</tr>
 				<tr>
-				<th>주소</th>
+				<th>지번 주소</th>
 					<td><input type="text" class="form-control mb-2 mr-sm-2"
-						id="sample6_extraAddress" placeholder="주소2" required readonly></td>
+						id="sample6_extraAddress" placeholder="지번 주소" required readonly></td>
 				</tr>
 
 				<tr>
-				<th>주소</th>
+				<th>상세 주소</th>
 					<td><input type="text" class="form-control mb-2 mr-sm-2"
 						id="sample6_detailAddress" value="<%=locAddressDtl%>" name="locAddressDtl"
 						placeholder="상세주소를 입력해주세요" required></td>
@@ -226,29 +294,8 @@
 			
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			let listSize = <%=list.size()%>
-			function validateDefault() {
-				if($("input[name='locYn']").val() == "Y") {
-					if(!$('input[name="locYnCheck"]').is(":checked")){
-						alert("계정 당 최소 하나의 기본배송지가 있어야 합니다.")
-						$('input[name="locYnCheck"]').prop("checked",true)
-						return false;
-					}
-					
-				} 
-			}
+
 			$(function () {
 				
 				

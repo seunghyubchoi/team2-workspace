@@ -11,6 +11,17 @@
 <title>Insert title here</title>
 
 <style>
+#content_table th {
+	width: 20%;
+}
+
+
+#content_table input,  #content_table select{
+	width: 47%;
+}
+#adCheck>input{
+	width: 10%;
+}
 #deleteUserBtn a {
 	text-decoration: none;
 }
@@ -26,6 +37,28 @@
 #locationLists div {
 	border: 1px solid black;
 	width: 100%;
+}
+
+#phoneTd, #emailTd{
+	display: flex;
+	
+}
+#emailTd{
+	justify-content: space-between;
+}
+#phoneTd input{
+	width: 80px;
+}
+#emailTd input{
+	width: 40%;
+}
+.rightBtn{
+	float: right;
+	width: 165px;
+}
+#deleteBtn{
+	float: right;
+	width: 90px;
 }
 </style>
 
@@ -79,15 +112,15 @@
 		<p>회원정보 관리</p>
 	</div>
 	<div id="content">
-	<form action="<%=contextPath%>/update.me" method="post">
+	<form action="<%=contextPath%>/update.me" method="post" onsubmit="assemblePhone();">
 			<table id="content_table">
 				<tr>
 					<th>ID</th>
 					<td><input type="text" class="form-control mb-2 mr-sm-2"
 						name="memId" value="<%=memId%>" readonly></td>
 					<td>
-						<button type="button" class="btn btn-primary mb-2"
-							data-toggle="modal" data-target="#updatePwdModal" style="float:right">비밀번호 변경</button>
+						<button type="button" class="btn btn-primary mb-2 rightBtn"
+							data-toggle="modal" data-target="#updatePwdModal">비밀번호 변경</button>
 					</td>
 				</tr>
 				<tr>
@@ -117,8 +150,51 @@
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td><input type="text" class="form-control mb-2 mr-sm-2"
-						value="<%=phone%>" name="phone"></td>
+					<td id="phoneTd">
+						<input type="hidden" name="phone" value="">
+						<input type="text" class="form-control mb-2 mr-sm-2" 
+						value="<%= phone.substring(0,3) %>" id="phone1" maxlength="3"
+						pattern="^[0-9]{3}" onkeyup="next(this.value, 3, 'phone2')" 
+						onkeydown="checkNum(event, this.value)" required>
+						
+						<input type="text" class="form-control mb-2 mr-sm-2" 
+						value="<%= phone.substring(3,7) %>" id="phone2" maxlength="4"
+						pattern="[0-9]{4}" onkeyup="next(this.value, 4, 'phone3')" 
+						onkeydown="checkNum(event, this.value)" required>
+						
+						<input type="text" class="form-control mb-2 mr-sm-2" 
+						value="<%= phone.substring(7,11) %>" id="phone3" maxlength="4"
+						pattern="[0-9]{4}" onkeydown="checkNum(event, this.value)" required>
+
+						<script>
+							function next(val, len, nextId){
+								if(val.length == len) {
+									document.getElementById(nextId).focus();
+								}
+							}
+
+							function checkNum(event) {
+								let key = event.key;
+								console.log(key);
+								if((key >= 0 && key < 10) || key =='Backspace') {
+									return true;
+								} else {
+									event.preventDefault();
+								}
+							}
+
+							function assemblePhone() {
+								let phone = document.getElementById("phone1").value;
+								phone += document.getElementById("phone2").value;
+								phone += document.getElementById("phone3").value;
+
+								$('input[name="phone"]').val(phone);
+							}
+
+							
+							
+						</script>
+					</td>
 					<td>
 						<!-- <button type="submit" class="btn btn-primary mb-2">전화번호
 														변경</button>  -->
@@ -126,9 +202,33 @@
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td><input type="email" class="form-control mb-2 mr-sm-2"
-						value="<%=email%>" name="email"></td>
-				</tr>
+					<td id="emailTd">
+						<!-- <input type="hidden" name="email"> -->
+						<input type="text" class="form-control mb-2 mr-sm-2" value="<%= email.substring(0, email.lastIndexOf('@')) %>">
+						
+						
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+							  <span class="input-group-text">@</span>
+							</div>
+							<input type="text" class="form-control" id="email2" size="20">
+						  </div>
+						
+						<select name="email_select" class="form-control" id="email_select" onChange="checkemailaddy();">
+							<option value="" selected>선택</option>
+							<option value="naver.com">naver.com</option>
+							<option value="hotmail.com">gmail.com</option>
+							<option value="hanmail.com">hanmail.com</option>
+							<option value="1">직접입력</option>
+						</select>
+
+
+
+						
+						
+						
+					</td>
+				</tr>	
 				<tr>
 					<th>배송지</th>
 					<%
@@ -146,13 +246,13 @@
 						}
 					%>
 					<td style="float:right">
-						<button type="button" id="btn_newLoc" class="btn btn-primary mb-2"
-							data-toggle="modal" data-target="#newLocation">
+						<button type="button" id="btn_newLoc" class="btn btn-primary mb-2 rightBtn"
+							data-toggle="modal" data-target="#newLocation" >
 							<!-- onclick="return validateLoc();" -->
 							새로운 배송지
 						</button>
 						<button type="button" id="btn_locList"
-							class="btn btn-primary mb-2" data-toggle="modal"
+							class="btn btn-primary mb-2 rightBtn" data-toggle="modal"
 							data-target="#locationList">배송지 목록</button>
 					</td>
 
@@ -166,10 +266,11 @@
 				</tr>
 				<tr>
 					<th>마케팅 선택 동의 사항</th>
-					<td><input type="checkbox" name="adCheck" id="email"
-						value="이메일"> <label for="email">이메일</label> <br> <input
-						type="checkbox" name="adCheck" id="text" value="문자"> <label
-						for="text">문자</label></td>
+					<td id="adCheck">
+						<input type="checkbox" name="adCheck" value="이메일"> 
+						<label for="email">이메일</label> <br> 
+						<input type="checkbox" name="adCheck" value="문자"> 
+						<label for="text">문자</label></td>
 
 				</tr>
 
@@ -178,9 +279,9 @@
 				<tr>
 					<td></td>
 					<td></td>
-					<td></td>
+					
 					<td id="deleteUserBtn"><button type="button"
-							class="btn btn-sm btn-danger" data-toggle="modal"
+							class="btn btn-sm btn-danger" id="deleteBtn" data-toggle="modal"
 							data-target="#deleteModal">회원탈퇴</button></td>
 
 
@@ -241,9 +342,9 @@
 				<!-- Modal body -->
 				<div class="modal-body" align="center">
 				<%if(flag == true) {%>
-					<form action="<%=contextPath%>/insertFirst.lo" method="post">
+					<form action="<%=contextPath%>/insertFirst.lo" method="post" onsubmit="assemblePhone2();">
 				<%} else { %>
-					<form action="<%=contextPath%>/insert.lo" method="post">
+					<form action="<%=contextPath%>/insert.lo" method="post" onsubmit="assemblePhone2();">
 					<%} %>
 						<input type="hidden" name="memNo" value="<%=memNo%>">
 						<table>
@@ -268,8 +369,46 @@
 								<th>전화번호</th>
 							</tr>
 							<tr>
-								<td><input type="text" class="form-control mb-2 mr-sm-2"
-									value="" name="locPhone" placeholder="전화번호를 입력해주세요" required></td>
+								<td id="phoneTd">
+									<input type="hidden" name="locPhone" value="">
+									<input type="text" class="form-control mb-2 mr-sm-2" 
+									value="" id="tel1" maxlength="3"
+									pattern="^[0-9]{3}" onkeyup="next(this.value, 3, 'tel2')" 
+									onkeydown="checkNum(event, this.value)" required>
+									
+									<input type="text" class="form-control mb-2 mr-sm-2" 
+									value="" id="tel2" maxlength="4"
+									pattern="[0-9]{4}" onkeyup="next(this.value, 4, 'tel3')" 
+									onkeydown="checkNum(event, this.value)" required>
+									
+									<input type="text" class="form-control mb-2 mr-sm-2" 
+									value="" id="tel3" maxlength="4"
+									pattern="[0-9]{4}" onkeydown="checkNum(event, this.value)" required>
+									<script>
+										function next(val, len, nextId){
+											if(val.length == len) {
+												document.getElementById(nextId).focus();
+											}
+										}
+
+										function checkNum(event) {
+											let key = event.key;
+											console.log(key);
+											if((key >= 0 && key < 10) || key =='Backspace') {
+												return true;
+											} else {
+												event.preventDefault();
+											}
+										}
+										function assemblePhone2() {
+											let phone = document.getElementById("tel1").value;
+											phone += document.getElementById("tel2").value;
+											phone += document.getElementById("tel3").value;
+
+											$('input[name="locPhone"]').val(phone);
+										}
+									</script>
+								</td>
 							</tr>
 							<tr>
 								<th>주소</th>
@@ -290,11 +429,11 @@
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
 									id="sample6_address" value="" name="locAddress"
-									placeholder="주소" required readonly></td>
+									placeholder="도로명 주소" required readonly></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
-									id="sample6_extraAddress" placeholder="주소2" required readonly></td>
+									id="sample6_extraAddress" placeholder="지번 주소" required readonly></td>
 							</tr>
 
 							<tr>

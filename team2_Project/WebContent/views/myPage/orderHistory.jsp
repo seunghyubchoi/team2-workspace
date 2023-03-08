@@ -140,7 +140,7 @@ int maxPage = pi.getMaxPage();
 								옵션 :
 								<%=o.getDtlSize()%></p>
 							<p>
-								배송상태 :
+								주문상태 :
 								<%=o.getOrderStatus()%></p>
 								<% String status = o.getOrderStatus(); %>
 						</td>
