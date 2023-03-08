@@ -15,62 +15,19 @@ pageEncoding="UTF-8"%>
 
 <body id="page-top">
 
-    <!-- include common element  -->
-    <%@ include file="adminCommon.jsp" %>
-    
     <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="display: flex;">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <!-- include common element  -->
+        <%@ include file="adminCommon.jsp" %>
 
-            <a class="sidebar-brand align-items-center justify-content-center" href="index.html" id="logoWrapper">
-                <img src="../../resources/img/admin/W4T_crop.svg" alt="" id="logo">
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-clipboard"></i>
-                    <span>게시판관리</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="adminNoticeMain.jsp">공지사항</a>
-                        <a class="collapse-item" href="adminQnAMain.jsp">Q&A</a>
-                        <a class="collapse-item" href="adminW4RMain.jsp">뭐입지그램</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="adminMemberMain.jsp">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>회원관리</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="adminProductMain.jsp">
-                    <i class="fas fa-fw fa-tags"></i>
-                    <span>상품관리</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="adminOrderMain.jsp">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>주문 관리</span></a>
-            </li>
-
-        </ul>
-        <!-- End of Sidebar -->
-
+        <script>
+            $(function(){
+                sidebarActiveDelete();
+                sidebarActive("#product");
+            })
+        </script>
+        
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -95,74 +52,93 @@ pageEncoding="UTF-8"%>
                 <div class="container-fluid mb-5">
 
                     <div class="content-wrapper">
-                        <form>
-                            <div><h5>메인사진</h5></div>
-                            <div class="display-flex">
-                                <div id="productImg"><img src="" alt=""></div>
-                                <div id="productInfo">
-                                    <table class="table table-primary table-bordered">
-                                        <tr>
-                                            <td>브랜드</td>
-                                            <td>
-                                                <select name="brand" id="">
-                                                    <option value="nike">나이키</option>
-                                                    <option value="adidas">아디다스</option>
-                                                    <option value="muamua">무아무아</option>
-                                                    <option value="kirsi">키르시</option>
-                                                    <option value=""></option>
-                                                </select>
-                                            </td>
-                                            <td>카테고리</td>
-                                            <td>
-                                                <select name="product-category" id="">
-                                                    <option value="outer">아우터</option>
-                                                    <option value="top">상의</option>
-                                                    <option value="bottom">하의</option>
-                                                    <option value="shoes">슈즈</option>
-                                                    <option value="etc">기타</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>상품명</td>
-                                            <td><input type="text" class="input content" placeholder="상품명을 입력해주세요"></td>
-                                            <td>재고</td>
-                                            <td><input type="number" class="input content" placeholder="재고를 입력해주세요"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>가격</td>
-                                            <td><input type="number" class="input content" placeholder="가격을 입력해주세요"></td>
-                                            <td>할인율</td>
-                                            <td><input type="number" class="input content" placeholder="할인율을 입력해주세요"></td>
-                                        </tr>
-                                    </table>
-                                </div>
+                        <form action="<%= contextPath %>/insert.pd" method="post" enctype="multipart/form-data">
+                            <div id="productInfo">
+                                <input type="hidden" name="allOption" id="optionFiled">
+                                <input type="hidden" name="allStock" id="stockFiled">
+                                <table class="table table-primary table-bordered">
+                                    <tr>
+                                        <th>상품명</th>
+                                        <td colspan="3"><input type="text" class="input content" name="productName" placeholder="상품명을 입력해주세요" required></td>
+                                    </tr>
+                                    <tr>
+                                        <th>브랜드</th>
+                                        <td>
+                                            <select name="brand" required>
+                                                <option value="1">나이키</option>
+                                                <option value="2">무아무아</option>
+                                                <option value="3">아디다스</option>
+                                                <option value="4">키르시</option>
+                                                <option value="5">OiOi</option>
+                                            </select>
+                                        </td>
+                                        <th>카테고리</th>
+                                        <td>
+                                            <select name="category" required>
+                                                <option value="1">아우터</option>
+                                                <option value="2">상의</option>
+                                                <option value="3">하의</option>
+                                                <option value="4">신발</option>
+                                                <option value="5">악세사리</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>가격</th>
+                                        <td><input type="number" class="input content" name="productPrice" min="0" placeholder="가격을 입력해주세요" required></td>
+                                        <th>할인율</th>
+                                        <td><input type="number" class="input content" name="productDiscount" min="0" placeholder="할인율을 입력해주세요"></td>
+                                    </tr>
+                                </table>
                             </div>
                             <hr class="hr-3">
-                            <div id="product-option" class="display-flex">
-                                <div id="option-btn">
-                                    <button class="btn btn-secondary mb-2">옵션추가</button><br>
-                                    <button class="btn btn-secondary">옵션삭제</button>
+                            <div class="display-flex">
+                                <div id="productImg">
+                                    <table>
+                                        <tr>
+                                            <td><img id="titleImg" src="resources/img/admin/W4T_crop.svg" onclick="chooseFile(1);"></td>
+                                            <td><img id="subImg1" onclick="chooseFile(2);"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><img id="subImg2" onclick="chooseFile(3);"></td>
+                                            <td><img id="subImg3" onclick="chooseFile(4);"></td>
+                                        </tr>
+                                    </table>
+                                    <div id="file-area" style="display: none;">
+                                        <input type="file" name="file1" id="file1" onchange="loadImg(this, 1);" required>
+                                        <input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
+                                        <input type="file" name="file3" id="file3" onchange="loadImg(this, 3);">
+                                        <input type="file" name="file4" id="file4" onchange="loadImg(this, 4);">
+                                    </div>
                                 </div>
-                                <div id="option-content" class="ml-3">
-                                    옵션1 <input type="text">
+                                <div id="product-option" class="ml-auto">
+                                    <div id="option-btn" class="display-flex mr-0">
+                                        <button type="button" class="btn btn-secondary btn-sm m-2" onclick="addOption();">옵션추가</button><br>
+                                        <button type="button" class="btn btn-secondary btn-sm m-2" onclick="deleteOption();">옵션삭제</button>
+                                    </div>
+                                    <div id="option-content" class="">
+                                        <table class="table table-primary table-bordered">
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <hr class="hr-3">
                             <div class="mb-3">
-                                <textarea class="form-control" id="productDescript" name="productDescript"></textarea>
+                                <textarea class="form-control" id="productDescript" name="productDescript" required></textarea>
                 
                                 <script type="text/javascript">
                                     CKEDITOR.replace('productDescript'
                                         , {
-                                            height: 350, width: "100%"
+                                            height: 350, width: "100%",
+                                            filebrowserImageUploadUrl: 'addImg.pd'
                                         });
                                 </script>
                             </div>
                             <div class="table-buttons mr-0 ml-auto" align="right">
                                 <button type="button" class="btn btn-secondary" data-toggle="modal"
                                     data-target="#backModal">뒤로가기</button>
-                                <button type="submit" class="btn btn-primary">추가</button>
+                                <button type="button" class="btn btn-primary" onclick="productAdd();">추가</button>
+                                <button type="submit" style="display: none;" id="submitBtn"></button>
                             </div>
                             
                         </form>
@@ -180,6 +156,33 @@ pageEncoding="UTF-8"%>
 
     </div>
     <!-- End of Page Wrapper -->
+
+    <script>
+        let count = 0;
+
+        function addOption(){
+            count++
+            $("#option-content table").append("<tr id='option'" + count + ">" 
+                                               + "<th>사이즈</th>"
+                                               + "<td><input type='text' name='option'></td>"
+                                               + "<th>재고</th>"
+                                               + "<td><input type='number' name='stock' min='0'></td>"
+                                               + "</tr>");
+            console.log(count);
+        }
+
+        function deleteOption(){
+            $("#option-content tr").last().remove();
+            if(count > 0){
+                count--;
+            }else{
+                count = 0;
+            }
+            console.log(count);
+
+        }
+    </script>
+
 </body>
 
 </html>

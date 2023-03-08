@@ -169,13 +169,20 @@
 </entry>
 
 <entry key="selectNoticeList">
-SELECT
-NOTICE_NO
-,NOTICE_TITLE
-,NOTICE_DATE
-,COUNT
-FROM TB_NOTICE
-ORDER BY NOTICE_NO DESC
+SELECT *  
+FROM (SELECT ROWNUM RNUM, A.*
+    FROM (SELECT
+            NOTICE_NO
+            ,NOTICE_TITLE
+            ,NOTICE_DATE
+            ,COUNT
+            FROM TB_NOTICE
+            WHERE DEL_YN ='N'
+            ORDER
+		     BY NOTICE_NO DESC
+             )A
+             )
+             WHERE RNUM BETWEEN ? AND ?
 </entry>
 
 <entry key="nselectNotice">

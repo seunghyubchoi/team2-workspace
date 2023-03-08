@@ -11014,3 +11014,16 @@ body.sidebar-toggled footer.sticky-footer {
 .scale-120{
   transform : scale(1.2);
 }
+
+#productImg img{
+  width: 150px;
+  height: 150px;
+}
+
+#productImg img:hover{
+  cursor: pointer;
+}
+
+#option-content input{
+  width: 75px;
+}
