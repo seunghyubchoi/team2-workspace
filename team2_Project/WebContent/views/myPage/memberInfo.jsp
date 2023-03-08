@@ -11,6 +11,17 @@
 <title>Insert title here</title>
 
 <style>
+#content_table th {
+	width: 20%;
+}
+
+
+#content_table input,  #content_table select{
+	width: 47%;
+}
+#adCheck>input{
+	width: 10%;
+}
 #deleteUserBtn a {
 	text-decoration: none;
 }
@@ -26,6 +37,28 @@
 #locationLists div {
 	border: 1px solid black;
 	width: 100%;
+}
+
+#phoneTd, #emailTd{
+	display: flex;
+	
+}
+#emailTd{
+	justify-content: space-between;
+}
+#phoneTd input{
+	width: 80px;
+}
+#emailTd input{
+	width: 40%;
+}
+.rightBtn{
+	float: right;
+	width: 165px;
+}
+#deleteBtn{
+	float: right;
+	width: 90px;
 }
 </style>
 
@@ -79,16 +112,15 @@
 		<p>회원정보 관리</p>
 	</div>
 	<div id="content">
-		<form action="<%=contextPath%>/update.me" method="post">
+	<form action="<%=contextPath%>/update.me" method="post" onsubmit="assemblePhone();">
 			<table id="content_table">
 				<tr>
 					<th>ID</th>
 					<td><input type="text" class="form-control mb-2 mr-sm-2"
 						name="memId" value="<%=memId%>" readonly></td>
 					<td>
-						<button type="button" class="btn btn-primary mb-2"
-							data-toggle="modal" data-target="#updatePwdModal">비밀번호
-							변경</button>
+						<button type="button" class="btn btn-primary mb-2 rightBtn"
+							data-toggle="modal" data-target="#updatePwdModal">비밀번호 변경</button>
 					</td>
 				</tr>
 				<tr>
@@ -111,16 +143,64 @@
 				<tr>
 					<th>생년월일</th>
 
-					<td><input type="text" class="form-control mb-2 mr-sm-2"
-						value="<%=birthday%>" name="birthday"></td>
+					<td><input type="date" class="form-control mb-2 mr-sm-2" value="<%=birthday%>" name="birthday" min="1923-01-11" ></td>
 
 
 
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td><input type="text" class="form-control mb-2 mr-sm-2"
-						value="<%=phone%>" name="phone"></td>
+					<td id="phoneTd">
+						<input type="hidden" name="phone" value="">
+						<input type="text" class="form-control mb-2 mr-sm-2" 
+						value="<%= phone.substring(0,3) %>" id="phone1" maxlength="3"
+						pattern="^[0-9]{3}" onkeyup="next(this.value, 3, 'phone2')" 
+						onkeydown="checkNum(event, this.value)" required>
+						
+						<input type="text" class="form-control mb-2 mr-sm-2" 
+						value="<%= phone.substring(3,7) %>" id="phone2" maxlength="4"
+						pattern="[0-9]{4}" onkeyup="next(this.value, 4, 'phone3')" 
+						onkeydown="checkNum(event, this.value)" required>
+						
+						<input type="text" class="form-control mb-2 mr-sm-2" 
+						value="<%= phone.substring(7,11) %>" id="phone3" maxlength="4"
+						pattern="[0-9]{4}" onkeydown="checkNum(event, this.value)" required>
+
+						<script>
+							function next(val, len, nextId){
+								if(val.length == len) {
+									document.getElementById(nextId).focus();
+								}
+							}
+
+							function checkNum(event) {
+								let key = event.key;
+								console.log(key);
+								if((key >= 0 && key < 10) || key =='Backspace') {
+									return true;
+								} else {
+									event.preventDefault();
+								}
+							}
+
+							function assemblePhone() {
+								let phone = document.getElementById("phone1").value;
+								phone += document.getElementById("phone2").value;
+								phone += document.getElementById("phone3").value;
+
+								$('input[name="phone"]').val(phone);
+
+								let email = document.getElementById("email1").value;
+								email += "@"
+								email += document.getElementById("email2").value;
+
+								$('input[name="email"]').val(email);
+							}
+
+							
+							
+						</script>
+					</td>
 					<td>
 						<!-- <button type="submit" class="btn btn-primary mb-2">전화번호
 														변경</button>  -->
@@ -128,9 +208,53 @@
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td><input type="email" class="form-control mb-2 mr-sm-2"
-						value="<%=email%>" name="email"></td>
-				</tr>
+					<td id="emailTd">
+						<input type="hidden" name="email" value="">
+						<input type="text" class="form-control mb-2 mr-sm-2" 
+						value="<%= email.substring(0, email.lastIndexOf('@')) %>" id="email1" size="17" required>
+						
+						
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+							  <span class="input-group-text">@</span>
+							</div>
+							<input type="text" class="form-control" 
+							value="<%= email.substring(email.lastIndexOf('@')+1) %>" id="email2" size="12" required>
+						  </div>
+						
+						<select name="email_select" class="form-control" id="email_select" onChange="checkemailaddy();">
+							<option value="" selected>선택</option>
+							<option value="naver.com">naver.com</option>
+							<option value="hotmail.com">gmail.com</option>
+							<option value="hanmail.com">hanmail.com</option>
+							<option value="1">직접입력</option>
+						</select>
+
+						<script>
+							function checkemailaddy(){
+								if (email_select.value == '1') {
+									email2.readOnly = false;
+									email2.value = '';
+									email2.focus();
+								}
+								else {
+									email2.readOnly = true;
+									email2.value = email_select.value;
+								}
+							}
+
+							function assembleEmail() {
+								
+							}
+
+						</script>
+					
+					
+						
+						
+						
+					</td>
+				</tr>	
 				<tr>
 					<th>배송지</th>
 					<%
@@ -147,14 +271,14 @@
 					<%
 						}
 					%>
-					<td>
-						<button type="button" id="btn_newLoc" class="btn btn-primary mb-2"
-							data-toggle="modal" data-target="#newLocation">
+					<td style="float:right">
+						<button type="button" id="btn_newLoc" class="btn btn-primary mb-2 rightBtn"
+							data-toggle="modal" data-target="#newLocation" >
 							<!-- onclick="return validateLoc();" -->
 							새로운 배송지
 						</button>
 						<button type="button" id="btn_locList"
-							class="btn btn-primary mb-2" data-toggle="modal"
+							class="btn btn-primary mb-2 rightBtn" data-toggle="modal"
 							data-target="#locationList">배송지 목록</button>
 					</td>
 
@@ -168,10 +292,11 @@
 				</tr>
 				<tr>
 					<th>마케팅 선택 동의 사항</th>
-					<td><input type="checkbox" name="adCheck" id="email"
-						value="이메일"> <label for="email">이메일</label> <br> <input
-						type="checkbox" name="adCheck" id="text" value="문자"> <label
-						for="text">문자</label></td>
+					<td id="adCheck">
+						<input type="checkbox" id="email" name="adCheck" value="이메일"> 
+						<label for="email">이메일</label> <br> 
+						<input type="checkbox" id="text" name="adCheck" value="문자"> 
+						<label for="text">문자</label></td>
 
 				</tr>
 
@@ -180,9 +305,9 @@
 				<tr>
 					<td></td>
 					<td></td>
-					<td></td>
+					
 					<td id="deleteUserBtn"><button type="button"
-							class="btn btn-sm btn-danger" data-toggle="modal"
+							class="btn btn-sm btn-danger" id="deleteBtn" data-toggle="modal"
 							data-target="#deleteModal">회원탈퇴</button></td>
 
 
@@ -198,24 +323,27 @@
 				</tr>
 			</table>
 			<script>
+			
+			let now_utc = Date.now() // 지금 날짜를 밀리초로
+			let timeOff = new Date().getTimezoneOffset()*60000; // 분단위를 밀리초로 변환
+			let today = new Date(now_utc-timeOff).toISOString().substring(0, 10); // 오늘 날짜
+			
+			$("input[name='birthday']").attr("max", today);
+			
+			
+			
 			function checkPwd() {
 				location.href = "<%=contextPath%>/myPage.mp";
-			}
-											$(function () {
-												const gender = "<%=gender%>";
-												$("#gender").children().each(function () {
-													if ($(this).val() == gender) {
-														// console.log($(this).val());
-														$(this).attr("selected", "selected"); // attr적용안될경우 prop으로 
-
-													}
-
-												});
-
+						}
+			$(function () {
+				const gender = "<%=gender%>";
+				$("#gender").children().each(function () {
+						if ($(this).val() == gender) {
+							$(this).attr("selected", "selected"); // attr적용안될경우 prop으로 
+								}
+							});
 												
-
-							const adCheck = "<%=adCheck%>";
-
+				const adCheck = "<%=adCheck%>";
 					$("input[type=checkbox]").each(function() {
 						if (adCheck.search($(this).val()) != -1) {
 							$(this).attr("checked", true); // input 태그에 checked=true라는 속성생기는 거라 봐도 됨
@@ -227,7 +355,7 @@
 
 		</form>
 	</div>
-
+	
 	<!-- 새로운 배송지 Modal -->
 	<div class="modal" id="newLocation">
 		<div class="modal-dialog">
@@ -240,9 +368,9 @@
 				<!-- Modal body -->
 				<div class="modal-body" align="center">
 				<%if(flag == true) {%>
-					<form action="<%=contextPath%>/insertFirst.lo" method="post">
+					<form action="<%=contextPath%>/insertFirst.lo" method="post" onsubmit="assemblePhone2();">
 				<%} else { %>
-					<form action="<%=contextPath%>/insert.lo" method="post">
+					<form action="<%=contextPath%>/insert.lo" method="post" onsubmit="assemblePhone2();">
 					<%} %>
 						<input type="hidden" name="memNo" value="<%=memNo%>">
 						<table>
@@ -267,8 +395,46 @@
 								<th>전화번호</th>
 							</tr>
 							<tr>
-								<td><input type="text" class="form-control mb-2 mr-sm-2"
-									value="" name="locPhone" placeholder="전화번호를 입력해주세요" required></td>
+								<td id="phoneTd">
+									<input type="hidden" name="locPhone" value="">
+									<input type="text" class="form-control mb-2 mr-sm-2" 
+									value="" id="tel1" maxlength="3"
+									pattern="^[0-9]{3}" onkeyup="next(this.value, 3, 'tel2')" 
+									onkeydown="checkNum(event, this.value)" required>
+									
+									<input type="text" class="form-control mb-2 mr-sm-2" 
+									value="" id="tel2" maxlength="4"
+									pattern="[0-9]{4}" onkeyup="next(this.value, 4, 'tel3')" 
+									onkeydown="checkNum(event, this.value)" required>
+									
+									<input type="text" class="form-control mb-2 mr-sm-2" 
+									value="" id="tel3" maxlength="4"
+									pattern="[0-9]{4}" onkeydown="checkNum(event, this.value)" required>
+									<script>
+										function next(val, len, nextId){
+											if(val.length == len) {
+												document.getElementById(nextId).focus();
+											}
+										}
+
+										function checkNum(event) {
+											let key = event.key;
+											console.log(key);
+											if((key >= 0 && key < 10) || key =='Backspace') {
+												return true;
+											} else {
+												event.preventDefault();
+											}
+										}
+										function assemblePhone2() {
+											let phone = document.getElementById("tel1").value;
+											phone += document.getElementById("tel2").value;
+											phone += document.getElementById("tel3").value;
+
+											$('input[name="locPhone"]').val(phone);
+										}
+									</script>
+								</td>
 							</tr>
 							<tr>
 								<th>주소</th>
@@ -289,11 +455,11 @@
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
 									id="sample6_address" value="" name="locAddress"
-									placeholder="주소" required readonly></td>
+									placeholder="도로명 주소" required readonly></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
-									id="sample6_extraAddress" placeholder="주소2" required readonly></td>
+									id="sample6_extraAddress" placeholder="지번 주소" required readonly></td>
 							</tr>
 
 							<tr>
@@ -305,7 +471,7 @@
 							<tr>
 								<td align="center">
 									<button type="button" class="btn btn-primary mb-2"
-										onclick="backToMyPage();">뒤로가기</button>
+										 data-dismiss="modal">뒤로가기</button>
 									<button type="submit" class="btn btn-primary mb-2">저장하기</button>
 								</td>
 							</tr>
@@ -323,25 +489,21 @@
 	function backToMyPage(){
 		location.href = "<%=contextPath%>/memberInfo.mp";
 		}
-
 		function sample6_execDaumPostcode() {
 			new daum.Postcode(
 					{
 						oncomplete : function(data) {
 							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
 							// 각 주소의 노출 규칙에 따라 주소를 조합한다.
 							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 							var addr = ''; // 주소 변수
 							var extraAddr = ''; // 참고항목 변수
-
 							//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
 							if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
 								addr = data.roadAddress;
 							} else { // 사용자가 지번 주소를 선택했을 경우(J)
 								addr = data.jibunAddress;
 							}
-
 							// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
 							if (data.userSelectedType === 'R') {
 								// 법정동명이 있을 경우 추가한다. (법정리는 제외)
@@ -363,11 +525,9 @@
 								}
 								// 조합된 참고항목을 해당 필드에 넣는다.
 								document.getElementById("sample6_extraAddress").value = extraAddr;
-
 							} else {
 								document.getElementById("sample6_extraAddress").value = '';
 							}
-
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
 							document.getElementById('sample6_postcode').value = data.zonecode;
 							document.getElementById("sample6_address").value = addr;
@@ -378,8 +538,7 @@
 					}).open();
 		}
 	</script>
-
-
+	
 	<!-- 배송지 목록 Modal -->
 	<div class="modal" id="locationList">
 		<div class="modal-dialog">
@@ -405,7 +564,6 @@
 						%>
 						<%
 							// int i=0;
-
 						for (Location l : list) {
 						%>
 						<form action="<%=contextPath%>/modifyLoc.lo" method="post">
@@ -435,7 +593,7 @@
 								num++;
 							%>
 							<tr>
-								<td></td>
+								
 								<td><button type="submit" class="btn btn-sm btn-danger"
 										value="<%=l.getLocNo()%>">수정하기</button>
 									<button type="button" class="btn btn-sm btn-danger"
@@ -462,11 +620,8 @@
 					</table>
 					<script>
 						$(function() {
-
 							// 새로운 배송지 추가 클릭 시 2개면?
-							let num =
-					<%=num%>
-						;
+							let num = <%=num%>;
 							$("#btn_newLoc").click(function() {
 								if (num == 2) {
 									alert("새로운 배송지를 추가할 수 없습니다.");
@@ -483,40 +638,18 @@
 								}
 							})
 							// radio로 기본배송지 선택 (사용안함)
-							$('input[name="defaultLocation"]')
-									.change(
-											function() {
-												$(
-														'input[name="defaultLocation"]')
-														.each(
-																function() {
-																	let checked = $(
-																			this)
-																			.prop(
-																					'checked');
-																	let defaultLocMsg = $(
-																			this)
-																			.next();
-																	if (checked) {
-																		$(
-																				defaultLocMsg)
-																				.text(
-																						"기본배송지");
-																	} else {
-																		$(
-																				defaultLocMsg)
-																				.text(
-																						"");
-																	}
-																})
-											})
-
-						})
-
+							$('input[name="defaultLocation"]').change(function() {
+								$('input[name="defaultLocation"]').each(function() {
+									let checked = $(this).prop('checked');
+									let defaultLocMsg = $(this).next();
+										if (checked) {$(defaultLocMsg).text("기본배송지");
+											} else {$(defaultLocMsg).text("");
+										}
+									})
+								})
+							})
 						function validateLoc() {
-							let num =
-					<%=num%>
-						;
+							let num = <%=num%>;
 							console.log(num);
 							if (num == 2) {
 								alert("새로운 배송지를 추가할 수 없습니다.");
@@ -533,23 +666,19 @@
 			</div>
 		</div>
 	</div>
-	<!-- 배송지 삭제 -->
 	<div class="modal" id="deleteLocation">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<!-- Modal Header -->
 				<div class="modal-header">
 					<h4 class="modal-title">배송지 삭제</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-				<!-- Modal body -->
 				<div class="modal-body" align="center">
-					<form action="<%=contextPath%>/delete.lo" method="post"
-						onsubmit="return validateLocDel();">
-						<input type="hidden" name="memNo" value="<%=memNo%>"> <input
-							type="hidden" name="locNo" value="" id="locDelete">  <b>정말로 삭제하시겠습니까?<br>
-
-							<button type="submit" class="btn btn-sm btn-danger">삭제</button>
+					<form action="<%=contextPath%>/delete.lo" method="post" onsubmit="return validateLocDel();">
+						<input type="hidden" name="memNo" value="<%=memNo%>">
+						<input type="hidden" name="locNo" value="" id="locDelete">
+						<p>정말로 삭제하시겠습니까?</p><br>
+						<button type="submit" class="btn btn-sm btn-danger">삭제</button>
 					</form>
 				</div>
 			</div>
@@ -582,10 +711,11 @@
 			}
 			
 			$("#locDelete").attr('value', $(e).val())
-			 console.log($("#locDelete").val());
+			 //console.log($("#locDelete").val());
 		}
 	</script>
-	<!-- 비밀번호 변경 -->
+	
+		<!-- 비밀번호 변경 -->
 	<div class="modal" id="updatePwdModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -628,7 +758,6 @@
 						if ($("input[name=updatePwd]").val() != $(
 								"input[name=checkPwd]").val()) {
 							alert("변경할 비밀번호가 일치하지 않습니다");
-
 							return false;
 						}
 					}
@@ -651,8 +780,8 @@
 				<!-- Modal body -->
 				<div class="modal-body" align="center">
 					<form action="<%=contextPath%>/delete.me" method="post">
-						<input type="hidden" name="memId" value="<%=memId%>"> <b>탈퇴
-							후 복구가 불가능합니다<br> 정말로 탈퇴하시겠습니까?<br>
+						<input type="hidden" name="memId" value="<%=memId%>"> 
+						<b>탈퇴 후 복구가 불가능합니다<br> 정말로 탈퇴하시겠습니까?<br><br>
 						</b> 비밀번호 : <input type="password" name="memPwd" required> <br>
 						<br>
 						<button type="submit" class="btn btn-sm btn-danger">탈퇴하기</button>

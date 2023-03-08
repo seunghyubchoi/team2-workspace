@@ -46,9 +46,9 @@ public class UpdateLocaionController extends HttpServlet {
 		String locPostCode = request.getParameter("locPostCode");
 		String locYn = request.getParameter("locYn");
 		//System.out.println(locYn+"!!!!!");
-		
+		if(locYn.equals("Y")) {
 		int result = new PaymentService().updateLocationSetN(memNo);
-		
+		}
 		Location l = new Location(locNo, locAddressName, locName, locPhone, locAddress, locAddressDtl, locPostCode,
 				locYn);
 		

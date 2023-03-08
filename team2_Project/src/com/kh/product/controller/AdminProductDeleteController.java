@@ -1,4 +1,4 @@
-package com.kh.manager.controller;
+package com.kh.product.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,17 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.product.model.service.AdminProductService;
+
 /**
- * Servlet implementation class ProductListController
+ * Servlet implementation class AdminProductDeleteController
  */
-@WebServlet("/productList.ma")
-public class ProductListController extends HttpServlet {
+@WebServlet("/delete.pd")
+public class AdminProductDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductListController() {
+    public AdminProductDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,14 +29,18 @@ public class ProductListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String deleteList = request.getParameter("deleteList");
+		
+		int result = new AdminProductService().deleteProduct(deleteList);
+		
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("loginManager") == null) {
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스 입니다.");
-			request.getRequestDispatcher("views/admin/adminLogin.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("views/admin/adminProductMain.jsp").forward(request, response);
+		if(result > 0) {
+			session.setAttribute("alertMsg", "상품을 삭제하였습니다.");
+		}else {
+			session.setAttribute("alertMsg", "상품 삭제에 실패했습니다.");
 		}
+		response.sendRedirect(request.getContextPath() + "/productList.ma");
 	}
 
 	/**

@@ -210,3 +210,61 @@ function changeLocYnBox(){
 function deleteLocation(num){
   $("#deleteNo").val($("input[name=locNo" + num + "]").val());
 }
+
+
+function chooseFile(num){
+    $("#file" + num).click();
+}
+
+function loadImg(inputFile, num){
+    console.log(num + "번 눌렀당")
+    if(inputFile.files.length == 1){ // 파일 선택된 경우 => 파일 읽어들여서 미리보기
+        const reader = new FileReader();
+
+        reader.readAsDataURL(inputFile.files[0]);
+
+        reader.onload = function(e){
+            if(num == 1){
+                $("#titleImg").attr("src", e.target.result); 
+            }else{
+                $("#subImg" + (num-1)).attr("src", e.target.result); 
+            }
+        }
+
+    }else{ 
+        if(num == 1){
+            $("#titleImg").attr("src", "resources/img/admin/W4T_crop.svg"); 
+        }else{
+            $("#subImg" + (num-1)).attr("src", null); 
+        }
+    }
+}
+
+function productAdd(){
+  var oList = new Array();
+  var sList = new Array();
+  var nList = new Array();
+
+  $("input[name=option]").each(function(index, item){
+    console.log($(item).val());
+    oList.push($(item).val());
+  });
+  $("#optionFiled").val(oList);
+
+  $("input[name=stock]").each(function(index, item){
+    console.log($(item).val());
+    sList.push($(item).val());
+  });
+  $("#stockFiled").val(sList);
+
+  $("input[name=optionNo]").each(function(index, item){
+    console.log($(item).val());
+    nList.push($(item).val());
+  });
+  $("#noFiled").val(nList);
+
+  $("#submitBtn").click();
+}
+
+
+
