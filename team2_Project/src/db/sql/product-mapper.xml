@@ -200,4 +200,266 @@ WHERE PRODUCT_NO2 = ?
      AND DEL_YN = 'N'
      ORDER BY REVIEW_DATE DESC  
 </entry>
+
+<!-- 관리자 상품메인페이지 조회 쿼리 -->
+<entry key="selectList">
+	SELECT 
+	       PRODUCT_NO
+	     , PRODUCT_NAME
+	     , PRODUCT_PRICE
+	     , PRODUCT_VIEW_COUNT
+	     , CATEGORY_NAME
+	     , BRAND_NAME
+	  FROM TB_PRODUCT P
+	  JOIN TB_BRAND USING (BRAND_NO)
+	  JOIN TB_CATEGORY USING (CATEGORY_NO)
+	 WHERE P.DEL_YN = 'N'
+</entry>
+
+<!-- 관리자 상품 상세 페이지 조회 쿼리 -->
+<entry key="selectProduct">
+	SELECT 
+	       PRODUCT_NO
+	     , PRODUCT_NAME
+	     , PRODUCT_DESC
+	     , PRODUCT_DISCOUNT
+	     , PRODUCT_PRICE
+	     , PRODUCT_ENROLL_DATE
+	     , PRODUCT_VIEW_COUNT
+	     , CATEGORY_NAME
+	     , BRAND_NAME
+	  FROM TB_PRODUCT P
+	  JOIN TB_BRAND USING (BRAND_NO)
+	  JOIN TB_CATEGORY USING (CATEGORY_NO)
+	 WHERE P.DEL_YN = 'N'
+	   AND P.PRODUCT_NO = ?
+</entry>
+
+<!-- 관리자 상품 첨부파일 조회 쿼리 -->
+<entry key="selectAttachment">
+	SELECT
+	       PRODUCT_IMG_NO
+	     , ORIGIN_NAME
+	     , CHANGE_NAME
+	     , FILE_PATH
+	  FROM TB_PRODUCT_IMAGE
+	 WHERE PRODUCT_NO = ?
+</entry>
+
+<!-- 관리자 상품 추가 쿼리 -->
+<entry key="insertProduct">
+	INSERT
+	  INTO TB_PRODUCT
+	  (
+	    PRODUCT_NO
+	  , PRODUCT_NAME
+	  , PRODUCT_DESC
+	  , PRODUCT_DISCOUNT
+	  , PRODUCT_PRICE
+	  , CATEGORY_NO
+	  , BRAND_NO
+	  )
+	  VALUES
+	  (
+	    SEQ_PRODUCT.NEXTVAL
+	  , ?
+	  , ?
+	  , ?
+	  , ?
+	  , ?
+	  , ?
+	  )
+</entry>
+
+<!-- 관리자 첨부파일 추가 쿼리 -->
+<entry key="insertAttachmentList">
+	INSERT
+	  INTO TB_PRODUCT_IMAGE
+	  (
+	    PRODUCT_IMG_NO
+	  , PRODUCT_NO
+	  , ORIGIN_NAME
+	  , CHANGE_NAME
+	  , FILE_PATH
+	  , IMG_TYPE
+	  )
+	  VALUES
+	  (
+	    SEQ_PRODUCT_IMAGE.NEXTVAL
+	  , SEQ_PRODUCT.CURRVAL
+	  , ?
+	  , ?
+	  , ?
+	  , ?
+	  )
+</entry>
+
+<!-- 관리자 옵션 추가 쿼리 -->
+<entry key="insertOption">
+	INSERT
+	  INTO TB_OPTION
+	  (
+	    OPTION_NO
+	  , OPTION_SIZE
+	  , OPTION_STOCK
+	  , PRODUCT_NO
+	  )
+	  VALUES
+	  (
+	    SEQ_OPTION.NEXTVAL
+	  , ?
+	  , ?
+	  , SEQ_PRODUCT.CURRVAL
+	  )
+</entry>
+
+<!-- 관리자 이미지 등록 쿼리 -->
+<entry key="insertImg">
+	INSERT
+	  INTO TB_PRODUCT_IMAGE
+	  (
+	    PRODUCT_IMG_NO
+	  , ORIGIN_NAME
+	  , CHANGE_NAME
+	  , FILE_PATH
+	  , IMG_TYPE
+	  )
+	  VALUES
+	  (
+	    SEQ_PRODUCT_IMAGE.NEXTVAL
+	  , ?
+	  , ?
+	  , ?
+	  , 3
+	  )
+</entry>
+
+<!-- 관리자 옵션리스트 조회 쿼리 -->
+<entry key="selectOptionList">
+	SELECT 
+	       OPTION_NO
+	     , OPTION_SIZE
+	     , OPTION_STOCK
+	  FROM TB_OPTION
+	 WHERE PRODUCT_NO = ?
+</entry>
+
+<!-- 관리자 옵션 추가 쿼리 -->
+<entry key="insertOptionBox">
+	INSERT
+	  INTO TB_OPTION
+	  (
+	    OPTION_NO
+	  , OPTION_SIZE
+	  , OPTION_STOCK
+	  , PRODUCT_NO
+	  )
+	  VALUES
+	  (
+	    SEQ_OPTION.NEXTVAL
+	  , ?
+	  , ?
+	  , ?
+	  )
+</entry>
+
+<!-- 관리자 옵션 삭제 쿼리 -->
+<entry key="deleteOption">
+	DELETE TB_OPTION
+	 WHERE OPTION_NO = ?
+</entry>
+
+<!-- 관리자 상품 수정 쿼리 -->
+<entry key="updateProduct">
+UPDATE  
+       TB_PRODUCT
+   SET
+       PRODUCT_NAME = ?
+     , PRODUCT_DESC = ?
+     , PRODUCT_DISCOUNT = ?
+     , PRODUCT_PRICE = ?
+     , CATEGORY_NO = ?
+     , BRAND_NO = ?
+ WHERE PRODUCT_NO = ?
+</entry>
+
+<!-- 관리자 수정 내 첨부파일 추가 쿼리 -->
+<entry key="insertAttachmentList2">
+INSERT
+  INTO TB_PRODUCT_IMAGE
+  (
+    PRODUCT_IMG_NO
+  , PRODUCT_NO
+  , ORIGIN_NAME
+  , CHANGE_NAME
+  , FILE_PATH
+  , IMG_TYPE
+  )
+  VALUES
+  (
+    SEQ_PRODUCT_IMAGE.NEXTVAL
+  , ?
+  , ?
+  , ?
+  , ?
+  , ?
+  )
+</entry>
+
+<!-- 관리자 첨부파일 수정 쿼리 -->
+<entry key="updateAttachmentList">
+UPDATE
+       TB_PRODUCT_IMAGE
+   SET ORIGIN_NAME = ?
+     , CHANGE_NAME = ?
+     , FILE_PATH = ?
+ WHERE PRODUCT_IMG_NO = ?
+</entry>
+
+<!-- 관리자 수정 내 옵션 추가 쿼리 -->
+<entry key="insertOptionList">
+INSERT
+  INTO TB_OPTION
+  (
+    OPTION_NO
+  , OPTION_SIZE
+  , OPTION_STOCK
+  , PRODUCT_NO
+  )
+  VALUES
+  (
+    SEQ_OPTION.NEXTVAL
+  , ?
+  , ?
+  , ?
+  )
+</entry>
+
+<!-- 관리자 옵션 수정 쿼리 -->
+<entry key="updateOptionList">
+UPDATE
+       TB_OPTION
+   SET OPTION_SIZE = ?
+     , OPTION_STOCK = ?
+ WHERE OPTION_NO = ?
+</entry>
+
+<entry key="deleteProduct">
+	UPDATE TB_PRODUCT
+	   SET DEL_YN = 'Y'
+	 WHERE PRODUCT_NO
+	    IN 
+	     (
+	       SELECT REGEXP_SUBSTR(A.TXT, '[^,]+', 1, LEVEL) TXT
+	         FROM 
+	            ( 
+	              SELECT ? TXT 
+	                FROM dual
+	             ) A
+	      CONNECT 
+	           BY INSTR(A.TXT, ',', 1, LEVEL-1) > 0
+	      )
+</entry>
+
+
 </properties>
