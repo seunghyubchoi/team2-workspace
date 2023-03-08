@@ -1,24 +1,29 @@
-package com.kh.manager.controller;
+package com.kh.product.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
+import com.kh.product.model.service.AdminProductService;
+import com.kh.product.model.vo.Option;
 
 /**
- * Servlet implementation class ProductListController
+ * Servlet implementation class AjaxAdminOptionDeleteController
  */
-@WebServlet("/productList.ma")
-public class ProductListController extends HttpServlet {
+@WebServlet("/delete.op")
+public class AjaxAdminOptionDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductListController() {
+    public AjaxAdminOptionDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,14 +32,12 @@ public class ProductListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		int optionNo = Integer.parseInt(request.getParameter("ono"));
 		
-		if(session.getAttribute("loginManager") == null) {
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스 입니다.");
-			request.getRequestDispatcher("views/admin/adminLogin.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("views/admin/adminProductMain.jsp").forward(request, response);
-		}
+		int result = new AdminProductService().deleteOption(optionNo);
+		
+		response.setContentType("application/json; charset-utf-8");
+		new Gson().toJson(result, response.getWriter());
 	}
 
 	/**

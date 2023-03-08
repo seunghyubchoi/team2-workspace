@@ -1,5 +1,10 @@
+<%@page import="com.kh.product.model.vo.ProductA"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%
+	ArrayList<ProductA> list = (ArrayList<ProductA>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -62,13 +67,22 @@ pageEncoding="UTF-8"%>
                                     <th>가격</th>
                                     <th>카테고리</th>
                                     <th>조회수</th>
-                                    <th>재고</th>
-                                    <th>재고수정</th>
                                     <th>수정</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                <% for(ProductA p : list){ %>
+                                    <tr>
+                                        <td><input type="checkbox" name="deleteCheck" class="noticeCheckbox" value="<%= p.getProductNo()%>"></td>
+                                        <td><%= p.getProductNo()%></td>
+                                        <td><%= p.getBrandNo()%></td>
+                                        <td><a href="<%= contextPath%>/detailForm.pd?pno=<%= p.getProductNo()%>"><%= p.getProductName() %></a></td>
+                                        <td><%= p.getProductPrice() %></td>
+                                        <td><%= p.getCategoryNo() %></td>
+                                        <td><%= p.getProductViewCount() %></td>
+                                        <td><a class="btn btn-sm btn-secondary" href="<%= contextPath%>/detailForm.pd?pno=<%= p.getProductNo() %>">수정</a></td>
+                                    </tr>
+                                    <%} %>
                             </tbody>
                         </table>
 

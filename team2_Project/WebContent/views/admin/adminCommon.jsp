@@ -30,6 +30,7 @@ pageEncoding="UTF-8"%>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
 
     <script src="resources/vendor/jquery/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <script src="resources/ckeditor/ckeditor.js"></script>
 

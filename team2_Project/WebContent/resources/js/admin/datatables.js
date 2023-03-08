@@ -124,8 +124,8 @@ $(document).ready(function () {
   });
 
   $("div.product").append('<button id="btn_del_pro" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#commonModal">삭제</button>');
-  $("div.product").append('<button id="btn_add_pro" class="btn btn-primary btn-table">추가</button>');
-
+  $("div.product").append('<a id="btn_add_pro" class="btn btn-primary btn-table" href="insertForm.pd">추가</a>');
+  
   $("#btn_del_pro").click(function(){
     $("#menuName").val("pro");
   });
