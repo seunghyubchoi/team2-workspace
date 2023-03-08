@@ -11,6 +11,7 @@ Notice n =(Notice)request.getAttribute("notice");
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
 html {
     font-size: 10px;
 }
@@ -341,7 +342,7 @@ a {
                         </div>
                     </div>
                     <div class="bt_wrap">
-                        <a href="<%=contextPath%>/nlist.no" class="on">목록</a>
+                        <a href="<%=contextPath %>/nlist.no?cpage=1" class="on">목록</a>
                     </div>
                 </div>
             </div>

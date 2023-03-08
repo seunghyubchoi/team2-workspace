@@ -1,26 +1,16 @@
-<%@page import="com.kh.common.PageInfo"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
-<%@page import="com.kh.notice.model.vo.Notice"%>
+<%@page import="com.kh.Qnaboard.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<% 
+	Board b = (Board)request.getAttribute("b");
+%>    
 <!DOCTYPE html>
-
-
-<%
-PageInfo pi =(PageInfo)request.getAttribute("pi");
-ArrayList<Notice> list =(ArrayList<Notice>)request.getAttribute("list");
-int currentPage = pi.getCurrentPage();
-int startPage = pi.getStartPage();
-int endPage = pi.getEndPage();
-int maxPage = pi.getMaxPage();
-%>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
 html {
     font-size: 10px;
 }
@@ -315,90 +305,72 @@ a {
     resize: vertical;
 }
 
- #line1{
+#line1{
 	border: #E0BFE6 solid 5px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	margin-left:20px;
-	margin-right:20px;
   }
 
+.ancont{
+    border: #E0BFE6 solid 3px;
+    width: 100%;
+    height: 100px;
+    border-radius: 20px;
+}
 </style>
 </head>
 <body>
 <%@include file="../common/menubar.jsp"%>
-	
-	<div class="wrap">
-            <!--content-->
-            <div id="content" method="post">
+<div id="content">
              <div id="line1"></div>
              <div class="board_wrap">
                 <div class="board_title">
-                    <strong>공지사항</strong>
-                    <p>내일 뭐입지 공지사항을 안내해드립니다.</p>
+                    <strong>문의 내역</strong>
+                    <p>문의 내역을 안내드립니다.</p>
                 </div>
-                <div class="board_list_wrap">
-                    <div class="board_list">
-                        <div class="top">
-                            <div class="num">번호</div>
-                            <div class="title">제목</div>
-                            <div class="date">작성일</div>
-                            <div class="count">조회수</div>
+                <div class="board_view_wrap">
+                    <div class="board_view">
+                        <div class="title">
+                            <%=b.getQnaTitle() %>
                         </div>
-                <%if(list.isEmpty()){ %>
-                	<p>존재하는 공지사항이 없습니다.</p>
-                <%}else{ %>
-	                <% for (Notice n: list){ %>
-	                        <div class="llist">
-	                            <div class="num"><%=n.getNoticeNo() %></div>
-	                            <div class="title"><%=n.getNoticeTitle() %></a></div>
-	                            <div class="date"><%=n.getNoticeDate() %></div>
-	                            <div class="count"><%=n.getCount()%></div>
-	                        </div>
-	        		 <%} %>
-                    <%} %>
+                        <div class="info">
+                            <dl>
+                                <dt>글번호</dt>
+                                <dd><%=b.getQnaNo() %></dd>
+                            </dl>
+                            <dl>
+                                <dt>글쓴이</dt>
+                                <dd><%=b.getMemNo() %></dd>
+                            </dl>
+                            <dl>
+                                <dt>작성일</dt>
+                                <dd><%=b.getQnaDate() %></dd>
+                            </dl>
+                            <dl>
+                                <dt>조회</dt>
+                                <dd><%=b.getCount() %></dd>
+                            </dl>
+      						
+                        </div>
+                        <div class="cont">
+                            <%=b.getQnaContent() %>
+                        </div>
+                        <br>
+                        <a style="font-size: 19px; font-weight: 700; margin-left: 7px; color: #480773;">문의 답변</a>
+                        <br><br>
+                        <div class="ancont" style="font-size: 16px;">
+                        <br>
+                        <a style="margin-left: 15px;"><%=b.getAnsContent()%></a>
+                        </div>
+                         <br>
                     </div>
-             
-                    
-           
-                     <div class="paging-area" align="center" style="width=700px; text-align:center; margin-top:10px; font-size:18px; font-weight: 600px;">
-        	<% if(currentPage != 1) { %>
-            	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= currentPage - 1 %>'">&lt;</button>
-            <% } %>
-            
-            
-            <% for(int p = startPage; p <= endPage; p++) { %>
-            	<% if(p == currentPage) { %>
-            		<button style="background-color: transparent; color: rgb(82, 82, 82); border: 3px solid #d5aede;" disabled><%= p %></button>
-            	<% } else { %>
-            		<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2px solid #696969 ;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= p %>'"><%= p %></button>
-            	<% } %>
-            <% } %>
-            
-            <% if(currentPage != maxPage) { %>
-            	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ; " onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= currentPage + 1 %>'">&gt;</button>
-            <% } %>
-            
-        </div>
 
-                   
+                    <div class="bt_wrap">
+                        <a href="<%= contextPath %>/qlist.no?cpage=1" class="on">목록</a>
+                        <a href="#" class="off">수정</a>
+                    </div>
                 </div>
-            </div>  
             </div>
             </div>
-            
-
-            
-     </body>
-
-    <script>
-		$(function(){
-			$(".llist").click(function(){
-				const num =$(this).children().eq(0).text();
-				console.log(num);
-				location.href ='<%=contextPath%>/ndetail.no?num='+num;
-			
-			})
-		})
-    </script>
+</body>
 </html>

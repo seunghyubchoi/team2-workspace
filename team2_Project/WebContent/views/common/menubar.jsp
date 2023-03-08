@@ -171,6 +171,24 @@ a {
 	transition-duration: 1.5s;
 	text-align: center;
 }
+
+.submenu2>li {
+	line-height: 70px;
+	text-align: center;
+	background-color: #fd98ba;
+}
+
+.submenu2 {
+	height: 0;
+	overflow: hidden;
+}
+
+.menu>li:hover .submenu2 {
+	height: 150px;
+	transition-duration: 1.5s;
+	text-align: center;
+}
+
 </style>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -218,12 +236,9 @@ a {
 							</ul>
 							</li>
 						<li><a href="#">고객센터</a>
-							<ul class="submenu">
+							<ul class="submenu2">
 								<li><a href="<%=contextPath %>/nlist.no?cpage=1">공지사항</a></li>
-								<li><a href="#">문의사항</a></li>
-								<li><a href="#">submenu03</a></li>
-								<li><a href="#">submenu04</a></li>
-								<li><a href="#">submenu05</a></li>
+								<li><a href="<%=contextPath %>/qlist.no?cpage=1">문의사항</a></li>
 							</ul>
 							</li>
 					</ul>

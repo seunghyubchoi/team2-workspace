@@ -1,4 +1,4 @@
-package com.kh.notice.controller;
+package com.kh.Qnaboard;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,30 +7,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.notice.model.service.NoticeService;
-import com.kh.notice.model.vo.Notice;
+import com.kh.Qnaboard.model.service.BoardService;
+import com.kh.Qnaboard.model.vo.Board;
 
-@WebServlet("/ndetail.no")
-public class NoticeDetailController extends HttpServlet {
+
+/**
+ * Servlet implementation class BoardDetailController
+ */
+@WebServlet("/qdetail.no")
+public class BoardDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public NoticeDetailController() {
+    public BoardDetailController() {
         super();
     }
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int noticeNo = Integer.parseInt(request.getParameter("num"));
-		new NoticeService().increaseCount(noticeNo);
-		int result = new NoticeService().increaseCount(noticeNo);
+	
+		int boardNo= Integer.parseInt(request.getParameter("bno"));
+		BoardService bService = new BoardService();
+		int result = bService.increaseCount(boardNo);
+
 		if(result>0) { 
-			 Notice n = new NoticeService().selectNotice(noticeNo);
-			 request.setAttribute("notice", n);
-			 request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
+			Board b = bService.selectBoard(boardNo);
+			request.setAttribute("b", b);
+			
+			request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
 		}else {
-			request.setAttribute("errorMsg", "공지사항 조회 실패");
+			request.setAttribute("errorMsg", "게시판 조회 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
 		}
-		
+	
+	
 	
 	}
 
