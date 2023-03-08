@@ -122,4 +122,20 @@ public class CommunityService {
 		
 		return result;
 	}
+	
+	public int insertLike(int comNo, int memNo) {
+		Connection conn = getConnection();
+		
+		int result = new CommunityDao().insertLike(conn, comNo, memNo);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 }
