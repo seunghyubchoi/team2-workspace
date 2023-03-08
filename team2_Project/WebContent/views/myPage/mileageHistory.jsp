@@ -1,13 +1,17 @@
+<%@page import="com.kh.common.PageInfo"%>
 <%@page import="com.kh.myPage.model.vo.MileageHistory"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 	ArrayList<MileageHistory> list = (ArrayList<MileageHistory>) request.getAttribute("list");
-
+PageInfo pi = (PageInfo) request.getAttribute("pi");
+int currentPage = pi.getCurrentPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+int maxPage = pi.getMaxPage();
 int sum = 0;
 for (MileageHistory m : list) {
-
 	if (m.getMileageHistory().equals("사용")) {
 		sum -= m.getMileage();
 	} else {
@@ -26,6 +30,10 @@ for (MileageHistory m : list) {
 
 
 <style>
+li {
+	width: none;
+}
+
 .content_subTitle {
 	text-align: left;
 	font-weight: 900;
@@ -58,7 +66,7 @@ for (MileageHistory m : list) {
 
 #mileageTable {
 	width: 80%;
-	height: 100%;
+	/*  height: 100%; */
 	text-align: left;
 	margin: auto;
 	font-size: 1.2em;
@@ -88,9 +96,8 @@ for (MileageHistory m : list) {
 		<p class="content_subTitle">보유 포인트</p>
 		<div id="mileageBox">
 			<p>
-				보유하고 계신 포인트는<br> 
-				<span> <%=sum %>P </span> 
-				<br> 입니다.
+				보유하고 계신 포인트는<br> <span> <%=sum%>P
+				</span> <br> 입니다.
 			</p>
 		</div>
 		<p class="content_subTitle">포인트 내역</p>
@@ -99,9 +106,8 @@ for (MileageHistory m : list) {
 				if (list.isEmpty()) {
 			%>
 			<tr>
-				<td>
-					<p>포인트 내역이 없습니다
-					<p>
+				<td align="center">
+					<p>포인트 내역이 없습니다</p>
 				</td>
 			</tr>
 			<%
@@ -112,26 +118,98 @@ for (MileageHistory m : list) {
 			%>
 			<tr>
 				<td>
-					<li><%=m.getMileageHistory()%> : <%=m.getProductNo()%></li>
+					<p><%=m.getMileageHistory()%>
+						:
+						<%=m.getProductNo()%></p>
 				</td>
 				<td>
-					<%
-						if (m.getMileageHistory().equals("사용")) {
-					%> - <%
-						} else {
-					%> +<%
-						}
-					%><%=m.getMileage()%></td>
+					<p>
+						<%
+							if (m.getMileageHistory().equals("사용")) {
+						%>
+						-
+						<%
+							} else {
+						%>
+						+<%
+							}
+						%><%=m.getMileage()%>
+					</p>
+				</td>
 			</tr>
 			<%
 				}
 			%>
+
+			<tr>
+				<td>
+
+
+
+					<div class="paging-area" align="center">
+						<%
+							if (currentPage != 1) {
+						%>
+						<button class="btn btn-primary mb-2"
+							onclick="location.href='<%=contextPath%>/mileageHistory.mp?memNo=<%=loginUser.getMemNo()%>&cpage=<%=currentPage - 1%>';">&lt;</button>
+						<%
+							}
+						%>
+						<%
+							for (int p = startPage; p <= endPage; p++) {
+						%>
+						<%
+							if (p == currentPage) {
+						%>
+						<button class="btn btn-primary mb-2" style="background: pink"
+							disabled><%=p%></button>
+						<%
+							} else {
+						%>
+						<button class="btn btn-primary mb-2"
+							onclick="location.href= '<%=contextPath%>/mileageHistory.mp?memNo=<%=loginUser.getMemNo()%>&cpage=<%=p%>';"><%=p%></button>
+						<%
+							}
+						%>
+						<%
+							}
+						%>
+						<%
+							if (currentPage != maxPage) {
+						%>
+						<button class="btn btn-primary mb-2"
+							onclick="location.href='<%=contextPath%>/mileageHistory.mp?memNo=<%=loginUser.getMemNo()%>&cpage=<%=currentPage + 1%>';">&gt;</button>
+						<%
+							}
+						%>
+					</div>
+
+
+
+
+				</td>
+			</tr>
+
 			<%
 				}
 			%>
-			
+
+
 		</table>
+
+
+
 	</div>
+
+
+	<br>
+	<br>
+
+
+
+
+
+
 	<%@include file="../common/footer.jsp"%>
 
 

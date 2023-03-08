@@ -358,36 +358,25 @@ a {
 	        		 <%} %>
                     <%} %>
                     </div>
-               <!--
-                    <div class="board_page">
-                        <a href="#" class="bt first"><<</a>
-                        <a href="#" class="bt prev"><</a>
-                        <a href="#" class="num on">1</a>
-                        <a href="#" class="num">2</a>
-                        <a href="#" class="num">3</a>
-                        <a href="#" class="num">4</a>
-                        <a href="#" class="num">5</a>
-                        <a href="#" class="bt next">></a>
-                        <a href="#" class="bt last">>></a>
-                    </div>-->
+             
                     
            
-                     <div class="paging-area" align="center" style="width=600px; text-align:center; margin-top:10px; font-size:18px;">
+                     <div class="paging-area" align="center" style="width=700px; text-align:center; margin-top:10px; font-size:18px; font-weight: 600px;">
         	<% if(currentPage != 1) { %>
-            	<button style="background-color: transparent; color: white;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= currentPage - 1 %>'">&lt;</button>
+            	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= currentPage - 1 %>'">&lt;</button>
             <% } %>
             
             
             <% for(int p = startPage; p <= endPage; p++) { %>
             	<% if(p == currentPage) { %>
-            		<button style="background-color: transparent; color: white; border: 1px solid white;" disabled><%= p %></button>
+            		<button style="background-color: transparent; color: rgb(82, 82, 82); border: 3px solid #d5aede;" disabled><%= p %></button>
             	<% } else { %>
-            		<button style="background-color: transparent; color: white;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= p %>'"><%= p %></button>
+            		<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2px solid #696969 ;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= p %>'"><%= p %></button>
             	<% } %>
             <% } %>
             
             <% if(currentPage != maxPage) { %>
-            	<button style="background-color: transparent; color: white;" onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= currentPage + 1 %>'">&gt;</button>
+            	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ; " onclick = "location.href = '<%= contextPath %>/nlist.no?cpage=<%= currentPage + 1 %>'">&gt;</button>
             <% } %>
             
         </div>
@@ -412,6 +401,4 @@ a {
 			})
 		})
     </script>
-</html>
-</body>
 </html>

@@ -7,6 +7,7 @@ public class MileageHistory {
 	private String productNo;
 	private int memNo;
 	
+	
 		
 	public MileageHistory() {
 		
