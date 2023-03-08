@@ -112,7 +112,8 @@ public class PaymentDao {
 								  rset.getString("cart_size"),
 								  rset.getInt("mileage"),
 								  rset.getString("brand_name"),
-								  rset.getString("product_img_src"),
+								  rset.getString("change_name"),
+								  rset.getString("file_path"),
 								  rset.getInt("option_stock")));
 			}
 		} catch (SQLException e) {
@@ -205,7 +206,8 @@ public class PaymentDao {
 			if(rset.next()) {
 				p = new Product(rset.getString("brand_name"),
 								rset.getString("product_name"),
-								rset.getString("product_img_src"),
+								rset.getString("change_name"),
+								rset.getString("file_path"),
 								rset.getInt("product_price"),
 								rset.getInt("product_discount"),
 								rset.getInt("product_no"),
@@ -425,7 +427,8 @@ public class PaymentDao {
 			if(rset.next()) {
 				p = new Product(rset.getString("brand_name"),
 						rset.getString("product_name"),
-						rset.getString("product_img_src"),
+						rset.getString("change_name"),
+						rset.getString("file_path"),
 						rset.getInt("product_price"),
 						rset.getInt("product_discount"),
 						rset.getInt("product_no"),

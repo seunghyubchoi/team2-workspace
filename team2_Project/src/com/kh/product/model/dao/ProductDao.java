@@ -50,7 +50,8 @@ public class ProductDao {
 									 rset.getInt("product_price"),
 									 rset.getString("brand_name"),
 									 rset.getInt("product_view_count"),
-									 rset.getString("product_img_src")));
+									 rset.getString("change_name"),
+									 rset.getString("file_path")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -85,7 +86,8 @@ public class ProductDao {
 									 rset.getInt("product_price"),
 									 rset.getString("brand_name"),
 									 rset.getInt("product_view_count"),
-									 rset.getString("product_img_src")));
+									 rset.getString("change_name"),
+									 rset.getString("file_path")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -118,7 +120,8 @@ public class ProductDao {
 									 rset.getInt("product_price"),
 									 rset.getString("brand_name"),
 									 rset.getInt("product_view_count"),
-									 rset.getString("product_img_src")));
+									 rset.getString("change_name"),
+									 rset.getString("file_path")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -154,7 +157,8 @@ public class ProductDao {
 									 rset.getInt("product_price"),
 									 rset.getString("brand_name"),
 									 rset.getInt("product_view_count"),
-									 rset.getString("product_img_src")));
+									 rset.getString("change_name"),
+									 rset.getString("file_path")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -186,7 +190,8 @@ public class ProductDao {
 									 rset.getInt("product_price"),
 									 rset.getString("brand_name"),
 									 rset.getInt("product_view_count"),
-									 rset.getString("product_img_src"));
+									 rset.getString("change_name"),
+									 rset.getString("file_path"));
 			
 			}
 		} catch (SQLException e) {
@@ -233,8 +238,8 @@ public class ProductDao {
 			
 			while(rset.next()) {
 				list.add(new ProductImage(rset.getInt("product_img_no"),
-										  rset.getString("product_img_name"),
-										  rset.getString("product_img_src"),
+										  rset.getString("change_name"),
+										  rset.getString("file_path"),
 										  rset.getInt("product_no"),
 										  rset.getInt("img_type")));
 			}

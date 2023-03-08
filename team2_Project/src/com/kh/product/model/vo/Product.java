@@ -14,7 +14,8 @@ public class Product {
 	private int brandNo;
 	private String brandName;
 	private int productDiscount;
-	private String productImgSrc;
+	private String changeName;
+	private String filePath;
 	private String cartSize;
 	private int cartQnt;
 	
@@ -37,9 +38,10 @@ public class Product {
 	
 
 	
+	
 
 	public Product(int productNo, String productName, int productDiscount, int productPrice, String brandName,
-			int productViewCount, String productImgSrc) {
+			int productViewCount, String changeName, String filePath) {
 		super();
 		this.productNo = productNo;
 		this.productName = productName;
@@ -47,23 +49,28 @@ public class Product {
 		this.productPrice = productPrice;
 		this.brandName = brandName;
 		this.productViewCount = productViewCount;
-		this.productImgSrc = productImgSrc;
+		this.changeName = changeName;
+		this.filePath = filePath;
 	}
-	
+
+
 		
 
-	public Product(String brandName, String productName, String productImgSrc, int productPrice, int productDiscount,
-			int productNo, String cartSize, int cartQnt) {
+	public Product(String brandName, String productName, String changeName, String filePath, int productPrice,
+			int productDiscount, int productNo, String cartSize, int cartQnt) {
 		super();
 		this.brandName = brandName;
 		this.productName = productName;
-		this.productImgSrc = productImgSrc;
+		this.changeName = changeName;
+		this.filePath = filePath;
 		this.productPrice = productPrice;
 		this.productDiscount = productDiscount;
 		this.productNo = productNo;
 		this.cartSize = cartSize;
 		this.cartQnt = cartQnt;
 	}
+
+	
 
 	public int getProductNo() {
 		return productNo;
@@ -154,14 +161,24 @@ public class Product {
 		this.productDiscount = productDiscount;
 	}
 
-	public String getProductImgSrc() {
-		return productImgSrc;
+	
+	
+
+	public String getChangeName() {
+		return changeName;
 	}
 
-	public void setProductImgSrc(String productImgSrc) {
-		this.productImgSrc = productImgSrc;
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
 	}
-	
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 
 	public String getCartSize() {
 		return cartSize;
@@ -184,10 +201,12 @@ public class Product {
 		return "Product [productNo=" + productNo + ", productName=" + productName + ", productDesc=" + productDesc
 				+ ", productPrice=" + productPrice + ", productEnrollDate=" + productEnrollDate + ", productViewCount="
 				+ productViewCount + ", delYn=" + delYn + ", categoryNo=" + categoryNo + ", brandNo=" + brandNo
-				+ ", brandName=" + brandName + ", productDiscount=" + productDiscount + ", productImgSrc="
-				+ productImgSrc + ", cartSize=" + cartSize + ", cartQnt=" + cartQnt + "]";
+				+ ", brandName=" + brandName + ", productDiscount=" + productDiscount + ", changeName=" + changeName
+				+ ", filePath=" + filePath + ", cartSize=" + cartSize + ", cartQnt=" + cartQnt + "]";
 	}
 
+	
+	
 	
 
 	

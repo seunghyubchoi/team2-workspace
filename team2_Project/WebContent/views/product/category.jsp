@@ -159,7 +159,7 @@
                     <div class="col" style="margin-bottom: 30px;">
                         <div class="card" style="width: 18rem;">
                             <a href="<%= contextPath %>/product.pr?pno=<%= p.getProductNo()%>"><img
-                                    src="<%=p.getProductImgSrc() %>"
+                                    src="<%= contextPath + p.getFilePath() + p.getChangeName()%>"
                                     class="card-img-top" alt="..."></a>
                             <div class="card-body">
                                 <a href="<%= contextPath %>/product.pr?pno=<%= p.getProductNo()%>" class="product_link">
@@ -220,13 +220,18 @@
     		 	'val' : $("#productSorting option:selected").val()},
     	 type : "get",
     	 success:function(result){	
+    		 console.log(page)
     		 let length = result.length;
     		 for(var i = 1 ;i<length;i++) {
     			 $("#product-list").append(
     					 "<div class='col' style='margin-bottom: 30px;'>"+
     	                 "<div class='card' style='width: 18rem;'>"+
     	                     "<a href='<%= contextPath %>/product.pr?pno=" + result[i].productNo +" ' >"+
-    	                     "<img src= " + result[i].productImgSrc +" class='card-img-top'>"+
+    	                     "<img src= "  + 
+    	                     "<%= contextPath %>" + 
+    	                     "result[i].filePath" + 
+    	                     "result[i].changeName" + 
+    	                     " class='card-img-top'>"+
     	                     "</a>" +
     	                     "<div class='card-body'>"+
     	                        "<a href='<%= contextPath %>/product.pr?pno=" + result[i].productNo +"' class='product_link'>" +

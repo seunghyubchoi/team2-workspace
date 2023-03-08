@@ -12,12 +12,11 @@ public class Cart {
 	private int productPrice;
 	private int mileage;
 	private String brandName;
-	private String productImgSrc;
+	private String changeName;
+	private String filePath;
 	private int optionStock;
 	
-	public Cart() {
-		
-	}
+	public Cart() {}
 
 	
 
@@ -32,11 +31,8 @@ public class Cart {
 	}
 
 	
-	
-
-
 	public Cart(String productName, int productDiscount, int productPrice, int cartNo, int cartQnt, String cartSize,
-			int mileage, String brandName, String productImgSrc, int optionStock) {
+			int mileage, String brandName, String changeName, String filePath, int optionStock) {
 		super();
 		this.productName = productName;
 		this.productDiscount = productDiscount;
@@ -46,9 +42,12 @@ public class Cart {
 		this.cartSize = cartSize;
 		this.mileage = mileage;
 		this.brandName = brandName;
-		this.productImgSrc = productImgSrc;
+		this.changeName = changeName;
+		this.filePath = filePath;
 		this.optionStock = optionStock;
 	}
+
+
 
 
 
@@ -167,20 +166,30 @@ public class Cart {
 		this.brandName = brandName;
 	}
 
-	
 
-	public String getProductImgSrc() {
-		return productImgSrc;
+	public String getChangeName() {
+		return changeName;
 	}
 
 
 
-	public void setProductImgSrc(String productImgSrc) {
-		this.productImgSrc = productImgSrc;
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
 	}
 
-	
-	
+
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+
 
 	public int getOptionStock() {
 		return optionStock;
@@ -199,8 +208,13 @@ public class Cart {
 		return "Cart [cartNo=" + cartNo + ", cartQnt=" + cartQnt + ", productNo=" + productNo + ", memNo=" + memNo
 				+ ", cartSize=" + cartSize + ", delYn=" + delYn + ", productName=" + productName + ", productDiscount="
 				+ productDiscount + ", productPrice=" + productPrice + ", mileage=" + mileage + ", brandName="
-				+ brandName + ", productImgSrc=" + productImgSrc + ", optionStock=" + optionStock + "]";
+				+ brandName + ", changeName=" + changeName + ", filePath=" + filePath + ", optionStock=" + optionStock
+				+ "]";
 	}
+
+
+
+	
 
 
 

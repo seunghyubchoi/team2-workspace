@@ -256,12 +256,12 @@
     <div class="col-2">
       <div id="photo-select" style="text-align: right; margin-top: 20px;">
         <div>
-          <img class="photo-s" src="<%=p.getProductImgSrc() %>" width="40%" height="40%" alt="">
+          <img class="photo-s" src="<%= contextPath + p.getFilePath() + p.getChangeName()%>" width="40%" height="40%" alt="">
         </div>
         <% for(ProductImage pi : imgList) { %>
         	<% if(pi.getImgType() == 2) {%>
         <div>
-          <img class="photo-s" src="<%= pi.getProductImgSrc() %>" width="40%" height="40%" alt="">
+          <img class="photo-s" src="<%= contextPath + pi.getFilePath() + pi.getChangeName() %>" width="40%" height="40%" alt="">
         </div>
         	<% } %>
      	<% } %>
@@ -273,7 +273,7 @@
        
         <div id="photo-size">
           <div class="shadow p-3 mb-5 bg-body rounded">
-            <img id="main-photo" src="<%= p.getProductImgSrc() %>" width="100%" height="80%"
+            <img id="main-photo" src="<%=contextPath + p.getFilePath() + p.getChangeName() %>" width="100%" height="80%"
               alt="...">
           </div>
          
@@ -393,7 +393,7 @@
             tabindex="0">
             <% for(ProductImage pi : imgList){ %>
             <% if(pi.getImgType()==3){ %>
-            <%=pi.getProductImgSrc()%>
+            <%=contextPath + pi.getFilePath() + pi.getChangeName()%>
             <% } %>
             <% } %>
           </div>
@@ -470,7 +470,7 @@
             <div class="modal-header">
               <div class="row">
                 <div class="col-md-4">
-                  <img src="<%= p.getProductImgSrc() %>" width="80%"
+                  <img src="<%= contextPath + p.getFilePath() + p.getChangeName() %>" width="80%"
                     height="80%" alt="">
                 </div>
                 <div class="col-md-7" style="font-weight: 700; text-align: left;"><%=p.getProductName() %>
