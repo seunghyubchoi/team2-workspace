@@ -1,6 +1,7 @@
-package com.kh.notice.controller;
+package com.kh.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.notice.model.service.AdminNoticeService;
-import com.kh.notice.model.vo.Attachment;
-import com.kh.notice.model.vo.Notice;
+import com.kh.member.model.service.AdminMemberService;
+import com.kh.member.model.vo.Member;
+import com.kh.payment.model.vo.Location;
 
 /**
- * Servlet implementation class AdminNoticeModifyFormController
+ * Servlet implementation class AdminMemberDetailFormController
  */
-@WebServlet("/modifyView.nt")
-public class AdminNoticeModifyFormController extends HttpServlet {
+@WebServlet("/detailForm.me")
+public class AdminMemberDetailFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminNoticeModifyFormController() {
+    public AdminMemberDetailFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +35,7 @@ public class AdminNoticeModifyFormController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		int noticeNo = Integer.parseInt(request.getParameter("nno"));
+		int memNo = Integer.parseInt(request.getParameter("mno"));
 		
 		HttpSession session = request.getSession();
 		
@@ -43,15 +44,14 @@ public class AdminNoticeModifyFormController extends HttpServlet {
 			request.getRequestDispatcher("views/admin/adminLogin.jsp").forward(request, response);
 		} else {
 			
-			AdminNoticeService nService = new AdminNoticeService();
-			Notice n = nService.selectNotice(noticeNo);
-			Attachment at = nService.selectAttachment(noticeNo);
+			AdminMemberService mService = new AdminMemberService();
+			Member m = mService.selectMember(memNo);
+			ArrayList<Location> lList = mService.selectLocation(memNo);
 			
-			request.setAttribute("n", n);
-			request.setAttribute("at", at);
+			request.setAttribute("m", m);
+			request.setAttribute("lList", lList);
 			
-			request.getRequestDispatcher("views/admin/adminNoticeModify.jsp").forward(request, response);
-
+			request.getRequestDispatcher("views/admin/adminMemberModify.jsp").forward(request, response);
 		}
 	}
 

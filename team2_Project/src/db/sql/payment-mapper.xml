@@ -153,15 +153,18 @@ SELECT
   , MILEAGE
   , BRAND_NAME
   , PRODUCT_IMG_SRC
+  , OPTION_STOCK
   FROM TB_CART C
 JOIN TB_PRODUCT P ON (C.PRODUCT_NO = P.PRODUCT_NO)
 JOIN TB_MEMBER M ON(C.MEM_NO = M.MEM_NO)
 JOIN TB_BRAND B ON(B.BRAND_NO = P.BRAND_NO)
 JOIN TB_PRODUCT_IMAGE PI ON (PI.PRODUCT_NO = P.PRODUCT_NO)
+JOIN TB_OPTION O ON(C.PRODUCT_NO = O.PRODUCT_NO)
     WHERE 
         C.MEM_NO = ?
+    AND OPTION_SIZE = CART_SIZE
     AND C.DEL_YN = 'N' 
-    AND IMG_TYPE = 1  
+    AND IMG_TYPE = 1 
 	</entry>
 	<entry key="deleteCart">
 	UPDATE
@@ -185,4 +188,133 @@ JOIN TB_PRODUCT_IMAGE PI ON (PI.PRODUCT_NO = P.PRODUCT_NO)
     SET CART_QNT = ?
     WHERE CART_NO = ?
 	</entry>
+
+	<entry key="selectPayment">
+SELECT 
+    BRAND_NAME
+  , PRODUCT_NAME
+  , PRODUCT_IMG_SRC
+  , PRODUCT_PRICE
+  , PRODUCT_DISCOUNT
+  , P.PRODUCT_NO
+  , CART_SIZE
+  , CART_QNT
+  FROM TB_PRODUCT P
+  JOIN TB_BRAND USING (BRAND_NO)
+  JOIN TB_PRODUCT_IMAGE PI ON(P.PRODUCT_NO = PI.PRODUCT_NO)
+  JOIN TB_CART C ON(P.PRODUCT_NO = C.PRODUCT_NO)
+  WHERE CART_NO = ?
+        AND IMG_TYPE = 1
+        AND P.DEL_YN = 'N'
+	</entry>
+	<entry key="selectPayment2">
+SELECT 
+    BRAND_NAME
+  , PRODUCT_NAME
+  , PRODUCT_IMG_SRC
+  , PRODUCT_PRICE
+  , PRODUCT_DISCOUNT
+  , P.PRODUCT_NO
+  FROM TB_PRODUCT P
+  JOIN TB_BRAND USING (BRAND_NO)
+  JOIN TB_PRODUCT_IMAGE PI ON(P.PRODUCT_NO = PI.PRODUCT_NO)
+  WHERE P.PRODUCT_NO = ?
+        AND IMG_TYPE = 1
+        AND P.DEL_YN = 'N'
+	</entry>
+	<entry key="insertOrder">
+	INSERT 
+    INTO TB_ORDER 
+    VALUES(
+    SEQ_ORDER.NEXTVAL
+    ,?
+    ,?
+    ,DEFAULT
+    ,DEFAULT
+    ,NULL
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    ,?
+    )
+	</entry>
+	<entry key="insertOrderDtl">
+	INSERT 
+    INTO TB_DTL_ORDER 
+    VALUES(
+    SEQ_DTL_ORDER.NEXTVAL
+    ,(SELECT * 
+    FROM (SELECT ORDER_NO
+    FROM TB_ORDER
+    ORDER BY ORDER_NO DESC)
+    WHERE ROWNUM =1)
+    ,?
+    ,?
+    ,?
+    )    
+	</entry>
+	<entry key="updateOptionQnt">
+	 UPDATE TB_OPTION
+	   SET OPTION_STOCK = OPTION_STOCK - ?
+	 WHERE PRODUCT_NO = ?
+       AND OPTION_SIZE = ?
+	</entry>
+	<entry key="updateMileage">
+	UPDATE TB_MEMBER
+	   SET MILEAGE = MILEAGE - ?
+	 WHERE MEM_NO = ?
+	</entry>
+	<entry key="insertMileageHistory">
+	INSERT 
+    INTO TB_MILEAGE_HISTORY
+    VALUES(
+    SEQ_MILEAGE_HISTORY.NEXTVAL
+    ,'사용'
+    ,?
+    ,?
+    ,(SELECT * 
+    FROM (SELECT ORDER_NO
+    FROM TB_ORDER
+    ORDER BY ORDER_NO DESC)
+    WHERE ROWNUM =1)
+    )    
+      
+	</entry>
+	
+<entry key="adminInsertLocation">
+	INSERT 
+    INTO TB_LOCATION 
+        (
+          LOC_NO
+        , MEM_NO
+        , LOC_ADDRESS_NAME
+        , LOC_NAME
+        , LOC_PHONE
+        , LOC_ADDRESS
+        , LOC_ADDRESS_DTL
+        , LOC_POST_CODE
+        , LOC_YN
+        )
+        VALUES
+        (
+          SEQ_LOCATION.NEXTVAL
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        )
+</entry>
+<entry key="updateLocYn">
+	UPDATE TB_LOCATION
+	   SET LOC_YN = 'N'
+	 WHERE MEM_NO = ?
+</entry>
 </properties>

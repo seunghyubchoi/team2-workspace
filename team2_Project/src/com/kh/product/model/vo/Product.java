@@ -15,6 +15,9 @@ public class Product {
 	private String brandName;
 	private int productDiscount;
 	private String productImgSrc;
+	private String cartSize;
+	private int cartQnt;
+	
 	
 	public Product() {}
 	
@@ -45,6 +48,21 @@ public class Product {
 		this.brandName = brandName;
 		this.productViewCount = productViewCount;
 		this.productImgSrc = productImgSrc;
+	}
+	
+		
+
+	public Product(String brandName, String productName, String productImgSrc, int productPrice, int productDiscount,
+			int productNo, String cartSize, int cartQnt) {
+		super();
+		this.brandName = brandName;
+		this.productName = productName;
+		this.productImgSrc = productImgSrc;
+		this.productPrice = productPrice;
+		this.productDiscount = productDiscount;
+		this.productNo = productNo;
+		this.cartSize = cartSize;
+		this.cartQnt = cartQnt;
 	}
 
 	public int getProductNo() {
@@ -143,6 +161,23 @@ public class Product {
 	public void setProductImgSrc(String productImgSrc) {
 		this.productImgSrc = productImgSrc;
 	}
+	
+
+	public String getCartSize() {
+		return cartSize;
+	}
+
+	public void setCartSize(String cartSize) {
+		this.cartSize = cartSize;
+	}
+
+	public int getCartQnt() {
+		return cartQnt;
+	}
+
+	public void setCartQnt(int cartQnt) {
+		this.cartQnt = cartQnt;
+	}
 
 	@Override
 	public String toString() {
@@ -150,9 +185,12 @@ public class Product {
 				+ ", productPrice=" + productPrice + ", productEnrollDate=" + productEnrollDate + ", productViewCount="
 				+ productViewCount + ", delYn=" + delYn + ", categoryNo=" + categoryNo + ", brandNo=" + brandNo
 				+ ", brandName=" + brandName + ", productDiscount=" + productDiscount + ", productImgSrc="
-				+ productImgSrc + "]";
+				+ productImgSrc + ", cartSize=" + cartSize + ", cartQnt=" + cartQnt + "]";
 	}
 
+	
+
+	
 	
 	
 	
