@@ -219,7 +219,7 @@
           </tr>
         </table>
         <div class="d-grid gap-2" style="margin-top: 20px;">
-          <button class="btn btn-primary" id="payment-btn" type="button" style="background-color: pink; border-color: pink;">결제하러
+          <button class="btn btn-primary" id="payment-btn" type="button" style="background-color: plum; border-color: plum;">결제하러
             가기</button>
         </div>
       </div>
@@ -305,6 +305,12 @@
     $("#payment-btn").click(function(){
     	let sum = 0;
     	let cartNo = [];
+    	
+    	if ($("input:checkbox[name='chk']").is(":checked")==false) {
+    		alert("하나 이상 체크해주세요!");
+    		return;
+    	}
+    	
     	$('input:checkbox[name="chk"]').each(function(){
     		if($(this).is(":checked") == true){
     			if($(this).parents('tr').find('input[name=amount]').val()=='0'){

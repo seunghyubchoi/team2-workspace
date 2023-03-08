@@ -402,7 +402,7 @@
             <div class="row" id="review-box">
               <div class="col-2">
               </div>
-              <div class="col-8" style="background-color: rgb(228, 227, 227);">
+              <div class="col-8" style="background-color: rgb(241, 241, 241);">
                 <div class="row">
                   <div class="col" style="margin-left: 10px;" >
                     <div class="box-high">
