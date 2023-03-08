@@ -3,28 +3,29 @@
 <properties>
 <entry key="selectList">
 SELECT *
-FROM(SELECT ROWNUM RNUM, A.*
-    FROM(SELECT
-        QNA_NO
-        ,QNA_TITLE
-        ,QNA_DATE
-        ,MEM_NAME
-        ,QNA_VIEW_COUNT
-        FROM TB_INQUIRE
-        JOIN TB_MEMBER USING(MEM_NO)
-        WHERE DEL_YN ='N'
-        ORDER BY QNA_NO DESC
-        )A
+  FROM	(SELECT ROWNUM RNUM, A.*
+  FROM	(SELECT
+        	QNA_NO
+        	,QNA_TITLE
+        	,QNA_DATE
+        	,MEM_NAME
+        	,QNA_VIEW_COUNT
+  FROM TB_INQUIRE
+  JOIN TB_MEMBER USING(MEM_NO)
+ WHERE DEL_YN ='N'
+ ORDER 
+ 	BY QNA_NO DESC
+        ) A
         )
         WHERE RNUM BETWEEN ? AND ?
 </entry>
 
-	<entry key="selectListCount">
-		SELECT
+<entry key="selectListCount">
+SELECT
 COUNT(*) count
 FROM TB_INQUIRE
 WHERE DEL_YN ='N'
-	</entry>
+</entry>
 	
 <entry key="increaseCount">
  UPDATE
@@ -70,6 +71,7 @@ WHERE QNA_NO =?
 		     , QNA_TITLE
 		     , QNA_CONTENT
 		     , MEM_NO
+		     , HEADER_NO
 		     )
 		VALUES
 		     (
@@ -78,9 +80,29 @@ WHERE QNA_NO =?
 		     , ?
 		     , ?
 		     , ?
+		     , ?
 		     )
 	</entry>	
 	
+	<entry key="insertAttachment">
+		 INSERT
+		  INTO ATTACHMENT
+		     (
+		       FILE_NO
+		     , REF_BNO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		     )
+		VALUES
+		     (
+		       SEQ_FNO.NEXTVAL
+		     , SEQ_BNO.CURRVAL
+		     , ?
+		     , ?
+		     , ?
+		     )
+	</entry>
 </properties>
 
 

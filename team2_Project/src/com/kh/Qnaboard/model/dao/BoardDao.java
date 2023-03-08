@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.Qnaboard.model.vo.Board;
+import com.kh.Qnaboard.model.vo.QAttachment;
 import com.kh.common.PageInfo;
 import com.kh.product.model.vo.Category;
 
@@ -55,18 +56,17 @@ public class BoardDao {
 		ArrayList<Board> list = new ArrayList<Board>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit()-1;
 		
 		String sql = prop.getProperty("selectList");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-			int endRow = startRow + pi.getBoardLimit()-1;
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			
-			rset=pstmt.executeQuery();
-			
+
+			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Board( rset.getInt("QNA_NO"),
 									rset.getString("QNA_TITLE"),
@@ -75,6 +75,7 @@ public class BoardDao {
 									rset.getInt("QNA_VIEW_COUNT")
 						));
 			}
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -163,26 +164,54 @@ public class BoardDao {
 	}
 	
 	public int insertBoard(Connection conn, Board b) {
-		int result=0;
+		// insert문 => 처리된 행수 => 트랜젝션 처리
+		int result = 0;
 		PreparedStatement pstmt = null;
+		
 		String sql = prop.getProperty("insertBoard");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, b.getQcategory());
+			
+			pstmt.setString(1,b.getQcategory());
 			pstmt.setString(2, b.getQnaTitle());
 			pstmt.setString(3, b.getQnaContent());
-			pstmt.setString(4,b.getMemNo());
+			pstmt.setString(4, b.getMemNo());
+			pstmt.setInt(5, b.getHeaderNo());
 			
 			result = pstmt.executeUpdate();
 			
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(pstmt);
 		}
+		
 		return result;
 	}
 	
-	
+	public int insertAttachment(Connection conn, QAttachment at) {
+		// insert문 => 처리된 행수 => 트랜젝션 처리
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

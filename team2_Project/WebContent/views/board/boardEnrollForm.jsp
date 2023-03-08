@@ -65,8 +65,11 @@ a {
 }
 
 .on {
+    width: 100px;
+    height: 40px;
     border-radius: 10px;
-  background-color: #e0abe8;
+    border: solid 1px plum;
+    background-color: #e0abe8;
 	box-shadow: 0 0 0 1px #eed3f9 inset,
 		  0 0 0 3px rgba(206, 121, 223, 0.534) inset,
 		  0 8px 0 0 rgba(254, 253, 255, 0.863),
@@ -74,9 +77,12 @@ a {
 		  0 8px 8px 1px rgba(242, 184, 253, 0.5);
 }
 
-.off {
+#off {
+    width: 85px;
+    height: 19px;
     border-radius: 10px;
     background-color: #b4a3c8;
+    border: solid 1px gray;
 	box-shadow: 0 0 0 1px #a69ea9 inset,
 		  0 0 0 3px rgba(136, 133, 137, 0.534) inset,
 		  0 8px 0 0 rgba(253, 251, 254, 0.863),
@@ -311,13 +317,14 @@ a {
 <%@include file="../common/menubar.jsp"%>
             <div id="content">
              <div id="line1"></div>
-             <form id="enroll-form" action="<%=contextPath%>/qinsert.bo" method="post">
+             <form id="enroll-form" action="<%=contextPath%>/qinsert.bo" method="post" enctype="multipart/form-data">
+           <input type="hidden" name="userNo" value="<%= loginUser.getMemNo() %>">
             <div class="board_write_wrap">
                 <div class="board_write">
                     <div class="title">
                         <dl>
-                            <dt>문의 제목</dt>
-                            <dd><input type="text" name="title" placeholder="제목 입력"></dd>
+                            <dt style="font-size: 18px;">문의 제목</dt>
+                            <dd style="margin-left: 0px;"><input type="text" name="title" placeholder="제목 입력"></dd>
                         </dl>
                     </div>
                     <div class="info">
@@ -325,10 +332,13 @@ a {
                             <dt>문의종류</dt>
                             <dd><select name="qna1" id="qna1" style="height:35px; width: 100px;">
                             <%for(Category c: list){ %>
-                                <option value="option" name="qna"><%=c.getCategoryName()%></option>
+                                <option value="<%=c.getCategoryNo() %>"><%=c.getCategoryName()%></option>
                                 <% } %>
                             </select>
                             </dd>
+                            <br>
+                            <dt style="margin-top: 15px;">첨부파일</dt>
+                            <dd style="margin-top: 15px;"><input type="file" name="upfile"></dd>
                         </dl>
                     </div>
                     <div class="cont">
@@ -342,9 +352,10 @@ a {
                 </div>
                 </div>
                 <div class="bt_wrap">
-                    <button type="submit" class="on">등록</button>
-                    <button type="reset" class="off">취소</button>
+                    <button type="submit" class="on" >등록</button>
+                    <a type="button" class="button" id="off" href="<%=contextPath%>/qlist.no?cpage=1">취소</a>
                 </div>
+                <br><br>
                                 </form>
             </div>
 

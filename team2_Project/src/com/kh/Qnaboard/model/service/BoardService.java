@@ -2,14 +2,13 @@ package com.kh.Qnaboard.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-
 import static com.kh.common.JDBCTemplate.*;
-
 import com.kh.Qnaboard.model.dao.BoardDao;
 import com.kh.Qnaboard.model.vo.Board;
+import com.kh.Qnaboard.model.vo.QAttachment;
 import com.kh.common.PageInfo;
-import com.kh.notice.model.vo.Attachment;
 import com.kh.product.model.vo.Category;
+
 
 public class BoardService {
 	
@@ -22,9 +21,7 @@ public class BoardService {
 	
 	public ArrayList<Board> selectList(PageInfo pi){
 		Connection conn =getConnection();
-		
 		ArrayList<Board> list = new BoardDao().selectList(conn,pi);
-		
 		close(conn);
 		return list;
 	}
@@ -56,20 +53,24 @@ public class BoardService {
 		return list;
 	}
 
-	public int insertBoard(Board b) {
+	public int insertBoard(Board b, QAttachment at) {
 		Connection conn = getConnection();
 		
-		int result = new BoardDao().insertBoard(conn, b);
+		int result1 = new BoardDao().insertBoard(conn, b);
+		int result2 = 1;
 		
-		if(result > 0) {
+		if(at != null) { // 첨부파일 있음
+			result2 = new BoardDao().insertAttachment(conn, at);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		
-		close(conn);
-		
-		return result;
+		return result1 * result2;
 	}
+	
 	
 }

@@ -311,6 +311,13 @@ a {
     border: 0;
     resize: vertical;
 }
+#line1{
+	border: #E0BFE6 solid 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left:20px;
+	margin-right:20px;
+  }
 </style>
 </head>
 <body>
@@ -337,7 +344,7 @@ a {
                         <%for(Board b:list){ %>
                         <div class="qlist">
                             <div class="num"><%=b.getQnaNo() %></div>
-                            <div class="title"><%=b.getQnaTitle() %></a></div>
+                            <div class="title"><%=b.getQnaTitle() %></div>
                             <div class="writer"><%=b.getMemNo() %></div>
                             <div class="date"><%=b.getQnaDate() %></div>
                             <div class="count"><%=b.getCount() %></div>
@@ -348,7 +355,7 @@ a {
 
                    
                    
-                   <div class="paging-area" align="center" style="width=700px; text-align:center; margin-top:10px; font-size:18px; font-weight: 600px;">
+                  <div class="paging-area" align="center" style="width=700px; text-align:center; margin-top:10px; font-size:18px; font-weight: 600px;">
         	<% if(currentPage != 1) { %>
             	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ;" onclick = "location.href = '<%= contextPath %>/qlist.no?cpage=<%= currentPage - 1 %>'">&lt;</button>
             <% } %>

@@ -377,9 +377,6 @@ ul.join_box {
                 <div>
                     <button type="submit" class="btn1">ID/PWD 찾기</button>
                 </div>
-				<div>
-                    <button type="submit" class="btn2">비회원 구경하기</button>
-                </div>
 				</div>
             </form>
 
@@ -388,10 +385,6 @@ ul.join_box {
                 <div class="input-field">
                     <input type="text" id="memId" name="memId" placeholder="아이디">
                 </div>
-				<div>
-					<button id="wndqhr">아이디 중복확인</button>
-				</div>
-				
                 <div class="input-field">
                     <input type="password" id="memPwd" name="memPwd" placeholder="비밀번호(대소문자 4~12자)">
                 </div>
@@ -970,7 +963,7 @@ ul.join_box {
 				</textarea>
 				</li>
 				
-				<li class="checkBox check03">
+				<li class="checkBox check04">
 					<ul class="clearfix">
 						<li>마케팅 활용 및 광고성 정보 수신 동의</li>
 						<br>
@@ -983,7 +976,7 @@ ul.join_box {
 3. 보유기간동의일로부터 회원 탈퇴 혹은 마케팅 동의 해제 시까지 보유·이용※ 더 자세한 내용에 대해서는 개인정보처리방침을 참고하시기 바랍니다.
                    </textarea>
 				</li>
-				<li class="checkBox check04">
+				<li class="checkBox check05">
 					<ul class="clearfix">
 						<li>만 14세 미만 가입 제한</li>
 						<li class="checkBtn"><input type="checkbox" name="chk">
@@ -1020,7 +1013,7 @@ ul.join_box {
 		}
 	%>
 </body>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
         /*css 애니메이션 작동 스크립트*/
         const sign_in_btn = document.querySelector("#sign-in-btn");
@@ -1033,8 +1026,97 @@ ul.join_box {
         container.classList.remove("sign-up-mode");
         });
 		/*체크박스 스크립트*/
+
+		$(document).ready(function() {
+  $('.checkBtn input[type="checkbox"]').click(function() {
+    if ($('#chk01').prop('checked') && $('#chk02').prop('checked') && $('#chk03').prop('checked') && $('#chk04').prop('checked')) {
+      // 모든 체크박스가 체크되어 있으면 회원가입 가능
+      $('#signupBtn').prop('disabled', false); // 회원가입 버튼 활성화
+    } else {
+      // 체크박스 중 하나라도 체크되어 있지 않으면 회원가입 불가능
+      $('#sign-up-btn').prop('disabled', true); // 회원가입 버튼 비활성화
+    }
+  });
+});
 		
 </script>
+<script>
+//회원가입 폼 유효성 검사
+function validateForm() {
+  var memId = document.getElementById("memId").value;
+  var memPwd = document.getElementById("memPwd").value;
+  var memPwd2 = document.getElementById("memPwd2").value;
+  var memName = document.getElementById("memName").value;
+  var email = document.getElementById("email").value;
+  var phone = document.getElementById("phone").value;
+  
+  // 아이디 유효성 검사
+  if (memId == "") {
+    alert("아이디를 입력해주세요.");
+    return false;
+  }
 
+  // 비밀번호 유효성 검사
+  if (memPwd == "") {
+    alert("비밀번호를 입력해주세요.");
+    return false;
+  }
+  if (memPwd.length < 4 || memPwd.length > 12) {
+    alert("비밀번호는 4~12자 이내로 입력해주세요.");
+    return false;
+  }
+  if (memPwd != memPwd2) {
+    alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+    return false;
+  }
+
+  // 이름 유효성 검사
+  if (memName == "") {
+    alert("이름을 입력해주세요.");
+    return false;
+  }
+
+  // 이메일 유효성 검사
+  if (email == "") {
+    alert("이메일을 입력해주세요.");
+    return false;
+  }
+  if (
+    !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
+  ) {
+    alert("이메일 형식이 올바르지 않습니다.");
+    return false;
+  }
+
+  // 핸드폰번호 유효성 검사
+  if (phone == "") {
+    alert("핸드폰번호를 입력해주세요.");
+    return false;
+  }
+  if (!/^[0-9]{3}-[0-9]{3,4}-[0-9]{4}$/.test(phone)) {
+    alert("핸드폰번호 형식이 올바르지 않습니다.");
+    return false;
+  }
+  
+  return true;
+}
+
+// submit 버튼 클릭시 유효성 검사 실행
+document.querySelector(".sign-up-form").addEventListener("submit", function (e) {
+  if (!validateForm()) {
+    e.preventDefault();
+  }
+});
+
+
+</script>
+<script>
+  $(document).ready(function() {
+    $('.chkAll').click(function() {
+      $('input[name=chk]').prop('checked', this.checked);
+      
+    });
+  });
+</script>
 
 </html>
