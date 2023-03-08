@@ -56,7 +56,7 @@
     }
 
     #product_discount {
-      color: pink;
+      color: plum;
       font-size: 25px;
       text-align: left;
     }
@@ -96,7 +96,7 @@
     #max_price {
       font-size: 25px;
       font-weight: 800;
-      color: pink;
+      color: plum;
       text-align: right;
       padding-top: 20px;
     }
@@ -162,7 +162,7 @@
     #pay_button>div>button {
       width: 90%;
       height: 100%;
-      background-color: pink;
+      background-color: plum;
       color: white;
       border: none;
     }
@@ -199,7 +199,7 @@
     }
 
     #modal_button>button {
-      background-color: pink;
+      background-color: plum;
       color: white;
       border: none;
     }
@@ -287,10 +287,10 @@
         <div id="product_discount" class="col-2">
           <%= p.getProductDiscount() %>%
         </div>
-        <div id="originalPrice" class="col-5">
-         <%= df.format(p.getProductPrice()) %>원
+        <div id="originalPrice" class="col-4">
+        <span>  <%= df.format(p.getProductPrice()) %></span>
         </div>
-        <div id="discountPrice" class="col-5">
+        <div id="discountPrice" class="col-6">
           <%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01)))%>원
         </div>
         <div id="topLine"></div>
@@ -336,15 +336,18 @@
           <div>결제수단 안내</div>
           <table id="payment2">
             <tr>
-              <td height="30">  <div> <img src="<%= contextPath%>/resources/img/네이버로고.png" width="15px" height="15px" alt="">
-                <span>pay</span>
+              <td height="30">  
+              <div> 
+              <img src="<%= contextPath%>/resources/img/네이버로고.png" width="15px" height="15px" alt="">
+                <span style="font-weight:600">pay</span>
                 </div>
+                </td>
               <td>결제 시 네이버페이 포인트 적립</td>
             </tr>
             <tr>
               <td height="30">
                 <div> <img src="<%= contextPath%>/resources/img/카카오로고.png" width="15px" height="15px" alt="">
-                <span>pay</span>
+                <span style="font-weight:600">pay</span>
                 </div>
               </td>
               <td>등록 된 모든 카드로 결제 가능</td>
