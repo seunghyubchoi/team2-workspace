@@ -120,7 +120,7 @@ public class AdminProductDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				atList.add(new Attachment(rset.getInt("FILE_NO"),
+				atList.add(new Attachment(rset.getInt("PRODUCT_IMG_NO"),
 										  rset.getString("ORIGIN_NAME"),
 										  rset.getString("CHANGE_NAME"),
 										  rset.getString("FILE_PATH")
@@ -446,6 +446,27 @@ public class AdminProductDao {
 				
 				result = pstmt.executeUpdate();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteProduct(Connection conn, String deleteList) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, deleteList);
+			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

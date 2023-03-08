@@ -147,4 +147,20 @@ public class AdminProductService {
 		return result1 * result2 * result3 * result4 * result5;
 	}
 
+	public int deleteProduct(String deleteList) {
+		Connection conn = getConnection();
+		
+		int result = new AdminProductDao().deleteProduct(conn, deleteList);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 }

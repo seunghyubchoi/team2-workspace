@@ -123,7 +123,7 @@ $(document).ready(function () {
     scrollX: 580
   });
 
-  $("div.product").append('<button id="btn_del_pro" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#commonModal">삭제</button>');
+  $("div.product").append('<button id="btn_del_pro" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#productDeleteModal" onclick="deleteList();">삭제</button>');
   $("div.product").append('<a id="btn_add_pro" class="btn btn-primary btn-table" href="insertForm.pd">추가</a>');
   
   $("#btn_del_pro").click(function(){
@@ -160,9 +160,6 @@ $(document).ready(function () {
     $("#checkBtn").html("삭제")
 
     switch($(this).attr("id")){
-      case "btn_del_pro" : 
-        $("#menuName").val("product");
-        break;
       case "btn_del_order" : 
         $("#menuName").val("order");
        break;
