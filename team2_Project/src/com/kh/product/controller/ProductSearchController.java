@@ -34,6 +34,7 @@ public class ProductSearchController extends HttpServlet {
 		String product = request.getParameter("product").toUpperCase(); // 입력받은 값 모두 대문자로 변환 
 		ArrayList<Product> list = new ArrayList();
 		int page = 1;
+		int pCount = new ProductService().listCount2(product);
 		if(request.getParameter("val") != null) {
 			int value = Integer.parseInt(request.getParameter("val"));
 			list = new ProductService().productSort(product, value,page);
@@ -42,7 +43,7 @@ public class ProductSearchController extends HttpServlet {
 			
 		list = new ProductService().productSearch(product,page);
 		}
-		
+		request.setAttribute("pCount", pCount);
 		request.setAttribute("list", list);
 		request.setAttribute("product", product);
 		request.getRequestDispatcher("views/product/product_search.jsp").forward(request, response);

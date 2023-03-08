@@ -253,4 +253,10 @@ SELECT
         OR BRAND_NAME = ?)
     AND DEL_YN = 'N'
 </entry>
+<entry key="selectReviewAvg">
+SELECT 
+	AVG(REVIEW_STAR) AVG
+	FROM TB_REVIEW
+	WHERE PRODUCT_NO2 = ?
+</entry>
 </properties>

@@ -49,6 +49,8 @@ public class ProductDetailController extends HttpServlet {
 			 imgList = new ProductService().selectProductImage(pNo);
 			 opList = new ProductService().selectProductOption(pNo);
 			 reviewList = new ProductService().selectProductReview(pNo);
+			 double reviewAvg = new ProductService().selectReviewAvg(pNo);
+			 request.setAttribute("reviewAvg", reviewAvg);
 			 request.setAttribute("product", p);
 			 request.setAttribute("imgList", imgList);
 			 request.setAttribute("opList", opList);

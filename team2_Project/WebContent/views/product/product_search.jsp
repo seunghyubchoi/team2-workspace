@@ -7,6 +7,7 @@
 	int value = 0;
 	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
 	String product = (String)request.getAttribute("product");
+	int pCount = (int)request.getAttribute("pCount");
 	if(request.getAttribute("value") != null){
 		value =(int)request.getAttribute("value");
 	}
@@ -84,7 +85,7 @@
                     에 대한 검색 결과 입니다.</div>
 
                 <div style="text-align: left; margin-bottom: 20px;">상품
-                    <span style="color: plum;"><%= list.size() %></span>
+                    <span style="color: plum;"><%= pCount %></span>
                 </div>
                 <div class="col-2">
                     <select id="productSorting" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" onchange="selectboxChange(this.value);">

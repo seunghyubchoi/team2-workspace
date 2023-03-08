@@ -13,6 +13,7 @@
 	Product p = (Product)request.getAttribute("product");
 	ArrayList<Option> opList = (ArrayList<Option>)request.getAttribute("opList");
 	ArrayList<Review> reviewList = (ArrayList<Review>)request.getAttribute("reviewList");
+	double reviewAvg = (double)request.getAttribute("reviewAvg");
 	DecimalFormat df = new DecimalFormat("###,###");
 %>
 <!DOCTYPE html>
@@ -210,6 +211,38 @@
    	cursor:pointer;
    	opacity:0.8;
    }
+    #review-box{
+      margin: 60px;
+      height: 200px;
+    }
+    .star-rating{
+      width: 205px;
+    }
+    .star-rating,.star-rating span{
+      display: inline-block; height: 39px; overflow: hidden; background: url(/team2_Project/resources/img/star.png)no-repeat;
+    }
+    .star-rating span {
+      background-position: left bottom; line-height: 0; vertical-align: top;
+    }
+    .box-high{
+      text-align: center; font-weight: 800; margin-top: 10px; margin-bottom: 20px;
+    }
+    .box-middle{
+      text-align: center; font-size: 40px; font-weight: 800; margin-top: 10px;
+    }
+    #nav-profile{
+     margin-bottom:200px
+    }
+     a#MOVE_TOP_BTN {
+	    position: fixed;
+	    right: 2%;
+	    bottom: 50px;
+	    display: none;
+	    z-index: 999;
+	}
+	#payment2 td{
+		font-weight: 530;
+	}
   </style>
 </head>
 
@@ -303,13 +336,16 @@
           <div>결제수단 안내</div>
           <table id="payment2">
             <tr>
-              <td height="30"> <span><img src="https://www.seoulstore.com/images/n_logo@3x.png" width="13%" height="60%"
-                    alt=""></span>pay</td>
+              <td height="30">  <div> <img src="<%= contextPath%>/resources/img/네이버로고.png" width="15px" height="15px" alt="">
+                <span>pay</span>
+                </div>
               <td>결제 시 네이버페이 포인트 적립</td>
             </tr>
             <tr>
               <td height="30">
-                <div> <img src="https://www.seoulstore.com/images/kakaopay.png" width="30%" height="75%" alt=""></div>
+                <div> <img src="<%= contextPath%>/resources/img/카카오로고.png" width="15px" height="15px" alt="">
+                <span>pay</span>
+                </div>
               </td>
               <td>등록 된 모든 카드로 결제 가능</td>
             </tr>
@@ -360,6 +396,38 @@
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
            <% if(reviewList != null) { %>
+            <div class="row" id="review-box">
+              <div class="col-2">
+              </div>
+              <div class="col-8" style="background-color: rgb(228, 227, 227);">
+                <div class="row">
+                  <div class="col" style="margin-left: 10px;" >
+                    <div class="box-high">
+                      사용자 총 평점
+                    </div>
+                    <div>
+                      <span class="star-rating">
+                        <span style="width: <%= reviewAvg*20 %>%;"></span>
+                      </span>
+                    </div>
+                    <div  class="box-middle">
+                      <%= reviewAvg %> <span style="color: gray;">/ 5.0</span>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="box-high" style="margin-bottom: 0px;">
+                      전체 리뷰 수
+                    </div>
+                    <div class="box-middle">
+                      <img src="<%= contextPath%>/resources/img/icons8-people-96.png" alt="" width="17%" height="17%" style="margin-bottom: 5px;">
+                      <div><%= reviewList.size() %></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+              </div>
+            </div>
             <% for(Review r : reviewList) { %>
             <div style="margin: 20px;" style="text-align: left;"><%= r.getMemname() %></div>
             <div style="font-size: 14px;"><%=r.getReviewDate() %></div>
@@ -381,35 +449,18 @@
             <div style="font-size: 14px; margin-left: 20px;"><%= r.getReviewAnsDate() %></div>
             <div style="margin-bottom: 30px; margin-top: 20px; margin-left: 20px;">
              <%= r.getReiviewAnsContent() %></div>
-        
+         <div class="topLine2"></div>
               <% } %>
-            <div class="topLine2"></div>
-            <% } %>
-            <nav id="page" aria-label="Page navigation example" style="color: plum; padding-top: 40px;">
-              <ul class="pagination" style="justify-content: center;">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          
+            <% } %>    
           <% } %>
         </div>
       </div>
       <div class="col-3">
       </div>
     </div>
-
+	 <div>
+      <a id="MOVE_TOP_BTN" href="#" class="btn btn-dark" style="border-radius: 50px;">TOP</a>
+        </div>
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -478,14 +529,31 @@
         </div>
       </div>
     <script>
+    
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 500) {
+                $('#MOVE_TOP_BTN').fadeIn();
+            } else {
+                $('#MOVE_TOP_BTN').fadeOut();
+            }
+        });
+        
+        $("#MOVE_TOP_BTN").click(function() {
+            $('html, body').animate({
+                scrollTop : 0
+            }, 50);
+            return false;
+        });
+    });
+    
       $(document).ready(function(){
         $(".photo-s").click(function(){
         let photo = $(this).attr("src")
         $('#main-photo').attr("src",photo);
       });
       });
-     
-     
+ 
        function selectboxChange(value){
     	  console.log(value);
     	  <% for(Option o: opList) { %>

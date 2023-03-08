@@ -112,5 +112,14 @@ public class ProductService {
 		close(conn);
 		return result;
 	}
+	
+	public double selectReviewAvg(int pNo) {
+		
+		Connection conn = getConnection();
+		
+		double result = new ProductDao().selectReviewAvg(conn, pNo);
+		close(conn);
+		return result;
+	}
 
 }
