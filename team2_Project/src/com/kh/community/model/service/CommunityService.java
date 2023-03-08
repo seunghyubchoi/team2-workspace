@@ -89,4 +89,37 @@ public class CommunityService {
 		
 		return img;
 	}
+	
+	public int updateInsta(Instagram insta, InstaImage img) {
+		Connection conn = getConnection();
+		
+		int result1 = new CommunityDao().updateInsta(conn, insta);
+		
+		int result2 = 1;
+		
+		if (img != null) {
+			if (img.getInstaImgNo() != 0) {
+				result2 = new CommunityDao().updateInstaImg(conn, img);
+			}
+		}
+		
+		if (result1 > 0 && result2 < 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result1 * result2;
+	}
+	
+	public int deleteInsta(int comNo) {
+		Connection conn = getConnection();
+		
+		int result = new CommunityDao().deleteInsta(conn, comNo);
+		System.out.println("서비스 " + comNo);
+		
+		close(conn);
+		
+		return result;
+	}
 }

@@ -100,7 +100,7 @@ div {
 		<div class="row row-cols-2" style="padding-top: 55px;">
 			<div class="col">
 				<img
-					src="<%= img.getInstaImgChange()%>"
+					src="<%= img.getInstaImgChange()%><%= img.getInstaImgSrc() %>"
 					alt="..." class="img-fluid" style="width: 500px; height: 600px;">
 			</div>
 			<div class="col">
@@ -109,12 +109,17 @@ div {
 					<a href="<%= contextPath %>/list.co"
 						class="btn btn-sm" style="background-color: #e2bbe7">목록가기</a>
 		
+					<% if (loginUser != null && insta.getMemNo().equals(loginUser.getMemId())) { %>
+						<a href="<%= contextPath %>/updateForm.co?cno=<%= insta.getComNo() %>" class="btn btn-sm btn-warning">수정하기</a> 
+						<a href="<%= contextPath %>/delete.co?cno=<%= insta.getComNo() %>" class="btn btn-sm btn-danger">삭제하기</a>
+					<% } %>
+			
 					<!-- 로그인한 사용자가 게시글 작성자일 경우만 보이게 -->
-					<% if (loginUser != null && String.valueOf(loginUser.getMemNo()).equals(insta.getMemNo())) { %>
+					<%-- <% if (loginUser != null && String.valueOf(loginUser.getMemNo()).equals(insta.getMemNo())) { %>
 					<a href="<%= contextPath %>/update.co?cno=<%= insta.getComNo() %>"
 						class="btn btn-sm btn-warning">수정하기</a> 
 						<a href="#" class="btn btn-sm btn-danger">삭제하기</a>
-					<% } %>
+					<% } %> --%>
 		
 				</div>
 				<div class="row" style="height: 40%;">

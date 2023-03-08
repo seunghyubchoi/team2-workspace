@@ -37,12 +37,13 @@ public class Instagram {
 		this.uploadDate = uploadDate;
 	}
 
-	public Instagram(int comNo, String comContent, String comTag, String instaId) {
+	public Instagram(int comNo, String comContent, String comTag, String instaId, String memNo) {
 		super();
 		this.comNo = comNo;
 		this.comContent = comContent;
 		this.comTag = comTag;
 		this.instaId = instaId;
+		this.memNo = memNo;
 	}
 
 	public Instagram(int comNo, String instaId, String instaImgSrc) {

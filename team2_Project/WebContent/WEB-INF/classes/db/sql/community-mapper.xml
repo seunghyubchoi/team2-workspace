@@ -102,10 +102,12 @@ INSERT
 <entry key="selectInsta">
 SELECT
        COM_NO
-     , INSTA_ID
+     , INS.INSTA_ID
      , COM_CONTENT
      , COM_TAG
-  FROM TB_INSTAGRAM
+     , MEM_ID
+  FROM TB_INSTAGRAM INS
+  JOIN TB_MEMBER USING (MEM_NO)
  WHERE COM_NO = ?
 </entry>
 
@@ -184,5 +186,30 @@ DELETE
   FROM TB_LIKE
  WHERE MEM_NO = ? 
    AND COM_NO = ?
+</entry>
+
+<entry key="updateInsta">
+UPDATE
+       TB_INSTAGRAM
+   SET COM_CONTENT = ?
+     , INSTA_ID = ?
+     , COM_TAG = ?
+ WHERE COM_NO = ?
+</entry>
+
+<entry key="updateInstaImg">
+UPDATE
+       TB_INSTA_IMAGE
+   SET INSTA_IMG_ORIGIN = ?
+     , INSTA_IMG_CHANGE = ?
+     , INSTA_IMG_SRC = ?
+ WHERE INSTA_IMG_NO = ?
+</entry>
+
+<entry key="deleteInsta">
+UPDATE
+       TB_INSTAGRAM
+   SET DEL_YN = 'Y'
+ WHERE COM_NO = ?
 </entry>
 </properties>
