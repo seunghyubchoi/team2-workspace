@@ -127,7 +127,7 @@ int maxPage = pi.getMaxPage();
 				<tbody id="orderTableBody">
 
 					<tr>
-						<td><img src="<%=contextPath%><%=o.getProductImgSrc()%>"
+						<td><img src="<%=contextPath%><%=o.getFilePath()%>"
 							alt=""></td>
 						<td>
 							<p>

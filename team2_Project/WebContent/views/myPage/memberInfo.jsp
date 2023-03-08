@@ -189,6 +189,12 @@
 								phone += document.getElementById("phone3").value;
 
 								$('input[name="phone"]').val(phone);
+
+								let email = document.getElementById("email1").value;
+								email += "@"
+								email += document.getElementById("email2").value;
+
+								$('input[name="email"]').val(email);
 							}
 
 							
@@ -203,15 +209,17 @@
 				<tr>
 					<th>이메일</th>
 					<td id="emailTd">
-						<!-- <input type="hidden" name="email"> -->
-						<input type="text" class="form-control mb-2 mr-sm-2" value="<%= email.substring(0, email.lastIndexOf('@')) %>">
+						<input type="hidden" name="email" value="">
+						<input type="text" class="form-control mb-2 mr-sm-2" 
+						value="<%= email.substring(0, email.lastIndexOf('@')) %>" id="email1" size="17" required>
 						
 						
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 							  <span class="input-group-text">@</span>
 							</div>
-							<input type="text" class="form-control" id="email2" size="20">
+							<input type="text" class="form-control" 
+							value="<%= email.substring(email.lastIndexOf('@')+1) %>" id="email2" size="12" required>
 						  </div>
 						
 						<select name="email_select" class="form-control" id="email_select" onChange="checkemailaddy();">
@@ -222,8 +230,26 @@
 							<option value="1">직접입력</option>
 						</select>
 
+						<script>
+							function checkemailaddy(){
+								if (email_select.value == '1') {
+									email2.readOnly = false;
+									email2.value = '';
+									email2.focus();
+								}
+								else {
+									email2.readOnly = true;
+									email2.value = email_select.value;
+								}
+							}
 
+							function assembleEmail() {
+								
+							}
 
+						</script>
+					
+					
 						
 						
 						
@@ -267,9 +293,9 @@
 				<tr>
 					<th>마케팅 선택 동의 사항</th>
 					<td id="adCheck">
-						<input type="checkbox" name="adCheck" value="이메일"> 
+						<input type="checkbox" id="email" name="adCheck" value="이메일"> 
 						<label for="email">이메일</label> <br> 
-						<input type="checkbox" name="adCheck" value="문자"> 
+						<input type="checkbox" id="text" name="adCheck" value="문자"> 
 						<label for="text">문자</label></td>
 
 				</tr>

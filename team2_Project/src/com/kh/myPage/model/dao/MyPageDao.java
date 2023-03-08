@@ -419,7 +419,7 @@ public class MyPageDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				list.add(new OrderDtlA(rset.getString("product_img_src"), rset.getInt("order_no"), rset.getInt("dtl_order_no"), rset.getString("product_name"),
+				list.add(new OrderDtlA(rset.getString("file_path"), rset.getInt("order_no"), rset.getInt("dtl_order_no"), rset.getString("product_name"),
 						rset.getString("dtl_size"), rset.getInt("dtl_qnt"), rset.getString("order_status")));
 			}
 		} catch (SQLException e) {
@@ -497,8 +497,48 @@ public class MyPageDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				list.add(new OrderDtlA(rset.getString("product_img_src"), rset.getInt("order_no"), rset.getInt("dtl_order_no"), rset.getString("product_name"),
+				list.add(new OrderDtlA(rset.getString("file_path"), rset.getInt("order_no"), rset.getInt("dtl_order_no"), rset.getString("product_name"),
 						rset.getString("dtl_size"), rset.getInt("dtl_qnt"), rset.getString("order_status")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<OrderDtlA> selectOrderHistoryDetail(Connection conn, int orderNo) {
+		ArrayList<OrderDtlA> list = new ArrayList<OrderDtlA>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectOrderHistoryDetail");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+
+			pstmt.setInt(1, orderNo);
+			
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new OrderDtlA(rset.getString("file_path")
+						, rset.getInt("order_no")
+						, rset.getInt("dtl_order_no")
+						, rset.getDate("order_date")
+						, rset.getString("rcp_name")
+						, rset.getString("rcp_phone")
+						, rset.getString("rcp_address")
+						, rset.getString("rcp_address_dtl")
+						, rset.getString("rcp_post_code")
+						, rset.getString("product_name")
+						, rset.getString("dtl_size")
+						, rset.getInt("dtl_qnt")
+						, rset.getString("order_status")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

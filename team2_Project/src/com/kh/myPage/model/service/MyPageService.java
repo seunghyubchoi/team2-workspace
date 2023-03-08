@@ -196,6 +196,13 @@ public class MyPageService {
 		return list;
 	}
 
+	public ArrayList<OrderDtlA> selectOrderHistoryDetail(int orderNo) {
+		Connection conn = getConnection();
+		ArrayList<OrderDtlA> list = new MyPageDao().selectOrderHistoryDetail(conn, orderNo);
+		close(conn);
+		return list;
+	}
+
 
 
 	

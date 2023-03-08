@@ -85,6 +85,10 @@ int maxPage = pi.getMaxPage();
 	font-weight: 700;
 	padding: 30px;
 }
+
+#returnBtn{
+	margin-left: 400px;
+}
 </style>
 </head>
 
@@ -119,15 +123,17 @@ int maxPage = pi.getMaxPage();
 			<%
 				} else {
 			%>
+			
+			<table id="orderTable">
+				<tbody id="orderTableBody">
+			
 			<%
 				for (OrderDtlA o : orderHistoryList) {
 			%>
 
-			<table id="orderTable">
-				<tbody id="orderTableBody">
-
+			
 					<tr>
-						<td><img src="<%=contextPath%><%=o.getProductImgSrc()%>"
+						<td><img src="<%=contextPath%><%=o.getFilePath()%>"
 							alt=""></td>
 						<td>
 							<p>
@@ -145,7 +151,7 @@ int maxPage = pi.getMaxPage();
 								<% String status = o.getOrderStatus(); %>
 						</td>
 						<td>
-							<button class="btn btn-primary mb-2" value="<%=o.getDtlOrderNo()%>">상세내역</button>
+							<button class="btn btn-primary mb-2" value="<%=o.getOrderNo()%>" onclick="orderHistoryDetail(this);">상세내역</button>
 							<%if(status.equals("상품준비중")) { %>
 							<input type="hidden" >
 							<button class="btn btn-primary mb-2" value="<%=o.getDtlOrderNo()%>" id="<%=o.getProductNo() %>" 
@@ -153,7 +159,8 @@ int maxPage = pi.getMaxPage();
 							<%} else if(status.equals("취소완료") || status.equals("교환완료") || status.equals("환불완료")){%>
 							
 							<%} else {%>
-							<button class="btn btn-primary mb-2" value="<%=o.getDtlOrderNo()%>">교환/환불</button>
+							<button class="btn btn-primary mb-2" value="<%=o.getDtlOrderNo()%>"
+							data-toggle="modal" data-target="#return" onclick="returnAlert(this)">교환/환불</button>
 							<%} %>
 						</td>
 					</tr>
@@ -237,8 +244,42 @@ int maxPage = pi.getMaxPage();
 			</div>
 		</div>
 	</div>
+	
+	<!-- 교환/환불 모달 -->
+	<div class="modal" id="return">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">교환 및 환불</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body" align="left">
+					<form action="<%=contextPath%>/returnOrder.mp" method="post">
+						<input type="hidden" name="memNo" value="<%=memNo%>">
+						<input type="hidden" name="dtlOrderNo" value="">
+						<label><input type="radio" name="returnStatus" value="exchange" checked>교환</label>
+						<br>
+						<label><input type="radio" name="returnStatus" value="return">반품</label>
+						<br>
+						<br>
+						사유:
+						<input type="text"  class="form-control mb-2 mr-sm-2"  name="returnReason" placeholder="사유를 입력해주세요." required>
+						<button type="submit" class="btn btn-sm btn-secondary" id="returnBtn">신청</button>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<script>
+		function orderHistoryDetail(e) {
+			let orderNo = $(e).val();
+			location.href = "<%=contextPath%>/orderHistoryDetail.mp?memNo=<%=loginUser.getMemNo()%>&orderNo=" + orderNo;
+		}
+
 		function orderHistoryCancelList() {
 			location.href = "<%=contextPath%>/orderHistoryCancel.mp?memNo=<%=loginUser.getMemNo()%>&cpage=1";
 			}
@@ -248,8 +289,17 @@ int maxPage = pi.getMaxPage();
 				let productName = $(e).attr("id");
 				$("#cancelOrderBtn").val($(e).val());
 				console.log(productName);
-				
+				console.log($("#cancelOrderBtn").val());
 				$("#targetProduct").text(productName);
+			}
+
+			
+			function returnAlert(e) {
+				/* 마저해야함  */
+				$("input[name='dtlOrderNo']").val($(e).val())
+				
+				console.log($("input[name='dtlOrderNo']").val());
+				
 			}
 
 			$(function() {

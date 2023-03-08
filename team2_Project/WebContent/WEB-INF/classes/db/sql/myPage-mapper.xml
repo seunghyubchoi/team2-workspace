@@ -242,32 +242,40 @@
 		FROM (SELECT ROWNUM RNUM, A.*
 		FROM (
 		SELECT
-		I.PRODUCT_IMG_SRC
+		I.FILE_PATH
 		, O.ORDER_NO
 		, D.DTL_ORDER_NO
 		, P.PRODUCT_NAME
 		,
 		D.DTL_SIZE
-		, D.DTL_QNT
+		,
+		D.DTL_QNT
 		, O.ORDER_STATUS
 		FROM TB_ORDER O
 		JOIN TB_DTL_ORDER
-		D ON (O.ORDER_NO = D.ORDER_NO)
+		D ON
+		(O.ORDER_NO = D.ORDER_NO)
 		JOIN TB_PRODUCT P ON (D.PRODUCT_NO =
 		P.PRODUCT_NO)
 		JOIN TB_PRODUCT_IMAGE I ON (P.PRODUCT_NO = I.PRODUCT_NO)
 		WHERE O.MEM_NO = ?
-		AND IMG_TYPE = 1)
+		AND IMG_TYPE = 1
+        AND D.DEL_YN = 'N'
+		ORDER
+   		BY O.ORDER_NO DESC)
 		A
 		)
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 
 	<entry key="cancelOrder">
-		UPDATE TB_ORDER
+		UPDATE
+        TB_ORDER
 		SET ORDER_STATUS = '취소완료'
-		WHERE ORDER_NO
-		= ?
+		WHERE ORDER_NO = (SELECT ORDER_NO
+                            FROM TB_DTL_ORDER
+                            JOIN TB_ORDER USING (ORDER_NO)
+                            WHERE DTL_ORDER_NO = ?)
 	</entry>
 
 	<entry key="selectOrderHistoryCancelCount">
@@ -299,9 +307,48 @@
 		FROM (SELECT ROWNUM RNUM, A.*
 		FROM (
 		SELECT
-		I.PRODUCT_IMG_SRC
+		I.FILE_PATH
 		, O.ORDER_NO
 		, D.DTL_ORDER_NO
+		, P.PRODUCT_NAME
+		,
+		D.DTL_SIZE
+		,
+		D.DTL_QNT
+		, O.ORDER_STATUS
+		FROM TB_ORDER O
+		JOIN TB_DTL_ORDER
+		D ON
+		(O.ORDER_NO = D.ORDER_NO)
+		JOIN TB_PRODUCT P ON (D.PRODUCT_NO =
+		P.PRODUCT_NO)
+		JOIN TB_PRODUCT_IMAGE I ON (P.PRODUCT_NO = I.PRODUCT_NO)
+		WHERE O.MEM_NO = ?
+		AND IMG_TYPE = 1
+		AND O.ORDER_STATUS = '취소완료' OR
+		O.ORDER_STATUS = '교환요청' OR O.ORDER_STATUS
+		= '교환중'
+		OR O.ORDER_STATUS =
+		'교환완료' OR O.ORDER_STATUS = '환불요청' OR O.ORDER_STATUS
+		= '환불중' OR
+		O.ORDER_STATUS = '환불완료'
+		)
+		A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+	<entry key="selectOrderHistoryDetail">
+		SELECT
+		I.FILE_PATH
+		, O.ORDER_NO
+		, D.DTL_ORDER_NO
+		, O.ORDER_DATE
+		, O.RCP_NAME
+		, O.RCP_PHONE
+		, O.RCP_ADDRESS
+		, O.RCP_ADDRESS_DTL
+		, O.RCP_POST_CODE
 		, P.PRODUCT_NAME
 		, D.DTL_SIZE
 		, D.DTL_QNT
@@ -310,16 +357,12 @@
 		JOIN TB_DTL_ORDER D ON (O.ORDER_NO = D.ORDER_NO)
 		JOIN TB_PRODUCT P ON (D.PRODUCT_NO = P.PRODUCT_NO)
 		JOIN TB_PRODUCT_IMAGE I ON (P.PRODUCT_NO = I.PRODUCT_NO)
-		WHERE O.MEM_NO = ?
-		AND IMG_TYPE = 1
-		AND O.ORDER_STATUS = '취소완료' OR O.ORDER_STATUS = '교환요청' OR O.ORDER_STATUS
-		= '교환중'
-		OR O.ORDER_STATUS = '교환완료' OR O.ORDER_STATUS = '환불요청' OR O.ORDER_STATUS
-		= '환불중' OR O.ORDER_STATUS = '환불완료'
-		)
-		A
-		)
-		WHERE RNUM BETWEEN ? AND ?
+		WHERE O.ORDER_NO = ?
+		AND I.IMG_TYPE = 1
+	</entry>
+	
+	<entry key="">
+	
 	</entry>
 
 </properties>
