@@ -80,7 +80,6 @@ public class AdminProductInsertController extends HttpServlet {
 			}
 			String options[] = allOption.split(",");
 			String stocks[] = allStock.split(",");
-			System.out.println(stocks);
 			
 			ArrayList<Option> opList = new ArrayList<Option>();
 			

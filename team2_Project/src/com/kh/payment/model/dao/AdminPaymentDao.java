@@ -4,10 +4,17 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.notice.model.vo.Notice;
 import com.kh.payment.model.vo.Location;
+import com.kh.payment.model.vo.Order;
+import com.kh.payment.model.vo.OrderA;
+import com.kh.payment.model.vo.OrderDtl;
+import com.kh.product.model.vo.ProductA;
 
 import static com.kh.common.JDBCTemplate.*;
 
@@ -108,6 +115,184 @@ public class AdminPaymentDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, locNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * 주문 전체조회 (관리자)
+	 * @param conn
+	 * @return
+	 */
+	public ArrayList<OrderA> selectList(Connection conn) {
+		ArrayList<OrderA> list = new ArrayList<OrderA>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new OrderA(rset.getInt("ORDER_NO"),
+									rset.getString("MEM_ID"),
+									rset.getDate("ORDER_DATE"),
+									rset.getString("ORDER_STATUS")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+
+	/**
+	 * 주문 상세조회 (관리자)
+	 * @param conn
+	 * @param orderNo
+	 * @return
+	 */
+	public OrderA selectOrder(Connection conn, int orderNo) {
+		OrderA o = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOrder");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, orderNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				o = new OrderA(rset.getInt("ORDER_NO"),
+							   rset.getString("MEM_NO"),
+							   rset.getInt("ORDER_QNT"),
+							   rset.getDate("ORDER_DATE"),
+							   rset.getString("ORDER_STATUS"),
+							   rset.getString("RCP_ADDRESS_NAME"),
+							   rset.getString("RCP_NAME"),
+							   rset.getString("RCP_PHONE"),
+							   rset.getString("RCP_ADDRESS"),
+							   rset.getString("RCP_ADDRESS_DTL"),
+							   rset.getString("RCP_POST_CODE"),
+							   rset.getString("RCP_MSG"),
+							   rset.getInt("SAVE_MILEAGE"),
+							   rset.getInt("USE_MILEAGE"),
+							   rset.getString("MEM_NAME"),
+							   rset.getString("MEM_ID"),
+							   rset.getString("EMAIL"),
+							   rset.getString("PHONE")
+						);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return o;
+	}
+
+	public ArrayList<OrderDtl> selectOrderDtlList(Connection conn, int orderNo) {
+		ArrayList<OrderDtl> odList = new ArrayList<OrderDtl>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOrderDtlList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, orderNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				odList.add(new OrderDtl(rset.getInt("DTL_ORDER_NO"),
+										rset.getInt("ORDER_NO"),
+										rset.getInt("PRODUCT_NO"),
+										rset.getString("DTL_SIZE"),
+										rset.getInt("DTL_QNT")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return odList;
+	}
+
+	public ProductA selectProduct(Connection conn, int productNo) {
+		ProductA p = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, productNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new ProductA(rset.getInt("PRODUCT_NO"),
+							     rset.getString("PRODUCT_NAME"),
+							     rset.getInt("PRODUCT_DISCOUNT"),
+							     rset.getInt("PRODUCT_PRICE"),
+							     rset.getString("BRAND_NAME")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return p;
+	}
+
+	public int updateOrderDtl(Connection conn, OrderDtl od) {
+		int result = 0; 
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateOrderDtl");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, od.getDtlQnt());
+			pstmt.setString(2, od.getDtlSize());
+			pstmt.setInt(3, od.getOrderDtlNo());
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

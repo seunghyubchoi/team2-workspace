@@ -42,8 +42,6 @@ public class ProductA {
 		this.brandNo = brandNo;
 	}
 	
-	
-
 	public ProductA(int productNo, String productName, String productDesc, int productDiscount, int productPrice,
 			String categoryNo, String brandNo) {
 		super();
@@ -53,6 +51,15 @@ public class ProductA {
 		this.productDiscount = productDiscount;
 		this.productPrice = productPrice;
 		this.categoryNo = categoryNo;
+		this.brandNo = brandNo;
+	}
+
+	public ProductA(int productNo, String productName, int productDiscount, int productPrice, String brandNo) {
+		super();
+		this.productNo = productNo;
+		this.productName = productName;
+		this.productDiscount = productDiscount;
+		this.productPrice = productPrice;
 		this.brandNo = brandNo;
 	}
 
