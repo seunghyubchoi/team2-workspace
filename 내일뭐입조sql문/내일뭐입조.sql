@@ -60,7 +60,7 @@ CREATE TABLE TB_MEMBER (
 	MEM_PWD	VARCHAR2(20) NOT NULL,
 	MEM_NAME VARCHAR2(30) NOT NULL,
 	EMAIL	VARCHAR2(30),
-	PHONE	VARCHAR2(15) NOT NULL,
+	PHONE	VARCHAR2(13) NOT NULL,
 	ENROLL_DATE	DATE DEFAULT SYSDATE NOT NULL ,
 	-- AD_CHECK CHAR(1) DEFAULT 'N' CHECK(AD_CHECK IN('Y', 'N')) NOT NULL,
     AD_CHECK VARCHAR2(16),
@@ -656,7 +656,7 @@ BEGIN
 END;
 /
 
--- 회원 삭제 시 배송지 삭제 트리거
+-- 회원 삭제 시 배송지, 팔로우 삭제 트리거: 수정
 CREATE OR REPLACE TRIGGER TRG_LOC_DEL
 AFTER UPDATE ON TB_MEMBER 
 FOR EACH ROW
@@ -666,23 +666,14 @@ BEGIN
         UPDATE TB_LOCATION
            SET DEL_YN = 'Y'
         WHERE MEM_NO = :NEW.MEM_NO;
+        UPDATE TB_FOLLOW
+           SET ACT_YN = 'N'
+        WHERE FOLLOWING_ID = :NEW.MEM_NO
+           OR FOLLOWER_ID = :NEW.MEM_NO;
     END IF;
 END;
 /
 
--- 회원 삭제 시 배송지 삭제 트리거
-CREATE OR REPLACE TRIGGER TRG_FWL_DEL
-AFTER UPDATE ON TB_MEMBER 
-FOR EACH ROW
-BEGIN
-    IF (:NEW.ACT_YN = 'N')
-        THEN
-        UPDATE TB_LOCATION
-           SET DEL_YN = 'Y'
-        WHERE MEM_NO = :NEW.MEM_NO;
-    END IF;
-END;
-/
 
 -- 230308 수정 
 -- 상품 이미지 트리거 추가
@@ -699,13 +690,29 @@ BEGIN
 END;
 /
 
+-- DTL ORDER 삭제
+CREATE OR REPLACE TRIGGER TRG_DTL_DEL
+AFTER UPDATE ON TB_ORDER 
+FOR EACH ROW
+BEGIN
+    IF (:NEW.ORDER_STATUS = '취소완료')
+        THEN
+        UPDATE TB_DTL_ORDER
+           SET DEL_YN = 'Y'
+        WHERE ORDER_NO = :NEW.ORDER_NO;
+        
+    END IF;
+END;
+/
+
+
 -- INSERT문
 
-INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user01','pass01','박희연','email01@kh.kr','01062612122',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,4000);
-INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user02','pass02','이윤화','email02@kh.kr','01064622323',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,2500);
-INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user03','pass03','전혜정','email03@kh.kr','01066632524',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,3000);
-INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user04','pass04','정지용','email04@kh.kr','01068642725',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,2790);
-INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user05','pass05','최승협','email05@kh.kr','01060652926',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,1500);
+INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user01','pass01','박희연','email01@kh.kr','010-6261-2122',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,4000);
+INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user02','pass02','이윤화','email02@kh.kr','010-6462-2323',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,2500);
+INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user03','pass03','전혜정','email03@kh.kr','010-6663-2524',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,3000);
+INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user04','pass04','정지용','email04@kh.kr','010-6864-2725',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,2790);
+INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user05','pass05','최승협','email05@kh.kr','010-6065-2926',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,1500);
 
 INSERT INTO TB_BRAND VALUES(SEQ_BRAND.NEXTVAL, '나이키');
 INSERT INTO TB_BRAND VALUES(SEQ_BRAND.NEXTVAL, '무아무아');
@@ -886,16 +893,11 @@ INSERT INTO TB_MILEAGE_HISTORY VALUES(SEQ_MILEAGE_HISTORY.NEXTVAL,'적립',200,5
 
 
 
-insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 7, 'S', 1, DEFAULT);
-insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 7, 'M', 2, DEFAULT);
-insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 7, 'FREE', 2, DEFAULT);
-insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 7, 'S', 1, DEFAULT);
-
---insert into tb_dtl_order values (seq_dtl_order.nextval, 3, 1, 'L', 1);
---insert into tb_dtl_order values (seq_dtl_order.nextval, 3, 1, 'S', 1);
---insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 1, 'XL', 1);
---insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 1, 'L', 1);
---insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 1, 'L', 1);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 1, 1, 'L', 1, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 2, 1, 'S', 2, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 2, 1, 'XL', 1, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 1, 'L', 1, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 1, 'L', 1, DEFAULT);
 
 
 
