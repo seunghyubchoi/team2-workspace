@@ -701,9 +701,34 @@ BEGIN
            SET DEL_YN = 'Y'
         WHERE ORDER_NO = :NEW.ORDER_NO;
         
+     END IF;   
+     IF (:NEW.ORDER_STATUS = '교환요청')
+        THEN
+        UPDATE TB_DTL_ORDER
+           SET DEL_YN = 'Y'
+        WHERE ORDER_NO = :NEW.ORDER_NO;    
+      
+        
     END IF;
 END;
 /
+
+
+-- 리턴 추가 시, DTL_ORDER_DEL Y
+CREATE OR REPLACE TRIGGER TRG_DTL_DEL
+AFTER INSERT ON TB_ORDER 
+FOR EACH ROW
+BEGIN
+    IF (:NEW.ORDER_STATUS = '취소완료')
+        THEN
+        UPDATE TB_DTL_ORDER
+           SET DEL_YN = 'Y'
+        WHERE ORDER_NO = :NEW.ORDER_NO;
+        
+    END IF;
+END;
+/
+
 
 
 -- INSERT문

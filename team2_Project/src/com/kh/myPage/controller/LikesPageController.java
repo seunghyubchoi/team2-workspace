@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.common.PageInfo;
 import com.kh.community.model.vo.Instagram;
+import com.kh.community.model.vo.Instagram2;
 import com.kh.community.model.vo.Like;
 import com.kh.myPage.model.service.MyPageService;
 import com.kh.myPage.model.vo.Follow;
@@ -65,7 +66,7 @@ public class LikesPageController extends HttpServlet {
 		
 		
 		
-		ArrayList<Instagram> LikeList = new MyPageService().selectLikeList(pi, memNo);
+		ArrayList<Instagram2> LikeList = new MyPageService().selectLikeList(pi, memNo);
 
 		request.setAttribute("memNo", memNo);
 		request.setAttribute("pi", pi);

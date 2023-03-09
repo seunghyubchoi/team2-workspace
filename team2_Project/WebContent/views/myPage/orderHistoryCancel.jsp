@@ -119,12 +119,13 @@ int maxPage = pi.getMaxPage();
 			<%
 				} else {
 			%>
+			
+			<table id="orderTable">
+				<tbody id="orderTableBody">
+			
 			<%
 				for (OrderDtlA o : orderHistoryCancelList) {
 			%>
-
-			<table id="orderTable">
-				<tbody id="orderTableBody">
 
 					<tr>
 						<td><img src="<%=contextPath%><%=o.getFilePath()%>"
@@ -151,7 +152,6 @@ int maxPage = pi.getMaxPage();
 					<%
 						}
 					%>
-
 
 				</tbody>
 			</table>

@@ -156,7 +156,7 @@ int maxPage = pi.getMaxPage();
 							<input type="hidden" >
 							<button class="btn btn-primary mb-2" value="<%=o.getDtlOrderNo()%>" id="<%=o.getProductNo() %>" 
 							data-toggle="modal" data-target="#cancelOrder" onclick="deleteAlert(this)">주문취소</button>
-							<%} else if(status.equals("취소완료") || status.equals("교환완료") || status.equals("환불완료")){%>
+							<%} else if(status.equals("취소완료") || status.equals("교환요청") || status.equals("환불요청")){%>
 							
 							<%} else {%>
 							<button class="btn btn-primary mb-2" value="<%=o.getDtlOrderNo()%>"
@@ -257,17 +257,15 @@ int maxPage = pi.getMaxPage();
 				<!-- Modal body -->
 				<div class="modal-body" align="left">
 					<form action="<%=contextPath%>/returnOrder.mp" method="post">
-						<input type="hidden" name="memNo" value="<%=memNo%>">
 						<input type="hidden" name="dtlOrderNo" value="">
-						<label><input type="radio" name="returnStatus" value="exchange" checked>교환</label>
+						<label><input type="radio" name="returnStatus" value="교환" checked>교환</label>
 						<br>
-						<label><input type="radio" name="returnStatus" value="return">반품</label>
+						<label><input type="radio" name="returnStatus" value="반품">반품</label>
 						<br>
 						<br>
 						사유:
 						<input type="text"  class="form-control mb-2 mr-sm-2"  name="returnReason" placeholder="사유를 입력해주세요." required>
 						<button type="submit" class="btn btn-sm btn-secondary" id="returnBtn">신청</button>
-						
 					</form>
 				</div>
 			</div>

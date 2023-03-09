@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.kh.common.PageInfo;
 import com.kh.community.model.vo.Instagram;
+import com.kh.community.model.vo.Instagram2;
 import com.kh.community.model.vo.Like;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.myPage.model.vo.Follow;
@@ -302,8 +303,8 @@ public class MyPageDao {
 	}
 	
 
-	public ArrayList<Instagram> selectLikeList(Connection conn, PageInfo pi, int memNo) {
-		ArrayList<Instagram> list = new ArrayList<Instagram>();
+	public ArrayList<Instagram2> selectLikeList(Connection conn, PageInfo pi, int memNo) {
+		ArrayList<Instagram2> list = new ArrayList<Instagram2>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
@@ -320,7 +321,7 @@ public class MyPageDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				list.add(new Instagram(rset.getInt("com_no"), rset.getString("insta_id"),
+				list.add(new Instagram2(rset.getInt("com_no"), rset.getString("insta_id"),
 						rset.getString("insta_img_src")));
 			}
 		} catch (SQLException e) {
@@ -548,6 +549,75 @@ public class MyPageDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int insertReturn(Connection conn, String returnStatus, String returnReason, int memNo, int dtlOrderNo) {
+		System.out.println("insert Return dao 탐");
+System.out.println(returnStatus);
+System.out.println(returnReason);
+System.out.println(memNo);
+System.out.println(dtlOrderNo);
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReturn");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, returnStatus);
+			pstmt.setString(2, returnReason);
+			pstmt.setInt(3, memNo);
+			pstmt.setInt(4, dtlOrderNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int returnOrder(Connection conn, int dtlOrderNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("returnOrder");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dtlOrderNo);
+		
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int exchangeOrder(Connection conn, int dtlOrderNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("exchangeOrder");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dtlOrderNo);
+		
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 	
