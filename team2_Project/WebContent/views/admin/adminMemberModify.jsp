@@ -16,6 +16,8 @@ pageEncoding="UTF-8"%>
 	int count = 1;
     boolean flag = false;
 
+    int index = 0;
+
     String locYn = lList.isEmpty() ? "Y" : "";
 %>
 <!DOCTYPE html>
@@ -163,7 +165,8 @@ pageEncoding="UTF-8"%>
                                 <%if(lList.size() < 2){ %>
 	                                <tr>
 	                                    <td colspan="6"><button type="button" class="btn btn-secondary" data-toggle="modal"
-                                            data-target="#Location" onclick="addLocation(<%= locYn%>);">배송지추가</button></td>
+                                            data-target="#Location" onclick="addLocation('<%= locYn%>');">배송지추가</button>
+										</td>
 	                                </tr>
                                 <%} %>
                             </table>
@@ -286,7 +289,7 @@ pageEncoding="UTF-8"%>
 			<div class="modal-content">
 				<!-- Modal Header -->
 				<div class="modal-header">
-                    <h4 class="modal-title" id="modal-title"><%= m.getMemName() %>님의 마일리지</h4>
+                    <h4 class="modal-title" id="modal-title"><%= m.getMemName() %>님의 적립금</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<!-- Modal body -->
@@ -295,7 +298,7 @@ pageEncoding="UTF-8"%>
 						<input type="hidden" name="memNo" value="<%= m.getMemNo()%>">
 						<table>
 							<tr>
-								<th>현재 마일리지</th>
+								<th>현재 적립금</th>
 							</tr>
 							<tr>
 								<td><input type="text" class="form-control mb-2 mr-sm-2"
@@ -303,7 +306,7 @@ pageEncoding="UTF-8"%>
                                 </td>
 							</tr>
 							<tr>
-								<th>적립할 마일리지</th>
+								<th>추가할 적립금</th>
 							</tr>
 							<tr>
 								<td><input type="number" class="form-control mb-2 mr-sm-2"

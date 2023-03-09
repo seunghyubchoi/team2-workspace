@@ -16,6 +16,26 @@ public class Option {
 		this.productNo = productNo;
 	}
 
+	public Option(String optionSize, int stock) {
+		super();
+		this.optionSize = optionSize;
+		this.stock = stock;
+	}
+	
+	public Option(int optionNo, String optionSize, int stock) {
+		super();
+		this.optionNo = optionNo;
+		this.optionSize = optionSize;
+		this.stock = stock;
+	}
+
+	public Option(String optionSize, int stock, int productNo) {
+		super();
+		this.optionSize = optionSize;
+		this.stock = stock;
+		this.productNo = productNo;
+	}
+
 	public int getOptionNo() {
 		return optionNo;
 	}

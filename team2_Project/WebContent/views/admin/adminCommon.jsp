@@ -30,6 +30,7 @@ pageEncoding="UTF-8"%>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
 
     <script src="resources/vendor/jquery/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <script src="resources/ckeditor/ckeditor.js"></script>
 
@@ -68,7 +69,7 @@ pageEncoding="UTF-8"%>
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <a class="sidebar-brand align-items-center justify-content-center" href="index.html" id="logoWrapper">
+        <a class="sidebar-brand align-items-center justify-content-center" href="index.jsp" id="logoWrapper">
             <img src="resources/img/admin/W4T_crop.svg" alt="사용자페이지로" id="logo">
         </a>
 
