@@ -30,8 +30,9 @@ public class InstaLikeController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int comNo = Integer.parseInt(request.getParameter("comNo"));
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		int memNo = Integer.parseInt(request.getParameter("userId"));
+		int comNo = Integer.parseInt(request.getParameter("cno"));
+		System.out.println("좋아요 : " + comNo + "/" + memNo);
 		
 		int result = new CommunityService().insertLike(comNo, memNo);
 		

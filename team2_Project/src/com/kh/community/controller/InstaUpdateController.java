@@ -68,10 +68,10 @@ public class InstaUpdateController extends HttpServlet {
 			
 			if (result > 0) {
 				request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다!");
-				response.sendRedirect(request.getContextPath() + "/feed.co?cno=" + insta.getComNo());
+				response.sendRedirect(request.getContextPath() + "/list.co?cpage=1");
 			} else {
 				request.getSession().setAttribute("alertMsg", "게시글 수정 실패.");
-				response.sendRedirect(request.getContextPath() + "/list.co");
+				response.sendRedirect(request.getContextPath() + "/list.co?cpage=1");
 			}
 		}
 	}

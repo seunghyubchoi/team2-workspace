@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+<entry key="selectListCount">
+SELECT
+       COUNT(*) COUNT
+  FROM TB_INSTAGRAM
+ WHERE DEL_YN = 'N'
+</entry>
+
 <entry key="selectInstaList">
+SELECT *
+  FROM
+     (
+       SELECT ROWNUM RNUM, A.*
+         FROM
+            (
+              SELECT
+                     COM_NO
+                   , INSTA_IMG_SRC
+                   , INSTA_IMG_CHANGE
+                FROM TB_INSTAGRAM
+                LEFT JOIN TB_INSTA_IMAGE IMG ON (COM_NO = REF_CNO)
+               WHERE DEL_YN = 'N'
+               ORDER
+                  BY UPLOAD_DATE DESC
+            ) A
+     )
+       WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="selectHomeList">
 SELECT
        COM_NO
      , INSTA_IMG_SRC
@@ -11,7 +39,7 @@ SELECT
  WHERE DEL_YN = 'N'
  ORDER
     BY UPLOAD_DATE DESC
-</entry>
+</entry> 
 
 <entry key="likeInstaList">
 SELECT 
@@ -121,7 +149,7 @@ SELECT
  WHERE REF_CNO = ?
 </entry>
 
-<entry key="insertFollow">
+<!-- <entry key="insertFollow">
 INSERT 
   INTO TB_FOLLOW 
   	 (
@@ -146,9 +174,36 @@ INSERT
   		)
   	 , 'Y'
 	 )
+</entry> -->
+
+<entry key="insertFollow">
+INSERT 
+  INTO TB_FOLLOW 
+     (
+	   FOLLOW_NO
+     , FOLLOWING_ID
+	 , FOLLOWER_ID
+     , ACT_YN
+     )
+     VALUES 
+     (
+       SEQ_FOLLOW.NEXTVAL
+     , (SELECT MEM_NO 
+          FROM TB_MEMBER 
+         WHERE MEM_ID = ?)
+     , ?
+     , 'Y' 
+     )
 </entry>
 
-<entry key="updateFollow">
+<entry key="deleteFollow">
+UPDATE TB_FOLLOW
+   SET ACT_YN = 'N'
+ WHERE FOLLOWING_ID = (SELECT MEM_NO FROM TB_MEMBER WHERE MEM_ID = ?)
+   AND FOLLOWER_ID = ?
+</entry>
+
+<!-- <entry key="updateFollow">
 UPDATE TB_FOLLOW
    SET ACT_YN = 'N'
  WHERE FOLLOWER_ID = ?
@@ -163,7 +218,7 @@ UPDATE TB_FOLLOW
                WHERE COM_NO = ?
             )
       )
-</entry>
+</entry> -->
 
 <entry key="insertLike">
 INSERT 

@@ -148,7 +148,7 @@ public class AdminMemberDao {
 		return lList;
 	}// selectLocation end
 
-	public int insertLocation(Connection conn, MileageHistory mh) {
+	public int insertMileage(Connection conn, MileageHistory mh) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 	

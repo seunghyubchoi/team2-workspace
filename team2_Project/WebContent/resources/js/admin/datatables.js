@@ -72,7 +72,7 @@ $(document).ready(function () {
     dom: '<"top"f<"dt_btn QnA">>t<"bottom"ip>',
     lengthChange: false,
     language: lang_kor,
-    order: [[6, 'desc']],
+    order: [[6, 'desc'],[5, 'desc']],
     columnDefs: [
       {
         targets : 0,
@@ -80,6 +80,10 @@ $(document).ready(function () {
         className: "select-checkbox",
         defaultContent: '',
         width: "50px !important"
+      },
+      {
+        targets : 8,
+        orderable: false
       }
     ],
     scrollX: 580,
@@ -119,7 +123,19 @@ $(document).ready(function () {
     lengthChange: false,
     language: lang_kor,
     order: [[1, 'desc']],
-    ordering: [[0, false]],
+    columnDefs: [
+      {
+        targets : 0,
+        orderable: false,
+        className: "select-checkbox",
+        defaultContent: '',
+        width: "50px !important"
+      },
+      {
+        targets : 7,
+        orderable: false,
+      }
+    ],
     scrollX: 580
   });
 
@@ -134,61 +150,47 @@ $(document).ready(function () {
     dom: '<"top"f<"dt_btn order">>t<"bottom"ip>',
     lengthChange: false,
     language: lang_kor,
-    order: [[1, 'desc']],
-    ordering: [[0, false]],
+    order: [[1, 'desc'],[4, 'asc']],
+    columnDefs: [
+      {
+        targets : 0,
+        orderable: false,
+        className: "select-checkbox",
+        defaultContent: '',
+        width: "50px !important"
+      },
+      {
+        targets : 5,
+        orderable: false,
+      }
+    ],
     scrollX: 580
     
   });
 
-  $("div.order").append('<button id="btn_del_order" class="btn btn-warning btn-table btn-cancle" data-toggle="modal" data-target="#commonModal">취소</button>');
-  $("div.order").append('<button id="btn_send_order" class="btn btn-primary btn-table btn-send" data-toggle="modal" data-target="#commonModal">발송</button>');
+  $("div.order").append('<select name="orderStatus" class="mr-2 custom-select">'
+                        + '<option value="상품준비중">상품준비중</option>'
+                        + '<option value="배송중">배송중</option>'
+                        + '<option value="배송완료">배송완료</option>'
+                        + '<option value="취소완료">취소완료</option>'
+                        + '<option value="교환요청">교환요청</option>'
+                        + '<option value="교환중">교환중</option>'
+                        + '<option value="교환완료">교환완료</option>'
+                        + '<option value="환불요청">환불요청</option>'
+                        + '<option value="환불중">환불중</option>'
+                        + '<option value="환불완료">환불완료</option>'
+                        + '</select>');
+  $("div.order").append('<button id="btn_send_order" class="btn btn-primary btn-table btn-send" data-toggle="modal" data-target="#orderStatusModal" onclick="deleteList();">변경</button>');
 
-  $('#w4tTable').DataTable({
-    dom: '<"top"<"dt_btn w4t">>t<"bottom"ip>',
-    lengthChange: false,
-    language: lang_kor,
-    order: false,
-    scrollX: 580
-  });
+  // $('#w4tTable').DataTable({
+  //   dom: '<"top"<"dt_btn w4t">>t<"bottom"ip>',
+  //   lengthChange: false,
+  //   language: lang_kor,
+  //   order: false,
+  //   scrollX: 580
+  // });
 
-  $("div.w4t").append('<button id="btn_del_w4t" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#commonModal">삭제</button>');
-
-  $(".btn-del").click(function(){
-
-    $("#commonModalLabel").html("삭제");
-    $("#commonModalBody").html("선택된 항목을 정말 삭제하시겠습니까?");
-    $("#checkBtn").html("삭제")
-
-    switch($(this).attr("id")){
-      case "btn_del_order" : 
-        $("#menuName").val("order");
-       break;
-      case "btn_del_w4t" : 
-        $("#menuName").val("w4t");
-        break;
-    }
-  });
-
-  $(".btn-cancle").click(function(){
-
-    $("#commonModalLabel").html("취소");
-    $("#commonModalBody").html("선택된 주문을 정말 취소하시겠습니까?");
-    $("#checkBtn").html("취소")
-
-    $("#menuName").val("cancle");
-
-  });
-
-  $(".btn-send").click(function(){
-
-    $("#commonModalLabel").html("발송");
-    $("#commonModalBody").html("선택된 주문을 발송하겠습니까?");
-    $("#checkBtn").html("발송")
-
-    $("#menuName").val("send");
-
-  });
-
+  // $("div.w4t").append('<button id="btn_del_w4t" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#commonModal">삭제</button>');
 
 });
 

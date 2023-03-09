@@ -112,7 +112,7 @@
                 </div>
                 <div class="col">
                     <div class="row justify-content-end" style="height: 60%;">
-                        <a href="<%= contextPath %>/list.co" class="btn btn-sm"
+                        <a href="<%= contextPath %>/list.co?cpage=1" class="btn btn-sm"
                             style="background-color: #e2bbe7">목록가기</a>
 
                         <% if (loginUser !=null && insta.getMemNo().equals(loginUser.getMemId())) { %>
@@ -130,7 +130,10 @@
                                         <%= insta.getInstaId() %></b></td>
                                 <td>
                                     <ul class="icon" style="list-style: none;">
-                                        <li><i class="fa fa-solid fa-user-plus follow-btn"></i></li>
+                                        <!-- <li><i class="fa fa-solid fa-user-plus follow-btn" id="remove1"></i></li> -->
+                                        <div class="follow-btn-container">
+										  <i class="fa fa-solid fa-user-plus follow-btn follow" id="remove1"></i>
+										</div>
                                         <li><a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"><i class="fa fa-solid fa-share-nodes"></i></a></li>
                                         <li><a href="javascript:shareinstagram();"><i class="fa fa-brands fa-instagram"></i></a></li>
                                         <li><i class="fa fa-regular fa-heart like-button" id="like-btn" data-post-id="1234"></i></li>
@@ -181,7 +184,10 @@
                         </thead>
                         <tbody></tbody>
                     </table>
-
+                    <!-- 팔로우 아이디 가져오기 위해... -->
+					<input type="hidden" name = "friendId" value=<%= insta.getMemNo() %>>
+					<input type="hidden" name = "userId" value= <%= loginUser.getMemNo() %>>
+					<input type="hidden" name= "cno" value= <%= insta.getComNo() %>>
                     
                 </div>
                 <div class="col-4">
@@ -189,6 +195,79 @@
                 </div>
             </div>
         </div>
+        			<script>
+        			var isFollowed = false;
+
+        			$('.follow-btn-container').click(function () {
+        			  var btnId = $(this).find('.follow-btn').attr('id');
+
+        			  // 버튼이 disabled 상태가 아니면 실행
+        			  if (!$(this).hasClass('disabled')) {
+        			    let friendId = $('input[name="friendId"]').val();
+        			    let userId = $('input[name="userId"]').val();
+
+        			    $.ajax({
+        			      url: 'follow.co',
+        			      type: 'POST',
+        			      data: { 
+        			        friendId: friendId, 
+        			        userId: userId
+        			      },
+        			      success: function(result) {
+        			        console.log("팔로우완료되어따~~~~~~~~~");
+        			        console.log(friendId);
+        			        console.log(userId);
+        			        
+        			        // 버튼 상태를 언팔로우로 변경
+        			        $("#" + btnId).removeClass('fa-user-plus');
+        			        $("#" + btnId).addClass('fa-user-minus');
+        			        $("#" + btnId).parent().addClass('disabled');
+        			        $("#" + btnId).removeClass('follow');
+        			        $("#" + btnId).addClass('unfollow');
+        			        
+        			        // 팔로우 상태를 true로 변경
+        			        isFollowed = true;
+        			      },
+        			      error: function () {
+        			        console.log("팔로우 실패")
+        			      }
+        			    });
+        			  } else {
+        			    // 버튼이 disabled 상태면 언팔로우
+        			    let friendId = $('input[name="friendId"]').val();
+        			    let userId = $('input[name="userId"]').val();
+        			    
+        			    $.ajax({
+        			      url: 'unfollow.co',
+        			      type: 'POST',
+        			      data: { 
+        			        friendId: friendId, 
+        			        userId: userId
+        			      },
+        			      success: function(result) {
+        			        console.log("언팔로우완료되어따~~~~~~~~~");
+        			        console.log(friendId);
+        			        console.log(userId);
+        			        
+        			        // 버튼 상태를 팔로우로 변경
+        			        $("#" + btnId).removeClass('fa-user-minus');
+        			        $("#" + btnId).addClass('fa-user-plus');
+        			        $("#" + btnId).parent().removeClass('disabled');
+        			        $("#" + btnId).removeClass('unfollow');
+        			        $("#" + btnId).addClass('follow');
+        			        
+        			        // 팔로우 상태를 false로 변경
+        			        isFollowed = false;
+        			      },
+        			      error: function () {
+        			        console.log("언팔로우 실패")
+        			      }
+        			    });
+        			  }
+        			});
+
+        			</script>
+        			
         			<script>
         			<!-- 페이스북 공유하기 -->
         			function shareFacebook() {
@@ -254,8 +333,86 @@
                     </script>
  
                     <script>
-                        
-                            $('.like-button').click(function () {
+                    $('.like-button').click(function () {
+                        let userId = $('input[name="userId"]').val();
+                        let cno = $('input[name="cno"]').val();
+                        console.log(userId);
+                        console.log(cno);
+
+                        var btn = $(this);
+
+                        if (btn.hasClass('liked')) {
+                            $.ajax({
+                                url: 'deleteLike.co',
+                                type: 'POST',
+                                data: {
+                                    userId: userId,
+                                    cno: cno,
+                                },
+                                success: function (result) {
+                                    let like_count = parseInt($('.like-count').text());
+                                    $('.like-count').text(like_count - 1);
+
+                                    btn.toggleClass('liked');
+                                },
+                                error: function () {
+                                    console.log(error);
+                                }
+                            });
+                        } else {
+                            $.ajax({
+                                url: 'like.co',
+                                type: 'POST',
+                                data: {
+                                    userId: userId,
+                                    cno: cno,
+                                },
+                                success: function (result) {
+                                    let like_count = parseInt($('.like-count').text());
+                                    $('.like-count').text(like_count + 1);
+
+                                    btn.toggleClass('liked');
+                                },
+                                error: function () {
+                                    console.log(error);
+                                }
+                            });
+                        }
+                    });
+
+                    /* $('.like-button').click(function () {
+    				    let userId = $('input[name="userId"]').val();
+                    	let cno = $('input[name="cno"]').val();
+                    	console.log(userId);
+                    	console.log(cno);
+                    	
+                    	var btn = $(this);
+                    	
+                    	$.ajax({
+                    		url: 'like.co',
+      				      	type: 'POST',
+      				      	data: { 
+      				        	userId: userId,
+      				        	cno: cno,
+      				      	},	
+	      				      success: function (result) {
+	                              // 좋아요 수 업데이트
+	                          	let like_count = parseInt($('.like-count').text());
+	                              if (btn.hasClass('liked')) {
+	                                $('.like-count').text(like_count - 1);
+	                              } else {
+	                                $('.like-count').text(like_count + 1);
+	                              }
+								console.log("성공?");
+	                              // 좋아요 버튼 색깔 변경
+	                              btn.toggleClass('liked');
+	                            },
+	                          error: function () {
+	                              console.log(error);
+	                          }
+                    	})
+                    });     */
+                            <%-- $('.like-button').click(function () {
                                 let cNo = <%= insta.getComNo() %>;
                                 
                                 // 로그인한 회원만 누를 수 있도록
@@ -300,8 +457,7 @@
                                       btn.removeClass('active');
                                     }
                                 });
-                            });
-                        
+                            }); --%>
                     </script>
                     <script></script>
 

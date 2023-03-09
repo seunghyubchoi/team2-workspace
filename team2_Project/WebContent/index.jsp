@@ -4,6 +4,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 
       div{box-sizing: border-box;}
@@ -340,6 +341,25 @@ label.right {
   }
   
   /*메인로그인프로필*/
+  
+/* .slideitem1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.slideitem1 a {
+  width: 23%;
+  margin-bottom: 20px;
+}
+
+.slideitem1 img {
+  width: 100%;
+  height: auto;
+  display: block;
+} */
+
 
     </style>
 </head>
@@ -395,7 +415,7 @@ label.right {
                     <div id="login3">
                     <a href="<%= contextPath %>/login.me" class="btn-3d-5">LOGIN/SIGNUP</a>
                     <br><br>
-                    <a href="<%= contextPath %>/login.me" class="btn-3d-5" style="margin-left: 53px; margin-top: 0px;">ID/PWD 찾기</a>
+                    <a href="<%= contextPath %>/FindPwd.me" class="btn-3d-5" style="margin-left: 53px; margin-top: 0px;">ID/PWD 찾기</a>
                     </div>
                     <%} else { %>
                     <div id=logininfo align="center">
@@ -413,38 +433,24 @@ label.right {
         <!--content-->
         <div id="content">
             <div id="line1"></div>  
-            <a href="#" class="btn-3d-3">STYLE UP</a>  
+            <a href="<%= contextPath %>/upload.co" class="btn-3d-3">STYLE UP</a>  
             <div class="slidebox1">
                 <input type="radio" name="slide1" id="slide05" checked>
                 <input type="radio" name="slide1" id="slide06">
                 <input type="radio" name="slide1" id="slide07">
                 <input type="radio" name="slide1" id="slide08">
                 <ul class="slidelist1">
-                    <li class="slideitem1">
-                        <a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                        </a><br>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                        </a><br>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                        </a>
-                    </li>
-                    <li class="slideitem1">
-                        <a>
+                   <!--  <li class="slideitem1">
+                        <br>
+                    </li> --> 
+                    
+                    <!-- <li class="slideitem1">
+                        
                             <a><img src="resources/img/아이콘3.png"></a>
                             <a><img src="resources/img/아이콘3.png"></a>
                             <a><img src="resources/img/아이콘3.png"></a>
                             <a><img src="resources/img/아이콘3.png"></a>
-                        </a><br>
+                        <br>
                             <a><img src="resources/img/아이콘3.png"></a>
                             <a><img src="resources/img/아이콘3.png"></a>
                             <a><img src="resources/img/아이콘3.png"></a>
@@ -480,20 +486,86 @@ label.right {
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
-                        </a><br>
+                        </a>
+                        <br>
+                        <a>
                            <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                         </a><br>
+                        <a>
                            <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                         </a>
-                    </li>
+                    </li> -->
                     
                 </ul>
+                <script>
+                /* function loadInstagram() {
+                  $.ajax({
+                    url: "home.co",
+                    type: "post",
+                    dataType: "json",
+                    success: function(list) {
+                      for (var i = 0; i < list.length; i++) {
+                        var imgSrc = list[i].instaImgSrc;
+                        var imgChange = list[i].instaImgChange;
+                        var imgElement = '<a><img src="' + imgSrc + imgChange + '"></a>';
+                        $('.slideitem1').append(imgElement);
+                      }
+                    }, 
+                    error: function() {
+                      alert('데이터를 불러오는데 실패하였습니다.');
+                    }
+                  });
+                }
+
+                $(document).ready(function() {
+                  loadInstagram();
+                }); */
+                function loadInstagram() {
+                	  $.ajax({
+                	    url: "home.co",
+                	    type: "post",
+                	    dataType: "json",
+                	    success: function(list) {
+                	      var itemPerRow = 4; // 한 줄에 출력할 이미지 수
+                	      var slideList = $('.slidelist1');
+                	      var slideItem = $('<li class="slideitem1"></li>');
+                	      
+                	      for (var i = 0; i < list.length; i++) {
+                	        var imgSrc = list[i].instaImgSrc;
+                	        var imgChange = list[i].instaImgChange;
+                	        var comNo = list[i].comNo; // 게시글 번호
+                	        var linkElement = '<a href="<%= contextPath %>/feed.co?cno=' + comNo + '"><img src="' + imgSrc + imgChange + '"></a>';
+                	        // var imgElement = '<a><img src="' + imgSrc + imgChange + '"></a>';
+                	        // slideItem.append(imgElement);
+                	        slideItem.append(linkElement);
+                	        
+                	        if ((i + 1) % itemPerRow === 0 || i === list.length - 1) {
+                	          slideList.append(slideItem);
+                	          slideItem = $('<li class="slideitem1"></li>');
+                	        }
+                	      }
+                	    },
+                	    error: function() {
+                	      alert('데이터를 불러오는데 실패하였습니다.');
+                	    }
+                	  });
+                	}
+
+                	$(document).ready(function() {
+                	  loadInstagram();
+                	  
+                	  $('.slidelist1').on('click', 'a', function() {
+                		    location.href = $(this).attr('href');
+                		  });
+                });
+
+                </script>
                 <div class="slide-control1">
                     <div class="control01">
                         <label for="slide08" class="prev"></label>

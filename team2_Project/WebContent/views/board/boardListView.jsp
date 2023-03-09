@@ -375,14 +375,18 @@ a {
             
         </div>
         <br>
-                    <div class="bt_wrap">
+        			<div class="bt_wrap">
+        			<%if(loginUser ==null) { %>
+                   
+                    <a href="<%= contextPath %>/login.me" class="on">문의하기</a>
+                    <%} else{ %>
                         <a href="<%= contextPath %>/qenrollForm.bo" class="on">문의하기</a>
                     </div>
                     <br><br>
                 </div>
             </div>  
             </div>
-            
+            <%} %>
             <script>
         	$(function(){
         		$(".qlist").click(function(){

@@ -60,7 +60,7 @@ pageEncoding="UTF-8"%>
                         <table class="table table-bordered dataTables" id="orderTable" width="100%" cellspacing="0" style="text-align: center;">
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" id="checkAll"></th>
+                                    <th><input type="checkbox" id="checkAll" class="scale-120"></th>
                                     <th>번호</th>
                                     <th>아이디</th>
                                     <th>주문일자</th>
@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%>
                             <tbody>
                                 <%for(OrderA o : list){ %>
                                 <tr>
-                                    <td><input type="checkbox" name="deleteCheck" class="orderCheckbox" value="<%= o.getOrderNo()%>"></td>
+                                    <td><input type="checkbox" name="deleteCheck" class="orderCheckbox scale-120" value="<%= o.getOrderNo()%>"></td>
                                     <td><%= o.getOrderNo()%></td>
                                     <td><a href="<%= contextPath%>/modifyForm.od?ono=<%= o.getOrderNo()%>"><%= o.getMemNo() %></a></td>
                                     <td><%= o.getOrderDate() %></td>
@@ -95,6 +95,32 @@ pageEncoding="UTF-8"%>
 
     </div>
     <!-- End of Page Wrapper -->
+
+    <!-- Status Change Process Modal-->
+    <div class="modal fade" id="orderStatusModal" tabindex="-1" role="dialog" aria-labelledby="orderStatusModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderStatusModalLabel">상태변경하기</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    선택된 주문의 상태를 "<span id="orderStatus"></span>"(으)로 변경하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <form action="<%= contextPath %>/updateStatus.od" method="post">
+                        <input type="hidden" id="deleteList" name="deleteList">
+                        <input type="hidden" class="orderStatus" name="orderStatus">
+                        <button type="submit" class="btn btn-warning" id="checkBtn">변경</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>  
 
 </body>
 

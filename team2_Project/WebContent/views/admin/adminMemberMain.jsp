@@ -60,7 +60,7 @@ pageEncoding="UTF-8"%>
                         <table class="table table-bordered dataTables" id="memberTable" width="100%" cellspacing="0" style="text-align: center;">
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" id="checkAll"></th>
+                                    <th><input type="checkbox" id="checkAll" class="scale-120"></th>
                                     <th>번호</th>
                                     <th>아이디</th>
                                     <th>이름</th>
@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%>
                             <tbody>
                                 <% for(Member m : list) { %>
 	                                <tr>
-	                                	<td><input type="checkbox" name="deleteCheck" value="<%= m.getMemNo() %>"></td>
+	                                	<td><input type="checkbox" name="deleteCheck" class="scale-120" value="<%= m.getMemNo() %>"></td>
 	                                    <td><%= m.getMemNo() %></td>
 	                                    <td><a href="<%= contextPath%>/detailForm.me?mno=<%= m.getMemNo() %>"><%= m.getMemId() %></a></td>
 	                                    <td><%= m.getMemName()%></td>

@@ -60,7 +60,7 @@ pageEncoding="UTF-8"%>
                         <table class="table table-bordered dataTables" id="QnATable" width="100%" cellspacing="0" style="text-align: center;">
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" id="checkAll"></th>
+                                    <th><input type="checkbox" id="checkAll" class="scale-120"></th>
                                     <th>번호</th>
                                     <th>카테고리</th>
                                     <th>제목</th>
@@ -74,7 +74,7 @@ pageEncoding="UTF-8"%>
                             <tbody>
                                 <% for(Inquire i : list){ %>
                                 <tr>
-                                	<td><input type="checkbox" name="deleteCheck" value="<%= i.getQnaNo() %>"></td>
+                                	<td><input type="checkbox" name="deleteCheck" class="scale-120" value="<%= i.getQnaNo() %>"></td>
                                     <td><%= i.getQnaNo() %></td>
                                     <td><%= i.getHeaderNo() %></td>
                                     <td><a href="<%= contextPath%>/detailForm.qa?ino=<%= i.getQnaNo() %>"><%= i.getQnaTitle() %></a></td>

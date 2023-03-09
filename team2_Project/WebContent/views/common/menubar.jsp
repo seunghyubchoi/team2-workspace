@@ -189,6 +189,8 @@ a {
 	text-align: center;
 }
 
+
+
 </style>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -225,7 +227,7 @@ a {
 				</div>
 				<div id="head2_2">
 					<ul class="menu">
-						<li><a href="<%= contextPath %>/list.co">뭐입지그램</a></li>
+						<li><a href="<%= contextPath %>/list.co?cpage=1">뭐입지그램</a></li>
 						<li><a href="#">상품</a>
 							<ul class="submenu" id="categoty-name">
 								<li><a href="#">아우터</a></li>

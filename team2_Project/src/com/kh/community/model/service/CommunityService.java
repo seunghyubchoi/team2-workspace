@@ -5,13 +5,34 @@ import java.util.ArrayList;
 
 import static com.kh.common.JDBCTemplate.*;
 
+import com.kh.common.PageInfo;
 import com.kh.community.model.dao.CommunityDao;
 import com.kh.community.model.vo.AnswerInstagram;
 import com.kh.community.model.vo.InstaImage;
 import com.kh.community.model.vo.Instagram;
 
 public class CommunityService {
+	
+	public int selectListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new CommunityDao().selectListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
 
+	public ArrayList<Instagram> selectInstaList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Instagram> list = new CommunityDao().selectInstaList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
 	public ArrayList<Instagram> selectInstaList() {
 		Connection conn = getConnection();
 		
@@ -127,6 +148,54 @@ public class CommunityService {
 		Connection conn = getConnection();
 		
 		int result = new CommunityDao().insertLike(conn, comNo, memNo);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int deleteLike(int memNo, int comNo) {
+		Connection conn = getConnection();
+		
+		int result = new CommunityDao().deleteLike(conn, memNo, comNo);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int insertFollow(int userId, String friendId) {
+		Connection conn = getConnection();
+		
+		int result = new CommunityDao().insertFollow(conn, userId, friendId);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int deleteFollow(int userId, String friendId) {
+		Connection conn = getConnection();
+		
+		int result = new CommunityDao().deleteFollow(conn, userId, friendId);
 		
 		if (result > 0) {
 			commit(conn);
