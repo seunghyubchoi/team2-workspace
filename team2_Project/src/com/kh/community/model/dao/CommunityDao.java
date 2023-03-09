@@ -90,6 +90,35 @@ public class CommunityDao {
 		
 		return list;
 	}
+	
+	public ArrayList<Instagram> selectInstaList(Connection conn) {
+		ArrayList<Instagram> list = new ArrayList<Instagram>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectHomeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				list.add(new Instagram(rset.getInt("com_no"),
+						rset.getString("insta_img_src"),
+						rset.getString("insta_img_change")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 
 	public int insertAnswer(Connection conn, AnswerInstagram answer) {
 		int result = 0;
@@ -362,6 +391,30 @@ public class CommunityDao {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertFollow(Connection conn, String friendId, String userId) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertFollow");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, friendId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);

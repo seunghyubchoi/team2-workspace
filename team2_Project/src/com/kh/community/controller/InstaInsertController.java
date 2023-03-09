@@ -78,10 +78,10 @@ public class InstaInsertController extends HttpServlet {
 			
 			if (result > 0) {
 				request.getSession().setAttribute("alertMsg", "게시글이 등록되었습니다.");
-				response.sendRedirect(request.getContextPath() + "/list.co");
+				response.sendRedirect(request.getContextPath() + "/list.co?cpage=1");
 			} else {
 				request.getSession().setAttribute("alertMsg", "게시글 등록 실패.");
-				response.sendRedirect(request.getContextPath() + "/list.co");
+				response.sendRedirect(request.getContextPath() + "/list.co?cpage=1");
 			}
 		}
 		

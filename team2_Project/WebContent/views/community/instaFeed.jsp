@@ -130,7 +130,7 @@
                                         <%= insta.getInstaId() %></b></td>
                                 <td>
                                     <ul class="icon" style="list-style: none;">
-                                        <li><i class="fa fa-solid fa-user-plus follow-btn"></i></li>
+                                        <li><i class="fa fa-solid fa-user-plus follow-btn" id="remove1"></i></li>
                                         <li><a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"><i class="fa fa-solid fa-share-nodes"></i></a></li>
                                         <li><a href="javascript:shareinstagram();"><i class="fa fa-brands fa-instagram"></i></a></li>
                                         <li><i class="fa fa-regular fa-heart like-button" id="like-btn" data-post-id="1234"></i></li>
@@ -181,7 +181,8 @@
                         </thead>
                         <tbody></tbody>
                     </table>
-
+<input type="hidden" name = "friendId" value=<%= insta.getMemNo() %>>
+<input type="hidden" name = "userId" value= <%= loginUser.getMemId() %>>
                     
                 </div>
                 <div class="col-4">
@@ -189,6 +190,31 @@
                 </div>
             </div>
         </div>
+        			<script>
+        			 // 팔로우
+        			$('.follow-btn').click(function () {
+        				
+        				
+	                    $.ajax({
+	                        url: 'follow.co',
+	                        type: 'POST',
+	                        data: { 
+	                        	friendId:$("#friendId").val(), 
+	                        	userId: $("#userId").val()
+	                        	},
+	                        success: function(result) {
+	                            console.log("팔로우완료되어따~~~~~~~~~");
+	                            $("#remove1").removeClass('fa-user-plus');
+	                            $("#remove1").addClass('fa-user-minus');
+	                            //element.classList.remove('fa-user-plus');
+	                            //element.classList.add('fa-user-minus');
+	                        },
+	                        error: function () {
+	                            console.log("팔로우 실패")
+	                        }
+	                    });
+        			});
+        			</script>
         			<script>
         			<!-- 페이스북 공유하기 -->
         			function shareFacebook() {

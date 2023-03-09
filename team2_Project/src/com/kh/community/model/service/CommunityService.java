@@ -33,6 +33,16 @@ public class CommunityService {
 		return list;
 	}
 	
+	public ArrayList<Instagram> selectInstaList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Instagram> list = new CommunityDao().selectInstaList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+	
 	public int insertAnswer(AnswerInstagram answer) {
 		Connection conn = getConnection();
 		
@@ -138,6 +148,22 @@ public class CommunityService {
 		Connection conn = getConnection();
 		
 		int result = new CommunityDao().insertLike(conn, comNo, memNo);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int insertFollow(String friendId, String userId) {
+		Connection conn = getConnection();
+		
+		int result = new CommunityDao().insertFollow(conn, friendId, userId);
 		
 		if (result > 0) {
 			commit(conn);

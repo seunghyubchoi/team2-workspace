@@ -45,7 +45,7 @@ public class InstalistController extends HttpServlet {
 		
 		listCount = new CommunityService().selectListCount();
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
-		pageLimit = 5;
+		pageLimit = 10;
 		boardLimit = 16;
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);

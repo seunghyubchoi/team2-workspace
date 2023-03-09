@@ -285,7 +285,7 @@
                     <h3>태그 추가</h3>
 
                     <input id="tag-input"placeholder="태그를 입력하세용">
-                    <input type="hidden" name="tags">
+                    <input type="hidden" name="tags" >
 					<div class="uTags" id="tag-container"><%= insta.getComTag() %></div>
 					
 					<script>
