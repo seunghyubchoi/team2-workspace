@@ -599,6 +599,26 @@ INSERT INTO TB_REVIEW
 VALUES(SEQ_REVIEW.NEXTVAL, '길거리에 보면 이 옷 입고다니는 사람 너무 많은듯?', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',7,4,1);
 INSERT INTO TB_REVIEW 
 VALUES(SEQ_REVIEW.NEXTVAL, '거의 제 교복입니다ㅋㅋㅋㅋㅋㅋ', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',7,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '원하는 길이감 찾느라 힘들었어요ㅠ 딱 원하던 길이감과 핏이라 딱 좋습니다!', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',24,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '크롭사이즈 딱젛아요 기모가 없어서 봄가을에 아우터로 입거나 겨울엔 안에입기에 딱젛네요', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',24,1,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '생각보다 품이 조금 크긴해요', 3, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',24,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '길이가 제 키에 적당하고 재질도 괜찮았어요. 지퍼가 조금 뻑뻑해요ㅠ', 2, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',24,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '핏 너무 이쁘고 기장도 딱 맘에 들어요 진짜 굿 ㅜㅜ 다른색상도 구매하려구요', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',25,1,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '배송 빠르고 이뻐요 강추합니다 투웨이로 입을 수 있어서 더 이쁜 거 같아요 161 45키로 딱 이쁘게 맞아용', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',25,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '기장, 폼 모두 잘 맞고 옷 품질도 넘 좋아요!! 바지도 세트로 살 걸 그랬어용', 2, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',25,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '잘맞구 이뻐요 재구매한 거예요 그정도로 잘 입고 다녔어용ㅜㅜ 스트링 핏 이쁘구 얇아요!', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',26,3,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '이거 진짜 좋아요 꼭 사세요 꼭퓨ㅠㅠㅠ', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',26,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '노기모라그런지 얇긴한데 부드럽고 좋아요. 손이 자주갑니다.', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',26,5,1);
 
 
 
