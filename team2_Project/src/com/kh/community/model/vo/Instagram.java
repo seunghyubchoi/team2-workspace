@@ -45,14 +45,21 @@ public class Instagram {
 		this.instaId = instaId;
 		this.memNo = memNo;
 	}
-
-	public Instagram(int comNo, String instaId, String instaImgSrc) {
+	
+	public Instagram(int comNo, String instaImgSrc, String instaImgChange) {
 		super();
 		this.comNo = comNo;
-		this.instaId = instaId;
 		this.instaImgSrc = instaImgSrc;
+		this.instaImgChange = instaImgChange;
 	}
 
+//	public Instagram(int comNo, String instaId, String instaImgSrc) {
+//		super();
+//		this.comNo = comNo;
+//		this.instaId = instaId;
+//		this.instaImgSrc = instaImgSrc;
+//	}
+	
 	public Instagram(String instaImgOrigin, String instaImgChange, String instaImgSrc) {
 		super();
 		this.instaImgOrigin = instaImgOrigin;
@@ -153,7 +160,10 @@ public class Instagram {
 	public String toString() {
 		return "Instagram [comNo=" + comNo + ", comContent=" + comContent + ", comTag=" + comTag + ", instaId="
 				+ instaId + ", imgNo=" + imgNo + ", delYn=" + delYn + ", memNo=" + memNo + ", uploadDate=" + uploadDate
-				+ "]";
+				+ ", instaImgOrigin=" + instaImgOrigin + ", instaImgChange=" + instaImgChange + ", instaImgSrc="
+				+ instaImgSrc + "]";
 	}
+
+	
 
 }

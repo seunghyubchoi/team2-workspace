@@ -34,7 +34,9 @@ public class InstalistController extends HttpServlet {
 		ArrayList<Instagram> list = new CommunityService().selectInstaList();
 		
 		request.setAttribute("list", list);
+		System.out.println("dfjkf" + list);
 		request.getRequestDispatcher("views/community/instaMain.jsp").forward(request, response);
+		
 	}
 
 	/**

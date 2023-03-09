@@ -42,8 +42,8 @@ public class CommunityDao {
 			
 			while (rset.next()) {
 				list.add(new Instagram(rset.getInt("com_no"),
-									   rset.getString("insta_img_change"),
-									   rset.getString("insta_img_src")
+									   rset.getString("insta_img_src"),
+									   rset.getString("insta_img_change")
 									   ));
 			}
 			System.out.println("list : " + list);

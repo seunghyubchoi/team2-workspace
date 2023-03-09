@@ -14,6 +14,7 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="../../resources/js/jquery-3.6.3.min.js"></script>
     <script src="https://kit.fontawesome.com/65b9d5555c.js" crossorigin="anonymous"></script>
+    
     <style>
         div {
             /* border: 1px solid black; */
@@ -93,6 +94,10 @@
         .liked {
 		  	color: red;
 		}
+		
+		/* .link-icon { position: relative; display: inline-block; width: auto;    font-size: 14px; font-weight: 500; color: #333; margin-right: 10px; padding-top: 50px; }
+		.link-icon.twitter { background-image: url(./resources/img/icon-twitter.png); background-repeat: no-repeat; }
+		.link-icon.facebook { background-image: url(./resources/img/icon-facebook.png); background-repeat: no-repeat; }  */
     </style>
 </head>
 
@@ -117,14 +122,6 @@
                                 class="btn btn-sm btn-danger">삭제하기</a>
                             <% } %>
 
-                                <!-- 로그인한 사용자가 게시글 작성자일 경우만 보이게 -->
-                                <%-- <% if (loginUser !=null &&
-                                    String.valueOf(loginUser.getMemNo()).equals(insta.getMemNo())) { %>
-                                    <a href="<%= contextPath %>/update.co?cno=<%= insta.getComNo() %>"
-                                        class="btn btn-sm btn-warning">수정하기</a>
-                                    <a href="#" class="btn btn-sm btn-danger">삭제하기</a>
-                                    <% } %> --%>
-
                     </div>
                     <div class="row" style="height: 40%;">
                         <table border="0">
@@ -134,14 +131,15 @@
                                 <td>
                                     <ul class="icon" style="list-style: none;">
                                         <li><i class="fa fa-solid fa-user-plus follow-btn"></i></li>
-                                        <li><i class="fa fa-solid fa-share-nodes"></i></li>
-                                        <li><i class="fa fa-brands fa-instagram"></i></li>
+                                        <li><a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"><i class="fa fa-solid fa-share-nodes"></i></a></li>
+                                        <li><a href="javascript:shareinstagram();"><i class="fa fa-brands fa-instagram"></i></a></li>
                                         <li><i class="fa fa-regular fa-heart like-button" id="like-btn" data-post-id="1234"></i></li>
                                         <li><span class="fa like-count" id="like-count" style="font-size: 1px;">0</span></li>
+                                        <!-- <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();" />트위터
+										<a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();" />페이스북  -->  
                                     </ul>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td colspan="2" style="text-align: left;">
                                 	<span><b><%= insta.getComContent() %></b></span>
@@ -186,9 +184,25 @@
 
                     
                 </div>
-                <div class="col-4"></div>
+                <div class="col-4">
+                
+                </div>
             </div>
         </div>
+        			<script>
+        			<!-- 페이스북 공유하기 -->
+        			function shareFacebook() {
+        			   <%--  var sendUrl = "<%= contextPath %>/feed.co?cno=" + "<%= insta.getComNo() %>"; // 전달할 URL --%>
+        			    var sendUrl = "http://localhost:8899/team2_Project/feed.co?cno=" + "<%= insta.getComNo() %>"; // 전달할 URL
+        			    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+        			}
+        			
+        			/* 인스타그램 계정으로 이동하기 */
+        			function shareinstagram() {
+        			    window.open("https://www.instagram.com/" + "<%= insta.getInstaId() %>");
+        			}
+        			</script>
+        			
 					<script>
                         $(function () {
                             selectAnswerList();
@@ -240,7 +254,7 @@
                     </script>
  
                     <script>
-                        $(document).ready(function () {
+                        
                             $('.like-button').click(function () {
                                 let cNo = <%= insta.getComNo() %>;
                                 
@@ -287,7 +301,7 @@
                                     }
                                 });
                             });
-                        });
+                        
                     </script>
                     <script></script>
 
