@@ -1,8 +1,6 @@
 package com.kh.payment.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,21 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.payment.model.service.AdminPaymentService;
-import com.kh.payment.model.vo.OrderA;
-import com.kh.payment.model.vo.OrderDtl;
-import com.kh.payment.model.vo.ReturnA;
 
 /**
- * Servlet implementation class AdminOrderModifyFormController
+ * Servlet implementation class AdminOrderDeleteController
  */
-@WebServlet("/modifyForm.od")
-public class AdminOrderModifyFormController extends HttpServlet {
+@WebServlet("/updateStatus.od")
+public class AdminOrderStatusUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminOrderModifyFormController() {
+    public AdminOrderStatusUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,24 +29,21 @@ public class AdminOrderModifyFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
+		String deleteList = request.getParameter("deleteList");
+		String orderStatus = request.getParameter("orderStatus");
+		
+		int result = new AdminPaymentService().updateStatus(deleteList, orderStatus);
+		
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("loginManager") == null) {
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스 입니다.");
-			request.getRequestDispatcher("views/admin/adminLogin.jsp").forward(request, response);
-		} else {
-			int orderNo = Integer.parseInt(request.getParameter("ono"));
-			
-			OrderA o = new AdminPaymentService().selectOrder(orderNo);
-			ArrayList<OrderDtl> odList= new AdminPaymentService().selectOrderDtl(orderNo);
-			
-			ReturnA r = new AdminPaymentService().selectReturn(orderNo);
-			
-			request.setAttribute("o", o);
-			request.setAttribute("odList", odList);
-			request.setAttribute("r", r);
-			request.getRequestDispatcher("views/admin/adminOrderModify.jsp").forward(request, response);
+		if(result > 0) {
+			session.setAttribute("alertMsg", "주문상태를 변경하였습니다.");
+		}else {
+			session.setAttribute("alertMsg", "주문상태 변경에 실패했습니다.");
 		}
+		response.sendRedirect(request.getContextPath() + "/orderList.ma");
 	}
 
 	/**

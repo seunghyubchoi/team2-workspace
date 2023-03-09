@@ -41,7 +41,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
         <div id="allBox">
           <div id="header">
             <div id="w4t_logo">
-              <img src="../../../resources/img/W4T_crop.svg" alt="" />
+              <img src="resources/img/admin/W4T_crop.svg" alt="" />
             </div>
           </div>
           
