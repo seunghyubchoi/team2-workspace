@@ -59,8 +59,22 @@ public class OrderA {
 		this.orderDate = orderDate;
 		this.orderStatus = orderStatus;
 	}
-	
-	
+
+	public OrderA(int orderNo, int orderQnt, String orderStatus, String rcpAddressName, String rcpName, String rcpPhone,
+			String rcpAddress, String rcpAddressDtl, String rcpPostCode, String rcpMsg, int saveMileage) {
+		super();
+		this.orderNo = orderNo;
+		this.orderQnt = orderQnt;
+		this.orderStatus = orderStatus;
+		this.rcpAddressName = rcpAddressName;
+		this.rcpName = rcpName;
+		this.rcpPhone = rcpPhone;
+		this.rcpAddress = rcpAddress;
+		this.rcpAddressDtl = rcpAddressDtl;
+		this.rcpPostCode = rcpPostCode;
+		this.rcpMsg = rcpMsg;
+		this.saveMileage = saveMileage;
+	}
 
 	public int getOrderNo() {
 		return orderNo;

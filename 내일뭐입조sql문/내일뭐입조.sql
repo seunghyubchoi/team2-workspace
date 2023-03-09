@@ -139,6 +139,9 @@ CREATE TABLE TB_FOLLOW (
     ACT_YN CHAR(1) DEFAULT 'Y' CHECK(ACT_YN IN('Y','N')) NOT NULL
 );
 
+-- ALTER TABLE TB_FOLLOW ADD UNIQUE (FOLLOWER_ID, FOLLOWING_ID);
+
+
 CREATE TABLE TB_REVIEW (
 	REVIEW_NO NUMBER PRIMARY KEY,
 	REVIEW_CONTENT VARCHAR2(4000) NOT NULL,
@@ -701,9 +704,27 @@ BEGIN
            SET DEL_YN = 'Y'
         WHERE ORDER_NO = :NEW.ORDER_NO;
         
+     END IF;   
+     IF (:NEW.ORDER_STATUS = '교환요청')
+        THEN
+        UPDATE TB_DTL_ORDER
+           SET DEL_YN = 'Y'
+        WHERE ORDER_NO = :NEW.ORDER_NO;    
+      
+        
+    END IF;
+     IF (:NEW.ORDER_STATUS = '환불요청')
+        THEN
+        UPDATE TB_DTL_ORDER
+           SET DEL_YN = 'Y'
+        WHERE ORDER_NO = :NEW.ORDER_NO;    
+      
+        
     END IF;
 END;
 /
+
+
 
 
 -- INSERT문
@@ -796,6 +817,21 @@ INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'체크 패턴의 블레�
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 코트, 화이트 컬러의 팬츠, 네이비 컬러의 나이키 스니커즈를 매치한 룩입니다.','#나이키','INSTA03','N',3,SYSDATE);
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 롱 코트, 퍼플 컬러의 팬츠, 통굽 워커를 매치한 룩입니다.','#퍼플','INSTA04','N',4,SYSDATE);
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 라이더 재킷, 데님 스커트, 블랙 컬러의 워커를 매칭한 룩입니다.','#블랙','INSTA05','N',5,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'화이트 컬러의 플리스 재킷과 그레이 컬러의 데님 팬츠, 화이트 컬러의 스니커즈를 매칭한 룩입니다.','#화이트','INSTA01','N',1,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'그레이 컬러의 카디건에 그린 컬러의 스웨트 팬츠, 블랙 컬러의 스니커즈를 매칭한 룩입니다.','#캐주얼','INSTA02','N',2,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 윈드브레이커와 스커트, 롱 부츠를 매칭한 룩입니다.','#롱부츠','INSTA03','N',3,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'그레이 컬러의 카디건에 데님 팬츠, 블랙 컬러의 워커를 매칭한 룩입니다.','#워커','INSTA04','N',4,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 블레이저에 부츠를 매칭한 룩입니다.','#시크','INSTA05','N',5,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 레더 블루종과 데님 스커트, 화이트 컬러의 스니커즈를 매칭한 룩입니다.','#레더','INSTA01','N',1,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'패턴이 돋보이는 플리스 재킷, 블랙 컬러의 롱 스커트, 워커를 매칭한 룩입니다.','#홍대','INSTA02','N',2,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블루 컬러의 니트 베스트에 블랙 숏 팬츠, 롱 부츠를 매칭한 룩입니다.','#숏팬츠','INSTA03','N',3,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블루 컬러의 스타디움 재킷에 화이트 스니커즈를 매칭한 룩입니다.','#블루','INSTA04','N',4,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'그레이 컬러의 블레이저와 블랙 스커트를 매칭한 룩입니다.','#홍대','INSTA05','N',5,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 스투시 재킷에 핑크 롱 스커트, 덩크 스니커즈를 매칭한 룩입니다.','#스투시','INSTA01','N',1,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 바시티 재킷과 데님 팬츠, 화이트 컬러의 스니커즈를 매칭한 룩입니다.','#캐주얼','INSTA02','N',2,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙&레드 컬러의 레더 재킷과 화이트 컬러의 카고 팬츠, 그레이&화이트 컬러의 스니커즈를 매칭한 룩입니다.','#카고','INSTA03','N',3,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 항공 점퍼와 퍼플 컬러의 와이드 팬츠, 블랙 컬러의 스니커즈를 매칭한 룩입니다.','#와이드','INSTA04','N',4,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'레드 컬러의 카디건에 카키 컬러의 롱 스커트, 화이트 컬러의 첼시 부츠를 매칭한 룩입니다.','#레드','INSTA05','N',5,SYSDATE);
 
 
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,1,'익명의 패션사진1','https://image.msscdn.net/mfile_s01/_shopstaff/view.staff_6400bee7281ba.jpg?20230303085713','바뀐사진1');
@@ -818,6 +854,21 @@ INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,17,'익명의 패션�
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,18,'익명의 패션사진18','https://image.msscdn.net/mfile_s01/_street_images/88979/street_64069b614e22e.jpg?20230307175524','바뀐사진18');
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,19,'익명의 패션사진19','https://image.msscdn.net/mfile_s01/_street_images/88977/street_64069ff4bb7a1.jpg?20230307180027','바뀐사진19');
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,20,'익명의 패션사진20','https://image.msscdn.net/mfile_s01/_street_images/88975/street_6406a174b7227.jpg?20230307180122','바뀐사진20');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,21,'익명의 패션사진21','https://image.msscdn.net/mfile_s01/_street_images/88969/street_6406b97281076.jpg?','바뀐사진21');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,22,'익명의 패션사진22','https://image.msscdn.net/mfile_s01/_street_images/88968/street_6406b9629aa1a.jpg?20230307180745','바뀐사진22');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,23,'익명의 패션사진23','https://image.msscdn.net/mfile_s01/_street_images/88965/street_6406bb4db5f19.jpg?20230307181617','바뀐사진23');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,24,'익명의 패션사진24','https://image.msscdn.net/mfile_s01/_street_images/88964/street_6406bc15544bd.jpg?','바뀐사진24');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,25,'익명의 패션사진25','https://image.msscdn.net/mfile_s01/_street_images/88963/street_6406bd567d3d1.jpg?20230307181658','바뀐사진25');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,26,'익명의 패션사진26','https://image.msscdn.net/mfile_s01/_street_images/88962/street_6406bd7a2cb5c.jpg?','바뀐사진26');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,27,'익명의 패션사진27','https://image.msscdn.net/mfile_s01/_street_images/88961/street_6406bdad59479.jpg?20230307181754','바뀐사진27');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,28,'익명의 패션사진28','https://image.msscdn.net/mfile_s01/_street_images/88959/street_6406be2c1d8ff.jpg?','바뀐사진28');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,29,'익명의 패션사진29','https://image.msscdn.net/mfile_s01/_street_images/88958/street_6406be44c8b2c.jpg?','바뀐사진29');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,30,'익명의 패션사진30','https://image.msscdn.net/mfile_s01/_street_images/88955/street_6406bf07c8d4f.jpg?20230307181945','바뀐사진30');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,31,'익명의 패션사진31','https://image.msscdn.net/mfile_s01/_street_images/88953/street_6406c0045e81e.jpg?','바뀐사진31');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,32,'익명의 패션사진32','https://image.msscdn.net/mfile_s01/_street_images/88930/street_6405760a923e7.jpg?','바뀐사진32');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,33,'익명의 패션사진33','https://image.msscdn.net/mfile_s01/_street_images/88927/street_640577c6e5215.jpg?','바뀐사진33');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,34,'익명의 패션사진34','https://image.msscdn.net/mfile_s01/_street_images/88929/street_6405769d1cbd7.jpg?','바뀐사진34');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,35,'익명의 패션사진35','https://image.msscdn.net/mfile_s01/_street_images/88928/street_6405772359b41.jpg?20230306173302','바뀐사진35');
 
 INSERT INTO TB_LIKE VALUES(SEQ_LIKE.NEXTVAL,2,2);
 INSERT INTO TB_LIKE VALUES(SEQ_LIKE.NEXTVAL,1,4);
@@ -859,8 +910,8 @@ INSERT INTO TB_LOCATION VALUES(SEQ_LOCATION.NEXTVAL,4,'지용배송지','정지�
 INSERT INTO TB_LOCATION VALUES(SEQ_LOCATION.NEXTVAL,5,'승협하우스','최승협','01060652926','여의도 자이아파트','106동 1103호','07324','N','Y');
 
 INSERT INTO TB_ORDER VALUES(SEQ_ORDER.NEXTVAL,1,1,DEFAULT,'배송완료',NULL,'박희연','01062612122','역삼 래미안 아파트','101동303호','06218',NULL,400,200);
-INSERT INTO TB_ORDER VALUES(SEQ_ORDER.NEXTVAL,1,2,DEFAULT,'상품준비중',NULL,'박희연','01062612122','역삼 래미안 아파트','101동303호','06218',NULL,400,200);
-INSERT INTO TB_ORDER VALUES(SEQ_ORDER.NEXTVAL,1,1,DEFAULT,'상품준비중',NULL,'박희연','01062612122','역삼 래미안 아파트','101동303호','06218',NULL,400,200);
+INSERT INTO TB_ORDER VALUES(SEQ_ORDER.NEXTVAL,1,2,DEFAULT,'배송완료',NULL,'박희연','01062612122','역삼 래미안 아파트','101동303호','06218',NULL,400,200);
+INSERT INTO TB_ORDER VALUES(SEQ_ORDER.NEXTVAL,1,1,DEFAULT,'배송완료',NULL,'박희연','01062612122','역삼 래미안 아파트','101동303호','06218',NULL,400,200);
 INSERT INTO TB_ORDER VALUES(SEQ_ORDER.NEXTVAL,2,1,DEFAULT,'배송완료',NULL,'이윤화','01064622323','역삼 래미안 아파트','103동503호','06218','부재시 문앞에 두고가주세요',500,300);
 INSERT INTO TB_ORDER VALUES(SEQ_ORDER.NEXTVAL,3,2,DEFAULT,'배송완료',NULL,'전혜정','01066632524','여의도 자이아파트','105동 809호','07324','경비실에 맡겨주세요',500,400);
 INSERT INTO TB_ORDER VALUES(SEQ_ORDER.NEXTVAL,4,1,DEFAULT,'배송완료',NULL,'정지용','01068642725','신길 목련아파트','101동 303호','07362',NULL,600,300);

@@ -369,12 +369,11 @@ SELECT
      , PRODUCT_NO
      , DTL_SIZE
      , DTL_QNT
+     , DEL_YN
   FROM 
        TB_DTL_ORDER
  WHERE
        ORDER_NO = ?
-   AND 
-       DEL_YN = 'N'
 </entry>
 
 <!-- 주문상품 조회 (관리자) -->
@@ -410,5 +409,84 @@ SELECT
 	 WHERE 
 	       DTL_ORDER_NO = ?
 </entry>
+
+<!-- 배송완료 마일리지 적립 쿼리 (관리자) -->
+<entry key="insertMileage">
+	INSERT
+	  INTO TB_MILEAGE_HISTORY
+	  (
+	    MILEAGE_NO
+	  , MILEAGE_HISTORY
+	  , MILEAGE
+	  , MEM_NO
+	  , ORDER_NO
+      )
+    VALUES
+	  (
+	   SEQ_MILEAGE_HISTORY.NEXTVAL
+	  , '적립'
+	  , ?
+	  , ?
+	  , ?
+	  )
+</entry>
+
+<!-- 주문 수정 쿼리 (관리자) -->
+<entry key="updateOrder">
+	UPDATE
+	       TB_ORDER
+	   SET 
+	       ORDER_QNT = ?
+	     , ORDER_STATUS = ?
+	     , RCP_ADDRESS_NAME = ?
+	     , RCP_NAME = ?
+	     , RCP_PHONE = ?
+	     , RCP_ADDRESS = ?
+	     , RCP_ADDRESS_DTL = ?
+	     , RCP_POST_CODE = ?
+	     , RCP_MSG = ?
+	     , SAVE_MILEAGE = ?
+	 WHERE ORDER_NO = ?
+</entry>
+
+<!-- 마일리지 적립내역 조회 쿼리 -->
+<entry key="selectMileageHistory">
+	SELECT
+		    MEM_NO
+		  , ORDER_NO
+	  FROM TB_MILEAGE_HISTORY
+	 WHERE MEM_NO = ? 
+	   AND ORDER_NO = ?				
+</entry>
+
+<!-- 교환/환불요청 조회 쿼리 -->
+<entry key="selectReturn">
+	SELECT 
+	       RETURN_NO
+	     , RETURN_STATUS
+         , RETURN_REASON
+	  FROM
+	       TB_RETURN
+	 WHERE ORDER_NO = ? 
+</entry>
+
+<!-- 주문 일괄 상태변경 쿼리(관리자) -->
+<entry key="updateStatus">
+	UPDATE TB_ORDER
+	   SET ORDER_STATUS = ?
+	 WHERE ORDER_NO
+	    IN 
+	     (
+	       SELECT REGEXP_SUBSTR(A.TXT, '[^,]+', 1, LEVEL) TXT
+	         FROM 
+	            ( 
+	              SELECT ? TXT 
+	                FROM dual
+	             ) A
+	      CONNECT 
+	           BY INSTR(A.TXT, ',', 1, LEVEL-1) > 0
+	      )
+</entry>
+
 
 </properties>

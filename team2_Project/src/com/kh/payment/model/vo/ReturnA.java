@@ -1,33 +1,28 @@
-package com.kh.myPage.model.vo;
+package com.kh.payment.model.vo;
 
-public class Return {
-	
-	
+public class ReturnA {
 	private int returnNo;
 	private String returnStatus;
 	private String returnReason;
 	private int memNo;
-	private int orderNo;
+	private String orderNo;
 	
-	public Return() {
-		
-	}
+	public ReturnA() {}
 
-	public Return(String returnStatus, String returnReason, int memNo, int orderNo) {
-		super();
-		this.returnStatus = returnStatus;
-		this.returnReason = returnReason;
-		this.memNo = memNo;
-		this.orderNo = orderNo;
-	}
-
-	public Return(int returnNo, String returnStatus, String returnReason, int memNo, int orderNo) {
+	public ReturnA(int returnNo, String returnStatus, String returnReason, int memNo, String orderNo) {
 		super();
 		this.returnNo = returnNo;
 		this.returnStatus = returnStatus;
 		this.returnReason = returnReason;
 		this.memNo = memNo;
 		this.orderNo = orderNo;
+	}
+	
+	public ReturnA(int returnNo, String returnStatus, String returnReason) {
+		super();
+		this.returnNo = returnNo;
+		this.returnStatus = returnStatus;
+		this.returnReason = returnReason;
 	}
 
 	public int getReturnNo() {
@@ -62,19 +57,20 @@ public class Return {
 		this.memNo = memNo;
 	}
 
-	public int getOrderNo() {
+	public String getOrderNo() {
 		return orderNo;
 	}
 
-	public void setOrderNo(int orderNo) {
+	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
 
 	@Override
 	public String toString() {
-		return "Return [returnNo=" + returnNo + ", returnStatus=" + returnStatus + ", returnReason=" + returnReason
+		return "ReturnA [returnNo=" + returnNo + ", returnStatus=" + returnStatus + ", returnReason=" + returnReason
 				+ ", memNo=" + memNo + ", orderNo=" + orderNo + "]";
 	}
+
 	
 	
 }

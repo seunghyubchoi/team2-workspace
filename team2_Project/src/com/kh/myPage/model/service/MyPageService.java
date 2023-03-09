@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.kh.common.PageInfo;
 import com.kh.community.model.vo.Instagram;
+import com.kh.community.model.vo.Instagram2;
 import com.kh.community.model.vo.Like;
 import com.kh.myPage.model.dao.MyPageDao;
 import com.kh.myPage.model.vo.Follow;
@@ -117,9 +118,9 @@ public class MyPageService {
 		return listCount;
 	}
 
-	public ArrayList<Instagram> selectLikeList(PageInfo pi, int memNo) {
+	public ArrayList<Instagram2> selectLikeList(PageInfo pi, int memNo) {
 		Connection conn = getConnection();
-		ArrayList<Instagram> list = new MyPageDao().selectLikeList(conn, pi, memNo);
+		ArrayList<Instagram2> list = new MyPageDao().selectLikeList(conn, pi, memNo);
 		close(conn);
 		return list;
 	}
@@ -201,6 +202,51 @@ public class MyPageService {
 		ArrayList<OrderDtlA> list = new MyPageDao().selectOrderHistoryDetail(conn, orderNo);
 		close(conn);
 		return list;
+	}
+
+	public int insertReturn(String returnStatus, String returnReason, int memNo, int dtlOrderNo) {
+		System.out.println("insertReturn 서비스 탐");
+		
+		Connection conn = getConnection();
+		
+		int result = new MyPageDao().insertReturn(conn, returnStatus, returnReason, memNo, dtlOrderNo);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
+
+	public int returnOrder(int dtlOrderNo) {
+		System.out.println("returnOrder 서비스 탐");
+
+		Connection conn = getConnection();
+		int result = new MyPageDao().returnOrder(conn, dtlOrderNo);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int exchangeOrder(int dtlOrderNo) {
+		System.out.println("exchangeOrder 서비스 탐");
+
+		Connection conn = getConnection();
+		int result = new MyPageDao().exchangeOrder(conn, dtlOrderNo);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 

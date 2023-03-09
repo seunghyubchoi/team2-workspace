@@ -1,4 +1,4 @@
-package com.kh.community.controller;
+package com.kh.payment.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,21 +6,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
-import com.kh.community.model.service.CommunityService;
+import com.kh.payment.model.service.AdminPaymentService;
 
 /**
- * Servlet implementation class InstaLikeController
+ * Servlet implementation class AdminOrderDeleteController
  */
-@WebServlet("/like.co")
-public class InstaLikeController extends HttpServlet {
+@WebServlet("/updateStatus.od")
+public class AdminOrderStatusUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InstaLikeController() {
+    public AdminOrderStatusUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,24 +29,27 @@ public class InstaLikeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
-		int memNo = Integer.parseInt(request.getParameter("userId"));
-		int comNo = Integer.parseInt(request.getParameter("cno"));
-		System.out.println("좋아요 : " + comNo + "/" + memNo);
+		String deleteList = request.getParameter("deleteList");
+		String orderStatus = request.getParameter("orderStatus");
 		
-		int result = new CommunityService().insertLike(comNo, memNo);
+		int result = new AdminPaymentService().updateStatus(deleteList, orderStatus);
 		
-		response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
-
-	    new Gson().toJson(result,response.getWriter());
+		HttpSession session = request.getSession();
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "주문상태를 변경하였습니다.");
+		}else {
+			session.setAttribute("alertMsg", "주문상태 변경에 실패했습니다.");
+		}
+		response.sendRedirect(request.getContextPath() + "/orderList.ma");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
