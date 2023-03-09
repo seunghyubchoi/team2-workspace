@@ -265,7 +265,7 @@ SELECT
 </entry>
 <entry key="selectReviewAvg">
 SELECT 
-	AVG(REVIEW_STAR) AVG
+	ROUND(AVG(REVIEW_STAR),1) AVG
 	FROM TB_REVIEW
 	WHERE PRODUCT_NO2 = ?
 </entry>

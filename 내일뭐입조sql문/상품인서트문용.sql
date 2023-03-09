@@ -499,5 +499,119 @@ Insert into TOMMORROW.TB_OPTION (OPTION_NO,OPTION_SIZE,OPTION_STOCK,PRODUCT_NO) 
 Insert into TOMMORROW.TB_OPTION (OPTION_NO,OPTION_SIZE,OPTION_STOCK,PRODUCT_NO) values (234,'S',100,81);
 Insert into TOMMORROW.TB_OPTION (OPTION_NO,OPTION_SIZE,OPTION_STOCK,PRODUCT_NO) values (235,'S',100,82);
 
+----------------------------------------------------------------
+--review 
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '와 진짜 너무 예뻐여ㅠㅠ 짱짱해요', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',23,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '행복해여~~', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',23,1,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '어디서 이런옷이 나타난거야', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',23,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '나를 사로 잡은 이 옷은 무엇일까..? 하지만 더 분발하라고 4점 줍니다', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',23,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '부들부들하고 맘에 들어요 후드입고 입어도 낙낙할거 같아요!', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',22,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '안에 누빔있어서 춥지는 않아요 살짝 어깨깡이 되긴 합니다 그래도 무난~~', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',22,1,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '오버핏이긴 한데 옷이 많이 커서 뒤에서 보면 어깨도 많이 넓어보이고 부해보이는 것 같기도 해요ㅜ.ㅜ', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',22,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '오자마자 입어봤는데 핏이 너무 이뻐요~~ 기본템으로 부담없이 입을 수 있을거 같아요', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',22,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '와 진짜 너무 예뻐여ㅠㅠ 짱짱해요', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',21,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '얇아서 아침 저녁 선선할때 걸쳐 입기 좋아요. 에어컨 센 곳에서 활용하기도 딱이에요.', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',20,3,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '라지사이즈가 큰감은 있지만 보는 사람마다 적당한 오버핏이라고 말하네요 사진 보고 참고해주세요! 잘입겠습니다 :)', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',20,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '사이즈가 딱 적당했어요 길이도 이쁘고 너무마음에 들어요', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',19,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '음음 일단 가볍네요! 벨트는 빼는 게 더 예쁜 거 같아요 무난쵝오', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',19,1,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '걍 무난무난', 3, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',18,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '최악임 배송도 느려', 1, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',18,1,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '완전 이쁜데? 최고다 ', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',18,3,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '별로임 ㅡㅡ', 2, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',17,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '아기자기 하니 너무 좋음 ㅎㅎ', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',17,1,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '내 최애 옷 됐어여!', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',17,3,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '이뻐요', 3, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',16,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '너무 상금한 옷인듯 ㅎㅎ', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',16,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '와우 최고의 옷!', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',16,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '이쁜듯 나름?', 3, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',15,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '사이즈가 너무 작아요 ㅠㅠㅠ', 1, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',15,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '재질은 좋은데 사진보다는 별로네요', 2, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',15,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '그냥 그래욬ㅋ', 3, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',14,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '여자친구한테 선물해줬는데 좋아하네여 ㅋㅋ', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',14,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '친구들이 어디서 샀냐고 물어봐요', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',14,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '이뻐요X100', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',13,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '색감이 괜찮은듯??', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',13,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '너무너무너무너무너무 이쁘다 ㅎㅎ', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',13,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '브랜드인줄 알았는데 보세랑 다를게 뭐야', 2, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',12,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '괜찮아 그냥 대충 입을만해', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',12,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '다신 여기서 안살래', 1, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',12,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '옷에서 기름냄새가 나네요 ㅋㅋㅋㅋㅋㅋ', 1, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',11,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '새삥 모든게 다 새삥~~~~~~', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',11,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '학교에 입고갔는데 나보고 중국인 패션이래요 ㅠㅠㅠ', 2, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',11,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '완전 오버핏의 정석', 3, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',10,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '제 나이대에 입기에 딱인듯', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',10,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '요즘 날씨에 입기 딱 좋아요~~', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',10,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '아따 옷이 제대로랑께', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',9,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '배송이 이렇게 빨라도 되는거에요?', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',9,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '다음에 또 사고싶어요 ㅎㅎㅎㅎㅎㅎㅎㅎㅎ', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',9,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '역시 뉴진스가 입었던 옷이다 완전 이뻐', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',8,2,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '뉴진스가 입었을때는 이뻤는데 내가 입으니까 왜 이상하죠?', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',8,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '아 ㅋㅋㅋㅋㅋ 하태하태', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',8,5,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '사세요 두번 사세요', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',7,3,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '길거리에 보면 이 옷 입고다니는 사람 너무 많은듯?', 4, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',7,4,1);
+INSERT INTO TB_REVIEW 
+VALUES(SEQ_REVIEW.NEXTVAL, '거의 제 교복입니다ㅋㅋㅋㅋㅋㅋ', 5, SYSDATE, '마일리지 적립 완료! 구매해주셔서 감사합니다~! 앞으로도 많이 이용해주세요!', SYSDATE,'N',7,5,1);
 
+
+
+
+INSERT INTO TB_REVIEW_IMAGE
+VALUES('멋진 자켓','	https://image.brandi.me/media/3990945f715ebdaf58534662677f61f9.jpeg',7);
+
+INSERT INTO TB_REVIEW_IMAGE
+VALUES('멋진 자켓','https://image.brandi.me/media/b0823297ba3bfee21b6146730219278d.jpeg',8);
+
+INSERT INTO TB_REVIEW_IMAGE
+VALUES('멋진 자켓','https://image.brandi.me/media/ab2650b05e7f3a39503e9f4400179223.jpeg',9);
+
+INSERT INTO TB_REVIEW_IMAGE
+VALUES('멋진 자켓','https://image.brandi.me/media/be954ef80bdf772510b90a0d59cace7f.jpeg',10);
 commit

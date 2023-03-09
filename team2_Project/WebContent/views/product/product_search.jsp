@@ -189,6 +189,7 @@
     	                     "<a href='<%= contextPath %>/product.pr?pno=" + result[i].productNo +" ' >"+
     	                     "<img src= " +
     	                    "<%= contextPath %>" + 
+    	                     '/'+
     	                     result[i].filePath + 
     	                     result[i].changeName + 
     	                     " class='card-img-top'>"+
