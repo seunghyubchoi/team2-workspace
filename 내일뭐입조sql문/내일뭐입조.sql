@@ -833,6 +833,30 @@ INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙&레드 컬러의 �
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 항공 점퍼와 퍼플 컬러의 와이드 팬츠, 블랙 컬러의 스니커즈를 매칭한 룩입니다.','#와이드','INSTA04','N',4,SYSDATE);
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'레드 컬러의 카디건에 카키 컬러의 롱 스커트, 화이트 컬러의 첼시 부츠를 매칭한 룩입니다.','#레드','INSTA05','N',5,SYSDATE);
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'연청 컬러의 트러커 집업 재킷에 스커트, 블랙 롱 부츠를 매칭한 룩입니다.','#청청','INSTA01','N',1,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 플리스 집업 재킷에 데님 스커트와 부츠를 매칭한 룩입니다.','#플리스','INSTA02','N',2,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블루블랙 패턴의 니트 스웨터에 블랙 스커트, 롱 부츠를 매칭한 룩입니다.','#스웨터','INSTA03','N',3,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'그레이 컬러의 크롭 후드 집업 , 트레이닝 팬츠를 매치한 룩입니다.','#크롭','INSTA04','N',4,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'아이보리 컬러의 후드 집업, 미니스커트, 부츠를 매치한 룩입니다.','#집업','INSTA05','N',5,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 코트, 브라운 컬러의 셔츠, 블랙 컬러의 미니스커트를 매치한 룩입니다.','#셔츠','INSTA01','N',1,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'베이지 컬러의 코트, 블랙 컬러의 부츠를 매치한 룩입니다.','#코트','INSTA02','N',2,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'그레이 컬러의 항공 점퍼, 브라운 컬러의 레더 숏 팬츠, 부츠를 매치한 룩입니다.','#부츠','INSTA03','N',3,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 블레이저, 레더 숏 팬츠, 웨스턴 부츠를 매치한 룩입니다.','#부츠','INSTA04','N',4,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'브라운 컬러의 레더 재킷에 스트라이프 패턴의 데님 팬츠, 화이트 컬러의 스니커즈를 매칭한 룩입니다.','#데님','INSTA05','N',5,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 캘빈클라인 스포츠 레귤러 핏 에센셜 스웨트 팬츠를 매칭한 룩입니다.','#블랙','INSTA01','N',1,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 캘빈클라인 스포츠 리플렉티브 로고 레귤러 핏 윈드브레이커를 매칭한 룩입니다.','#블랙','INSTA02','N',2,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 캘빈클라인 스포츠 리플렉티브 로고 레귤러 핏 기능성 우븐 팬츠를 매칭한 룩입니다.','#블랙','INSTA03','N',3,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 캘빈클라인 스포츠 레귤러 핏 스트레치 기능성 크롭 반소매 티셔츠를 매칭한 룩입니다.','#크롭','INSTA04','N',4,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 롱 코트, 퍼플 컬러의 데님 팬츠, 블랙 컬러의 워커를 매치한 룩입니다.','#롱코트','INSTA05','N',5,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'베이지 컬러 롱 카디건, 아이보리 컬러의 원피스, 브라운 컬러의 웨스턴 부츠를 매치한 룩입니다.','#원피스','INSTA01','N',1,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 레더 롱 코트에 핑크 컬러의 플랫 슈즈를 매칭한 룩입니다.','#레더','INSTA02','N',2,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 코트와 팬츠, 그린 컬러의 스니커즈를 매치한 룩입니다.','#블랙','INSTA03','N',3,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'패치가 돋보이는 데님 재킷에 오트밀 스웨트 팬츠를 매칭한 룩입니다.','#고릴라','INSTA04','N',4,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'버건디 컬러의 스타디움 재킷과 와이드 치노 팬츠를 매칭한 룩입니다.','#와이드','INSTA05','N',5,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'네이비 컬러 니트와 실버 팬츠, 스트라이프 패턴 머플러를 매칭한 룩입니다.','#머플러','INSTA01','N',1,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'화이트 컬러 니트와 빈티지 워싱 데님 팬츠를 매칭한 룩입니다.','#데님','INSTA02','N',2,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'화이트 컬러의 볼캡과 집업 후드, 퍼플 컬러의 스웨트 팬츠를 매칭한 룩입니다.','#볼캡','INSTA03','N',3,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'화이트 컬러의 퀄팅 패딩에 코듀로이 하프 팬츠, 브라운 컬러의 부츠를 매칭한 룩입니다.','#부츠','INSTA04','N',4,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'베이지 컬러의 하프 코트와 스커트, 화이트 슈즈를 매칭한 룩입니다.','#베이지','INSTA05','N',5,SYSDATE);
 
 
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,1,'익명의 패션사진1','https://image.msscdn.net/mfile_s01/_shopstaff/view.staff_6400bee7281ba.jpg?20230303085713','바뀐사진1');
@@ -871,6 +895,31 @@ INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,33,'익명의 패션�
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,34,'익명의 패션사진34','https://image.msscdn.net/mfile_s01/_street_images/88929/street_6405769d1cbd7.jpg?','바뀐사진34');
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,35,'익명의 패션사진35','https://image.msscdn.net/mfile_s01/_street_images/88928/street_6405772359b41.jpg?20230306173302','바뀐사진35');
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,36,'익명의 패션사진36','https://image.msscdn.net/mfile_s01/_street_images/88923/street_640580693862e.jpg?','바뀐사진36');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,37,'익명의 패션사진37','https://image.msscdn.net/mfile_s01/_street_images/88917/street_640581745a2ec.jpg?','바뀐사진37');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,38,'익명의 패션사진38','https://image.msscdn.net/mfile_s01/_street_images/88912/street_64058276c36de.jpg?','바뀐사진38');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,39,'익명의 패션사진39','https://image.msscdn.net/mfile_s01/_street_images/88943/street_64055c1e64316.jpg?','바뀐사진39');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,40,'익명의 패션사진40','https://image.msscdn.net/mfile_s01/_street_images/88942/street_64055dba5b6aa.jpg?20230306171710','바뀐사진40');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,41,'익명의 패션사진41','https://image.msscdn.net/mfile_s01/_street_images/88940/street_64055dd47af68.jpg?20230306171821','바뀐사진41');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,42,'익명의 패션사진42','https://image.msscdn.net/mfile_s01/_street_images/88937/street_64055e3c4242f.jpg?20230306171952','바뀐사진42');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,43,'익명의 패션사진43','https://image.msscdn.net/mfile_s01/_street_images/88936/street_6405733b5ba62.jpg?20230306172025','바뀐사진43');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,44,'익명의 패션사진44','https://image.msscdn.net/mfile_s01/_street_images/88935/street_64057350b13f9.jpg?20230306172050','바뀐사진44');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,45,'익명의 패션사진45','https://image.msscdn.net/mfile_s01/_street_images/88933/street_6405743d67b8a.jpg?','바뀐사진45');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,46,'익명의 패션사진46','https://image.msscdn.net/mfile_s01/_street_images/88904/street_64018217dfdca.jpg?20230303145802','바뀐사진46');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,47,'익명의 패션사진47','https://image.msscdn.net/mfile_s01/_street_images/88899/street_6401829b865ae.jpg?20230303144322','바뀐사진47');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,48,'익명의 패션사진48','https://image.msscdn.net/mfile_s01/_street_images/88897/street_640182ca90b13.jpg?20230303145039','바뀐사진48');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,49,'익명의 패션사진49','https://image.msscdn.net/mfile_s01/_street_images/88896/street_640182e7376f4.jpg?20230303162717','바뀐사진49');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,50,'익명의 패션사진50','https://image.msscdn.net/mfile_s01/_street_images/88888/street_6400060b98fe3.jpg?20230302174640','바뀐사진50');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,51,'익명의 패션사진51','https://image.msscdn.net/mfile_s01/_street_images/88887/street_6401951ec7081.jpg?20230302175006','바뀐사진51');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,52,'익명의 패션사진52','https://image.msscdn.net/mfile_s01/_street_images/88885/street_6401954495d38.jpg?','바뀐사진52');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,53,'익명의 패션사진53','https://image.msscdn.net/mfile_s01/_street_images/88882/street_64000ea8b4445.jpg?20230302175109','바뀐사진53');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,54,'익명의 패션사진54','https://image.msscdn.net/mfile_s01/_street_images/88867/street_6401965048d77.jpg?20230302175716','바뀐사진54');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,55,'익명의 패션사진55','https://image.msscdn.net/mfile_s01/_street_images/88830/street_64019875f1d99.jpg?20230228163948','바뀐사진55');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,56,'익명의 패션사진56','https://image.msscdn.net/mfile_s01/_street_images/88463/street_63fd7e445ee58.jpg?20230228164455','바뀐사진56');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,57,'익명의 패션사진57','https://image.msscdn.net/mfile_s01/_street_images/88813/street_640199568b999.jpg?20230227181630','바뀐사진57');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,58,'익명의 패션사진58','https://image.msscdn.net/mfile_s01/_street_images/88559/street_63fc308425eed.jpg?20230227182205','바뀐사진58');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,59,'익명의 패션사진59','https://image.msscdn.net/mfile_s01/_street_images/88554/street_63fc30943d753.jpg?20230227182227','바뀐사진59');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,60,'익명의 패션사진60','https://image.msscdn.net/mfile_s01/_street_images/88408/street_63e9cd915a5e6.jpg?','바뀐사진60');
+
 
 INSERT INTO TB_LIKE VALUES(SEQ_LIKE.NEXTVAL,2,2);
 INSERT INTO TB_LIKE VALUES(SEQ_LIKE.NEXTVAL,1,4);
