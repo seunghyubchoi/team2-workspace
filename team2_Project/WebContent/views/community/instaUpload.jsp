@@ -76,8 +76,8 @@
 					<input type="hidden" name="memNo" value="<%= loginUser.getMemNo() %>">
 					
                     <h3>사진</h3>
-                    <img id="preview" name="upfile" style="width: 200px; height: 200px;" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"> <input type="file" onchange="readURL(this);" data-width="300"
+                    <img id="preview" style="width: 200px; height: 200px;" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"> <input type="file" name="upfile" onchange="readURL(this);" data-width="300"
                         data-height="450" required> <br> <br>
 
                     <script>
@@ -119,6 +119,7 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="col">
+                                            
                                                 <table border="1">
                                                     <tr>
                                                         <td colspan="2">
@@ -196,18 +197,20 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2" style="text-align: center;">
-                                                            <button>취소</button>
-                                                            <button>확인</button>
+                                                            <!-- <button>취소</button>
+                                                            <button>확인</button> -->
                                                         </td>
                                                     </tr>
                                                 </table>
+                                            
                                             </div>
                                             <div class="col">
-                                                <div class="row" style="height: 85%;">
+                                                <div class="row back" style="height: 85%;">
                                                     <img id="modalImg" src="resources/6.jpg" alt=""
                                                         style="height: 600px; width: 550px;">
                                                 </div>
                                                 <div class="row"></div>
+                                                
                                             </div>
                                         </div>
 
@@ -272,9 +275,10 @@
                     <input type="text" name="instaId" value="<%= instaId %>"> <br> <br>
                     <h3>태그 추가</h3>
 
-                    <input id="tag-input" name="tags" placeholder="태그를 입력하세용">
+                    <input id="tag-input"placeholder="태그를 입력하세용">
+                    <input type="hidden" name="tags">
 					<div id="tag-container" ></div>
-
+					
 					<script>
 					const tagInput = document.getElementById('tag-input');
 					const tagContainer = document.getElementById('tag-container');
@@ -294,11 +298,17 @@
 					      tagContainer.appendChild(tagEl);
 					      this.value = '';
 					      tags.push(tag); // 생성된 태그 배열에 추가
-					      tagInput.value = tag;
+					      
 					      
 					    }
 					  }
 					});
+					
+					const hiddenInput = document.querySelector('input[name=tags]');
+					
+					setInterval(() => {
+					  hiddenInput.value = Array.from(tagContainer.children).map(el => el.textContent).join(',');
+					}, 1000);
 					</script>
 
                     <br> <br> <br> <br> <input type="checkbox" required> 콘텐츠 활동 동의 (필수)
@@ -307,10 +317,15 @@
                         않은 글은 본인의 동의 없이 관리자가 임의대로 삭제할 수 있습니다.
                     </h5>
                     <br> <br>
-                    <button>취소</button>
+                    <button onclick="goToMain();">취소</button>
                     <button>업로드</button>
 
-
+					<!-- 취소 버튼 클릭 시 인스타 메인 화면으로 돌아가기 -->
+					<script>
+						function goToMain() {
+							location.href = "<%= contextPath %>/list.co";
+						}
+					</script>
                 </form>
             </div>
             <script src="resources/js/dist/tag.js"></script>

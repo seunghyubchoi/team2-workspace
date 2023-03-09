@@ -34,6 +34,7 @@ public class AnswerInsertController extends HttpServlet {
 		int ComNo = Integer.parseInt(request.getParameter("cno"));
 		
 		int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
+		System.out.println("memNo : " + memNo);
 		
 		AnswerInstagram answer = new AnswerInstagram();
 		answer.setAnsContent(answerContent);

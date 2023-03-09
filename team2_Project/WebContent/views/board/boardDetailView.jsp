@@ -367,7 +367,7 @@ a {
 
                     <div class="bt_wrap">
                         <a href="<%= contextPath %>/qlist.no?cpage=1" class="on">목록</a>
-                        <a href="#" class="off">수정</a>
+                        <a href="<%= contextPath %>/updateForm.bo?bno=<%=b.getQnaNo()%>" class="off">수정</a>
                     </div>
                 </div>
             </div>

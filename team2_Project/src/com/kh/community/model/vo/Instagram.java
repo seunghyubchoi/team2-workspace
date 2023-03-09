@@ -14,7 +14,8 @@ public class Instagram {
 	private String memNo;
 	private Date uploadDate;
 
-	private String instaImgName;
+	private String instaImgOrigin;
+	private String instaImgChange;
 	private String instaImgSrc;
 
 	// 기본 생성자
@@ -25,12 +26,6 @@ public class Instagram {
 
 	public Instagram(int comNo, String comContent, String comTag, String instaId, int imgNo, String delYn, String memNo,
 			Date uploadDate) {
-
-	
-	
-	
-	
-	
 		super();
 		this.comNo = comNo;
 		this.comContent = comContent;
@@ -42,26 +37,51 @@ public class Instagram {
 		this.uploadDate = uploadDate;
 	}
 
-	public Instagram(int comNo, String instaId, String instaImgSrc) {
+	public Instagram(int comNo, String comContent, String comTag, String instaId, String memNo) {
 		super();
 		this.comNo = comNo;
+		this.comContent = comContent;
+		this.comTag = comTag;
 		this.instaId = instaId;
+		this.memNo = memNo;
+	}
+	
+	public Instagram(int comNo, String instaImgSrc, String instaImgChange) {
+		super();
+		this.comNo = comNo;
 		this.instaImgSrc = instaImgSrc;
+		this.instaImgChange = instaImgChange;
 	}
 
-	public Instagram(String instaImgName, String instaImgSrc) {
+//	public Instagram(int comNo, String instaId, String instaImgSrc) {
+//		super();
+//		this.comNo = comNo;
+//		this.instaId = instaId;
+//		this.instaImgSrc = instaImgSrc;
+//	}
+	
+	public Instagram(String instaImgOrigin, String instaImgChange, String instaImgSrc) {
 		super();
-		this.instaImgName = instaImgName;
+		this.instaImgOrigin = instaImgOrigin;
+		this.instaImgChange = instaImgChange;
 		this.instaImgSrc = instaImgSrc;
 	}
 
 	// setter/getter
-	public String getInstaImgName() {
-		return instaImgName;
+	public String getInstaImgOrigin() {
+		return instaImgOrigin;
+	}
+	
+	public void setInstaImgOrigin(String instaImgOrigin) {
+		this.instaImgOrigin = instaImgOrigin;
+	}
+	
+	public String getInstaImgChange() {
+		return instaImgChange;
 	}
 
-	public void setInstaImgName(String instaImgName) {
-		this.instaImgName = instaImgName;
+	public void setInstaImgChange(String instaImgChange) {
+		this.instaImgChange = instaImgChange;
 	}
 
 	public String getInstaImgSrc() {
@@ -140,7 +160,10 @@ public class Instagram {
 	public String toString() {
 		return "Instagram [comNo=" + comNo + ", comContent=" + comContent + ", comTag=" + comTag + ", instaId="
 				+ instaId + ", imgNo=" + imgNo + ", delYn=" + delYn + ", memNo=" + memNo + ", uploadDate=" + uploadDate
-				+ "]";
+				+ ", instaImgOrigin=" + instaImgOrigin + ", instaImgChange=" + instaImgChange + ", instaImgSrc="
+				+ instaImgSrc + "]";
 	}
+
+	
 
 }
