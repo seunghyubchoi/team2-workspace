@@ -504,7 +504,6 @@ label.right {
                     
                 </ul>
                 <script>
-             // Ajax 호출 함수
                 /* function loadInstagram() {
                   $.ajax({
                     url: "home.co",
@@ -518,8 +517,6 @@ label.right {
                         $('.slideitem1').append(imgElement);
                       }
                     }, 
-                    
-
                     error: function() {
                       alert('데이터를 불러오는데 실패하였습니다.');
                     }
@@ -542,10 +539,12 @@ label.right {
                 	      for (var i = 0; i < list.length; i++) {
                 	        var imgSrc = list[i].instaImgSrc;
                 	        var imgChange = list[i].instaImgChange;
-                	        var imgElement = '<a><img src="' + imgSrc + imgChange + '"></a>';
-                	        slideItem.append(imgElement);
+                	        var comNo = list[i].comNo; // 게시글 번호
+                	        var linkElement = '<a href="<%= contextPath %>/feed.co?cno=' + comNo + '"><img src="' + imgSrc + imgChange + '"></a>';
+                	        // var imgElement = '<a><img src="' + imgSrc + imgChange + '"></a>';
+                	        // slideItem.append(imgElement);
+                	        slideItem.append(linkElement);
                 	        
-                	        // itemPerRow 개수만큼 이미지 요소가 추가되면 새로운 li 태그 생성
                 	        if ((i + 1) % itemPerRow === 0 || i === list.length - 1) {
                 	          slideList.append(slideItem);
                 	          slideItem = $('<li class="slideitem1"></li>');
@@ -561,9 +560,9 @@ label.right {
                 	$(document).ready(function() {
                 	  loadInstagram();
                 	  
-          			$(".slideitem1>img").click(function() {
-          				location.href = "<%= contextPath %>/feed.co?cno=" + $(this).list[i].comNo;
-          			})
+                	  $('.slidelist1').on('click', 'a', function() {
+                		    location.href = $(this).attr('href');
+                		  });
                 });
 
                 </script>
