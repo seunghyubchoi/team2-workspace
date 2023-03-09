@@ -1,4 +1,4 @@
-package com.kh.manager.controller;
+package com.kh.payment.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,19 +6,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
+import com.kh.payment.model.service.AdminPaymentService;
+import com.kh.product.model.vo.ProductA;
 
 /**
- * Servlet implementation class OrderListController
+ * Servlet implementation class AjaxAdminSelectOrderedController
  */
-@WebServlet("/orderList.ma")
-public class OrderListController extends HttpServlet {
+@WebServlet("/selectOrdered.pd")
+public class AjaxAdminSelectOrderedController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderListController() {
+    public AjaxAdminSelectOrderedController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,14 +30,12 @@ public class OrderListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		int productNo = Integer.parseInt(request.getParameter("pno"));
 		
-		if(session.getAttribute("loginManager") == null) {
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스 입니다.");
-			request.getRequestDispatcher("views/admin/adminLogin.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("views/admin/adminOrderMain.jsp").forward(request, response);
-		}
+		ProductA p = new AdminPaymentService().selectProduct(productNo);
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(p, response.getWriter());
 	}
 
 	/**

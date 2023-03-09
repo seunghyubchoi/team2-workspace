@@ -1,4 +1,4 @@
-package com.kh.inquire.controller;
+package com.kh.payment.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,21 +6,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.kh.inquire.model.service.AdminInquireService;
+import com.google.gson.Gson;
+import com.kh.payment.model.service.AdminPaymentService;
 
 /**
- * Servlet implementation class AdminInquireDeleteController
+ * Servlet implementation class AjaxAdminDeleteDtlController
  */
-@WebServlet("/delete.qa")
-public class AdminInquireDeleteController extends HttpServlet {
+@WebServlet("/deleteOrderDtl.od")
+public class AjaxAdminDeleteDtlController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminInquireDeleteController() {
+    public AjaxAdminDeleteDtlController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +29,12 @@ public class AdminInquireDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int orderDtlNo = Integer.parseInt(request.getParameter("orderDtlNo"));
 		
-		String deleteList = request.getParameter("deleteList");
+		int result = new AdminPaymentService().deleteOrderDtl(orderDtlNo);
 		
-		
-		int result = new AdminInquireService().deleteInquire(deleteList);
-		
-		HttpSession session = request.getSession();
-		
-		if(result > 0) {
-			session.setAttribute("alertMsg", "QnA를 삭제하였습니다.");
-		}else {
-			session.setAttribute("alertMsg", "QnA 삭제에 실패했습니다.");
-		}
-		response.sendRedirect(request.getContextPath() + "/qnaList.qa");
+		response.setContentType("application/json; charset-utf-8");
+		new Gson().toJson(result, response.getWriter());
 	}
 
 	/**

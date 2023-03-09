@@ -317,4 +317,94 @@ SELECT
 	   SET LOC_YN = 'N'
 	 WHERE MEM_NO = ?
 </entry>
+
+<!-- 주문 리스트 조회 쿼리 (관리자) -->
+<entry key="selectList">
+	SELECT ORDER_NO
+	     , MEM_ID
+	     , ORDER_DATE
+	     , ORDER_STATUS
+	  FROM TB_ORDER
+	  JOIN TB_MEMBER USING(MEM_NO)
+</entry>
+
+<!-- 주문 조회 쿼리 (관리자) -->
+<entry key="selectOrder">
+	SELECT 
+	       ORDER_NO
+	     , MEM_NO
+	     , ORDER_QNT
+	     , ORDER_DATE
+	     , ORDER_STATUS
+	     , RCP_ADDRESS_NAME
+	     , RCP_NAME
+	     , RCP_PHONE
+	     , RCP_ADDRESS
+	     , RCP_ADDRESS_DTL
+	     , RCP_POST_CODE
+	     , RCP_MSG
+	     , SAVE_MILEAGE
+	     , USE_MILEAGE
+	     , MEM_NAME
+	     , MEM_ID
+	     , EMAIL
+	     , PHONE
+	  FROM 
+	       TB_ORDER
+	  JOIN 
+	       TB_MEMBER USING (MEM_NO)
+	 WHERE
+	       ORDER_NO = ?
+</entry>
+
+<!-- 주문상세 리스트 조회 (관리자) -->
+<entry key="selectOrderDtlList">
+SELECT 
+       DTL_ORDER_NO
+     , ORDER_NO
+     , PRODUCT_NO
+     , DTL_SIZE
+     , DTL_QNT
+  FROM 
+       TB_DTL_ORDER
+ WHERE
+       ORDER_NO = ?
+   AND 
+       DEL_YN = 'N'
+</entry>
+
+<!-- 주문상품 조회 (관리자) -->
+<entry key="selectProduct">
+	SELECT 
+	       PRODUCT_NO
+	     , PRODUCT_NAME
+	     , PRODUCT_DISCOUNT
+	     , PRODUCT_PRICE
+	     , BRAND_NAME
+	  FROM TB_PRODUCT P
+	  JOIN TB_BRAND USING (BRAND_NO)
+	 WHERE P.PRODUCT_NO = ?
+</entry>
+
+<!-- 주문상세 수정 (관리자) -->
+<entry key="updateOrderDtl">
+	UPDATE 
+	       TB_DTL_ORDER
+	   SET 
+	       DTL_QNT = ?
+	     , DTL_SIZE = ?
+	 WHERE 
+	       DTL_ORDER_NO = ?
+</entry>
+
+<!-- 주문상세 삭제 (관리자) -->
+<entry key="deleteOrderDtl">
+	UPDATE 
+	       TB_DTL_ORDER
+	   SET 
+	       DEL_YN = 'Y'
+	 WHERE 
+	       DTL_ORDER_NO = ?
+</entry>
+
 </properties>

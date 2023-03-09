@@ -8,6 +8,7 @@ DROP TABLE TB_LIKE;
 DROP TABLE TB_ANSWER_INSTAGRAM;
 DROP TABLE TB_SPEECHBUBBLE;
 DROP TABLE TB_CART;
+DROP TABLE TB_INQUIRE_ATTACHMENT;
 DROP TABLE TB_INQUIRE;
 DROP TABLE TB_HEADER;
 DROP TABLE TB_REVIEW_IMAGE;
@@ -19,10 +20,10 @@ DROP TABLE TB_PRODUCT;
 DROP TABLE TB_BRAND;
 DROP TABLE TB_NOTICE_ATTACHMENT; -- 추가 드랍테이블
 DROP TABLE TB_NOTICE;
-DROP TABLE TB_MANAGER;
 DROP TABLE TB_CATEGORY;
 DROP TABLE TB_INSTA_IMAGE;
 DROP TABLE TB_INSTAGRAM;
+DROP TABLE TB_MANAGER;
 DROP TABLE TB_MEMBER;
 -- SEQUENCE DROP
 DROP SEQUENCE SEQ_DTL_ORDER;
@@ -59,7 +60,7 @@ CREATE TABLE TB_MEMBER (
 	MEM_PWD	VARCHAR2(20) NOT NULL,
 	MEM_NAME VARCHAR2(30) NOT NULL,
 	EMAIL	VARCHAR2(30),
-	PHONE	VARCHAR2(15) NOT NULL,
+	PHONE	VARCHAR2(13) NOT NULL,
 	ENROLL_DATE	DATE DEFAULT SYSDATE NOT NULL ,
 	-- AD_CHECK CHAR(1) DEFAULT 'N' CHECK(AD_CHECK IN('Y', 'N')) NOT NULL,
     AD_CHECK VARCHAR2(16),
@@ -655,7 +656,7 @@ BEGIN
 END;
 /
 
--- 회원 삭제 시 배송지 삭제 트리거
+-- 회원 삭제 시 배송지, 팔로우 삭제 트리거: 수정
 CREATE OR REPLACE TRIGGER TRG_LOC_DEL
 AFTER UPDATE ON TB_MEMBER 
 FOR EACH ROW
@@ -665,23 +666,14 @@ BEGIN
         UPDATE TB_LOCATION
            SET DEL_YN = 'Y'
         WHERE MEM_NO = :NEW.MEM_NO;
+        UPDATE TB_FOLLOW
+           SET ACT_YN = 'N'
+        WHERE FOLLOWING_ID = :NEW.MEM_NO
+           OR FOLLOWER_ID = :NEW.MEM_NO;
     END IF;
 END;
 /
 
--- 회원 삭제 시 배송지 삭제 트리거
-CREATE OR REPLACE TRIGGER TRG_FWL_DEL
-AFTER UPDATE ON TB_MEMBER 
-FOR EACH ROW
-BEGIN
-    IF (:NEW.ACT_YN = 'N')
-        THEN
-        UPDATE TB_LOCATION
-           SET DEL_YN = 'Y'
-        WHERE MEM_NO = :NEW.MEM_NO;
-    END IF;
-END;
-/
 
 -- 230308 수정 
 -- 상품 이미지 트리거 추가
@@ -698,13 +690,29 @@ BEGIN
 END;
 /
 
+-- DTL ORDER 삭제
+CREATE OR REPLACE TRIGGER TRG_DTL_DEL
+AFTER UPDATE ON TB_ORDER 
+FOR EACH ROW
+BEGIN
+    IF (:NEW.ORDER_STATUS = '취소완료')
+        THEN
+        UPDATE TB_DTL_ORDER
+           SET DEL_YN = 'Y'
+        WHERE ORDER_NO = :NEW.ORDER_NO;
+        
+    END IF;
+END;
+/
+
+
 -- INSERT문
 
-INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user01','pass01','박희연','email01@kh.kr','01062612122',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,4000);
-INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user02','pass02','이윤화','email02@kh.kr','01064622323',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,2500);
-INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user03','pass03','전혜정','email03@kh.kr','01066632524',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,3000);
-INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user04','pass04','정지용','email04@kh.kr','01068642725',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,2790);
-INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user05','pass05','최승협','email05@kh.kr','01060652926',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,1500);
+INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user01','pass01','박희연','email01@kh.kr','010-6261-2122',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,4000);
+INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user02','pass02','이윤화','email02@kh.kr','010-6462-2323',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,2500);
+INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user03','pass03','전혜정','email03@kh.kr','010-6663-2524',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,3000);
+INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user04','pass04','정지용','email04@kh.kr','010-6864-2725',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,2790);
+INSERT INTO TB_MEMBER VALUES(SEQ_MEMBER.NEXTVAL,'user05','pass05','최승협','email05@kh.kr','010-6065-2926',DEFAULT,DEFAULT,NULL,NULL,NULL,DEFAULT,1500);
 
 INSERT INTO TB_BRAND VALUES(SEQ_BRAND.NEXTVAL, '나이키');
 INSERT INTO TB_BRAND VALUES(SEQ_BRAND.NEXTVAL, '무아무아');
@@ -733,15 +741,15 @@ INSERT INTO TB_MANAGER VALUES(SEQ_MANAGER.NEXTVAL, 'admin05', 'pwd05', '관리�
 
 
 INSERT INTO TB_NOTICE
-VALUES(SEQ_NOTICE.NEXTVAL, '설 연휴 배송 안내!', '설 연휴 관련 배송안내입니다.', SYSDATE, 3,DEFAULT);
+VALUES(SEQ_NOTICE.NEXTVAL, '설 연휴 배송 안내!', '설 연휴 관련 배송안내입니다.', SYSDATE, 3,DEFAULT, DEFAULT);
 INSERT INTO TB_NOTICE
-VALUES(SEQ_NOTICE.NEXTVAL, '크크루삥뽕마스 이벤트', '산타가 쳐들어온다.', '2022-12-15', 4,DEFAULT);
+VALUES(SEQ_NOTICE.NEXTVAL, '크크루삥뽕마스 이벤트', '산타가 쳐들어온다.', '2022-12-15', 4,DEFAULT, DEFAULT);
 INSERT INTO TB_NOTICE
-VALUES(SEQ_NOTICE.NEXTVAL, '스포츠웨어의 정석! <나이키> 입점 안내	', 'JUST DO IT, NIKE.','2022-11-01', 1,DEFAULT);
+VALUES(SEQ_NOTICE.NEXTVAL, '스포츠웨어의 정석! <나이키> 입점 안내	', 'JUST DO IT, NIKE.','2022-11-01', 1,DEFAULT, DEFAULT);
 INSERT INTO TB_NOTICE
-VALUES(SEQ_NOTICE.NEXTVAL, '추석 연휴 배송 안내', '송편도 꼭꼭 공지사항도 꼭꼭.','2022-09-20', 2,DEFAULT);
+VALUES(SEQ_NOTICE.NEXTVAL, '추석 연휴 배송 안내', '송편도 꼭꼭 공지사항도 꼭꼭.','2022-09-20', 2,DEFAULT, DEFAULT);
 INSERT INTO TB_NOTICE
-VALUES(SEQ_NOTICE.NEXTVAL, '오잉? 여름이다! 여름 휴가 맞이 이벤트', '내일뭐입지 팀이 휴가를 갑니다', '2022-08-18', 5,DEFAULT);
+VALUES(SEQ_NOTICE.NEXTVAL, '오잉? 여름이다! 여름 휴가 맞이 이벤트', '내일뭐입지 팀이 휴가를 갑니다', '2022-08-18', 5,DEFAULT, DEFAULT);
 
 INSERT INTO TB_FOLLOW
 VALUES(SEQ_FOLLOW.NEXTVAL, 1,2,DEFAULT);
@@ -885,16 +893,11 @@ INSERT INTO TB_MILEAGE_HISTORY VALUES(SEQ_MILEAGE_HISTORY.NEXTVAL,'적립',200,5
 
 
 
-insert into tb_dtl_order values (seq_dtl_order.nextval, 1, 1, 'S', 1, DEFAULT);
-insert into tb_dtl_order values (seq_dtl_order.nextval, 2, 1, 'M', 2, DEFAULT);
-insert into tb_dtl_order values (seq_dtl_order.nextval, 2, 1, 'L', 2, DEFAULT);
-insert into tb_dtl_order values (seq_dtl_order.nextval, 3, 1, 'S', 1, DEFAULT);
-
---insert into tb_dtl_order values (seq_dtl_order.nextval, 3, 1, 'L', 1);
---insert into tb_dtl_order values (seq_dtl_order.nextval, 3, 1, 'S', 1);
---insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 1, 'XL', 1);
---insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 1, 'L', 1);
---insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 1, 'L', 1);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 1, 1, 'L', 1, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 2, 1, 'S', 2, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 2, 1, 'XL', 1, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 1, 'L', 1, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 1, 'L', 1, DEFAULT);
 
 
 

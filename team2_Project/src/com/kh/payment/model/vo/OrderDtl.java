@@ -18,6 +18,13 @@ public class OrderDtl {
 		this.dtlSize = dtlSize;
 		this.dtlQnt = dtlQnt;
 	}
+	
+	public OrderDtl(int orderDtlNo, String dtlSize, int dtlQnt) {
+		super();
+		this.orderDtlNo = orderDtlNo;
+		this.dtlSize = dtlSize;
+		this.dtlQnt = dtlQnt;
+	}
 
 	public int getOrderDtlNo() {
 		return orderDtlNo;

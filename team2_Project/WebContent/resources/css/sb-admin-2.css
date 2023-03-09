@@ -11027,3 +11027,7 @@ body.sidebar-toggled footer.sticky-footer {
 #option-content input{
   width: 75px;
 }
+
+table input{
+  width: 100%
+}
