@@ -256,12 +256,12 @@
     <div class="col-2">
       <div id="photo-select" style="text-align: right; margin-top: 20px;">
         <div>
-          <img class="photo-s" src="<%= contextPath + p.getFilePath() + p.getChangeName()%>" width="40%" height="40%" alt="">
+          <img class="photo-s" src="<%= contextPath +'/'+ p.getFilePath() + p.getChangeName()%>" width="40%" height="40%" alt="">
         </div>
         <% for(ProductImage pi : imgList) { %>
         	<% if(pi.getImgType() == 2) {%>
         <div>
-          <img class="photo-s" src="<%= contextPath + pi.getFilePath() + pi.getChangeName() %>" width="40%" height="40%" alt="">
+          <img class="photo-s" src="<%= contextPath +'/'+ pi.getFilePath() + pi.getChangeName() %>" width="40%" height="40%" alt="">
         </div>
         	<% } %>
      	<% } %>
@@ -273,7 +273,7 @@
        
         <div id="photo-size">
           <div class="shadow p-3 mb-5 bg-body rounded">
-            <img id="main-photo" src="<%=contextPath + p.getFilePath() + p.getChangeName() %>" width="100%" height="80%"
+            <img id="main-photo" src="<%=contextPath + '/'+p.getFilePath() + p.getChangeName() %>" width="100%" height="80%"
               alt="...">
           </div>
          
@@ -391,9 +391,11 @@
         <div class="tab-content" id="nav-tabContent">
           <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
             tabindex="0">
-            <% if(p.getProductDesc() != null){ %>
+            <div style="margin-top: 100px;">
+             <% if(p.getProductDesc() != null){ %>
             <%= p.getProductDesc() %>
             <% } %>
+            </div>
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
            <% if(reviewList != null) { %>
@@ -468,7 +470,7 @@
             <div class="modal-header">
               <div class="row">
                 <div class="col-md-4">
-                  <img src="<%= contextPath + p.getFilePath() + p.getChangeName() %>" width="80%"
+                  <img src="<%= contextPath +'/'+ p.getFilePath() + p.getChangeName() %>" width="80%"
                     height="80%" alt="">
                 </div>
                 <div class="col-md-7" style="font-weight: 700; text-align: left;"><%=p.getProductName() %>

@@ -908,4 +908,3 @@ INSERT INTO TB_RETURN VALUES(SEQ_RETURN.NEXTVAL,'교환','바지사이즈가 맞
 
 
 commit;
-

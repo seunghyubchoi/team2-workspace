@@ -163,7 +163,7 @@
                 <div class="row">
                   <div class="col-5">
                     <div style="text-align: left;">
-                      <img src="<%= contextPath + c.getFilePath() + c.getChangeName()%>"
+                      <img src="<%= contextPath +'/'+ c.getFilePath() + c.getChangeName()%>"
                         width="100%" height="90px" alt="">
                     </div>
                   </div>

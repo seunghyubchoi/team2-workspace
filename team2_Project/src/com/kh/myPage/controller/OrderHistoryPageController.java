@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.common.PageInfo;
 import com.kh.community.model.vo.Instagram;
+import com.kh.member.model.vo.Member;
 import com.kh.myPage.model.service.MyPageService;
 import com.kh.payment.model.vo.OrderDtlA;
 
@@ -36,7 +37,7 @@ public class OrderHistoryPageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		int memNo = ((Member)(request.getSession().getAttribute("loginUser"))).getMemNo(); 
 
 		int listCount;
 		int currentPage;
@@ -48,7 +49,11 @@ public class OrderHistoryPageController extends HttpServlet {
 		int endPage;
 
 		listCount = new MyPageService().selectOrderHistoryCount(memNo);
+		if(request.getParameter("cpage")!=null) {
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
+		}else {
+			currentPage = 1;
+		}
 		pageLimit = 10;
 		boardLimit = 3;
 		

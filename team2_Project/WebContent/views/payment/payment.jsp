@@ -179,7 +179,7 @@
          <% } %>
           <div class="col-4">
             <div style="text-align: center;">
-              <img src="<%= contextPath + p.getFilePath() + p.getChangeName()%>" width="60%"
+              <img src="<%= contextPath +'/'+ p.getFilePath() + p.getChangeName()%>" width="60%"
                 height="100px" alt="">
             </div>
           </div>
