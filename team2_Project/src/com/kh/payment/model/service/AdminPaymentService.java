@@ -3,10 +3,14 @@ package com.kh.payment.model.service;
 import com.kh.payment.model.dao.AdminPaymentDao;
 import com.kh.payment.model.dao.PaymentDao;
 import com.kh.payment.model.vo.Location;
+import com.kh.payment.model.vo.OrderA;
+import com.kh.payment.model.vo.OrderDtl;
+import com.kh.product.model.vo.ProductA;
 
 import static com.kh.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class AdminPaymentService {
 
@@ -62,6 +66,85 @@ public class AdminPaymentService {
 		Connection conn = getConnection();	
 		
 		int result = new AdminPaymentDao().deleteLocation(conn, locNo);
+		
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	/**
+	 * 주문 전체조회 (관리자)
+	 * @return
+	 */
+	public ArrayList<OrderA> selectList() {
+		Connection conn = getConnection();
+		
+		ArrayList<OrderA> list = new AdminPaymentDao().selectList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public OrderA selectOrder(int orderNo) {
+		Connection conn = getConnection();
+		
+		OrderA o = new AdminPaymentDao().selectOrder(conn, orderNo);
+		
+		close(conn);
+		
+		return o;
+	}
+
+	public ArrayList<OrderDtl> selectOrderDtl(int orderNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<OrderDtl> odList = new AdminPaymentDao().selectOrderDtlList(conn, orderNo);
+		
+		close(conn);
+		
+		return odList;
+		
+	}
+
+	public ProductA selectProduct(int productNo) {
+		Connection conn = getConnection();
+		
+		ProductA p = new AdminPaymentDao().selectProduct(conn, productNo);
+		
+		close(conn);
+		
+		return p;
+	}
+
+	public int updateOrderDtl(OrderDtl od) {
+		Connection conn = getConnection();	
+		
+		int result = new AdminPaymentDao().updateOrderDtl(conn, od);
+		
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int deleteOrderDtl(int orderDtlNo) {
+		Connection conn = getConnection();	
+		
+		int result = new AdminPaymentDao().deleteOrderDtl(conn, orderDtlNo);
 		
 		if(result > 0) {
 			commit(conn);
