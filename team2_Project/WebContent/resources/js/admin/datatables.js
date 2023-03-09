@@ -140,55 +140,18 @@ $(document).ready(function () {
     
   });
 
-  $("div.order").append('<button id="btn_del_order" class="btn btn-warning btn-table btn-cancle" data-toggle="modal" data-target="#commonModal">취소</button>');
+  $("div.order").append('<button id="btn_del_order" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#orderDeleteModal">취소</button>');
   $("div.order").append('<button id="btn_send_order" class="btn btn-primary btn-table btn-send" data-toggle="modal" data-target="#commonModal">발송</button>');
 
-  $('#w4tTable').DataTable({
-    dom: '<"top"<"dt_btn w4t">>t<"bottom"ip>',
-    lengthChange: false,
-    language: lang_kor,
-    order: false,
-    scrollX: 580
-  });
+  // $('#w4tTable').DataTable({
+  //   dom: '<"top"<"dt_btn w4t">>t<"bottom"ip>',
+  //   lengthChange: false,
+  //   language: lang_kor,
+  //   order: false,
+  //   scrollX: 580
+  // });
 
-  $("div.w4t").append('<button id="btn_del_w4t" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#commonModal">삭제</button>');
-
-  $(".btn-del").click(function(){
-
-    $("#commonModalLabel").html("삭제");
-    $("#commonModalBody").html("선택된 항목을 정말 삭제하시겠습니까?");
-    $("#checkBtn").html("삭제")
-
-    switch($(this).attr("id")){
-      case "btn_del_order" : 
-        $("#menuName").val("order");
-       break;
-      case "btn_del_w4t" : 
-        $("#menuName").val("w4t");
-        break;
-    }
-  });
-
-  $(".btn-cancle").click(function(){
-
-    $("#commonModalLabel").html("취소");
-    $("#commonModalBody").html("선택된 주문을 정말 취소하시겠습니까?");
-    $("#checkBtn").html("취소")
-
-    $("#menuName").val("cancle");
-
-  });
-
-  $(".btn-send").click(function(){
-
-    $("#commonModalLabel").html("발송");
-    $("#commonModalBody").html("선택된 주문을 발송하겠습니까?");
-    $("#checkBtn").html("발송")
-
-    $("#menuName").val("send");
-
-  });
-
+  // $("div.w4t").append('<button id="btn_del_w4t" class="btn btn-warning btn-table btn-del" data-toggle="modal" data-target="#commonModal">삭제</button>');
 
 });
 

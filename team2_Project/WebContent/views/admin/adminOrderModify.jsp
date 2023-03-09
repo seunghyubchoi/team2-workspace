@@ -215,10 +215,6 @@ pageEncoding="UTF-8"%>
 	                                            <td class="text-right"><%= r.getReturnStatus() %></td>
 	                                        </tr>
 	                                        <tr>
-	                                            <td>상품</td>
-	                                            <td class="text-right"><%= r.getDtlOrderNo() %></td>
-	                                        </tr>
-	                                        <tr>
 	                                            <td>사유</td>
 	                                            <td class="text-right"><%= r.getReturnReason() %></td>
 	                                        </tr>
@@ -259,9 +255,6 @@ pageEncoding="UTF-8"%>
                 }
             });
             
-            if(status == '교환요청' || status == '환불요청'){
-
-            }
         });
 
         function selectOrderDetailList(){
@@ -352,92 +345,6 @@ pageEncoding="UTF-8"%>
         	});
         }
 
-        function selectOptionList(productNo){
-            var resultO = "";
-
-            $.ajax({
-                url:"select.op",
-                data:{
-                    pno:productNo
-                },
-                type:"post",
-                async:false,
-                success:function(opList){
-                    let value = "";
-                    for(let i = 0; i < opList.length; i++){
-                        value += '<option value="' + opList[i].optionSize + '">' + opList[i].optionSize + '&nbsp(재고' + opList[i].stock + ')' + '</option>'
-                    }
-
-                    resultO += value;
-                },
-                error:function(){
-                    console.log("ajax통신실패2,,,");
-                }
-            });
-            return resultO;
-        }
-
-        function selectProduct(productNo){
-            var resultP;
-
-            $.ajax({
-                url:"selectOrdered.pd",
-                data:{
-                    pno:productNo
-                },
-                type:"post",
-                async:false,
-                success:function(p){
-                    resultP = p;
-                },
-                error:function(){
-                    console.log("ajax통신실패3,,,");
-                }
-            });
-
-            return resultP;
-        }
-
-        function updateOrderDtl(num){
-            $.ajax({
-                url:"updateOrderDtl.od",
-                data:{
-                    dtlQnt:$("input[name=dtlQnt" + num +"]").val(),
-                    dtlSize:$("select[name=dtlSize" + num +"]").val(),
-                    orderDtlNo:$("input[name=orderDtlNo" + num +"]").val()
-                },
-                type:"post",
-                success:function(result){
-                    if(result > 0){ 
-                        selectOrderDetailList();
-                        alert("주문한 상품 수정에 성공했습니다.");
-                    }
-                },
-                error:function(){
-                    console.log("ajax통신실패4,,,");
-                }
-            });
-        }
-        
-        function deleteOrderDtl(num){
-            $.ajax({
-                url:"deleteOrderDtl.od",
-                data:{
-                    orderDtlNo:$("input[name=orderDtlNo" + num +"]").val()
-                },
-                type:"post",
-                success:function(result){
-                    if(result > 0){ 
-                        selectOrderDetailList();
-                        alert("상품을 환불처리했습니다.");
-                    }
-                },
-                error:function(){
-                    console.log("ajax통신실패5,,,");
-                }
-            });
-        }
-        
         function calPrice(count){
             
             let orderStock = 0;

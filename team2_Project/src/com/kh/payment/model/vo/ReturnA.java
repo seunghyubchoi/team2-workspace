@@ -5,17 +5,24 @@ public class ReturnA {
 	private String returnStatus;
 	private String returnReason;
 	private int memNo;
-	private String dtlOrderNo;
+	private String orderNo;
 	
 	public ReturnA() {}
 
-	public ReturnA(int returnNo, String returnStatus, String returnReason, int memNo, String dtlOrderNo) {
+	public ReturnA(int returnNo, String returnStatus, String returnReason, int memNo, String orderNo) {
 		super();
 		this.returnNo = returnNo;
 		this.returnStatus = returnStatus;
 		this.returnReason = returnReason;
 		this.memNo = memNo;
-		this.dtlOrderNo = dtlOrderNo;
+		this.orderNo = orderNo;
+	}
+	
+	public ReturnA(int returnNo, String returnStatus, String returnReason) {
+		super();
+		this.returnNo = returnNo;
+		this.returnStatus = returnStatus;
+		this.returnReason = returnReason;
 	}
 
 	public int getReturnNo() {
@@ -50,18 +57,20 @@ public class ReturnA {
 		this.memNo = memNo;
 	}
 
-	public String getDtlOrderNo() {
-		return dtlOrderNo;
+	public String getOrderNo() {
+		return orderNo;
 	}
 
-	public void setDtlOrderNo(String dtlOrderNo) {
-		this.dtlOrderNo = dtlOrderNo;
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 
 	@Override
 	public String toString() {
 		return "ReturnA [returnNo=" + returnNo + ", returnStatus=" + returnStatus + ", returnReason=" + returnReason
-				+ ", memNo=" + memNo + ", dtlOrderNo=" + dtlOrderNo + "]";
+				+ ", memNo=" + memNo + ", orderNo=" + orderNo + "]";
 	}
+
+	
 	
 }

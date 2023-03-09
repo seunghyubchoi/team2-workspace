@@ -15,6 +15,7 @@ import com.kh.payment.model.vo.Location;
 import com.kh.payment.model.vo.Order;
 import com.kh.payment.model.vo.OrderA;
 import com.kh.payment.model.vo.OrderDtl;
+import com.kh.payment.model.vo.ReturnA;
 import com.kh.product.model.vo.ProductA;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -411,6 +412,38 @@ public class AdminPaymentDao {
 		}
 		
 		return m;
+	}
+
+	public ReturnA selectReturn(Connection conn, int orderNo) {
+		ReturnA r = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReturn");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, orderNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				r = new ReturnA(rset.getInt("RETURN_NO"),
+							    rset.getString("RETURN_STATUS"),
+							    rset.getString("RETURN_REASON")
+						);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return r;
 	}
 
 }

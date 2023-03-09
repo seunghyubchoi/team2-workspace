@@ -6,6 +6,7 @@ import com.kh.payment.model.dao.PaymentDao;
 import com.kh.payment.model.vo.Location;
 import com.kh.payment.model.vo.OrderA;
 import com.kh.payment.model.vo.OrderDtl;
+import com.kh.payment.model.vo.ReturnA;
 import com.kh.product.model.vo.ProductA;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -168,7 +169,6 @@ public class AdminPaymentService {
 		MileageHistory m = new AdminPaymentDao().selectMileageHistory(conn, mh);
 		
 		if(m == null && o.getOrderStatus().equals("배송완료")) {
-			System.out.println("이거타나,,,");
 			result2 = new AdminPaymentDao().insertMileage(conn, mh);
 		}
 		
@@ -179,6 +179,16 @@ public class AdminPaymentService {
 		}
 		
 		return result1 * result2;
+	}
+
+	public ReturnA selectReturn(int orderNo) {
+		Connection conn = getConnection();
+		
+		ReturnA r = new AdminPaymentDao().selectReturn(conn, orderNo);
+		
+		close(conn);
+		
+		return r;
 	}
 
 }

@@ -45,10 +45,11 @@ public class AdminOrderModifyFormController extends HttpServlet {
 			OrderA o = new AdminPaymentService().selectOrder(orderNo);
 			ArrayList<OrderDtl> odList= new AdminPaymentService().selectOrderDtl(orderNo);
 			
-			//ReturnA r = new AdminPaymentService().selectReturn();
+			ReturnA r = new AdminPaymentService().selectReturn(orderNo);
 			
 			request.setAttribute("o", o);
 			request.setAttribute("odList", odList);
+			request.setAttribute("r", r);
 			request.getRequestDispatcher("views/admin/adminOrderModify.jsp").forward(request, response);
 		}
 	}

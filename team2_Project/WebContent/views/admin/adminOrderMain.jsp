@@ -95,6 +95,31 @@ pageEncoding="UTF-8"%>
 
     </div>
     <!-- End of Page Wrapper -->
+    
+    <!-- send Process Modal-->
+    <div class="modal fade" id="orderDeleteModal" tabindex="-1" role="dialog" aria-labelledby="orderDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderDeleteModalLabel">취소하기</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    선택된 주문을 정말 취소하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <form action="<%= contextPath %>/delete.od" method="post">
+                        <input type="hidden" id="deleteList" name="deleteList">
+                        <button type="submit" class="btn btn-warning" id="checkBtn">주문취소</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>  
 
 </body>
 

@@ -1,39 +1,6 @@
 (function($) {
   "use strict"; // Start of use strict
 
-  // Toggle the side navigation
-  // $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
-  //   $("body").toggleClass("sidebar-toggled");
-  //   $(".sidebar").toggleClass("toggled");
-  //   if ($(".sidebar").hasClass("toggled")) {
-  //     $('.sidebar .collapse').collapse('hide');
-  //   };
-  // });
-
-  // // Close any open menu accordions when window is resized below 768px
-  // $(window).resize(function() {
-  //   if ($(window).width() < 768) {
-  //     $('.sidebar .collapse').collapse('hide');
-  //   };
-    
-  //   // Toggle the side navigation when window is resized below 480px
-  //   if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
-  //     $("body").addClass("sidebar-toggled");
-  //     $(".sidebar").addClass("toggled");
-  //     $('.sidebar .collapse').collapse('hide');
-  //   };
-  // });
-
-  // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
-  // $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
-  //   if ($(window).width() > 768) {
-  //     var e0 = e.originalEvent,
-  //       delta = e0.wheelDelta || -e0.detail;
-  //     this.scrollTop += (delta < 0 ? 1 : -1) * 30;
-  //     e.preventDefault();
-  //   }
-  // });
-
   // Scroll to top button appear
   $(document).on('scroll', function() {
     var scrollDistance = $(this).scrollTop();
@@ -52,8 +19,6 @@
     }, 1000, 'easeInOutExpo');
     e.preventDefault();
   });
-
-
 
 })(jQuery); // End of use strict
 
@@ -266,5 +231,89 @@ function productAdd(){
   $("#submitBtn").click();
 }
 
+function selectOptionList(productNo){
+  var resultO = "";
 
+  $.ajax({
+      url:"select.op",
+      data:{
+          pno:productNo
+      },
+      type:"post",
+      async:false,
+      success:function(opList){
+          let value = "";
+          for(let i = 0; i < opList.length; i++){
+              value += '<option value="' + opList[i].optionSize + '">' + opList[i].optionSize + '&nbsp(재고' + opList[i].stock + ')' + '</option>'
+          }
+
+          resultO += value;
+      },
+      error:function(){
+          console.log("ajax통신실패(select.op)");
+      }
+  });
+  return resultO;
+}
+
+function selectProduct(productNo){
+  var resultP;
+
+  $.ajax({
+      url:"selectOrdered.pd",
+      data:{
+          pno:productNo
+      },
+      type:"post",
+      async:false,
+      success:function(p){
+          resultP = p;
+      },
+      error:function(){
+          console.log("ajax통신실패(selectOrdered.pd)");
+      }
+  });
+
+  return resultP;
+}
+
+function updateOrderDtl(num){
+  $.ajax({
+      url:"updateOrderDtl.od",
+      data:{
+          dtlQnt:$("input[name=dtlQnt" + num +"]").val(),
+          dtlSize:$("select[name=dtlSize" + num +"]").val(),
+          orderDtlNo:$("input[name=orderDtlNo" + num +"]").val()
+      },
+      type:"post",
+      success:function(result){
+          if(result > 0){ 
+              selectOrderDetailList();
+              alert("주문한 상품 수정에 성공했습니다.");
+          }
+      },
+      error:function(){
+          console.log("ajax통신실패(updateOrderDtl.od)");
+      }
+  });
+}
+
+function deleteOrderDtl(num){
+  $.ajax({
+      url:"deleteOrderDtl.od",
+      data:{
+          orderDtlNo:$("input[name=orderDtlNo" + num +"]").val()
+      },
+      type:"post",
+      success:function(result){
+          if(result > 0){ 
+              selectOrderDetailList();
+              alert("상품을 환불처리했습니다.");
+          }
+      },
+      error:function(){
+          console.log("ajax통신실패(deleteOrderDtl.od)");
+      }
+  });
+}
 

@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%>
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="resources/css/sb-admin-2.css" rel="stylesheet">
+    <link href="resources/css/w4t-admin.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
@@ -41,7 +41,7 @@ pageEncoding="UTF-8"%>
     <script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="resources/js/admin/sb-admin-2.js"></script>
+    <script src="resources/js/admin/w4t-admin.js"></script>
 
     <!-- Page level plugins -->
     <script src="resources/vendor/datatables/jquery.dataTables.min.js"></script>
