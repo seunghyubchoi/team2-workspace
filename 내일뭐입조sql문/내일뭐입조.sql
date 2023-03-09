@@ -782,12 +782,6 @@ INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'아~ 내 청춘이여','#
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'내 옷 이쁘죠?','#내가최고','INSTA04','N',2,SYSDATE);
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'이쁜 연보라','#퍼플','INSTA05','N',4,SYSDATE);
 
-INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,1,'익명의 패션사진1','/resources/img/insta-image1.jpg','바뀐사진1');
-INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,2,'익명의 패션사진2','/resources/img/insta-image2.jpg','바뀐사진2');
-INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,3,'익명의 패션사진3','/resources/img/insta-image3.jpg','바뀐사진3');
-INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,4,'익명의 패션사진4','/resources/img/insta-image4.jpg','바뀐사진4');
-INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,5,'익명의 패션사진5','/resources/img/insta-image5.jpg','바뀐사진5');
-
 
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,1,'익명의 패션사진1','https://image.msscdn.net/mfile_s01/_shopstaff/view.staff_6400bee7281ba.jpg?20230303085713','바뀐사진1');
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,2,'익명의 패션사진2','https://image.msscdn.net/mfile_s01/_shopstaff/view.staff_64006b477bc31.jpg?20230303001253','바뀐사진2');
