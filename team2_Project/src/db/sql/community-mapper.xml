@@ -177,24 +177,33 @@ INSERT
 </entry> -->
 
 <entry key="insertFollow">
-INSERT
-  INTO TB_FOLLOW
-	 (
+INSERT 
+  INTO TB_FOLLOW 
+     (
 	   FOLLOW_NO
+     , FOLLOWING_ID
 	 , FOLLOWER_ID
-	 , FOLLOWING_ID
-	 , ACT_YN
-	)
-	VALUES
-	(
-	  SEQ_FOLLOW.NEXTVAL
-	, ?
-	, ?
-	, 'Y'
-	)
+     , ACT_YN
+     )
+     VALUES 
+     (
+       SEQ_FOLLOW.NEXTVAL
+     , (SELECT MEM_NO 
+          FROM TB_MEMBER 
+         WHERE MEM_ID = ?)
+     , ?
+     , 'Y' 
+     )
 </entry>
 
-<entry key="updateFollow">
+<entry key="deleteFollow">
+UPDATE TB_FOLLOW
+   SET ACT_YN = 'N'
+ WHERE FOLLOWING_ID = (SELECT MEM_NO FROM TB_MEMBER WHERE MEM_ID = ?)
+   AND FOLLOWER_ID = ?
+</entry>
+
+<!-- <entry key="updateFollow">
 UPDATE TB_FOLLOW
    SET ACT_YN = 'N'
  WHERE FOLLOWER_ID = ?
@@ -209,7 +218,7 @@ UPDATE TB_FOLLOW
                WHERE COM_NO = ?
             )
       )
-</entry>
+</entry> -->
 
 <entry key="insertLike">
 INSERT 

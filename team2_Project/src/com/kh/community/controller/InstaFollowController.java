@@ -35,10 +35,12 @@ public class InstaFollowController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		int userId = Integer.parseInt(request.getParameter("userId"));
 		String friendId = request.getParameter("friendId");
-		String userId = request.getParameter("userId");
 		
-		int result = new CommunityService().insertFollow(friendId, userId);
+		System.out.println(friendId + "///" + userId);
+		
+		int result = new CommunityService().insertFollow(userId, friendId);
 		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(result, response.getWriter());

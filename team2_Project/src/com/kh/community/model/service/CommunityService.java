@@ -160,10 +160,42 @@ public class CommunityService {
 		return result;
 	}
 	
-	public int insertFollow(String friendId, String userId) {
+	public int deleteLike(int memNo, int comNo) {
 		Connection conn = getConnection();
 		
-		int result = new CommunityDao().insertFollow(conn, friendId, userId);
+		int result = new CommunityDao().deleteLike(conn, memNo, comNo);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int insertFollow(int userId, String friendId) {
+		Connection conn = getConnection();
+		
+		int result = new CommunityDao().insertFollow(conn, userId, friendId);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int deleteFollow(int userId, String friendId) {
+		Connection conn = getConnection();
+		
+		int result = new CommunityDao().deleteFollow(conn, userId, friendId);
 		
 		if (result > 0) {
 			commit(conn);

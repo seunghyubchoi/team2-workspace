@@ -399,7 +399,32 @@ public class CommunityDao {
 		return result;
 	}
 	
-	public int insertFollow(Connection conn, String friendId, String userId) {
+	public int deleteLike(Connection conn, int memNo, int comNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, comNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertFollow(Connection conn, int userId, String friendId) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
@@ -409,8 +434,32 @@ public class CommunityDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, userId);
-			pstmt.setString(2, friendId);
+			pstmt.setString(1, friendId);
+			pstmt.setInt(2, userId);
+			System.out.println(userId + "////" + friendId);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteFollow(Connection conn, int userId, String friendId) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteFollow");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, friendId);
+			pstmt.setInt(2, userId);
 			
 			result = pstmt.executeUpdate();
 			
