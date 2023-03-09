@@ -33,16 +33,17 @@ public class ProductSearchController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String product = request.getParameter("product").toUpperCase(); // 입력받은 값 모두 대문자로 변환 
 		ArrayList<Product> list = new ArrayList();
-		
+		int page = 1;
+		int pCount = new ProductService().listCount2(product);
 		if(request.getParameter("val") != null) {
 			int value = Integer.parseInt(request.getParameter("val"));
-			list = new ProductService().productSort(product, value);
+			list = new ProductService().productSort(product, value,page);
 			request.setAttribute("value", value);
 		}else {
 			
-		list = new ProductService().productSearch(product);
+		list = new ProductService().productSearch(product,page);
 		}
-		
+		request.setAttribute("pCount", pCount);
 		request.setAttribute("list", list);
 		request.setAttribute("product", product);
 		request.getRequestDispatcher("views/product/product_search.jsp").forward(request, response);

@@ -133,7 +133,7 @@ int maxPage = pi.getMaxPage();
 
 			
 					<tr>
-						<td><img src="<%=contextPath%><%=o.getFilePath()%><%=o.getChangeName() %>"
+						<td><img src="<%=contextPath +'/'+ o.getFilePath()+ o.getChangeName() %>"
 							alt=""></td>
 						<td>
 							<p>

@@ -3,21 +3,25 @@ package com.kh.product.model.vo;
 public class ProductImage {
 	private int productImgNo;
 	private String productImgName;
-	private String productImgSrc;
+	private String changeName;
+	private String filePath;
 	private int productNo;
 	private int imgType;
 	
 	public ProductImage() {}
 
-
-	public ProductImage(int productImgNo, String productImgName, String productImgSrc, int productNo, int imgType) {
+	
+	
+	public ProductImage(int productImgNo, String changeName, String filePath, int productNo, int imgType) {
 		super();
 		this.productImgNo = productImgNo;
-		this.productImgName = productImgName;
-		this.productImgSrc = productImgSrc;
+		this.changeName = changeName;
+		this.filePath = filePath;
 		this.productNo = productNo;
 		this.imgType = imgType;
 	}
+
+
 
 	public int getProductImgNo() {
 		return productImgNo;
@@ -35,13 +39,31 @@ public class ProductImage {
 		this.productImgName = productImgName;
 	}
 
-	public String getProductImgSrc() {
-		return productImgSrc;
+	
+
+	public String getChangeName() {
+		return changeName;
 	}
 
-	public void setProductImgSrc(String productImgSrc) {
-		this.productImgSrc = productImgSrc;
+
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
 	}
+
+
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+
 
 	public int getProductNo() {
 		return productNo;
@@ -62,12 +84,15 @@ public class ProductImage {
 	}
 
 
+
 	@Override
 	public String toString() {
-		return "ProductImage [productImgNo=" + productImgNo + ", productImgName=" + productImgName + ", productImgSrc="
-				+ productImgSrc + ", productNo=" + productNo + ", imgType=" + imgType + "]";
+		return "ProductImage [productImgNo=" + productImgNo + ", productImgName=" + productImgName + ", changeName="
+				+ changeName + ", filePath=" + filePath + ", productNo=" + productNo + ", imgType=" + imgType + "]";
 	}
 
+
+	
 
 	
 	

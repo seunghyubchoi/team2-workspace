@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
 
@@ -33,17 +34,16 @@ public class CategorySearchController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String categoryName = request.getParameter("cname");
 		ArrayList<Product> list = new ArrayList();
-		
+		int page = 1;
 		if(request.getParameter("val") != null) {
 			int value = Integer.parseInt(request.getParameter("val"));
 			
-			list = new ProductService().categorySort(categoryName,value);
+			list = new ProductService().categorySort(categoryName,value,page);
 			request.setAttribute("value", value);
 		}else {
 			
-			list = new ProductService().categorySearch(categoryName);
+			list = new ProductService().categorySearch(categoryName,page);
 		}
-		
 		request.setAttribute("cname", categoryName);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/product/category.jsp").forward(request, response);

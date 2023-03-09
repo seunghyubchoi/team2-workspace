@@ -30,7 +30,7 @@ public class ProductDao {
 		}
 	}
 	
-	public ArrayList<Product> categorySearch(Connection conn, String categoryName){
+	public ArrayList<Product> categorySearch(Connection conn, String categoryName, int page){
 		ArrayList<Product> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -39,6 +39,8 @@ public class ProductDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, categoryName);
+			pstmt.setInt(2, page);
+			pstmt.setInt(3, page);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
@@ -48,7 +50,8 @@ public class ProductDao {
 									 rset.getInt("product_price"),
 									 rset.getString("brand_name"),
 									 rset.getInt("product_view_count"),
-									 rset.getString("product_img_src")));
+									 rset.getString("change_name"),
+									 rset.getString("file_path")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -60,7 +63,7 @@ public class ProductDao {
 		return list;
 	}
 	
-	public ArrayList<Product> categorySort(Connection conn,String categoryName,int value){
+	public ArrayList<Product> categorySort(Connection conn,String categoryName,int value, int page){
 		ArrayList<Product> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -73,7 +76,8 @@ public class ProductDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, categoryName);
-			
+			pstmt.setInt(2, page);
+			pstmt.setInt(3, page);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Product(rset.getInt("product_no"),
@@ -82,7 +86,8 @@ public class ProductDao {
 									 rset.getInt("product_price"),
 									 rset.getString("brand_name"),
 									 rset.getInt("product_view_count"),
-									 rset.getString("product_img_src")));
+									 rset.getString("change_name"),
+									 rset.getString("file_path")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -95,7 +100,7 @@ public class ProductDao {
 	}
 	
 	
-	public ArrayList<Product> productSearch(Connection conn,String product){
+	public ArrayList<Product> productSearch(Connection conn,String product,int page){
 		ArrayList<Product> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -105,7 +110,8 @@ public class ProductDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, product);
 			pstmt.setString(2, product);
-			
+			pstmt.setInt(3, page);
+			pstmt.setInt(4, page);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Product(rset.getInt("product_no"),
@@ -114,7 +120,8 @@ public class ProductDao {
 									 rset.getInt("product_price"),
 									 rset.getString("brand_name"),
 									 rset.getInt("product_view_count"),
-									 rset.getString("product_img_src")));
+									 rset.getString("change_name"),
+									 rset.getString("file_path")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -126,7 +133,7 @@ public class ProductDao {
 		return list;
 	}
 	
-	public ArrayList<Product> productSort(Connection conn,String product, int value){
+	public ArrayList<Product> productSort(Connection conn,String product, int value,int page){
 		ArrayList<Product> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -140,7 +147,8 @@ public class ProductDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, product);
 			pstmt.setString(2, product);
-			
+			pstmt.setInt(3, page);
+			pstmt.setInt(4, page);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				list.add(new Product(rset.getInt("product_no"),
@@ -149,7 +157,8 @@ public class ProductDao {
 									 rset.getInt("product_price"),
 									 rset.getString("brand_name"),
 									 rset.getInt("product_view_count"),
-									 rset.getString("product_img_src")));
+									 rset.getString("change_name"),
+									 rset.getString("file_path")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -177,11 +186,13 @@ public class ProductDao {
 			if(rset.next()) {
 				     p = new Product(rset.getInt("product_no"),
 									 rset.getString("product_name"),
+									 rset.getString("product_desc"),
 									 rset.getInt("product_discount"),
 									 rset.getInt("product_price"),
 									 rset.getString("brand_name"),
 									 rset.getInt("product_view_count"),
-									 rset.getString("product_img_src"));
+									 rset.getString("change_name"),
+									 rset.getString("file_path"));
 			
 			}
 		} catch (SQLException e) {
@@ -228,8 +239,8 @@ public class ProductDao {
 			
 			while(rset.next()) {
 				list.add(new ProductImage(rset.getInt("product_img_no"),
-										  rset.getString("product_img_name"),
-										  rset.getString("product_img_src"),
+										  rset.getString("change_name"),
+										  rset.getString("file_path"),
 										  rset.getInt("product_no"),
 										  rset.getInt("img_type")));
 			}
@@ -302,5 +313,82 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public int listCount(Connection conn, String categoryName) {
+		// select문 => ResultSet 객체 (한개) => int형 변수
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("listCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, categoryName);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count"); // spl문에 별칭을 줌
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	public int listCount2(Connection conn, String product) {
+		// select문 => ResultSet 객체 (한개) => int형 변수
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("listCount2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, product);
+			pstmt.setString(2, product);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count"); // spl문에 별칭을 줌
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	public double selectReviewAvg(Connection conn,int pNo) {
+		double result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReviewAvg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getDouble("avg");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
 	}
 }

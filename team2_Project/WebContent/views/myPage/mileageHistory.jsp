@@ -96,7 +96,7 @@ li {
 		<p class="content_subTitle">보유 포인트</p>
 		<div id="mileageBox">
 			<p>
-				보유하고 계신 포인트는<br> <span> <%=sum%>P
+				보유하고 계신 포인트는<br> <span> <%=loginUser.getMileage()%>P
 				</span> <br> 입니다.
 			</p>
 		</div>

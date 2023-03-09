@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.member.model.vo.Member;
 import com.kh.payment.model.service.PaymentService;
@@ -37,11 +38,15 @@ public class OrderController extends HttpServlet {
 		String[] pSize = request.getParameterValues("psize"); // 상품 사이즈
 		String[] pQnt = request.getParameterValues("pqnt"); // 상품 수량
 		String cno = request.getParameter("cno");
-		int mNo = ((Member)(request.getSession().getAttribute("loginUser"))).getMemNo(); // 적립마일리지
-		int useMileage = Integer.parseInt(request.getParameter("amount")); // 사용마일리지
+		int mNo = ((Member)(request.getSession().getAttribute("loginUser"))).getMemNo(); 
+		int useMileage = 0;
+		if(request.getParameter("amount") != "") {
+		useMileage = Integer.parseInt(request.getParameter("amount")); // 사용마일리지
+		}
 		int result2 = 0;
 		int result3 = 0;
 		int result4 = 1;
+		int result6 = 0;
 		Order o = new Order(); 
 		o.setOrderQnt(Integer.parseInt(request.getParameter("totalqnt")));
 		o.setRcpName(request.getParameter("order-name"));
@@ -53,10 +58,17 @@ public class OrderController extends HttpServlet {
 		o.setMemNo(mNo);
 		o.setSaveMileage(Integer.parseInt(request.getParameter("saveMileage")));
 		o.setUseMileage(useMileage);
+		
+		HttpSession session = request.getSession();
+		
 		int result1 = new PaymentService().insertOrder(o); // TB_ORDER 테이블에 INSERT
 		if(result1>0) {
-			int result5 = new PaymentService().updateMileage(mNo,useMileage); // 회원의 사용 마일리지 차감
-			int result6 = new PaymentService().insertMileageHistory(mNo,useMileage); // TB_MILEAGE_HISTORY 테이블에 INSERT
+			//int result5 = new PaymentService().updateMileage(mNo,useMileage); // 회원의 사용 마일리지 차감
+			if(useMileage>0) {
+			 result6 = new PaymentService().insertMileageHistory(mNo,useMileage); // TB_MILEAGE_HISTORY 테이블에 INSERT
+			}else if(useMileage == 0) {
+				result6=1;
+			}
 			for(int i =0;i<pNo.length;i++) {
 				result2 = new PaymentService().insertOrderDtl(Integer.parseInt(pNo[i]),pSize[i],Integer.parseInt(pQnt[i]));  // TB_DTL_ORDER 테이블에 INSERT
 				result3 = new PaymentService().updateOptionQnt(Integer.parseInt(pNo[i]),pSize[i],Integer.parseInt(pQnt[i])); // 상품 수량 차감
@@ -68,8 +80,9 @@ public class OrderController extends HttpServlet {
 					
 				
 			}
-			if(result2*result3*result4*result5*result6>0) { 
+			if(result2*result3*result4*result6>0) { 
 				System.out.println("성공!");
+				response.sendRedirect(request.getContextPath()+"/orderHistory.mp");
 			}
 		}else {
 			

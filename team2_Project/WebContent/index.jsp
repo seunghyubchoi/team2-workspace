@@ -532,24 +532,60 @@ label.right {
                 	    type: "post",
                 	    dataType: "json",
                 	    success: function(list) {
+                	    	console.log(Math.floor(list.length/3))
                 	      var itemPerRow = 4; // 한 줄에 출력할 이미지 수
                 	      var slideList = $('.slidelist1');
                 	      var slideItem = $('<li class="slideitem1"></li>');
-                	      
+                	     	var count = 0;
+                	    	
                 	      for (var i = 0; i < list.length; i++) {
                 	        var imgSrc = list[i].instaImgSrc;
                 	        var imgChange = list[i].instaImgChange;
                 	        var comNo = list[i].comNo; // 게시글 번호
                 	        var linkElement = '<a href="<%= contextPath %>/feed.co?cno=' + comNo + '"><img src="' + imgSrc + imgChange + '"></a>';
+                	        var linkElement2 = '<a href="<%= contextPath %>/feed.co?cno=' + comNo + '"><img src="' + imgSrc + imgChange + '"></a><br>';
                 	        // var imgElement = '<a><img src="' + imgSrc + imgChange + '"></a>';
                 	        // slideItem.append(imgElement);
-                	        slideItem.append(linkElement);
                 	        
-                	        if ((i + 1) % itemPerRow === 0 || i === list.length - 1) {
-                	          slideList.append(slideItem);
-                	          slideItem = $('<li class="slideitem1"></li>');
-                	        }
+                	      // 버전 1
+                				if((i+1)%12==0 || i==0){
+                	   		   slideList.append(slideItem);
+                	   		  console.log(count++);
+                				}
+                			
+                	        	if((i+1)%Math.ceil(list.length/3)==0){
+                	        		slideItem.append(linkElement2);
+                	        	}else{
+                	        		slideItem.append(linkElement);
+                	        	}
+                	        
+                	    // 버전 2
+                	       //if((i+1) % 13==0 || i==0){
+                	    	  // slideList.append("<li class='slideitem1'>" +
+                	    	  // "</li>"
+                	    	  // )
+                	    	   //if((i+1)%13==0){
+                	    		   count++;
+                	    	  // }
+                	      // }
+                	      
+                	    
+                	     if((i+1)%4 == 0 && (i+1)%12 != 0){
+       	        			$(".slideitem1").eq(count).append(linkElement2);
+       	        		}else{
+       	        			$(".slideitem1").eq(count).append(linkElement);
+       	        		} 
+                	       
+                	   
+                	     
+                	        //slideItem.append(linkElement);
+                	        
+                	        
+                	        //if ((i + 1) % itemPerRow === 0 || i === list.length - 1) {
+                	        	//slideList.append(slideItem);
+                	        //}
                 	      }
+                
                 	    },
                 	    error: function() {
                 	      alert('데이터를 불러오는데 실패하였습니다.');

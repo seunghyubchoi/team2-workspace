@@ -179,7 +179,7 @@
          <% } %>
           <div class="col-4">
             <div style="text-align: center;">
-              <img src="<%=p.getProductImgSrc() %>" width="60%"
+              <img src="<%= contextPath +'/'+ p.getFilePath() + p.getChangeName()%>" width="60%"
                 height="100px" alt="">
             </div>
           </div>
@@ -263,7 +263,7 @@
             </td>
           </tr>
           <tr>
-            <td colspan="2"><textarea name="" id="direct_input" cols="60" rows="4" style="display: none;"></textarea></td>
+            <td colspan="2"><textarea name="" id="direct_input" cols="60" rows="4" style="display: none; resize: none; "></textarea></td>
           </tr>
         </table>
          <input type="hidden" name="rqrmn" value="">
@@ -342,13 +342,19 @@
           <div>결제수단 안내</div>
           <table id="payment2">
             <tr>
-              <td width="100" height="30"> <span><img src="https://www.seoulstore.com/images/n_logo@3x.png" width="15%"
-                    height="60%" alt=""></span> pay</td>
+              <td width="100" height="30">
+               <div> 
+              <img src="<%= contextPath%>/resources/img/네이버로고.png" width="15px" height="15px" alt="">
+                <span style="font-weight:600">pay</span>
+                </div>
+                </td>
               <td>결제 시 네이버페이 포인트 적립</td>
             </tr>
             <tr>
               <td height="30">
-                <div> <img src="	https://www.seoulstore.com/images/kakaopay.png" width="40%" height="80%" alt=""></div>
+                 <div> <img src="<%= contextPath%>/resources/img/카카오로고.png" width="15px" height="15px" alt="">
+                <span style="font-weight:600">pay</span>
+                </div>
               </td>
               <td>등록 된 모든 카드로 결제 가능</td>
             </tr>
@@ -372,7 +378,7 @@
         </div>
         <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 20px; margin-bottom: 50px;">
           <button class="btn btn-primary" id="payment-btn" type="button"
-            style="background-color: pink; border-color: pink;" onclick="iamport();">결제하기</button>
+            style="background-color: plum; border-color: plum;" onclick="iamport();">결제하기</button>
         </div>
       </div>
       <button type="submit" id="hidden-btn">숨셔진버튼</button>
@@ -434,7 +440,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="location-btn" data-bs-dismiss="modal" aria-label="Close">선택하기</button>
+          <button type="button" class="btn btn-primary" id="location-btn" data-bs-dismiss="modal" aria-label="Close"
+           style="background-color: plum; border-color: plum;">선택하기</button>
         </div>
       </div>
     </div>

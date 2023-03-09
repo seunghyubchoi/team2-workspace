@@ -13,6 +13,7 @@
 	Product p = (Product)request.getAttribute("product");
 	ArrayList<Option> opList = (ArrayList<Option>)request.getAttribute("opList");
 	ArrayList<Review> reviewList = (ArrayList<Review>)request.getAttribute("reviewList");
+	double reviewAvg = (double)request.getAttribute("reviewAvg");
 	DecimalFormat df = new DecimalFormat("###,###");
 %>
 <!DOCTYPE html>
@@ -55,7 +56,7 @@
     }
 
     #product_discount {
-      color: pink;
+      color: plum;
       font-size: 25px;
       text-align: left;
     }
@@ -95,7 +96,7 @@
     #max_price {
       font-size: 25px;
       font-weight: 800;
-      color: pink;
+      color: plum;
       text-align: right;
       padding-top: 20px;
     }
@@ -161,7 +162,7 @@
     #pay_button>div>button {
       width: 90%;
       height: 100%;
-      background-color: pink;
+      background-color: plum;
       color: white;
       border: none;
     }
@@ -198,7 +199,7 @@
     }
 
     #modal_button>button {
-      background-color: pink;
+      background-color: plum;
       color: white;
       border: none;
     }
@@ -210,6 +211,38 @@
    	cursor:pointer;
    	opacity:0.8;
    }
+    #review-box{
+      margin: 60px;
+      height: 200px;
+    }
+    .star-rating{
+      width: 205px;
+    }
+    .star-rating,.star-rating span{
+      display: inline-block; height: 39px; overflow: hidden; background: url(/team2_Project/resources/img/star.png)no-repeat;
+    }
+    .star-rating span {
+      background-position: left bottom; line-height: 0; vertical-align: top;
+    }
+    .box-high{
+      text-align: center; font-weight: 800; margin-top: 10px; margin-bottom: 20px;
+    }
+    .box-middle{
+      text-align: center; font-size: 40px; font-weight: 800; margin-top: 10px;
+    }
+    #nav-profile{
+     margin-bottom:200px
+    }
+     a#MOVE_TOP_BTN {
+	    position: fixed;
+	    right: 2%;
+	    bottom: 50px;
+	    display: none;
+	    z-index: 999;
+	}
+	#payment2 td{
+		font-weight: 530;
+	}
   </style>
 </head>
 
@@ -223,12 +256,12 @@
     <div class="col-2">
       <div id="photo-select" style="text-align: right; margin-top: 20px;">
         <div>
-          <img class="photo-s" src="<%=p.getProductImgSrc() %>" width="40%" height="40%" alt="">
+          <img class="photo-s" src="<%= contextPath +'/'+ p.getFilePath() + p.getChangeName()%>" width="40%" height="40%" alt="">
         </div>
         <% for(ProductImage pi : imgList) { %>
         	<% if(pi.getImgType() == 2) {%>
         <div>
-          <img class="photo-s" src="<%= pi.getProductImgSrc() %>" width="40%" height="40%" alt="">
+          <img class="photo-s" src="<%= contextPath +'/'+ pi.getFilePath() + pi.getChangeName() %>" width="40%" height="40%" alt="">
         </div>
         	<% } %>
      	<% } %>
@@ -240,7 +273,7 @@
        
         <div id="photo-size">
           <div class="shadow p-3 mb-5 bg-body rounded">
-            <img id="main-photo" src="<%= p.getProductImgSrc() %>" width="100%" height="80%"
+            <img id="main-photo" src="<%=contextPath + '/'+p.getFilePath() + p.getChangeName() %>" width="100%" height="80%"
               alt="...">
           </div>
          
@@ -254,10 +287,10 @@
         <div id="product_discount" class="col-2">
           <%= p.getProductDiscount() %>%
         </div>
-        <div id="originalPrice" class="col-5">
-         <%= df.format(p.getProductPrice()) %>원
+        <div id="originalPrice" class="col-4">
+        <span>  <%= df.format(p.getProductPrice()) %></span>
         </div>
-        <div id="discountPrice" class="col-5">
+        <div id="discountPrice" class="col-6">
           <%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01)))%>원
         </div>
         <div id="topLine"></div>
@@ -268,11 +301,15 @@
         </div>
        
         <div id="max_price" class="col-6">
+        <% if(loginUser!=null){ %>
          <% if(p.getProductPrice()*(((100-p.getProductDiscount())*0.01))>loginUser.getMileage()){ %>
           <%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01))-loginUser.getMileage())%>원
           <% } else { %>
           0원
           <% } %>
+          <% } else{ %>
+          <%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01)))%> 원
+          <%} %>
         </div>
       </div>
       <div class="row">
@@ -280,7 +317,11 @@
           보유 마일리지
         </div>
         <div id="mileage_price" class="col-6">
+        <% if(loginUser != null){ %>
          <%= loginUser.getMileage()%>원
+         <% } else { %>
+         0원
+         <% } %>
         </div>
         <div id="topLine"></div>
       </div>
@@ -295,13 +336,19 @@
           <div>결제수단 안내</div>
           <table id="payment2">
             <tr>
-              <td height="30"> <span><img src="https://www.seoulstore.com/images/n_logo@3x.png" width="13%" height="60%"
-                    alt=""></span>pay</td>
+              <td height="30">  
+              <div> 
+              <img src="<%= contextPath%>/resources/img/네이버로고.png" width="15px" height="15px" alt="">
+                <span style="font-weight:600">pay</span>
+                </div>
+                </td>
               <td>결제 시 네이버페이 포인트 적립</td>
             </tr>
             <tr>
               <td height="30">
-                <div> <img src="https://www.seoulstore.com/images/kakaopay.png" width="30%" height="75%" alt=""></div>
+                <div> <img src="<%= contextPath%>/resources/img/카카오로고.png" width="15px" height="15px" alt="">
+                <span style="font-weight:600">pay</span>
+                </div>
               </td>
               <td>등록 된 모든 카드로 결제 가능</td>
             </tr>
@@ -315,7 +362,7 @@
             </tr>
           </table>
         </div>
-        <div class="row" id="pay_button" style="margin-top: 80px;">
+        <div class="row" id="pay_button" style="margin-top: 40px; margin-bottom:40px" >
           <div class="col">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
               data-bs-whatever="@mdo">주문하기</button>
@@ -344,14 +391,46 @@
         <div class="tab-content" id="nav-tabContent">
           <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
             tabindex="0">
-            <% for(ProductImage pi : imgList){ %>
-            <% if(pi.getImgType()==3){ %>
-            <%=pi.getProductImgSrc()%>
+            <div style="margin-top: 100px;">
+             <% if(p.getProductDesc() != null){ %>
+            <%= p.getProductDesc() %>
             <% } %>
-            <% } %>
+            </div>
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
            <% if(reviewList != null) { %>
+            <div class="row" id="review-box">
+              <div class="col-2">
+              </div>
+              <div class="col-8" style="background-color: rgb(241, 241, 241);">
+                <div class="row">
+                  <div class="col" style="margin-left: 10px;" >
+                    <div class="box-high">
+                      사용자 총 평점
+                    </div>
+                    <div>
+                      <span class="star-rating">
+                        <span style="width: <%= reviewAvg*20 %>%;"></span>
+                      </span>
+                    </div>
+                    <div  class="box-middle">
+                      <%= reviewAvg %> <span style="color: gray;">/ 5.0</span>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="box-high" style="margin-bottom: 0px;">
+                      전체 리뷰 수
+                    </div>
+                    <div class="box-middle">
+                      <img src="<%= contextPath%>/resources/img/icons8-people-96.png" alt="" width="17%" height="17%" style="margin-bottom: 5px;">
+                      <div><%= reviewList.size() %></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+              </div>
+            </div>
             <% for(Review r : reviewList) { %>
             <div style="margin: 20px;" style="text-align: left;"><%= r.getMemname() %></div>
             <div style="font-size: 14px;"><%=r.getReviewDate() %></div>
@@ -373,42 +452,25 @@
             <div style="font-size: 14px; margin-left: 20px;"><%= r.getReviewAnsDate() %></div>
             <div style="margin-bottom: 30px; margin-top: 20px; margin-left: 20px;">
              <%= r.getReiviewAnsContent() %></div>
-        
+         <div class="topLine2"></div>
               <% } %>
-            <div class="topLine2"></div>
-            <% } %>
-            <nav id="page" aria-label="Page navigation example" style="color: plum; padding-top: 40px;">
-              <ul class="pagination" style="justify-content: center;">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          
+            <% } %>    
           <% } %>
         </div>
       </div>
       <div class="col-3">
       </div>
     </div>
-
+	 <div>
+      <a id="MOVE_TOP_BTN" href="#" class="btn btn-dark" style="border-radius: 50px;">TOP</a>
+        </div>
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <div class="row">
                 <div class="col-md-4">
-                  <img src="<%= p.getProductImgSrc() %>" width="80%"
+                  <img src="<%= contextPath +'/'+ p.getFilePath() + p.getChangeName() %>" width="80%"
                     height="80%" alt="">
                 </div>
                 <div class="col-md-7" style="font-weight: 700; text-align: left;"><%=p.getProductName() %>
@@ -421,8 +483,8 @@
               </div>
             </div>
             <div class="modal-body">
+              <% if(loginUser != null){ %>
               <form action="<%=contextPath %>/insert.ca" method="post">
-              <input type = "hidden" name = "mno" value="<%=loginUser.getMemNo()%>">
               <input type = "hidden" name = "pno" value="<%=p.getProductNo()%>">
                 <div class="mb-3">
                   <select id="productSize" class="form-select" aria-label="Default select example" name="size" onchange="selectboxChange(this.value);">
@@ -440,22 +502,61 @@
 
             </div>
             <div class="modal-footer" id="modal_button">
+          
               <button type="submit" class="btn btn-primary">장바구니 담기</button>
                </form>
               <button type="button" class="btn btn-primary" onclick="directPayment();">결제하기</button>
+              <% }else{ %>
+               <input type = "hidden" name = "pno" value="<%=p.getProductNo()%>">
+                <div class="mb-3">
+                  <select id="productSize" class="form-select" aria-label="Default select example" name="size" onchange="selectboxChange(this.value);">
+                    <label for="message-text" class="col-form-label">사이즈(옵션)</label>
+                   <% for(Option o : opList) { %>
+                    <option value="<%= o.getOptionSize() %>"><%= o.getOptionSize() %></option>
+                    <% } %>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">수량</label>
+                  <input type="number" id="productAmount" name="amount" min="1" max="" step="1" value="1">
+                  <input type = "hidden" name = "product-qnt" value="">
+                </div>
+
+            </div>
+            <div class="modal-footer" id="modal_button">
+              <button type="submit" class="btn btn-primary" onclick="alertLogin();">장바구니 담기</button>
+               <button type="button" class="btn btn-primary" onclick="alertLogin();">결제하기</button>
+              <% } %>
             </div>
           </div>
         </div>
       </div>
     <script>
+    
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 500) {
+                $('#MOVE_TOP_BTN').fadeIn();
+            } else {
+                $('#MOVE_TOP_BTN').fadeOut();
+            }
+        });
+        
+        $("#MOVE_TOP_BTN").click(function() {
+            $('html, body').animate({
+                scrollTop : 0
+            }, 50);
+            return false;
+        });
+    });
+    
       $(document).ready(function(){
         $(".photo-s").click(function(){
         let photo = $(this).attr("src")
         $('#main-photo').attr("src",photo);
       });
       });
-     
-     
+ 
        function selectboxChange(value){
     	  console.log(value);
     	  <% for(Option o: opList) { %>
@@ -472,6 +573,10 @@
     	   location.href="<%= contextPath %>/list.pa?pno=<%= p.getProductNo() %>&size="+$("select[name=size]").val()+"&qnt="+$("input[name=amount]").val();
        }
        
+       function alertLogin(){
+    	   alert('로그인을 하고 이용해주세요!');
+    	   location.href="<%= contextPath %>/login.me";
+       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

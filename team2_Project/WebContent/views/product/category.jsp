@@ -82,7 +82,14 @@
         #category_link div{
         	cursor:pointer
         }
-    </style>
+       a#MOVE_TOP_BTN {
+	    position: fixed;
+	    right: 2%;
+	    bottom: 50px;
+	    display: none;
+	    z-index: 999;
+		}
+	   </style>
 </head>
 
 <body>
@@ -146,12 +153,13 @@
             	  })
               })
                 </script>
-                <div class="row">
+       
+                <div class="row" id="product-list">
                 <% for(Product p : list) { %>
                     <div class="col" style="margin-bottom: 30px;">
                         <div class="card" style="width: 18rem;">
                             <a href="<%= contextPath %>/product.pr?pno=<%= p.getProductNo()%>"><img
-                                    src="<%=p.getProductImgSrc() %>"
+                                    src="<%= contextPath +'/' +p.getFilePath() + p.getChangeName()%>"
                                     class="card-img-top" alt="..."></a>
                             <div class="card-body">
                                 <a href="<%= contextPath %>/product.pr?pno=<%= p.getProductNo()%>" class="product_link">
@@ -159,20 +167,39 @@
                                         <%=p.getBrandName() %></h5>
                                 </a>
                                <a href="<%= contextPath %>/product.pr?pno=<%= p.getProductNo()%>"> <div style="text-align: left; color: gray;"><%=p.getProductName() %></div></a>
+                                <div style='color:gray; text-decoration:line-through; text-align: left; font-weight: 600;'><%=df.format(p.getProductPrice())%></div>
                                 <div style="text-align: left; font-weight: 600; color: plum;"><%=p.getProductDiscount() %>%
                                     <span><%= df.format(p.getProductPrice()*(((100-p.getProductDiscount())*0.01))) %></span>
-                                    <span style="color: gray;"><%=df.format(p.getProductPrice())%></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <% } %>
-               
+                    <div>
+                     <a id="MOVE_TOP_BTN" href="#" class="btn btn-dark" style="border-radius: 50px;">TOP</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 	<script>
+	 $(function() {
+	        $(window).scroll(function() {
+	            if ($(this).scrollTop() > 500) {
+	                $('#MOVE_TOP_BTN').fadeIn();
+	            } else {
+	                $('#MOVE_TOP_BTN').fadeOut();
+	            }
+	        });
+	        
+	        $("#MOVE_TOP_BTN").click(function() {
+	            $('html, body').animate({
+	                scrollTop : 0
+	            }, 50);
+	            return false;
+	        });
+	    });
+	
 	$(function(){
 		$("#category_link div").each(function(){
 			if($(this).text() == "<%= cname %>" ){
@@ -181,7 +208,71 @@
 		})
 	})
 	
-	
+	var page = 1;
+	$(window).scroll(function() {
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+    	page += 1;
+  	  console.log(page)
+     $.ajax({
+    	 url:"ajaxCategory.pr",
+    	 data : {'page' : page,
+    		 	'cname' :"<%= cname%>",
+    		 	'val' : $("#productSorting option:selected").val()},
+    	 type : "get",
+    	 success:function(result){	
+    		 console.log(page)
+    		 let length = result.length;
+    		 for(var i = 1 ;i<length;i++) {
+    			 $("#product-list").append(
+    					 "<div class='col' style='margin-bottom: 30px;'>"+
+    	                 "<div class='card' style='width: 18rem;'>"+
+    	                     "<a href='<%= contextPath %>/product.pr?pno=" + result[i].productNo +" ' >"+
+    	                     "<img src= "  + 
+    	                     "<%= contextPath %>" + 
+    	                     '/'+
+    	                     result[i].filePath + 
+    	                     result[i].changeName + 
+    	                     " class='card-img-top'>"+
+    	                     "</a>" +
+    	                     "<div class='card-body'>"+
+    	                        "<a href='<%= contextPath %>/product.pr?pno=" + result[i].productNo +"' class='product_link'>" +
+    	                             "<h5 class='card-title' style='text-align: left; font-weight: 600; font-size: 18px;'>"+
+    	                                 result[i].brandName +
+    	                                 "</h5>"+
+    	                         "</a>"+
+    	                        "<a href='<%= contextPath %>/product.pr?pno=" + result[i].productNo +"'>"+ 
+    	                        "<div style='text-align: left; color: gray;'>"+
+    	                        result[i].productName+
+    	                        "</div>"+
+    	                        "</a>"+
+    	                        "<div class='test1' style='color:gray; text-decoration:line-through; text-align: left; font-weight: 600;'>" +
+ 	                       		  result[i].productPrice +' ' +
+ 	                         	"</div>" +
+  	                         "<div style='text-align: left; font-weight: 600; color: plum;'>"+
+  	                         "<div class='test1';'>" +
+  	                         result[i].productDiscount +'% ' +
+  	                         "<span class='test1 style='display:inline;'>"+
+	                             result[i].productPrice*(100-result[i].productDiscount)*0.01 + 
+	                             "</span>"+
+  	                         "</div>" +
+    	                         "</div>"+
+    	                     "</div>"+
+    	                 "</div>"+
+    	                 "</div>"	 
+    			);
+    		  };
+ 
+    		  $(".test1").each(function(){
+    			  let test2 = ($(this).text()+'').replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    			  $(this).text(test2);
+    		  })
+ 		},
+ 		error:function(){
+			console.log("ajax 통신 실패");
+		}
+     })
+    }
+});
 	</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
