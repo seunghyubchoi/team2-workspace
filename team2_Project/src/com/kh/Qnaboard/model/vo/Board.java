@@ -43,17 +43,13 @@ public Board(int qnaNo, String qnaTitle, String qnaContent, Date qnaDate, String
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+public Board(int qnaNo, String qnaTitle, String qnaContent, int headerNo) {
+	super();
+	QnaNo = qnaNo;
+	QnaTitle = qnaTitle;
+	QnaContent = qnaContent;
+	HeaderNo = headerNo;
+}
 
 
 public Board(int qnaNo, String qnaTitle, Date qnaDate,String memNo, int count) {

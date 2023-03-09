@@ -158,12 +158,12 @@
 						onkeydown="checkNum(event, this.value)" required>
 						
 						<input type="text" class="form-control mb-2 mr-sm-2" 
-						value="<%= phone.substring(3,7) %>" id="phone2" maxlength="4"
+						value="<%= phone.substring(4,8) %>" id="phone2" maxlength="4"
 						pattern="[0-9]{4}" onkeyup="next(this.value, 4, 'phone3')" 
 						onkeydown="checkNum(event, this.value)" required>
 						
 						<input type="text" class="form-control mb-2 mr-sm-2" 
-						value="<%= phone.substring(7,11) %>" id="phone3" maxlength="4"
+						value="<%= phone.substring(9,13) %>" id="phone3" maxlength="4"
 						pattern="[0-9]{4}" onkeydown="checkNum(event, this.value)" required>
 
 						<script>
@@ -185,7 +185,9 @@
 
 							function assemblePhone() {
 								let phone = document.getElementById("phone1").value;
+								phone += "-"
 								phone += document.getElementById("phone2").value;
+								phone += "-"
 								phone += document.getElementById("phone3").value;
 
 								$('input[name="phone"]').val(phone);

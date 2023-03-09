@@ -785,6 +785,7 @@ INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 라이�
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'그레이 컬러의 나이키 스웨트 셋업과 모노그램 크로스 백을 매칭한 룩입니다.','#캐주얼','INSTA02','N',2,SYSDATE);
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'진청 컬러의 트러커 재킷에 데님 팬츠, 카멜 부츠를 매칭한 룩입니다.','#아메리칸','INSTA03','N',3,SYSDATE);
 
+
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,1,'익명의 패션사진1','https://image.msscdn.net/mfile_s01/_shopstaff/view.staff_6400bee7281ba.jpg?20230303085713','바뀐사진1');
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,2,'익명의 패션사진2','https://image.msscdn.net/mfile_s01/_shopstaff/view.staff_64006b477bc31.jpg?20230303001253','바뀐사진2');
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,3,'익명의 패션사진3','https://image.msscdn.net/mfile_s01/_shopstaff/view.staff_6400679036dd4.jpg?20230303001141','바뀐사진3');

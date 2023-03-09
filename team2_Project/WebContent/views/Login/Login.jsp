@@ -374,9 +374,6 @@ ul.join_box {
 				<div>
 				<button type="submit" id="login" class="btn" onclick="loginCheck();">로그인</button>
 				</div>
-                <div>
-                    <button type="submit" class="btn1">ID/PWD 찾기</button>
-                </div>
 				</div>
             </form>
 

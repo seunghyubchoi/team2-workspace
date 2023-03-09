@@ -1,9 +1,4 @@
-<%@page import="com.kh.community.model.vo.Instagram"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-	ArrayList<Instagram> list = (ArrayList<Instagram>)request.getAttribute("list");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -400,7 +395,7 @@ label.right {
                     <div id="login3">
                     <a href="<%= contextPath %>/login.me" class="btn-3d-5">LOGIN/SIGNUP</a>
                     <br><br>
-                    <a href="<%= contextPath %>/login.me" class="btn-3d-5" style="margin-left: 53px; margin-top: 0px;">ID/PWD 찾기</a>
+                    <a href="<%= contextPath %>/FindPwd.me" class="btn-3d-5" style="margin-left: 53px; margin-top: 0px;">ID/PWD 찾기</a>
                     </div>
                     <%} else { %>
                     <div id=logininfo align="center">
@@ -418,32 +413,33 @@ label.right {
         <!--content-->
         <div id="content">
             <div id="line1"></div>  
-            <a href="<%= contextPath %>/upload.co" class="btn-3d-3">STYLE UP</a>  
+            <a href="#" class="btn-3d-3">STYLE UP</a>  
             <div class="slidebox1">
                 <input type="radio" name="slide1" id="slide05" checked>
                 <input type="radio" name="slide1" id="slide06">
                 <input type="radio" name="slide1" id="slide07">
                 <input type="radio" name="slide1" id="slide08">
                 <ul class="slidelist1">
-                  	<li class="slideitem1">
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
+                    <li class="slideitem1">
+                            <a><img src="https://image.brandi.me/cproduct/2023/02/10/SB000000000001176832_1676013624_image5_S.jpeg"></a>
+                            <a><img src="https://image.brandi.me/cproduct/2023/02/10/SB000000000001176832_1676013624_image5_S.jpeg"></a>
+                            <a><img src="https://image.brandi.me/cproduct/2023/02/10/SB000000000001176832_1676013624_image5_S.jpeg"></a>
+                            <a><img src="https://image.brandi.me/cproduct/2023/02/10/SB000000000001176832_1676013624_image5_S.jpeg"></a>
                         <br>
+                        
                             <a><img src="resources/img/아이콘1.png"></a>
                             <a><img src="resources/img/아이콘1.png"></a>
                             <a><img src="resources/img/아이콘1.png"></a>
                             <a><img src="resources/img/아이콘1.png"></a>
-                        <br>
+                      <br>
                             <a><img src="resources/img/아이콘1.png"></a>
                             <a><img src="resources/img/아이콘1.png"></a>
                             <a><img src="resources/img/아이콘1.png"></a>
                             <a><img src="resources/img/아이콘1.png"></a>
                         
                     </li>
-                    <!-- <li class="slideitem1">
-                        <a>
+                    <li class="slideitem1">
+                        
                             <a><img src="resources/img/아이콘3.png"></a>
                             <a><img src="resources/img/아이콘3.png"></a>
                             <a><img src="resources/img/아이콘3.png"></a>
@@ -453,7 +449,7 @@ label.right {
                             <a><img src="resources/img/아이콘3.png"></a>
                             <a><img src="resources/img/아이콘3.png"></a>
                             <a><img src="resources/img/아이콘3.png"></a>
-                        <br>
+                        </a><br>
                             <a><img src="resources/img/아이콘3.png"></a>
                             <a><img src="resources/img/아이콘3.png"></a>
                             <a><img src="resources/img/아이콘3.png"></a>
@@ -466,12 +462,12 @@ label.right {
                             <a><img src="resources/img/이미지1.png"></a>
                             <a><img src="resources/img/이미지1.png"></a>
                             <a><img src="resources/img/이미지1.png"></a>
-                        <br>
+                        </a><br>
                             <a><img src="resources/img/이미지1.png"></a>
                             <a><img src="resources/img/이미지1.png"></a>
                             <a><img src="resources/img/이미지1.png"></a>
                             <a><img src="resources/img/이미지1.png"></a>
-                        <br>
+                        </a><br>
                             <a><img src="resources/img/이미지1.png"></a>
                             <a><img src="resources/img/이미지1.png"></a>
                             <a><img src="resources/img/이미지1.png"></a>
@@ -484,18 +480,21 @@ label.right {
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
+                        </a>
                         <br>
+                        <a>
+                           <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
-                            <a><img src="resources/img/이미지2.png"></a>
-                        <br>
+                        </a><br>
+                        <a>
                            <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                         </a>
-                    </li> -->
+                    </li>
                     
                 </ul>
                 <div class="slide-control1">
