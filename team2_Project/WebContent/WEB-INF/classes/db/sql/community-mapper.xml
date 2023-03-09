@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+<entry key="selectListCount">
+SELECT
+       COUNT(*) COUNT
+  FROM TB_INSTAGRAM
+ WHERE DEL_YN = 'N'
+</entry>
+
 <entry key="selectInstaList">
+SELECT *
+  FROM
+     (
+       SELECT ROWNUM RNUM, A.*
+         FROM
+            (
+              SELECT
+                     COM_NO
+                   , INSTA_IMG_SRC
+                   , INSTA_IMG_CHANGE
+                FROM TB_INSTAGRAM
+                LEFT JOIN TB_INSTA_IMAGE IMG ON (COM_NO = REF_CNO)
+               WHERE DEL_YN = 'N'
+               ORDER
+                  BY UPLOAD_DATE DESC
+            ) A
+     )
+       WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- <entry key="selectInstaList">
 SELECT
        COM_NO
      , INSTA_IMG_SRC
@@ -11,7 +39,7 @@ SELECT
  WHERE DEL_YN = 'N'
  ORDER
     BY UPLOAD_DATE DESC
-</entry>
+</entry> -->
 
 <entry key="likeInstaList">
 SELECT 
