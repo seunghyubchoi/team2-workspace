@@ -395,7 +395,7 @@ label.right {
                     <div id="login3">
                     <a href="<%= contextPath %>/login.me" class="btn-3d-5">LOGIN/SIGNUP</a>
                     <br><br>
-                    <a href="<%= contextPath %>/login.me" class="btn-3d-5" style="margin-left: 53px; margin-top: 0px;">ID/PWD 찾기</a>
+                    <a href="<%= contextPath %>/FindPwd.me" class="btn-3d-5" style="margin-left: 53px; margin-top: 0px;">ID/PWD 찾기</a>
                     </div>
                     <%} else { %>
                     <div id=logininfo align="center">
@@ -421,43 +421,43 @@ label.right {
                 <input type="radio" name="slide1" id="slide08">
                 <ul class="slidelist1">
                     <li class="slideitem1">
-                        <a>
+                            <a><img src="https://image.brandi.me/cproduct/2023/02/10/SB000000000001176832_1676013624_image5_S.jpeg"></a>
+                            <a><img src="https://image.brandi.me/cproduct/2023/02/10/SB000000000001176832_1676013624_image5_S.jpeg"></a>
+                            <a><img src="https://image.brandi.me/cproduct/2023/02/10/SB000000000001176832_1676013624_image5_S.jpeg"></a>
+                            <a><img src="https://image.brandi.me/cproduct/2023/02/10/SB000000000001176832_1676013624_image5_S.jpeg"></a>
+                        <br>
+                        
                             <a><img src="resources/img/아이콘1.png"></a>
                             <a><img src="resources/img/아이콘1.png"></a>
                             <a><img src="resources/img/아이콘1.png"></a>
                             <a><img src="resources/img/아이콘1.png"></a>
+                      <br>
+                            <a><img src="resources/img/아이콘1.png"></a>
+                            <a><img src="resources/img/아이콘1.png"></a>
+                            <a><img src="resources/img/아이콘1.png"></a>
+                            <a><img src="resources/img/아이콘1.png"></a>
+                        
+                    </li>
+                    <li class="slideitem1">
+                        
+                            <a><img src="resources/img/아이콘3.png"></a>
+                            <a><img src="resources/img/아이콘3.png"></a>
+                            <a><img src="resources/img/아이콘3.png"></a>
+                            <a><img src="resources/img/아이콘3.png"></a>
+                        <br>
+                            <a><img src="resources/img/아이콘3.png"></a>
+                            <a><img src="resources/img/아이콘3.png"></a>
+                            <a><img src="resources/img/아이콘3.png"></a>
+                            <a><img src="resources/img/아이콘3.png"></a>
                         </a><br>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                        </a><br>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
+                            <a><img src="resources/img/아이콘3.png"></a>
+                            <a><img src="resources/img/아이콘3.png"></a>
+                            <a><img src="resources/img/아이콘3.png"></a>
+                            <a><img src="resources/img/아이콘3.png"></a>
                         </a>
                     </li>
                     <li class="slideitem1">
                         <a>
-                            <a><img src="resources/img/아이콘3.png"></a>
-                            <a><img src="resources/img/아이콘3.png"></a>
-                            <a><img src="resources/img/아이콘3.png"></a>
-                            <a><img src="resources/img/아이콘3.png"></a>
-                        </a><br>
-                            <a><img src="resources/img/아이콘3.png"></a>
-                            <a><img src="resources/img/아이콘3.png"></a>
-                            <a><img src="resources/img/아이콘3.png"></a>
-                            <a><img src="resources/img/아이콘3.png"></a>
-                        </a><br>
-                            <a><img src="resources/img/아이콘3.png"></a>
-                            <a><img src="resources/img/아이콘3.png"></a>
-                            <a><img src="resources/img/아이콘3.png"></a>
-                            <a><img src="resources/img/아이콘3.png"></a>
-                        </a>
-                    </li>
-                    <li class="slideitem1">
-                        <a>
                             <a><img src="resources/img/이미지1.png"></a>
                             <a><img src="resources/img/이미지1.png"></a>
                             <a><img src="resources/img/이미지1.png"></a>
@@ -480,12 +480,15 @@ label.right {
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
-                        </a><br>
+                        </a>
+                        <br>
+                        <a>
                            <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                         </a><br>
+                        <a>
                            <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>

@@ -337,8 +337,8 @@ a {
                             </select>
                             </dd>
                             <br>
-                            <dt style="margin-top: 15px;">첨부파일</dt>
-                            <dd style="margin-top: 15px;"><input type="file" name="upfile"></dd>
+                            <!--  <dt style="margin-top: 15px;">첨부파일</dt>
+                            <dd style="margin-top: 15px;"><input type="file" name="upfile"></dd>-->
                         </dl>
                     </div>
                     <div class="cont">

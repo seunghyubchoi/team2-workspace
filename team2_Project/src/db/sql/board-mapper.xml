@@ -86,7 +86,7 @@ WHERE QNA_NO =?
 	
 	<entry key="insertAttachment">
 		 INSERT
-		  INTO ATTACHMENT
+		  INTO TB_INQUIRE_ATTACHMENT
 		     (
 		       FILE_NO
 		     , REF_BNO
@@ -102,6 +102,51 @@ WHERE QNA_NO =?
 		     , ?
 		     , ?
 		     )
+	</entry>
+	<entry key="updateBoard">
+		UPDATE
+		      TB_INQUIRE
+		   SET HEADER_NO = ?
+		     , QNA_TITLE = ?
+		     , QNA_CONTENT = ?
+		WHERE QNA_NO = ?
+	</entry>
+	<entry key="updateAttachment">
+		UPDATE
+		       TB_INQUIRE_ATTACHMENT
+		   SET ORIGIN_NAME = ?
+		     , CHANGE_NAME = ?
+		     , FILE_PATH = ?
+		 WHERE FILE_NO = ?
+	</entry>
+	
+	<entry key="insertNewAttachment">
+		 INSERT
+		   INTO TB_INQUIRE_ATTACHMENT
+		      ( 
+		        FILE_NO
+		      , REF_BNO
+		      , ORIGIN_NAME
+		      , CHANGE_NAME
+		      , FILE_PATH
+		      )
+		 VALUES
+		      ( 
+		        SEQ_FNO.NEXTVAL
+		      , ?
+		      , ?
+		      , ?
+		      , ?
+		      )
+	</entry>
+	<entry key="selectAttachment">
+		SELECT
+		       FILE_NO
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , FILE_PATH
+		  FROM TB_INQUIRE_ATTACHMENT
+		 WHERE REF_BNO = ?
 	</entry>
 </properties>
 

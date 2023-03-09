@@ -1,23 +1,22 @@
+<%@page import="com.kh.notice.model.vo.Attachment"%>
 <%@page import="com.kh.Qnaboard.model.vo.Board"%>
+<%@page import="com.kh.product.model.vo.Category"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.kh.common.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%
-PageInfo pi =(PageInfo)request.getAttribute("pi");
-int currentPage = pi.getCurrentPage();
-int startPage = pi.getStartPage();
-int endPage = pi.getEndPage();
-int maxPage = pi.getMaxPage();
-ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
-%>
+ ArrayList<Category> list = (ArrayList<Category>)request.getAttribute("list");
+ Board b = (Board)request.getAttribute("b");
+ Attachment at =(Attachment)request.getAttribute("at");
+
+%>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
 html {
     font-size: 10px;
 }
@@ -320,80 +319,62 @@ a {
   }
 </style>
 </head>
+
 <body>
 <%@include file="../common/menubar.jsp"%>
-<div id="content">
+            <div id="content">
              <div id="line1"></div>
-             <div class="board_wrap" method="post">
-                <div class="board_title">
-                    <strong>문의하기</strong>
-                    <p>상품/주문/환불/교환/기타 문의해주세요.</p>
-                </div>
-                <div class="board_list_wrap">
-                    <div class="board_list">
-                        <div class="top">
-                            <div class="num">번호</div>
-                            <div class="title">문의제목</div>
-                            <div class="writer">글쓴이</div>
-                            <div class="date">작성일</div>
-                            <div class="count">조회</div>
-                        </div>
-                        <% if(list.isEmpty()){ %>
-                        <p>문의내역이 없습니다.</p>
-                        <%}else{ %>
-                        <%for(Board b:list){ %>
-                        <div class="qlist">
-                            <div class="num"><%=b.getQnaNo() %></div>
-                            <div class="title"><%=b.getQnaTitle() %></div>
-                            <div class="writer"><%=b.getMemNo() %></div>
-                            <div class="date"><%=b.getQnaDate() %></div>
-                            <div class="count"><%=b.getCount() %></div>
-                        </div>
-                     <%} %>
-                    <%} %>
+             <form id="enroll-form" action="<%=contextPath%>/qupdate.bo" method="post" enctype="multipart/form-data">
+           	<input type="hidden" name="bno" value="<%= b.getQnaNo() %>">
+            <div class="board_write_wrap">
+                <div class="board_write">
+                    <div class="title">
+                        <dl>
+                            <dt style="font-size: 18px;">문의 제목</dt>
+                            <dd style="margin-left: 0px;"><input type="text" name="title" placeholder="제목 입력" value="<%=b.getQnaTitle() %>"></dd>
+                        </dl>
                     </div>
+                    <div class="info">
+                        <dl>
+                            <dt>문의종류</dt>
+                            <dd><select name="qna1" id="qna1" style="height:35px; width: 100px;">
+                            <%for(Category c: list){ %>
+                                <option value="<%=c.getCategoryNo() %>"><%=c.getCategoryName()%></option>
+                                <% } %>
+                            </select>
+                            <script>
+                        	$(function(){
+                        		$("#enroll-form").each(function(){
+                        			if($(this).text() == "<%= b.getHeaderNo() %>") {
+                        				$(this).attr("selected", true);
+                        			}
+                        		})
+                        	})
+                        	
+                        </script>
+                            </dd>
+                            <br>
+                            <!--  <dt style="margin-top: 15px;">첨부파일</dt>
+                            <dd style="margin-top: 15px;"><input type="file" name="upfile"></dd>-->
+                        </dl>
+                    </div>
+                    <div class="cont">
+                        <textarea name="content" placeholder="비방성이나 광고성 글, 또는 본 게시판의 성격과 맞지 않은 글은 본인의 동의 없이 관리자가 임의대로 삭제할 수 있습니다.
 
-                   
-                   
-                  <div class="paging-area" align="center" style="width=700px; text-align:center; margin-top:10px; font-size:18px; font-weight: 600px;">
-        	<% if(currentPage != 1) { %>
-            	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ;" onclick = "location.href = '<%= contextPath %>/qlist.no?cpage=<%= currentPage - 1 %>'">&lt;</button>
-            <% } %>
-            
-            
-            <% for(int p = startPage; p <= endPage; p++) { %>
-            	<% if(p == currentPage) { %>
-            		<button style="background-color: transparent; color: rgb(82, 82, 82); border: 3px solid #d5aede;" disabled><%= p %></button>
-            	<% } else { %>
-            		<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2px solid #696969 ;" onclick = "location.href = '<%= contextPath %>/qlist.no?cpage=<%= p %>'"><%= p %></button>
-            	<% } %>
-            <% } %>
-            
-            <% if(currentPage != maxPage) { %>
-            	<button style="background-color: transparent; color: rgb(82, 82, 82); border: 2.5px solid #d5aede ; " onclick = "location.href = '<%= contextPath %>/qlist.no?cpage=<%= currentPage + 1 %>'">&gt;</button>
-            <% } %>
-            
-        </div>
-        <br>
-        			<div class="bt_wrap">
-        			<%if(loginUser ==null) { %>
-                   
-                    <a href="<%= contextPath %>/login.me" class="on">문의하기</a>
-                    <%} else{ %>
-                        <a href="<%= contextPath %>/qenrollForm.bo" class="on">문의하기</a>
+답변이 필요한 상품명 및 주문번호를 작성해주시면 더 빠른 답변을 받아보실 수 있습니다.
+                        "
+                        
+                        ><%=b.getQnaContent() %></textarea>
                     </div>
-                    <br><br>
                 </div>
-            </div>  
+                </div>
+                <div class="bt_wrap">
+                    <button type="submit" class="on">수정</button>
+                    <a type="button" class="button" id="off" href="<%=contextPath%>/qlist.no?cpage=1">취소</a>
+                </div>
+                <br><br>
+                                </form>
             </div>
-            <%} %>
-            <script>
-        	$(function(){
-        		$(".qlist").click(function(){
-        			location.href='<%= contextPath %>/qdetail.no?bno=' + $(this).children().eq(0).text();
-        		})
-        	})
-        </script>
 
 
 </body>

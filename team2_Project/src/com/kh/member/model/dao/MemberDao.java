@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import org.apache.catalina.User;
+
 import static com.kh.common.JDBCTemplate.*;
 import com.kh.member.model.vo.Member;
 
@@ -234,5 +236,8 @@ public class MemberDao {
 		return result;
 
 }
+	
+	
+	
 
 }
