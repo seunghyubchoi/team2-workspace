@@ -56,7 +56,7 @@
                         <table class="table table-bordered dataTables" id="noticeTable" width="100%" cellspacing="0" style="text-align: center;">
                             <thead>
                                 <tr>
-                                    <th id="check1"><input type="checkbox" id="checkAll"></th>
+                                    <th id="check1"><input type="checkbox" id="checkAll" class="scale-120"></th>
                                     <th style="width: 60px">번호</th>
                                     <th>제목</th>
                                     <th style="width: 200px">작성일</th>
@@ -65,7 +65,7 @@
                             <tbody>
                             	<% for(Notice n : list){ %>
                                 <tr>
-                                    <td><input type="checkbox" name="deleteCheck" class="noticeCheckbox" value="<%= n.getNoticeNo()%>"></td>
+                                    <td><input type="checkbox" name="deleteCheck" class="noticeCheckbox scale-120" value="<%= n.getNoticeNo()%>"></td>
                                     <td><%= n.getNoticeNo()%></td>
                                     <td><a href="<%= contextPath%>/modifyView.nt?nno=<%= n.getNoticeNo()%>"><%= n.getNoticeTitle() %></a></td>
                                     <td><%= n.getNoticeDate() %></td>

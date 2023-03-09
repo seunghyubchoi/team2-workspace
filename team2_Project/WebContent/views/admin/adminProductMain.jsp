@@ -60,7 +60,7 @@ pageEncoding="UTF-8"%>
                         <table class="table table-bordered dataTables" id="productTable" width="100%" cellspacing="0" style="text-align: center;">
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" id="checkAll"></th>
+                                    <th><input type="checkbox" id="checkAll" class="scale-120"></th>
                                     <th>번호</th>
                                     <th>브랜드</th>
                                     <th>상품명</th>
@@ -73,7 +73,7 @@ pageEncoding="UTF-8"%>
                             <tbody>
                                 <% for(ProductA p : list){ %>
                                     <tr>
-                                        <td><input type="checkbox" name="deleteCheck" class="noticeCheckbox" value="<%= p.getProductNo()%>"></td>
+                                        <td><input type="checkbox" name="deleteCheck" class="scale-120" value="<%= p.getProductNo()%>"></td>
                                         <td><%= p.getProductNo()%></td>
                                         <td><%= p.getBrandNo()%></td>
                                         <td><a href="<%= contextPath%>/detailForm.pd?pno=<%= p.getProductNo()%>"><%= p.getProductName() %></a></td>

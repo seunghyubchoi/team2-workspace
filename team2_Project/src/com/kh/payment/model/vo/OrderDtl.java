@@ -7,18 +7,28 @@ public class OrderDtl {
 	private int productNo;
 	private String dtlSize;
 	private int dtlQnt;
+	private String delYn;
 	
 	public OrderDtl() {}
 
-	public OrderDtl(int orderDtlNo, int orderNo, int productNo, String dtlSize, int dtlQnt) {
+	public OrderDtl(int orderDtlNo, int orderNo, int productNo, String dtlSize, int dtlQnt, String delYn) {
 		super();
 		this.orderDtlNo = orderDtlNo;
 		this.orderNo = orderNo;
 		this.productNo = productNo;
 		this.dtlSize = dtlSize;
 		this.dtlQnt = dtlQnt;
+		this.delYn = delYn;
 	}
 	
+	public OrderDtl(int orderDtlNo, String dtlSize, int dtlQnt, String delYn) {
+		super();
+		this.orderDtlNo = orderDtlNo;
+		this.dtlSize = dtlSize;
+		this.dtlQnt = dtlQnt;
+		this.delYn = delYn;
+	}
+
 	public OrderDtl(int orderDtlNo, String dtlSize, int dtlQnt) {
 		super();
 		this.orderDtlNo = orderDtlNo;
@@ -66,10 +76,18 @@ public class OrderDtl {
 		this.dtlQnt = dtlQnt;
 	}
 
+	public String getDelYn() {
+		return delYn;
+	}
+
+	public void setDelYn(String delYn) {
+		this.delYn = delYn;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderDtl [orderDtlNo=" + orderDtlNo + ", orderNo=" + orderNo + ", productNo=" + productNo + ", dtlSize="
-				+ dtlSize + ", dtlQnt=" + dtlQnt + "]";
+				+ dtlSize + ", dtlQnt=" + dtlQnt + ", delYn=" + delYn + "]";
 	}
 	
 	
