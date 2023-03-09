@@ -60,9 +60,9 @@ public class OrderHistoryCancelPageController extends HttpServlet {
 
 		ArrayList<OrderDtlA> orderHistoryCancelList = new MyPageService().selectOrderHistoryCancelList(pi, memNo);
 		System.out.println(orderHistoryCancelList);
+		request.setAttribute("orderHistoryCancelList", orderHistoryCancelList);
 		request.setAttribute("memNo", memNo);
 		request.setAttribute("pi", pi);
-		request.setAttribute("orderHistoryCancelList", orderHistoryCancelList);
 		
 		
 		

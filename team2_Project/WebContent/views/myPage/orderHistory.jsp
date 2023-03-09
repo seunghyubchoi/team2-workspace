@@ -133,7 +133,7 @@ int maxPage = pi.getMaxPage();
 
 			
 					<tr>
-						<td><img src="<%=contextPath%><%=o.getFilePath()%>"
+						<td><img src="<%=contextPath%><%=o.getFilePath()%><%=o.getChangeName() %>"
 							alt=""></td>
 						<td>
 							<p>
@@ -156,7 +156,7 @@ int maxPage = pi.getMaxPage();
 							<input type="hidden" >
 							<button class="btn btn-primary mb-2" value="<%=o.getDtlOrderNo()%>" id="<%=o.getProductNo() %>" 
 							data-toggle="modal" data-target="#cancelOrder" onclick="deleteAlert(this)">주문취소</button>
-							<%} else if(status.equals("취소완료") || status.equals("교환요청") || status.equals("환불요청")){%>
+							<%} else if(status.equals("취소완료") || status.equals("교환완료") || status.equals("환불완료")){%>
 							
 							<%} else {%>
 							<button class="btn btn-primary mb-2" value="<%=o.getDtlOrderNo()%>"
@@ -293,7 +293,7 @@ int maxPage = pi.getMaxPage();
 
 			
 			function returnAlert(e) {
-				/* 마저해야함  */
+				
 				$("input[name='dtlOrderNo']").val($(e).val())
 				
 				console.log($("input[name='dtlOrderNo']").val());

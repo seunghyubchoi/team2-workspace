@@ -243,6 +243,7 @@
 		FROM (
 		SELECT
 		I.FILE_PATH
+        , I.CHANGE_NAME
 		, O.ORDER_NO
 		, D.DTL_ORDER_NO
 		, P.PRODUCT_NAME
@@ -308,6 +309,7 @@
 		FROM (
 		SELECT
 		I.FILE_PATH
+		, I.CHANGE_NAME
 		, O.ORDER_NO
 		, D.DTL_ORDER_NO
 		, P.PRODUCT_NAME
@@ -325,13 +327,13 @@
 		JOIN TB_PRODUCT_IMAGE I ON (P.PRODUCT_NO = I.PRODUCT_NO)
 		WHERE O.MEM_NO = ?
 		AND IMG_TYPE = 1
-		AND O.ORDER_STATUS = '취소완료' OR
+		AND (O.ORDER_STATUS = '취소완료' OR
 		O.ORDER_STATUS = '교환요청' OR O.ORDER_STATUS
 		= '교환중'
 		OR O.ORDER_STATUS =
 		'교환완료' OR O.ORDER_STATUS = '환불요청' OR O.ORDER_STATUS
 		= '환불중' OR
-		O.ORDER_STATUS = '환불완료'
+		O.ORDER_STATUS = '환불완료')
 		)
 		A
 		)
@@ -341,6 +343,7 @@
 	<entry key="selectOrderHistoryDetail">
 		SELECT
 		I.FILE_PATH
+		, I.CHANGE_NAME
 		, O.ORDER_NO
 		, D.DTL_ORDER_NO
 		,

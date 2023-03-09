@@ -105,7 +105,7 @@ ArrayList<OrderDtlA> orderHistoryDetail = (ArrayList<OrderDtlA>) request.getAttr
 					
 					<tr>
 						<td>
-                            <img src="<%=contextPath%><%=o.getFilePath()%>"
+                            <img src="<%=contextPath%><%=o.getFilePath()%><%=o.getChangeName() %>"
 							alt="">
                         </td>
 						<td>

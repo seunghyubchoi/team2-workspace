@@ -5,6 +5,7 @@ import java.sql.Date;
 public class OrderDtlA {
 	
 	private String filePath;
+	private String changeName;
 	private int orderNo;
 	private int dtlOrderNo;
 	private Date orderDate;
@@ -22,11 +23,26 @@ public class OrderDtlA {
 	public OrderDtlA() {}
 
 
-	public OrderDtlA(String filePath, int orderNo, int dtlOrderNo, Date orderDate, String rcpName, String rcpPhone,
-			String rcpAddress, String rcpAddressDtl, String rcpPostCode, String productNo, String dtlSize, int dtlQnt,
-			String orderStatus) {
+	public OrderDtlA(String filePath, String changeName, int orderNo, int dtlOrderNo, String productNo, String dtlSize,
+			int dtlQnt, String orderStatus) {
 		super();
 		this.filePath = filePath;
+		this.changeName = changeName;
+		this.orderNo = orderNo;
+		this.dtlOrderNo = dtlOrderNo;
+		this.productNo = productNo;
+		this.dtlSize = dtlSize;
+		this.dtlQnt = dtlQnt;
+		this.orderStatus = orderStatus;
+	}
+
+
+	public OrderDtlA(String filePath, String changeName, int orderNo, int dtlOrderNo, Date orderDate, String rcpName,
+			String rcpPhone, String rcpAddress, String rcpAddressDtl, String rcpPostCode, String productNo,
+			String dtlSize, int dtlQnt, String orderStatus) {
+		super();
+		this.filePath = filePath;
+		this.changeName = changeName;
 		this.orderNo = orderNo;
 		this.dtlOrderNo = dtlOrderNo;
 		this.orderDate = orderDate;
@@ -42,19 +58,6 @@ public class OrderDtlA {
 	}
 
 
-	public OrderDtlA(String filePath, int orderNo, int dtlOrderNo, String productNo, String dtlSize, int dtlQnt,
-			String orderStatus) {
-		super();
-		this.filePath = filePath;
-		this.orderNo = orderNo;
-		this.dtlOrderNo = dtlOrderNo;
-		this.productNo = productNo;
-		this.dtlSize = dtlSize;
-		this.dtlQnt = dtlQnt;
-		this.orderStatus = orderStatus;
-	}
-
-
 	public String getFilePath() {
 		return filePath;
 	}
@@ -62,6 +65,16 @@ public class OrderDtlA {
 
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+
+
+	public String getChangeName() {
+		return changeName;
+	}
+
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
 	}
 
 
@@ -187,14 +200,14 @@ public class OrderDtlA {
 
 	@Override
 	public String toString() {
-		return "OrderDtlA [filePath=" + filePath + ", orderNo=" + orderNo + ", dtlOrderNo=" + dtlOrderNo
-				+ ", orderDate=" + orderDate + ", rcpName=" + rcpName + ", rcpPhone=" + rcpPhone + ", rcpAddress="
-				+ rcpAddress + ", rcpAddressDtl=" + rcpAddressDtl + ", rcpPostCode=" + rcpPostCode + ", productNo="
-				+ productNo + ", dtlSize=" + dtlSize + ", dtlQnt=" + dtlQnt + ", orderStatus=" + orderStatus + "]";
+		return "OrderDtlA [filePath=" + filePath + ", changeName=" + changeName + ", orderNo=" + orderNo
+				+ ", dtlOrderNo=" + dtlOrderNo + ", orderDate=" + orderDate + ", rcpName=" + rcpName + ", rcpPhone="
+				+ rcpPhone + ", rcpAddress=" + rcpAddress + ", rcpAddressDtl=" + rcpAddressDtl + ", rcpPostCode="
+				+ rcpPostCode + ", productNo=" + productNo + ", dtlSize=" + dtlSize + ", dtlQnt=" + dtlQnt
+				+ ", orderStatus=" + orderStatus + "]";
 	}
 
 
 	
-
 	
 }

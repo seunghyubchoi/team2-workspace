@@ -205,9 +205,12 @@ public class MyPageService {
 	}
 
 	public int insertReturn(String returnStatus, String returnReason, int memNo, int dtlOrderNo) {
-		System.out.println("insert Return 서비스 탐");
+		System.out.println("insertReturn 서비스 탐");
+		
 		Connection conn = getConnection();
+		
 		int result = new MyPageDao().insertReturn(conn, returnStatus, returnReason, memNo, dtlOrderNo);
+		
 		if (result > 0) {
 			commit(conn);
 		} else {
@@ -219,6 +222,8 @@ public class MyPageService {
 	}
 
 	public int returnOrder(int dtlOrderNo) {
+		System.out.println("returnOrder 서비스 탐");
+
 		Connection conn = getConnection();
 		int result = new MyPageDao().returnOrder(conn, dtlOrderNo);
 		if (result > 0) {
@@ -231,6 +236,8 @@ public class MyPageService {
 	}
 
 	public int exchangeOrder(int dtlOrderNo) {
+		System.out.println("exchangeOrder 서비스 탐");
+
 		Connection conn = getConnection();
 		int result = new MyPageDao().exchangeOrder(conn, dtlOrderNo);
 		if (result > 0) {

@@ -420,8 +420,14 @@ public class MyPageDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				list.add(new OrderDtlA(rset.getString("file_path"), rset.getInt("order_no"), rset.getInt("dtl_order_no"), rset.getString("product_name"),
-						rset.getString("dtl_size"), rset.getInt("dtl_qnt"), rset.getString("order_status")));
+				list.add(new OrderDtlA(rset.getString("file_path")
+						, rset.getString("change_name")
+						, rset.getInt("order_no")
+						, rset.getInt("dtl_order_no")
+						, rset.getString("product_name")
+						, rset.getString("dtl_size")
+						, rset.getInt("dtl_qnt")
+						, rset.getString("order_status")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -498,8 +504,14 @@ public class MyPageDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				list.add(new OrderDtlA(rset.getString("file_path"), rset.getInt("order_no"), rset.getInt("dtl_order_no"), rset.getString("product_name"),
-						rset.getString("dtl_size"), rset.getInt("dtl_qnt"), rset.getString("order_status")));
+				list.add(new OrderDtlA(rset.getString("file_path")
+						, rset.getString("change_name")
+						, rset.getInt("order_no")
+						, rset.getInt("dtl_order_no")
+						, rset.getString("product_name")
+						, rset.getString("dtl_size")
+						, rset.getInt("dtl_qnt")
+						, rset.getString("order_status")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -528,6 +540,7 @@ public class MyPageDao {
 
 			while (rset.next()) {
 				list.add(new OrderDtlA(rset.getString("file_path")
+						, rset.getString("change_name")
 						, rset.getInt("order_no")
 						, rset.getInt("dtl_order_no")
 						, rset.getDate("order_date")
@@ -552,11 +565,10 @@ public class MyPageDao {
 	}
 
 	public int insertReturn(Connection conn, String returnStatus, String returnReason, int memNo, int dtlOrderNo) {
-		System.out.println("insert Return dao 탐");
-System.out.println(returnStatus);
-System.out.println(returnReason);
-System.out.println(memNo);
-System.out.println(dtlOrderNo);
+			System.out.println(returnStatus);
+			System.out.println(returnReason);
+			System.out.println(memNo);
+			System.out.println(dtlOrderNo);
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertReturn");
@@ -579,6 +591,7 @@ System.out.println(dtlOrderNo);
 	}
 
 	public int returnOrder(Connection conn, int dtlOrderNo) {
+
 		int result = 0;
 		PreparedStatement pstmt = null;
 
@@ -600,6 +613,7 @@ System.out.println(dtlOrderNo);
 	}
 
 	public int exchangeOrder(Connection conn, int dtlOrderNo) {
+
 		int result = 0;
 		PreparedStatement pstmt = null;
 

@@ -43,29 +43,21 @@ public class ReturnOrderController extends HttpServlet {
 		int dtlOrderNo = Integer.parseInt(request.getParameter("dtlOrderNo"));
 		String returnStatus = request.getParameter("returnStatus");
 		String returnReason = request.getParameter("returnReason");
-		
-		if(returnStatus.equals("반품")) {
-			int result1 = new MyPageService().returnOrder(dtlOrderNo);
 
-		} else if(returnStatus.equals("교환")) {
-			int result1 = new MyPageService().exchangeOrder(dtlOrderNo);
-
+		if (returnStatus.equals("반품")) {
+			int result = new MyPageService().returnOrder(dtlOrderNo);
+		} else {
+			int result = new MyPageService().exchangeOrder(dtlOrderNo);
 		}
 
 		int result = new MyPageService().insertReturn(returnStatus, returnReason, memNo, dtlOrderNo);
-		
+
 		HttpSession session = request.getSession();
 
-		if (result > 0) {
-			session.setAttribute("alertMsg", "신청이 완료됐습니다.");
-			
-			response.sendRedirect(request.getContextPath());
+		session.setAttribute("alertMsg", "신청이 완료됐습니다.");
 
-		} else {
-			
-			response.sendRedirect(request.getContextPath());
+		response.sendRedirect(request.getContextPath());
 
-		}
 	}
 
 	/**
