@@ -7,21 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.community.model.service.CommunityService;
-import com.kh.community.model.vo.AnswerInstagram;
-import com.kh.member.model.vo.Member;
+import com.google.gson.Gson;
 
 /**
- * Servlet implementation class AnswerInsertController
+ * Servlet implementation class InstaUnFollowController
  */
-@WebServlet("/answerInsert.co")
-public class AnswerInsertController extends HttpServlet {
+@WebServlet("/unfollow.co")
+public class InstaUnFollowController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnswerInsertController() {
+    public InstaUnFollowController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,21 +28,9 @@ public class AnswerInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String answerContent = request.getParameter("content");
-		int ComNo = Integer.parseInt(request.getParameter("cno"));
+		response.setContentType("application/json; charset=utf-8");
 		
-		int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
-		System.out.println("memNo : " + memNo);
-		
-		AnswerInstagram answer = new AnswerInstagram();
-		answer.setAnsContent(answerContent);
-		answer.setComNo(ComNo);
-		answer.setMemNo(String.valueOf(memNo));
-		
-		int result = new CommunityService().insertAnswer(answer);
-		
-		response.getWriter().print(result);
-		
+		new Gson().toJson(response.getWriter());
 	}
 
 	/**

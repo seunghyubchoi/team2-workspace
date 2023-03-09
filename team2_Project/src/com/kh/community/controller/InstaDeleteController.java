@@ -6,22 +6,27 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.kh.common.MyFileRenamePolicy;
 import com.kh.community.model.service.CommunityService;
-import com.kh.community.model.vo.AnswerInstagram;
-import com.kh.member.model.vo.Member;
+import com.kh.community.model.vo.InstaImage;
+import com.kh.community.model.vo.Instagram;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class AnswerInsertController
+ * Servlet implementation class InstaDeleteController
  */
-@WebServlet("/answerInsert.co")
-public class AnswerInsertController extends HttpServlet {
+@WebServlet("/delete.co")
+public class InstaDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnswerInsertController() {
+    public InstaDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +35,22 @@ public class AnswerInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String answerContent = request.getParameter("content");
-		int ComNo = Integer.parseInt(request.getParameter("cno"));
+		/* request.setCharacterEncoding("UTF-8"); */
 		
-		int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
-		System.out.println("memNo : " + memNo);
+		int comNo = Integer.parseInt(request.getParameter("cno"));	        
+			
+		int result = new CommunityService().deleteInsta(comNo);
+		System.out.println("컨트롤러 " + comNo);
 		
-		AnswerInstagram answer = new AnswerInstagram();
-		answer.setAnsContent(answerContent);
-		answer.setComNo(ComNo);
-		answer.setMemNo(String.valueOf(memNo));
-		
-		int result = new CommunityService().insertAnswer(answer);
-		
-		response.getWriter().print(result);
-		
+		if (result > 0) {
+			request.getSession().setAttribute("alertMsg", "게시글이 삭제되었습니다!");
+			response.sendRedirect(request.getContextPath() + "/list.co");
+		} else {
+			request.getSession().setAttribute("alertMsg", "게시글 삭제에 실패했습니다.");
+			response.sendRedirect(request.getContextPath() + "/list.co");
+		}
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

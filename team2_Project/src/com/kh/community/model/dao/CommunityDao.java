@@ -41,10 +41,12 @@ public class CommunityDao {
 			rset = pstmt.executeQuery();
 			
 			while (rset.next()) {
-				list.add(new Instagram(rset.getString("insta_img_origin"),
-									   rset.getString("insta_img_src")
+				list.add(new Instagram(rset.getInt("com_no"),
+									   rset.getString("insta_img_src"),
+									   rset.getString("insta_img_change")
 									   ));
 			}
+			System.out.println("list : " + list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -98,8 +100,8 @@ public class CommunityDao {
 			while (rset.next()) {
 				list.add(new AnswerInstagram(rset.getInt("ans_no"),
 										     rset.getString("ans_content"),
-										     rset.getString("mem_id"),
-										     rset.getString("ans_date")
+										     rset.getString("ans_date"),
+										     rset.getString("mem_id")
 										     ));
 			}
 		} catch (SQLException e) {
@@ -129,7 +131,6 @@ public class CommunityDao {
 			pstmt.setInt(4, Integer.parseInt(insta.getMemNo()));
 			
 			result = pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -152,6 +153,176 @@ public class CommunityDao {
 			pstmt.setString(1, img.getInstaImgOrigin());
 			pstmt.setString(2, img.getInstaImgChange());
 			pstmt.setString(3, img.getInstaImgSrc());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public Instagram selectInsta(Connection conn, int comNo) {
+		Instagram insta = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectInsta");
+		System.out.println("SQL: " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, comNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				insta = new Instagram(rset.getInt("com_no"),
+									  rset.getString("com_content"),
+									  rset.getString("com_tag"),
+									  rset.getString("insta_id"),
+									  rset.getString("mem_id"));
+			}
+			System.out.println("Instagram: " + comNo);
+			System.out.println("Instagram: " + insta);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return insta;
+	}
+	
+	public InstaImage selectInstaImg(Connection conn, int comNo) {
+		InstaImage img = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectInstaImg");
+		System.out.println("SQL: " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, comNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				img = new InstaImage(rset.getString("insta_img_change"),
+									 rset.getString("insta_img_origin"),
+									 rset.getString("insta_img_src"));
+			}
+			System.out.println("InstaImage: " + comNo);
+			System.out.println("InstaImage: " + img);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return img;
+	}
+	
+	public int updateInsta(Connection conn, Instagram insta) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateInsta");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, insta.getComContent());
+			pstmt.setString(2, insta.getInstaId());
+			pstmt.setString(3, insta.getComTag());
+			pstmt.setInt(4, insta.getComNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateInstaImg(Connection conn, InstaImage img) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateInstaImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, img.getInstaImgOrigin());
+			pstmt.setString(2, img.getInstaImgChange());
+			pstmt.setString(3, img.getInstaImgSrc());
+			pstmt.setInt(4, img.getInstaImgNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteInsta(Connection conn, int comNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteInsta");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, comNo);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("디에이오 " + comNo);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertLike(Connection conn, int comNo, int memNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, comNo);
 			
 			result = pstmt.executeUpdate();
 			

@@ -6,22 +6,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.kh.community.model.service.CommunityService;
-import com.kh.community.model.vo.AnswerInstagram;
+import com.google.gson.Gson;
+import com.kh.community.model.vo.Instagram;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class AnswerInsertController
+ * Servlet implementation class InstaFollowController
  */
-@WebServlet("/answerInsert.co")
-public class AnswerInsertController extends HttpServlet {
+@WebServlet("/follow.co")
+public class InstaFollowController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnswerInsertController() {
+    public InstaFollowController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,21 +31,22 @@ public class AnswerInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String answerContent = request.getParameter("content");
-		int ComNo = Integer.parseInt(request.getParameter("cno"));
 		
-		int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
-		System.out.println("memNo : " + memNo);
+		HttpSession session = request.getSession();
 		
-		AnswerInstagram answer = new AnswerInstagram();
-		answer.setAnsContent(answerContent);
-		answer.setComNo(ComNo);
-		answer.setMemNo(String.valueOf(memNo));
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String memInstaId = loginUser.getInstaId();
 		
-		int result = new CommunityService().insertAnswer(answer);
+		String writerInstaId = (String)request.getAttribute(name)
+				
+		Instagram insta = new Instagram();
+		insta.getInstaId();
 		
-		response.getWriter().print(result);
-		
+		System.out.println("팔로팔로" + memInstaId + insta.getInstaId());
+		/*
+		 * response.setContentType("application/json; charset=utf-8"); new
+		 * Gson().toJson(response.getWriter());
+		 */
 	}
 
 	/**

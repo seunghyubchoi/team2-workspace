@@ -1,4 +1,10 @@
+<%@page import="com.kh.community.model.vo.InstaImage"%>
+<%@page import="com.kh.community.model.vo.Instagram"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+	Instagram insta = (Instagram)request.getAttribute("insta");
+	InstaImage img = (InstaImage)request.getAttribute("img");
+%>
     <!DOCTYPE html>
     <html>
 
@@ -54,7 +60,7 @@
                 border: 1px solid black;
             }
             
-			.tag {
+			.tag, .uTags {
 			  display: inline-block;
 			  background-color: #ccc;
 			  padding: 2px 6px;
@@ -69,15 +75,18 @@
 
             <!--content-->
             <div id="content">
-                <h1>스타일 업로드</h1>
+                <h1>스타일 수정하기</h1>
                 <br>
-                <form action="<%=contextPath%>/insert.co" method="post" enctype="multipart/form-data">
+                <form action="<%=contextPath%>/update.co" method="post" enctype="multipart/form-data">
 
 					<input type="hidden" name="memNo" value="<%= loginUser.getMemNo() %>">
+					<input type="hidden" name="cno" value="<%= insta.getComNo() %>">
 					
                     <h3>사진</h3>
+                    
                     <img id="preview" style="width: 200px; height: 200px;" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"> <input type="file" name="upfile" onchange="readURL(this);" data-width="300"
+                        data-bs-target="#exampleModal" src="<%= img.getInstaImgChange()%><%= img.getInstaImgSrc() %>"> 
+                        <input type="file" name="upfile" onchange="readURL(this);" data-width="300"
                         data-height="450" required> <br> <br>
 
                     <script>
@@ -268,7 +277,7 @@
 
                     <h3>설명</h3>
                     <h5>스타일을 소개해주세요.</h5>
-                    <textarea name="content" id="" cols="100" rows="10" maxlength="300"></textarea>
+                    <textarea name="content"  id="" cols="100" rows="10" maxlength="300"><%= insta.getComContent() %></textarea>
                     <br> <br>
                     <h3>인스타 아이디</h3>
                     <h5>입력하신 인스타 아이디는 회원 정보에 자동 저장됩니다.</h5>
@@ -277,7 +286,7 @@
 
                     <input id="tag-input"placeholder="태그를 입력하세용">
                     <input type="hidden" name="tags">
-					<div id="tag-container" ></div>
+					<div class="uTags" id="tag-container"><%= insta.getComTag() %></div>
 					
 					<script>
 					const tagInput = document.getElementById('tag-input');
@@ -317,8 +326,9 @@
                         않은 글은 본인의 동의 없이 관리자가 임의대로 삭제할 수 있습니다.
                     </h5>
                     <br> <br>
-                    <button onclick="goToMain();">취소</button>
-                    <button>업로드</button>
+                    <!-- <button onclick="goToMain();">취소</button> -->
+                    <button type="reset">취소하기</button>
+                    <button>수정하기</button>
 
 					<!-- 취소 버튼 클릭 시 인스타 메인 화면으로 돌아가기 -->
 					<script>

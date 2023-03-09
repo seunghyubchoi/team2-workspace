@@ -38,31 +38,39 @@ public class InstaInsertController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-
+		
 		if (ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10 * 1024 * 1024;
-
+			
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/img/insta/");
 
-			MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
-			String content = multipartRequest.getParameter("content");
-			String instaId = multipartRequest.getParameter("instaId");
-			String tags = multipartRequest.getParameter("tags");
-			String memNo = multipartRequest.getParameter("memNo");
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			System.out.println(savePath + 1323);
+			/*
+			 * String content = multiRequest.getParameter("content"); String instaId =
+			 * multiRequest.getParameter("instaId"); String tags =
+			 * multiRequest.getParameter("tags"); String memNo =
+			 * multiRequest.getParameter("memNo");
+			 * 
+			 * Instagram insta = new Instagram(); insta.setComContent(content);
+			 * insta.setInstaId(instaId); insta.setComTag(tags); insta.setMemNo(memNo);
+			 * 
+			 * InstaImage img = null;
+			 */
 			
 			Instagram insta = new Instagram();
-			insta.setComContent(content);
-			insta.setInstaId(instaId);
-			insta.setComTag(tags);
-			insta.setMemNo(memNo);
+			insta.setMemNo(multiRequest.getParameter("memNo"));
+			insta.setComContent(multiRequest.getParameter("content"));
+			insta.setInstaId(multiRequest.getParameter("instaId"));
+			insta.setComTag(multiRequest.getParameter("tags"));
 			
-			InstaImage img = null;
+			System.out.println(multiRequest.getOriginalFileName("upfile"));
 			
-			if (multipartRequest.getOriginalFileName("upfile") != null) {
+			InstaImage img = new InstaImage();
+			if (multiRequest.getOriginalFileName("upfile") != null) {
 				img = new InstaImage();
-				img.setInstaImgOrigin(multipartRequest.getOriginalFileName("upfile"));
-				img.setinstaImgChange(multipartRequest.getFilesystemName("upfile"));
+				img.setInstaImgOrigin(multiRequest.getOriginalFileName("upfile"));
+				img.setinstaImgChange(multiRequest.getFilesystemName("upfile"));
 				img.setInstaImgSrc("resources/img/insta/");
 			}
 			

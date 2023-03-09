@@ -52,11 +52,12 @@ public class CommunityService {
 		Connection conn = getConnection();
 		
 		int result1 = new CommunityDao().insertInsta(conn, insta);
-		int result2 = 1;
-		
-		if (img != null) {
-			result2 = new CommunityDao().insertInstaimg(conn, img);
-		}
+		int result2 = new CommunityDao().insertInstaimg(conn, img);
+		/*
+		 * int result2 = 1;
+		 * 
+		 * if (img != null) { result2 = new CommunityDao().insertInstaimg(conn, img); }
+		 */
 		
 		if (result1 > 0 && result2 > 0) {
 			commit(conn);
@@ -67,5 +68,74 @@ public class CommunityService {
 		close(conn);
 		
 		return result1 * result2;
+	}
+	
+	public Instagram selectInsta(int comNo) {
+		Connection conn = getConnection();
+		
+		Instagram insta = new CommunityDao().selectInsta(conn, comNo);
+		
+		close(conn);
+		
+		return insta;
+	}
+	
+	public InstaImage selectInstaImg(int comNo) {
+		Connection conn = getConnection();
+		
+		InstaImage img = new CommunityDao().selectInstaImg(conn, comNo);
+		
+		close(conn);
+		
+		return img;
+	}
+	
+	public int updateInsta(Instagram insta, InstaImage img) {
+		Connection conn = getConnection();
+		
+		int result1 = new CommunityDao().updateInsta(conn, insta);
+		
+		int result2 = 1;
+		
+		if (img != null) {
+			if (img.getInstaImgNo() != 0) {
+				result2 = new CommunityDao().updateInstaImg(conn, img);
+			}
+		}
+		
+		if (result1 > 0 && result2 < 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result1 * result2;
+	}
+	
+	public int deleteInsta(int comNo) {
+		Connection conn = getConnection();
+		
+		int result = new CommunityDao().deleteInsta(conn, comNo);
+		System.out.println("서비스 " + comNo);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int insertLike(int comNo, int memNo) {
+		Connection conn = getConnection();
+		
+		int result = new CommunityDao().insertLike(conn, comNo, memNo);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 }

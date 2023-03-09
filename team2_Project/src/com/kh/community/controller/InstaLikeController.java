@@ -7,21 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.community.model.service.CommunityService;
-import com.kh.community.model.vo.AnswerInstagram;
-import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class AnswerInsertController
+ * Servlet implementation class InstaLikeController
  */
-@WebServlet("/answerInsert.co")
-public class AnswerInsertController extends HttpServlet {
+@WebServlet("/like.co")
+public class InstaLikeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnswerInsertController() {
+    public InstaLikeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,21 +29,16 @@ public class AnswerInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String answerContent = request.getParameter("content");
-		int ComNo = Integer.parseInt(request.getParameter("cno"));
 		
-		int memNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
-		System.out.println("memNo : " + memNo);
+		int comNo = Integer.parseInt(request.getParameter("comNo"));
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		AnswerInstagram answer = new AnswerInstagram();
-		answer.setAnsContent(answerContent);
-		answer.setComNo(ComNo);
-		answer.setMemNo(String.valueOf(memNo));
+		int result = new CommunityService().insertLike(comNo, memNo);
 		
-		int result = new CommunityService().insertAnswer(answer);
-		
-		response.getWriter().print(result);
-		
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+
+	    new Gson().toJson(result,response.getWriter());
 	}
 
 	/**

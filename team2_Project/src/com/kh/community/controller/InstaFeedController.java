@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.community.model.service.CommunityService;
+import com.kh.community.model.vo.InstaImage;
+import com.kh.community.model.vo.Instagram;
 
 /**
  * Servlet implementation class InstaFeedController
@@ -30,7 +32,18 @@ public class InstaFeedController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int comNo = Integer.parseInt(request.getParameter("cno"));
 		
-		int result = new CommunityService().selectInstagram();
+		Instagram insta = new CommunityService().selectInsta(comNo);
+		InstaImage img = new CommunityService().selectInstaImg(comNo);
+		
+		request.setAttribute("insta", insta);
+		request.setAttribute("img", img);
+		
+		System.out.println(insta.getComTag().split(","));
+		
+		String[] arrTag = insta.getComTag().split(",");
+		
+		request.setAttribute("arrTag", arrTag);
+		System.out.println(arrTag + "태그태그");
 		
 		request.getRequestDispatcher("views/community/instaFeed.jsp").forward(request, response);
 	}

@@ -3,10 +3,11 @@
 <properties>
 <entry key="selectInstaList">
 SELECT
-       INSTA_IMG_ORIGIN
+       COM_NO
      , INSTA_IMG_SRC
+     , INSTA_IMG_CHANGE
   FROM TB_INSTAGRAM
-  LEFT JOIN TB_INSTA_IMAGE IMG ON (IMG_NO = INSTA_IMG_NO)
+  LEFT JOIN TB_INSTA_IMAGE IMG ON (COM_NO = REF_CNO)
  WHERE DEL_YN = 'N'
  ORDER
     BY UPLOAD_DATE DESC
@@ -18,7 +19,7 @@ SELECT
      , INSTA_IMG_SRC
      , COUNT(LIKE_NO)
   FROM TB_INSTAGRAM 
-  LEFT JOIN TB_INSTA_IMAGE ON (IMG_NO = INSTA_IMG_NO)
+  LEFT JOIN TB_INSTA_IMAGE ON (COM_NO = REF_CNO)
   LEFT JOIN TB_LIKE USING (COM_NO)
  WHERE DEL_YN = 'N'
  GROUP BY INSTA_IMG_ORIGIN
@@ -37,7 +38,7 @@ INSERT
   	 )
   	 VALUES
   	 (
-  	   SEQ_ANSWER_INSTAGRAM
+  	   SEQ_ANSWER_INSTAGRAM.NEXTVAL
   	 , ?
   	 , ?
   	 , ?
@@ -50,12 +51,12 @@ SELECT
 	 , ANS_CONTENT
 	 , MEM_ID
 	 , TO_CHAR(ANS_DATE, 'YY/MM/DD HH:MI') "ANS_DATE"
-  FORM TB_ANSWER_INSTAGRAM AN
-  JOIN MEMBER ON (MEM_NO = MEM_NO)
+  FROM TB_ANSWER_INSTAGRAM AN
+  JOIN TB_MEMBER USING (MEM_NO)
  WHERE AN.DEL_YN = 'N'
    AND COM_NO = ?
  ORDER
- 	BY COM_NO DESC
+ 	BY ANS_DATE DESC
 </entry>
 
 <entry key="insertInsta">
@@ -83,6 +84,7 @@ INSERT
   INTO TB_INSTA_IMAGE
      (
        INSTA_IMG_NO
+     , REF_CNO
      , INSTA_IMG_ORIGIN
      , INSTA_IMG_CHANGE
      , INSTA_IMG_SRC
@@ -90,9 +92,124 @@ INSERT
      VALUES
      (
        SEQ_INSTA_IMAGE.NEXTVAL
+     , SEQ_INSTAGRAM.CURRVAL
      , ?
      , ?
      , ?
      )
+</entry>
+
+<entry key="selectInsta">
+SELECT
+       COM_NO
+     , INS.INSTA_ID
+     , COM_CONTENT
+     , COM_TAG
+     , MEM_ID
+  FROM TB_INSTAGRAM INS
+  JOIN TB_MEMBER USING (MEM_NO)
+ WHERE COM_NO = ?
+</entry>
+
+<entry key="selectInstaImg">
+SELECT
+       INSTA_IMG_NO
+     , INSTA_IMG_ORIGIN
+     , INSTA_IMG_CHANGE
+     , INSTA_IMG_SRC
+  FROM TB_INSTA_IMAGE
+ WHERE REF_CNO = ?
+</entry>
+
+<entry key="insertFollow">
+INSERT 
+  INTO TB_FOLLOW 
+  	 (
+  	   FOLLOW_NO
+  	 , FOLLOWER_ID
+  	 , FOLLOWING_ID
+  	 , ACT_YN
+  	 ) 
+  	 VALUES 
+  	 (
+  	   SEQ_FOLLOW.NEXTVAL
+  	 , ?
+  	 , (
+    	 SELECT MEM_NO 
+    	   FROM TB_MEMBER 
+    	  WHERE INSTA_ID = 
+    	  	  (
+      			SELECT INSTA_ID 
+      			  FROM TB_INSTAGRAM 
+      			 WHERE COM_NO = ?
+    		   )
+  		)
+  	 , 'Y'
+	 )
+</entry>
+
+<entry key="updateFollow">
+UPDATE TB_FOLLOW
+   SET ACT_YN = 'N'
+ WHERE FOLLOWER_ID = ?
+   AND FOLLOWING_ID = 
+     (
+       SELECT MEM_NO 
+         FROM TB_MEMBER 
+        WHERE INSTA_ID = 
+            (
+              SELECT INSTA_ID 
+                FROM TB_INSTAGRAM 
+               WHERE COM_NO = ?
+            )
+      )
+</entry>
+
+<entry key="insertLike">
+INSERT 
+  INTO TB_LIKE 
+     (
+       LIKE_NO
+     , MEM_NO
+     , COM_NO
+     ) 
+     VALUES 
+     (
+       SEQ_LIKE.NEXTVAL
+     , ?
+     , ?
+     )
+</entry>
+
+<entry key="deleteLike">
+DELETE 
+  FROM TB_LIKE
+ WHERE MEM_NO = ? 
+   AND COM_NO = ?
+</entry>
+
+<entry key="updateInsta">
+UPDATE
+       TB_INSTAGRAM
+   SET COM_CONTENT = ?
+     , INSTA_ID = ?
+     , COM_TAG = ?
+ WHERE COM_NO = ?
+</entry>
+
+<entry key="updateInstaImg">
+UPDATE
+       TB_INSTA_IMAGE
+   SET INSTA_IMG_ORIGIN = ?
+     , INSTA_IMG_CHANGE = ?
+     , INSTA_IMG_SRC = ?
+ WHERE INSTA_IMG_NO = ?
+</entry>
+
+<entry key="deleteInsta">
+UPDATE
+       TB_INSTAGRAM
+   SET DEL_YN = 'Y'
+ WHERE COM_NO = ?
 </entry>
 </properties>
