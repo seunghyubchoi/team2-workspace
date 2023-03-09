@@ -1,3 +1,4 @@
+<%@page import="com.kh.payment.model.vo.ReturnA"%>
 <%@page import="com.kh.payment.model.vo.OrderA"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
@@ -11,6 +12,8 @@ pageEncoding="UTF-8"%>
 	if(o.getRcpAddressName() == null){
 		o.setRcpAddressName("");
 	}
+	
+	ReturnA r = (ReturnA)request.getAttribute("r");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -67,125 +70,168 @@ pageEncoding="UTF-8"%>
                 <div class="container-fluid mb-5">
 
                     <div class="content-wrapper">
-                        <h6 style="color: #635566;"><b>주문정보</b></h6>
-                        <div id="orderInfo" class="display-flex">
-                            <table class="table table-primary table-bordered">
-                                <tr>
-                                    <td>주문번호</td>
-                                    <td><%= o.getOrderNo() %></td>
-                                    <td>주문자성함</td>
-                                    <td><%= o.getMemName() %></td>
-                                </tr>
-                                <tr>
-                                    <td>주문날짜</td>
-                                    <td><%= o.getOrderDate() %></td>
-                                    <td>이메일주소</td>
-                                    <td><%= o.getEmail() %></td>
-                                </tr>
-                                <tr>
-                                    <td>주문상태</td>
-                                    <td>
-                                        <select name="orderStatus" id="orderStatus">
-                                        <option value="">상품준비중</option>
-                                        <option value="">배송중</option>
-                                        <option value="">배송완료</option>
-                                        <option value="">취소완료</option>
-                                        <option value="">교환요청</option>
-                                        <option value="">교환중</option>
-                                        <option value="">교환완료</option>
-                                        <option value="">환불요청</option>
-                                        <option value="">환불중</option>
-                                        <option value="">환불완료</option>
-                                        </select>
-                                    </td>
-                                    <td>전화번호</td>
-                                    <td><%= o.getPhone() %></td>
-                            </table>
-                        </div>
-                        <hr class="hr-3">
-                        
-                        <div id="orderProductInfo">
-                            <h6 style="color: #635566;"><b>주문상품정보</b></h6>
-                            <div id="orderProductList">
-
-                            </div>
-                        </div>
-
-                        <hr class="hr-3">
-
-                        <div id="orderLocationInfo" class="display-flex">
-                            <div style="width: 15%;">
-                                <h6 style="color: #635566;"><b>배송정보</b></h6>
-                            </div>
-                            <div style="width: 70%;">
-                                <table class="table table-primary table-bordered">
+                        <form action="update.od" method="post">
+                            <input type="hidden" name="memNo" value="<%= o.getMemNo()%>"> 
+                            <h6 style="color: #635566;"><b>주문정보</b></h6>
+                            <div id="orderInfo" class="display-flex">
+                                <table class="table table-primary table-bordered input-w-100">
                                     <tr>
-                                        <td><input type="text" class=".input" name="locationAddressName" value="<%= o.getRcpAddressName()%>"></td>
+                                        <td>주문번호</td>
+                                        <td><%= o.getOrderNo() %></td>
+                                        <input type="hidden" name="orderNo" value="<%= o.getOrderNo() %>">
+                                        <td>주문자성함</td>
+                                        <td><%= o.getMemName() %></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" class=".input" name="locationName" value="<%= o.getRcpName()%>"></td>
+                                        <td>주문날짜</td>
+                                        <td><%= o.getOrderDate() %></td>
+                                        <td>이메일주소</td>
+                                        <td><%= o.getEmail() %></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" class=".input" name="locationPhone" value="<%= o.getRcpPhone()%>"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" id="sample6_address" name="rcpAddress" value="<%= o.getRcpAddress() %>" readonly></td>
-                                        <td><button class="btn btn-secondary btn-sm" onclick="sample6_execDaumPostcode();">주소변경</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" id="sample6_detailAddress" name="rcpAddressDtl" value="<%= o.getRcpAddressDtl() %>"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" id="sample6_postcode" name="rcpPostCode" value="<%= o.getRcpPostCode() %>" readonly></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class=".input"  name="locationMsg" value="<%= o.getRcpMsg() %>"></td>
-                                    </tr>
+                                        <td>주문상태</td>
+                                        <td>
+                                            <select name="orderStatus" id="orderStatus">
+                                            <option>상품준비중</option>
+                                            <option>배송중</option>
+                                            <option>배송완료</option>
+                                            <option>취소완료</option>
+                                            <option>교환요청</option>
+                                            <option>교환중</option>
+                                            <option>교환완료</option>
+                                            <option>환불요청</option>
+                                            <option>환불중</option>
+                                            <option>환불완료</option>
+                                            </select>
+                                        </td>
+                                        <td>전화번호</td>
+                                        <td><%= o.getPhone() %></td>
                                 </table>
                             </div>
-                        </div>
-
-                        <hr class="hr-3">
-
-                        <div id="orderPayInfo" class="display-flex">
-                            <div style="width: 15%;">
-                                <h6 style="color: #635566;"><b>결제정보</b></h6>
+                            <hr class="hr-3">
+                            
+                            <div id="orderProductInfo">
+                                <h6 style="color: #635566;"><b>주문상품정보</b></h6>
+                                <div id="orderProductList">
+    
+                                </div>
                             </div>
-                            <div style="width: 85%;">
-                                <table class="table table-primary table-bordered">
-                                    <tr>
-                                        <td>주문상품 수</td>
-                                        <td class="text-right" id="allStock"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>주문금액</td>
-                                        <td class="text-right" id="originPrice"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>할인금액</td>
-                                        <td class="text-right" id="discountPrice" style="color: red;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>적립금할인</td>
-                                        <td class="text-right">- <%= o.getUseMileage() %> 원</td>
-                                    </tr>
-                                    <tr>
-                                        <td>적립포인트</td>
-                                        <td class="text-right">+ <%= o.getSaveMileage() %> 원</td>
-                                    </tr>
-                                    <tr>
-                                        <td>최종결제금액</td>
-                                        <td class="text-right" id="totalPrice"></td>
-                                    </tr>
-                                </table>
+    
+                            <hr class="hr-3">
+    
+                            <div id="returnProductInfo">
+                                <h6 style="color: #635566;"><b>취소/환불 상품정보</b></h6>
+                                <div id="returnProductList">
+                                    
+                                </div>
                             </div>
-                        </div>
-                        <div class="table-buttons mr-0 ml-auto" align="right">
-                            <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                data-target="#backModal">뒤로가기</button>
-                            <button type="submit" class="btn btn-primary">수정</button>
-                        </div>
+                            
+                            <hr class="hr-3">
+    
+                            <div id="orderLocationInfo" class="display-flex input-w-100">
+                                <div style="width: 15%;">
+                                    <h6 style="color: #635566;"><b>배송정보</b></h6>
+                                </div>
+                                <div style="width: 70%;">
+                                    <table class="table table-primary table-bordered input-w-100">
+                                        <tr>
+                                            <td><input type="text" class="input" name="locationAddressName" value="<%= o.getRcpAddressName()%>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="input" name="locationName" value="<%= o.getRcpName()%>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="input" name="locationPhone" value="<%= o.getRcpPhone()%>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" id="sample6_address" name="rcpAddress" value="<%= o.getRcpAddress() %>" readonly></td>
+                                            <td><button type="button" class="btn btn-secondary btn-sm" onclick="sample6_execDaumPostcode();">주소변경</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" id="sample6_detailAddress" name="rcpAddressDtl" value="<%= o.getRcpAddressDtl() %>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" id="sample6_postcode" name="rcpPostCode" value="<%= o.getRcpPostCode() %>" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="input"  name="locationMsg" value="<%= o.getRcpMsg() %>"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+    
+                            <hr class="hr-3">
+    
+                            <div id="orderPayInfo" class="display-flex">
+                                <div style="width: 15%;">
+                                    <h6 style="color: #635566;"><b>결제정보</b></h6>
+                                </div>
+                                <div style="width: 85%;">
+                                    <table class="table table-primary table-bordered">
+                                        <tr>
+                                            <td>주문상품 수량</td>
+                                            <td class="text-right" id="orderStock"></td>
+                                            <input type="hidden" name="orderQnt" id="orderStock">
+                                        </tr>
+                                        <tr>
+                                            <td>주문금액</td>
+                                            <td class="text-right" id="originPrice"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>환불금액</td>
+                                            <td class="text-right" id="returnPrice"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>할인금액</td>
+                                            <td class="text-right" id="discountPrice" style="color: red;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>적립금할인</td>
+                                            <td class="text-right">- <%= o.getUseMileage() %> 원</td>
+                                        </tr>
+                                        <tr>
+                                            <td>적립포인트</td>
+                                            <td class="text-right" id="saveMilegae"></td>
+                                            <input type="hidden" name="saveMileage">
+                                        </tr>
+                                        <tr>
+                                            <td>최종결제금액</td>
+                                            <td class="text-right" id="totalPrice"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
 
+                            <hr class="hr-3">
+							<% if(r != null){ %>
+	                            <div id="returnInfo" class="display-flex">
+	                                <div style="width: 15%;">
+	                                    <h6 style="color: #635566;"><b>교환/반품정보</b></h6>
+	                                </div>
+	                                <div style="width: 85%;">
+	                                    <table class="table table-primary table-bordered">
+	                                        <tr>
+	                                            <td>구분</td>
+	                                            <td class="text-right"><%= r.getReturnStatus() %></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <td>상품</td>
+	                                            <td class="text-right"><%= r.getDtlOrderNo() %></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <td>사유</td>
+	                                            <td class="text-right"><%= r.getReturnReason() %></td>
+	                                        </tr>
+	                                    </table>
+	                                </div>
+							<%} %>
+                            </div>
+                            <div class="table-buttons mr-0 ml-auto" align="right">
+                                <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                    data-target="#backModal">뒤로가기</button>
+                                <button type="submit" class="btn btn-primary">수정</button>
+                            </div>
+                        </form>
                     </div>
 
                 </div>
@@ -212,6 +258,10 @@ pageEncoding="UTF-8"%>
                     $(this).prop("selected", true);
                 }
             });
+            
+            if(status == '교환요청' || status == '환불요청'){
+
+            }
         });
 
         function selectOrderDetailList(){
@@ -224,37 +274,65 @@ pageEncoding="UTF-8"%>
                 async:false,
 	        	success:function(odList){
                     options = [];
-	        		let value = "";
+	        		let odProduct = "";
+	        		let reProduct = "";
 	        		for(let i = 0; i < odList.length; i++){
                         var product = selectProduct(odList[i].productNo);
                         var optionList = selectOptionList(odList[i].productNo);
                         options.push(odList[i].dtlSize);
-	        			value += '<table class="table table-primary table-bordered">'
-                              +       '<tr>'
-                              +             '<td>브랜드</td>'
-                              +             '<td>' + product.brandNo + '</td>'
-                              +             '<td>수량</td>'
-                              +             '<td><input type="number" name="dtlQnt' + i + '" value="' + odList[i].dtlQnt + '"></td>'
-                              +             '<td><button type="button" class="btn btn-primary" onclick="updateOrderDtl(' + i + ');">수정하기</button></td>'
-                              +         '</tr>'
-                              +         '<tr>'
-                              +             '<td>상품명</td>'
-                              +             '<td> ' + product.productName + '</td>'
-                              +             '<td>옵션</td>'
-                              +             '<td>'
-                              +                 '<select name="dtlSize' + i + '" id="option' + i + '">'
-                              +                     selectOptionList(odList[i].productNo)
-                              +                 '</select>'
-                              +             '</td>'
-                              +             '<td><button class="btn btn-warning" onclick="deleteOrderDtl(' + i + ');">부분환불</button></td>'
-                              +             '<input type="hidden" name="orderDtlNo' + i + '" value="' + odList[i].orderDtlNo + '">'
-                              +             '<input type="hidden" id="originPrice' + i + '"value="' + (Number(product.productPrice) * Number(odList[i].dtlQnt)) + '">'
-                              +             '<input type="hidden" id="discountPrice' + i + '"value="' + (Number(product.productPrice) * Number(product.productDiscount) / 100) + '">'
-                              +         '</tr>'
-                              +     '</table>';
+                        if(odList[i].delYn == 'N'){
+                            odProduct += '<table class="table table-primary table-bordered">'
+                                  +       '<tr>'
+                                  +             '<td>브랜드</td>'
+                                  +             '<td>' + product.brandNo + '</td>'
+                                  +             '<td>수량</td>'
+                                  +             '<td><input type="number" class="stock orderStock" name="dtlQnt' + i + '" value="' + odList[i].dtlQnt + '"></td>'
+                                  +             '<td><button type="button" class="btn btn-primary" onclick="updateOrderDtl(' + i + ');">수정하기</button></td>'
+                                  +         '</tr>'
+                                  +         '<tr>'
+                                  +             '<td>상품명</td>'
+                                  +             '<td> ' + product.productName + '</td>'
+                                  +             '<td>옵션</td>'
+                                  +             '<td>'
+                                  +                 '<select name="dtlSize' + i + '" id="option' + i + '">'
+                                  +                     selectOptionList(odList[i].productNo)
+                                  +                 '</select>'
+                                  +             '</td>'
+                                  +             '<td><button type="button" class="btn btn-warning" onclick="deleteOrderDtl(' + i + ');">부분환불</button></td>'
+                                  +             '<input type="hidden" name="orderDtlNo' + i + '" value="' + odList[i].orderDtlNo + '">'
+                                  +             '<input type="hidden" class="orderPrice originPrice" id="originPrice' + i + '"value="' + (Number(product.productPrice) * Number(odList[i].dtlQnt)) + '">'
+                                  +             '<input type="hidden" class="orderDiscount" id="discountPrice' + i + '"value="' + (Number(product.productPrice) * Number(product.productDiscount) / 100) + '">'
+                                  +         '</tr>'
+                                  +     '</table>';
+                        }else{
+                            reProduct += '<table class="table table-primary table-bordered">'
+                                  +       '<tr>'
+                                  +             '<td>브랜드</td>'
+                                  +             '<td>' + product.brandNo + '</td>'
+                                  +             '<td>수량</td>'
+                                  +             '<td><input type="number" class="stock returnStock" name="dtlQnt' + i + '" value="' + odList[i].dtlQnt + '"></td>'
+                                  +             '<td><button type="button" class="btn btn-primary" disabled>수정하기</button></td>'
+                                  +         '</tr>'
+                                  +         '<tr>'
+                                  +             '<td>상품명</td>'
+                                  +             '<td> ' + product.productName + '</td>'
+                                  +             '<td>옵션</td>'
+                                  +             '<td>'
+                                  +                 '<select name="dtlSize' + i + '" id="option' + i + '">'
+                                  +                     selectOptionList(odList[i].productNo)
+                                  +                 '</select>'
+                                  +             '</td>'
+                                  +             '<td><button class="btn btn-warning" disabled>취소완료</button></td>'
+                                  +             '<input type="hidden" name="orderDtlNo' + i + '" value="' + odList[i].orderDtlNo + '">'
+                                  +             '<input type="hidden" class="returnPrice originPrice" id="originPrice' + i + '"value="' + (Number(product.productPrice) * Number(odList[i].dtlQnt)) + '">'
+                                  +             '<input type="hidden" class="returnDiscount" id="discountPrice' + i + '"value="' + (Number(product.productPrice) * Number(product.productDiscount) / 100) + '">'
+                                  +         '</tr>'
+                                  +     '</table>';
+                        }
                     }
 
-                    $("#orderProductList").html(value);
+                    $("#orderProductList").html(odProduct);
+                    $("#returnProductList").html(reProduct);
 
                     for(let i = 0 ; i < options.length; i++){
                         const op = options[i];
@@ -361,21 +439,44 @@ pageEncoding="UTF-8"%>
         }
         
         function calPrice(count){
-        	let allStock = 0;
+            
+            let orderStock = 0;
         	let originPrice = 0;
         	let discountPrice = 0;
             let useMileage = Number(<%= o.getUseMileage() %>);
+            let orderPrice = 0;
+            let returnPrice = 0;
             
         	for(let i = 0; i < count; i++){
-                allStock += Number($("input[name=dtlQnt" + i +"]").val());
-        		originPrice += Number($("#originPrice" + i).val());
+                //allStock += Number($("input[name=dtlQnt" + i +"]").val());
+        		//originPrice += Number($("#originPrice" + i).val());
         		discountPrice += Number($("#discountPrice" + i).val());
         	}
+
+            $(".orderStock").each(function(){
+                orderStock += Number($(this).val());
+            });
+
+            $(".orderPrice").each(function(){
+                orderPrice += Number($(this).val());
+            });
+
+            $(".returnPrice").each(function(){
+                returnPrice += Number($(this).val());
+            })
+
+            $(".orderDiscount").each(function(){
+                discountPrice += Number($(this).val());
+            });
         	
-        	$("#allStock").text(allStock + " 개");
-        	$("#originPrice").text(originPrice + " 원");
+        	$("#orderStock").text(orderStock + " 개");
+            $("#orderStock").next().val(orderStock);
+        	$("#originPrice").text((orderPrice + returnPrice) + " 원");
+            $("#returnPrice").text(returnPrice + " 원");
         	$("#discountPrice").text("-" + discountPrice + " 원");
-        	$("#totalPrice").text((originPrice - discountPrice - useMileage) + "원");
+            $("#saveMilegae").text("+" + (orderPrice / 100) + " 원");
+            $("#saveMilegae").next().val(orderPrice / 100);
+        	$("#totalPrice").text((orderPrice - discountPrice - useMileage) + "원");
         	
         }
     </script>

@@ -87,7 +87,7 @@ pageEncoding="UTF-8"%>
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" id="notice" href="noticeList.nt">공지사항</a>
                     <a class="collapse-item" id="qna" href="<%= contextPath%>/qnaList.qa">Q&A</a>
-                    <a class="collapse-item" id="community" href="<%= contextPath%>/communityList.ma">뭐입지그램</a>
+                    <!-- <a class="collapse-item" id="community" href="<%= contextPath%>/communityList.ma">뭐입지그램</a> -->
                 </div>
             </div>
         </li>
@@ -137,32 +137,6 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 
-    <!-- Button Process Modal-->
-    <!-- <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="commonModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="commonModalLabel"></h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="commonModalBody">
-                    
-                    <div id="id1"></div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <form action="#" method="post">
-                        <input type="hidden" id="menuName" name="menuName" value="">
-                        <button type="submit" class="btn btn-warning" id="checkBtn"></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <!-- Back Button Modal-->
     <div class="modal fade" id="backModal" tabindex="-1" role="dialog" aria-labelledby="backModalLabel"
         aria-hidden="true">
@@ -188,23 +162,6 @@ pageEncoding="UTF-8"%>
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-        <!-- Bootstrap core JavaScript-->
-        <!-- <script src="resources/vendor/jquery/jquery.js"></script>
-        <script src="resources/vendor/bootstrap/js/bootstrap.bundle.js"></script> -->
-    
-        <!-- Core plugin JavaScript-->
-        <!-- <script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script> -->
-    
-        <!-- Custom scripts for all pages-->
-        <!-- <script src="/resources/js/admin/sb-admin-2.js"></script> -->
-    
-        <!-- Page level plugins -->
-        <!-- <script src="resources/vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="resources/vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
-    
-         <!-- Page level custom scripts -->
-         <!-- <script src="../../resources/js/admin/datatables.js"></script> -->
 
 </body>
 

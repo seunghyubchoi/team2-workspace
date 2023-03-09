@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.member.model.vo.MileageHistory;
 import com.kh.notice.model.vo.Notice;
 import com.kh.payment.model.vo.Location;
 import com.kh.payment.model.vo.Order;
@@ -234,7 +235,8 @@ public class AdminPaymentDao {
 										rset.getInt("ORDER_NO"),
 										rset.getInt("PRODUCT_NO"),
 										rset.getString("DTL_SIZE"),
-										rset.getInt("DTL_QNT")
+										rset.getInt("DTL_QNT"),
+										rset.getString("DEL_YN")
 						));
 			}
 		} catch (SQLException e) {
@@ -243,7 +245,7 @@ public class AdminPaymentDao {
 			close(rset);
 			close(pstmt);
 		}
-
+		
 		return odList;
 	}
 
@@ -322,6 +324,93 @@ public class AdminPaymentDao {
 		}
 		
 		return result;
+	}
+
+	public int updateOrder(Connection conn, OrderA o) {
+		int result = 0; 
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateOrder");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, o.getOrderQnt());
+			pstmt.setString(2, o.getOrderStatus());
+			pstmt.setString(3, o.getRcpAddressName());
+			pstmt.setString(4, o.getRcpName());
+			pstmt.setString(5, o.getRcpPhone());
+			pstmt.setString(6, o.getRcpAddress());
+			pstmt.setString(7, o.getRcpAddressDtl());
+			pstmt.setString(8, o.getRcpPostCode());
+			pstmt.setString(9, o.getRcpMsg());
+			pstmt.setInt(10, o.getSaveMileage());
+			pstmt.setInt(11, o.getOrderNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertMileage(Connection conn, MileageHistory mh) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+	
+		String sql = prop.getProperty("insertMileage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, mh.getMileage());
+			pstmt.setInt(2, mh.getMemNo());
+			pstmt.setInt(3, Integer.parseInt(mh.getOrderNo()));
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
+	public MileageHistory selectMileageHistory(Connection conn, MileageHistory mh) {
+		MileageHistory m = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMileageHistory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, mh.getMemNo());
+			pstmt.setInt(2, Integer.parseInt(mh.getOrderNo()));
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new MileageHistory(rset.getInt("MEM_NO") + "",
+									    rset.getInt("ORDER_NO")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
 	}
 
 }

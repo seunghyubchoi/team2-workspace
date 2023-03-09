@@ -11028,6 +11028,6 @@ body.sidebar-toggled footer.sticky-footer {
   width: 75px;
 }
 
-table input{
+.input-w-100 input{
   width: 100%
 }

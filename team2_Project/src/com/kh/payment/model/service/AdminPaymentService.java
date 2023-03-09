@@ -1,5 +1,6 @@
 package com.kh.payment.model.service;
 
+import com.kh.member.model.vo.MileageHistory;
 import com.kh.payment.model.dao.AdminPaymentDao;
 import com.kh.payment.model.dao.PaymentDao;
 import com.kh.payment.model.vo.Location;
@@ -156,6 +157,28 @@ public class AdminPaymentService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int updateOrder(OrderA o, MileageHistory mh) {
+		Connection conn = getConnection();
+		
+		int result1 = new AdminPaymentDao().updateOrder(conn, o);
+		int result2 = 1;
+		
+		MileageHistory m = new AdminPaymentDao().selectMileageHistory(conn, mh);
+		
+		if(m == null && o.getOrderStatus().equals("배송완료")) {
+			System.out.println("이거타나,,,");
+			result2 = new AdminPaymentDao().insertMileage(conn, mh);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result1 * result2;
 	}
 
 }
