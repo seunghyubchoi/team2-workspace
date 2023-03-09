@@ -64,7 +64,7 @@ pageEncoding="UTF-8"%>
                                     <tr>
                                         <th>브랜드</th>
                                         <td>
-                                            <select name="brand" required>
+                                            <select name="brand" class="custom-select" required>
                                                 <option value="1">나이키</option>
                                                 <option value="2">무아무아</option>
                                                 <option value="3">아디다스</option>
@@ -74,7 +74,7 @@ pageEncoding="UTF-8"%>
                                         </td>
                                         <th>카테고리</th>
                                         <td>
-                                            <select name="category" required>
+                                            <select name="category" class="custom-select" required>
                                                 <option value="1">아우터</option>
                                                 <option value="2">상의</option>
                                                 <option value="3">하의</option>

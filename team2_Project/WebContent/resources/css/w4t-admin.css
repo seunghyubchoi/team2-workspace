@@ -247,6 +247,7 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  cursor: pointer;
 }
 
 button,
@@ -11030,4 +11031,13 @@ body.sidebar-toggled footer.sticky-footer {
 
 .input-w-100 input{
   width: 100%
+}
+
+.order{
+  display: flex;
+  width: 250px;
+}
+
+select[name=orderStatus]{
+  width: 170px;
 }

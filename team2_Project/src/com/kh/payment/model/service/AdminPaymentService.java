@@ -191,4 +191,20 @@ public class AdminPaymentService {
 		return r;
 	}
 
+	public int updateStatus(String deleteList, String orderStatus) {
+		Connection conn = getConnection();
+		
+		int result = new AdminPaymentDao().updateStatus(conn, deleteList, orderStatus);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 }

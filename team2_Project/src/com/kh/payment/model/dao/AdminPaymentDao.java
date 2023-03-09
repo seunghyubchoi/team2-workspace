@@ -445,5 +445,27 @@ public class AdminPaymentDao {
 		
 		return r;
 	}
+	
+	public int updateStatus(Connection conn, String deleteList, String orderStatus) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, orderStatus);
+			pstmt.setString(2, deleteList);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 }

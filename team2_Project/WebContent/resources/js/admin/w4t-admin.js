@@ -54,6 +54,9 @@ function deleteList() {
     }
   }
   $("#deleteList").val(arr);
+
+  $(".orderStatus").val($("select[name=orderStatus]").val());
+  $("#orderStatus").text($("select[name=orderStatus]").val());
 }
 
 // Admin Notice script
@@ -175,7 +178,6 @@ function changeLocYnBox(){
 function deleteLocation(num){
   $("#deleteNo").val($("input[name=locNo" + num + "]").val());
 }
-
 
 function chooseFile(num){
     $("#file" + num).click();

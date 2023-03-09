@@ -466,5 +466,23 @@ SELECT
 	 WHERE ORDER_NO = ? 
 </entry>
 
+<!-- 주문 일괄 상태변경 쿼리(관리자) -->
+<entry key="updateStatus">
+	UPDATE TB_ORDER
+	   SET ORDER_STATUS = ?
+	 WHERE ORDER_NO
+	    IN 
+	     (
+	       SELECT REGEXP_SUBSTR(A.TXT, '[^,]+', 1, LEVEL) TXT
+	         FROM 
+	            ( 
+	              SELECT ? TXT 
+	                FROM dual
+	             ) A
+	      CONNECT 
+	           BY INSTR(A.TXT, ',', 1, LEVEL-1) > 0
+	      )
+</entry>
+
 
 </properties>

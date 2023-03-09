@@ -91,7 +91,7 @@ pageEncoding="UTF-8"%>
                                     <tr>
                                         <td>주문상태</td>
                                         <td>
-                                            <select name="orderStatus" id="orderStatus">
+                                            <select name="orderStatus" id="orderStatus" class="custom-select">
                                             <option>상품준비중</option>
                                             <option>배송중</option>
                                             <option>배송완료</option>
