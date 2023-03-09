@@ -133,7 +133,7 @@ int maxPage = pi.getMaxPage();
 
 			
 					<tr>
-						<td><img src="<%=contextPath%><%=o.getFilePath()%>"
+						<td><img src="<%=contextPath%><%=o.getFilePath()%><%=o.getChangeName() %>"
 							alt=""></td>
 						<td>
 							<p>
@@ -257,17 +257,15 @@ int maxPage = pi.getMaxPage();
 				<!-- Modal body -->
 				<div class="modal-body" align="left">
 					<form action="<%=contextPath%>/returnOrder.mp" method="post">
-						<input type="hidden" name="memNo" value="<%=memNo%>">
 						<input type="hidden" name="dtlOrderNo" value="">
-						<label><input type="radio" name="returnStatus" value="exchange" checked>교환</label>
+						<label><input type="radio" name="returnStatus" value="교환" checked>교환</label>
 						<br>
-						<label><input type="radio" name="returnStatus" value="return">반품</label>
+						<label><input type="radio" name="returnStatus" value="반품">반품</label>
 						<br>
 						<br>
 						사유:
 						<input type="text"  class="form-control mb-2 mr-sm-2"  name="returnReason" placeholder="사유를 입력해주세요." required>
 						<button type="submit" class="btn btn-sm btn-secondary" id="returnBtn">신청</button>
-						
 					</form>
 				</div>
 			</div>
@@ -295,7 +293,7 @@ int maxPage = pi.getMaxPage();
 
 			
 			function returnAlert(e) {
-				/* 마저해야함  */
+				
 				$("input[name='dtlOrderNo']").val($(e).val())
 				
 				console.log($("input[name='dtlOrderNo']").val());

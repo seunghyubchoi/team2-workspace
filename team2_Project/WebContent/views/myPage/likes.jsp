@@ -1,3 +1,4 @@
+<%@page import="com.kh.community.model.vo.Instagram2"%>
 <%@page import="com.kh.common.PageInfo"%>
 <%@page import="com.kh.community.model.vo.Instagram"%>
 <%@page import="java.util.ArrayList"%>
@@ -5,7 +6,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	int memNo = (int) request.getAttribute("memNo");
-ArrayList<Instagram> LikeList = (ArrayList<Instagram>) request.getAttribute("LikeList");
+ArrayList<Instagram2> LikeList = (ArrayList<Instagram2>) request.getAttribute("LikeList");
 PageInfo pi = (PageInfo) request.getAttribute("pi");
 int currentPage = pi.getCurrentPage();
 int startPage = pi.getStartPage();
@@ -78,11 +79,11 @@ int maxPage = pi.getMaxPage();
 
 		<div class="list-area">
 			<%
-				for (Instagram i : LikeList) {
+				for (Instagram2 i : LikeList) {
 			%>
 			<!-- 썸네일 한 개-->
 			<div class="thumbnail" align="center">
-				<img src="<%=contextPath%><%=i.getInstaImgSrc()%>" alt=""
+				<img src="<%=i.getInstaImgSrc()%>" alt=""
 					class="thumbnailImg" width="300" height="330">
 				<div class="thumbnailMenu">
 					<input type="hidden" value="<%=i.getComNo()%>"> <img
@@ -175,28 +176,27 @@ int maxPage = pi.getMaxPage();
 					
 					
 					 function cancelDeleteLike(e) {
-						 let imgurl = "<%=contextPath%>
-			/resources/img/heartRed.png"
-				let cNo = $(e).siblings(":input").val();
-				$.ajax({
-					url : "insertLike.mp",
-					data : {
-						memNo :<%=memNo%>,
-						comNo : cNo
-					},
-					type : "post",
-					success : function(result) {
-						$(e).removeAttr("onclick");
-						$(e).attr("onclick", "DeleteLike(this)")
-						$(e).removeAttr("src");
-						$(e).attr("src", imgurl);
-					},
-					error : function() {
-						console.log("ajax 통신 실패!!")
-					}
-				})
-			}
-		</script>
+						 let imgurl = "<%=contextPath%>/resources/img/heartRed.png"
+						 let cNo = $(e).siblings(":input").val();
+							$.ajax({
+								url : "insertLike.mp",
+								data : {
+									memNo :<%=memNo%>,
+									comNo : cNo
+								},
+								type : "post",
+								success : function(result) {
+									$(e).removeAttr("onclick");
+									$(e).attr("onclick", "DeleteLike(this)")
+									$(e).removeAttr("src");
+									$(e).attr("src", imgurl);
+								},
+								error : function() {
+									console.log("ajax 통신 실패!!")
+								}
+							})
+						}
+			</script>
 	</div>
 	<%@include file="../common/footer.jsp"%>
 

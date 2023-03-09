@@ -13,6 +13,14 @@ public class Return {
 		
 	}
 
+	public Return(String returnStatus, String returnReason, int memNo, int orderNo) {
+		super();
+		this.returnStatus = returnStatus;
+		this.returnReason = returnReason;
+		this.memNo = memNo;
+		this.orderNo = orderNo;
+	}
+
 	public Return(int returnNo, String returnStatus, String returnReason, int memNo, int orderNo) {
 		super();
 		this.returnNo = returnNo;
