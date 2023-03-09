@@ -656,7 +656,7 @@ BEGIN
 END;
 /
 
--- 회원 삭제 시 배송지 삭제 트리거
+-- 회원 삭제 시 배송지, 팔로우 삭제 트리거: 수정
 CREATE OR REPLACE TRIGGER TRG_LOC_DEL
 AFTER UPDATE ON TB_MEMBER 
 FOR EACH ROW
@@ -666,23 +666,14 @@ BEGIN
         UPDATE TB_LOCATION
            SET DEL_YN = 'Y'
         WHERE MEM_NO = :NEW.MEM_NO;
+        UPDATE TB_FOLLOW
+           SET ACT_YN = 'N'
+        WHERE FOLLOWING_ID = :NEW.MEM_NO
+           OR FOLLOWER_ID = :NEW.MEM_NO;
     END IF;
 END;
 /
 
--- 회원 삭제 시 배송지 삭제 트리거
-CREATE OR REPLACE TRIGGER TRG_FWL_DEL
-AFTER UPDATE ON TB_MEMBER 
-FOR EACH ROW
-BEGIN
-    IF (:NEW.ACT_YN = 'N')
-        THEN
-        UPDATE TB_LOCATION
-           SET DEL_YN = 'Y'
-        WHERE MEM_NO = :NEW.MEM_NO;
-    END IF;
-END;
-/
 
 -- 230308 수정 
 -- 상품 이미지 트리거 추가
@@ -698,6 +689,22 @@ BEGIN
     END IF;
 END;
 /
+
+-- DTL ORDER 삭제
+CREATE OR REPLACE TRIGGER TRG_DTL_DEL
+AFTER UPDATE ON TB_ORDER 
+FOR EACH ROW
+BEGIN
+    IF (:NEW.ORDER_STATUS = '취소완료')
+        THEN
+        UPDATE TB_DTL_ORDER
+           SET DEL_YN = 'Y'
+        WHERE ORDER_NO = :NEW.ORDER_NO;
+        
+    END IF;
+END;
+/
+
 
 -- INSERT문
 
@@ -886,16 +893,11 @@ INSERT INTO TB_MILEAGE_HISTORY VALUES(SEQ_MILEAGE_HISTORY.NEXTVAL,'적립',200,5
 
 
 
-insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 7, 'S', 1, DEFAULT);
-insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 7, 'M', 2, DEFAULT);
-insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 7, 'FREE', 2, DEFAULT);
-insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 7, 'S', 1, DEFAULT);
-
---insert into tb_dtl_order values (seq_dtl_order.nextval, 3, 1, 'L', 1);
---insert into tb_dtl_order values (seq_dtl_order.nextval, 3, 1, 'S', 1);
---insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 1, 'XL', 1);
---insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 1, 'L', 1);
---insert into tb_dtl_order values (seq_dtl_order.nextval, 5, 1, 'L', 1);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 1, 1, 'L', 1, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 2, 1, 'S', 2, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 2, 1, 'XL', 1, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 1, 'L', 1, DEFAULT);
+insert into tb_dtl_order values (seq_dtl_order.nextval, 4, 1, 'L', 1, DEFAULT);
 
 
 
