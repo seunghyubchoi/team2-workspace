@@ -814,6 +814,7 @@ INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 바시�
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙&레드 컬러의 레더 재킷과 화이트 컬러의 카고 팬츠, 그레이&화이트 컬러의 스니커즈를 매칭한 룩입니다.','#카고','INSTA03','N',3,SYSDATE);
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'블랙 컬러의 항공 점퍼와 퍼플 컬러의 와이드 팬츠, 블랙 컬러의 스니커즈를 매칭한 룩입니다.','#와이드','INSTA04','N',4,SYSDATE);
 INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'레드 컬러의 카디건에 카키 컬러의 롱 스커트, 화이트 컬러의 첼시 부츠를 매칭한 룩입니다.','#레드','INSTA05','N',5,SYSDATE);
+INSERT INTO TB_INSTAGRAM VALUES(SEQ_INSTAGRAM.NEXTVAL,'연청 컬러의 트러커 집업 재킷에 스커트, 블랙 롱 부츠를 매칭한 룩입니다.','#청청','INSTA01','N',1,SYSDATE);
 
 
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,1,'익명의 패션사진1','https://image.msscdn.net/mfile_s01/_shopstaff/view.staff_6400bee7281ba.jpg?20230303085713','바뀐사진1');
@@ -851,6 +852,7 @@ INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,32,'익명의 패션�
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,33,'익명의 패션사진33','https://image.msscdn.net/mfile_s01/_street_images/88927/street_640577c6e5215.jpg?','바뀐사진33');
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,34,'익명의 패션사진34','https://image.msscdn.net/mfile_s01/_street_images/88929/street_6405769d1cbd7.jpg?','바뀐사진34');
 INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,35,'익명의 패션사진35','https://image.msscdn.net/mfile_s01/_street_images/88928/street_6405772359b41.jpg?20230306173302','바뀐사진35');
+INSERT INTO TB_INSTA_IMAGE VALUES(SEQ_INSTA_IMAGE.NEXTVAL,36,'익명의 패션사진36','https://image.msscdn.net/mfile_s01/_street_images/88923/street_640580693862e.jpg?','바뀐사진36');
 
 INSERT INTO TB_LIKE VALUES(SEQ_LIKE.NEXTVAL,2,2);
 INSERT INTO TB_LIKE VALUES(SEQ_LIKE.NEXTVAL,1,4);
