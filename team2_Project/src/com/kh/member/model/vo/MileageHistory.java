@@ -4,17 +4,30 @@ public class MileageHistory {
 	private int mileageNo;
 	private String mileageHistory;
 	private int mileage;
-	private String productNo;
+	private String orderNo;
 	private int memNo;
 	
 	public MileageHistory() {}
 
-	public MileageHistory(int mileageNo, String mileageHistory, int mileage, String productNo, int memNo) {
+	public MileageHistory(int mileageNo, String mileageHistory, int mileage, String orderNo, int memNo) {
 		super();
 		this.mileageNo = mileageNo;
 		this.mileageHistory = mileageHistory;
 		this.mileage = mileage;
-		this.productNo = productNo;
+		this.orderNo = orderNo;
+		this.memNo = memNo;
+	}
+
+	public MileageHistory(int mileage, String orderNo, int memNo) {
+		super();
+		this.mileage = mileage;
+		this.orderNo = orderNo;
+		this.memNo = memNo;
+	}
+
+	public MileageHistory(String orderNo, int memNo) {
+		super();
+		this.orderNo = orderNo;
 		this.memNo = memNo;
 	}
 
@@ -42,12 +55,12 @@ public class MileageHistory {
 		this.mileage = mileage;
 	}
 
-	public String getProductNo() {
-		return productNo;
+	public String getOrderNo() {
+		return orderNo;
 	}
 
-	public void setProductNo(String productNo) {
-		this.productNo = productNo;
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 
 	public int getMemNo() {
@@ -61,6 +74,6 @@ public class MileageHistory {
 	@Override
 	public String toString() {
 		return "MileageHistory [mileageNo=" + mileageNo + ", mileageHistory=" + mileageHistory + ", mileage=" + mileage
-				+ ", productNo=" + productNo + ", memNo=" + memNo + "]";
+				+ ", orderNo=" + orderNo + ", memNo=" + memNo + "]";
 	}
 }

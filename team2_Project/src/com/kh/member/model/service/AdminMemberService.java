@@ -49,7 +49,7 @@ public class AdminMemberService {
 	public int insertMileage(MileageHistory mh) {
 		Connection conn = getConnection();
 		
-		int result = new AdminMemberDao().insertLocation(conn, mh);
+		int result = new AdminMemberDao().insertMileage(conn, mh);
 		
 		if(result > 0) {
 			commit(conn);
