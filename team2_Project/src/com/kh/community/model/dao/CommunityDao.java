@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import static com.kh.common.JDBCTemplate.*;
 
+import com.kh.common.PageInfo;
 import com.kh.community.model.vo.AnswerInstagram;
 import com.kh.community.model.vo.InstaImage;
 import com.kh.community.model.vo.Instagram;
@@ -27,7 +28,34 @@ public class CommunityDao {
 		}
 	}
 	
-	public ArrayList<Instagram> selectInstaList(Connection conn) {
+	public int selectListCount(Connection conn) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public ArrayList<Instagram> selectInstaList(Connection conn, PageInfo pi) {
 		ArrayList<Instagram> list = new ArrayList<Instagram>();
 		
 		PreparedStatement pstmt = null;
@@ -37,6 +65,12 @@ public class CommunityDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			

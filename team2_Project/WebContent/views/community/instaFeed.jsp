@@ -112,7 +112,7 @@
                 </div>
                 <div class="col">
                     <div class="row justify-content-end" style="height: 60%;">
-                        <a href="<%= contextPath %>/list.co" class="btn btn-sm"
+                        <a href="<%= contextPath %>/list.co?cpage=1" class="btn btn-sm"
                             style="background-color: #e2bbe7">목록가기</a>
 
                         <% if (loginUser !=null && insta.getMemNo().equals(loginUser.getMemId())) { %>

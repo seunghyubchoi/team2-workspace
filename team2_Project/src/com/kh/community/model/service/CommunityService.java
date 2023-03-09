@@ -5,17 +5,28 @@ import java.util.ArrayList;
 
 import static com.kh.common.JDBCTemplate.*;
 
+import com.kh.common.PageInfo;
 import com.kh.community.model.dao.CommunityDao;
 import com.kh.community.model.vo.AnswerInstagram;
 import com.kh.community.model.vo.InstaImage;
 import com.kh.community.model.vo.Instagram;
 
 public class CommunityService {
-
-	public ArrayList<Instagram> selectInstaList() {
+	
+	public int selectListCount() {
 		Connection conn = getConnection();
 		
-		ArrayList<Instagram> list = new CommunityDao().selectInstaList(conn);
+		int listCount = new CommunityDao().selectListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Instagram> selectInstaList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Instagram> list = new CommunityDao().selectInstaList(conn, pi);
 		
 		close(conn);
 		
