@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.community.model.service.CommunityService;
 import com.kh.community.model.vo.Instagram;
 
@@ -34,8 +35,13 @@ public class HomeMainController extends HttpServlet {
 		ArrayList<Instagram> list = new CommunityService().selectInstaList();
 		
 		request.setAttribute("list", list);
-		System.out.println("메인리스트" + list);
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+
+		/* request.getRequestDispatcher("index.jsp").forward(request, response); */
+		
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+
+	    new Gson().toJson(list,response.getWriter());
 		
 	}
 

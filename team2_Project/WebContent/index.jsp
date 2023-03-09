@@ -4,6 +4,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 
       div{box-sizing: border-box;}
@@ -340,6 +341,25 @@ label.right {
   }
   
   /*메인로그인프로필*/
+  
+/* .slideitem1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.slideitem1 a {
+  width: 23%;
+  margin-bottom: 20px;
+}
+
+.slideitem1 img {
+  width: 100%;
+  height: auto;
+  display: block;
+} */
+
 
     </style>
 </head>
@@ -413,32 +433,18 @@ label.right {
         <!--content-->
         <div id="content">
             <div id="line1"></div>  
-            <a href="#" class="btn-3d-3">STYLE UP</a>  
+            <a href="<%= contextPath %>/upload.co" class="btn-3d-3">STYLE UP</a>  
             <div class="slidebox1">
                 <input type="radio" name="slide1" id="slide05" checked>
                 <input type="radio" name="slide1" id="slide06">
                 <input type="radio" name="slide1" id="slide07">
                 <input type="radio" name="slide1" id="slide08">
                 <ul class="slidelist1">
-                    <li class="slideitem1">
-                            <a><img src="https://image.brandi.me/cproduct/2023/02/10/SB000000000001176832_1676013624_image5_S.jpeg"></a>
-                            <a><img src="https://image.brandi.me/cproduct/2023/02/10/SB000000000001176832_1676013624_image5_S.jpeg"></a>
-                            <a><img src="https://image.brandi.me/cproduct/2023/02/10/SB000000000001176832_1676013624_image5_S.jpeg"></a>
-                            <a><img src="https://image.brandi.me/cproduct/2023/02/10/SB000000000001176832_1676013624_image5_S.jpeg"></a>
+                   <!--  <li class="slideitem1">
                         <br>
-                        
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                      <br>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                            <a><img src="resources/img/아이콘1.png"></a>
-                        
-                    </li>
-                    <li class="slideitem1">
+                    </li> --> 
+                    
+                    <!-- <li class="slideitem1">
                         
                             <a><img src="resources/img/아이콘3.png"></a>
                             <a><img src="resources/img/아이콘3.png"></a>
@@ -494,9 +500,73 @@ label.right {
                             <a><img src="resources/img/이미지2.png"></a>
                             <a><img src="resources/img/이미지2.png"></a>
                         </a>
-                    </li>
+                    </li> -->
                     
                 </ul>
+                <script>
+             // Ajax 호출 함수
+                /* function loadInstagram() {
+                  $.ajax({
+                    url: "home.co",
+                    type: "post",
+                    dataType: "json",
+                    success: function(list) {
+                      for (var i = 0; i < list.length; i++) {
+                        var imgSrc = list[i].instaImgSrc;
+                        var imgChange = list[i].instaImgChange;
+                        var imgElement = '<a><img src="' + imgSrc + imgChange + '"></a>';
+                        $('.slideitem1').append(imgElement);
+                      }
+                    }, 
+                    
+
+                    error: function() {
+                      alert('데이터를 불러오는데 실패하였습니다.');
+                    }
+                  });
+                }
+
+                $(document).ready(function() {
+                  loadInstagram();
+                }); */
+                function loadInstagram() {
+                	  $.ajax({
+                	    url: "home.co",
+                	    type: "post",
+                	    dataType: "json",
+                	    success: function(list) {
+                	      var itemPerRow = 4; // 한 줄에 출력할 이미지 수
+                	      var slideList = $('.slidelist1');
+                	      var slideItem = $('<li class="slideitem1"></li>');
+                	      
+                	      for (var i = 0; i < list.length; i++) {
+                	        var imgSrc = list[i].instaImgSrc;
+                	        var imgChange = list[i].instaImgChange;
+                	        var imgElement = '<a><img src="' + imgSrc + imgChange + '"></a>';
+                	        slideItem.append(imgElement);
+                	        
+                	        // itemPerRow 개수만큼 이미지 요소가 추가되면 새로운 li 태그 생성
+                	        if ((i + 1) % itemPerRow === 0 || i === list.length - 1) {
+                	          slideList.append(slideItem);
+                	          slideItem = $('<li class="slideitem1"></li>');
+                	        }
+                	      }
+                	    },
+                	    error: function() {
+                	      alert('데이터를 불러오는데 실패하였습니다.');
+                	    }
+                	  });
+                	}
+
+                	$(document).ready(function() {
+                	  loadInstagram();
+                	  
+          			$(".slideitem1>img").click(function() {
+          				location.href = "<%= contextPath %>/feed.co?cno=" + $(this).list[i].comNo;
+          			})
+                });
+
+                </script>
                 <div class="slide-control1">
                     <div class="control01">
                         <label for="slide08" class="prev"></label>
