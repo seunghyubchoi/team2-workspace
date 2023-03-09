@@ -71,6 +71,21 @@ public class Product {
 	}
 
 	
+	
+
+	public Product(int productNo, String productName, String productDesc, int productDiscount, int productPrice,
+			String brandName, int productViewCount, String changeName, String filePath) {
+		super();
+		this.productNo = productNo;
+		this.productName = productName;
+		this.productDesc = productDesc;
+		this.productDiscount = productDiscount;
+		this.productPrice = productPrice;
+		this.brandName = brandName;
+		this.productViewCount = productViewCount;
+		this.changeName = changeName;
+		this.filePath = filePath;
+	}
 
 	public int getProductNo() {
 		return productNo;

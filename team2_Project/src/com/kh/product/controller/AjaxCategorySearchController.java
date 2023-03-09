@@ -47,6 +47,7 @@ public class AjaxCategorySearchController extends HttpServlet {
 			
 			list = new ProductService().categorySearch(categoryName,page);
 		}	
+		System.out.println(list);
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(list,response.getWriter());
 		}else {

@@ -186,6 +186,7 @@ public class ProductDao {
 			if(rset.next()) {
 				     p = new Product(rset.getInt("product_no"),
 									 rset.getString("product_name"),
+									 rset.getString("product_desc"),
 									 rset.getInt("product_discount"),
 									 rset.getInt("product_price"),
 									 rset.getString("brand_name"),
